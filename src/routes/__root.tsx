@@ -1,6 +1,13 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+import {
+  HeadContent,
+  Outlet,
+  Scripts,
+  createRootRoute,
+} from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
+
+import { SiteHeader } from '#/components/layout/site-header'
 
 import appCss from '../styles.css?url'
 
@@ -29,8 +36,20 @@ export const Route = createRootRoute({
       },
     ],
   }),
+  component: RootLayout,
   shellComponent: RootDocument,
 })
+
+function RootLayout() {
+  return (
+    <>
+      <SiteHeader />
+      <main>
+        <Outlet />
+      </main>
+    </>
+  )
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
