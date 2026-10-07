@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 
 export type HeaderVisibility = 'transparent' | 'visible' | 'hidden'
 
+// Require sustained upward travel so short mobile scroll corrections don't reveal the header.
+const UPWARD_REVEAL_THRESHOLD = 32
+
 type UseStickyHeaderOptions = {
   topOffset?: number
   hideOffset?: number
@@ -12,11 +15,12 @@ export function useStickyHeader(
   options: UseStickyHeaderOptions = {},
 ): HeaderVisibility {
   const { topOffset = 12, hideOffset = 320, tolerance = 8 } = options
-  const [visibility, setVisibility] =
-    useState<HeaderVisibility>('transparent')
+  const [visibility, setVisibility] = useState<HeaderVisibility>('transparent')
 
   useEffect(() => {
     let previousScrollY = window.scrollY
+    let previousDirection = 0
+    let directionDistance = 0
     let animationFrame: number | undefined
 
     const update = () => {
@@ -24,22 +28,41 @@ export function useStickyHeader(
 
       const currentScrollY = Math.max(window.scrollY, 0)
       const diff = currentScrollY - previousScrollY
+      previousScrollY = currentScrollY
 
-      if (Math.abs(diff) < tolerance) {
+      if (currentScrollY <= topOffset) {
+        previousDirection = 0
+        directionDistance = 0
+        setVisibility('transparent')
         return
       }
 
-      if (currentScrollY <= topOffset) {
-        setVisibility('transparent')
-      } else if (diff < 0) {
-        setVisibility('visible')
+      if (diff === 0) {
+        return
+      }
+
+      const direction = Math.sign(diff)
+
+      if (direction !== previousDirection) {
+        directionDistance = 0
+      }
+
+      directionDistance += Math.abs(diff)
+      previousDirection = direction
+
+      if (directionDistance < tolerance) {
+        return
+      }
+
+      if (direction < 0) {
+        if (directionDistance >= UPWARD_REVEAL_THRESHOLD) {
+          setVisibility('visible')
+        }
       } else if (currentScrollY < hideOffset) {
         setVisibility('transparent')
       } else {
         setVisibility('hidden')
       }
-
-      previousScrollY = currentScrollY
     }
 
     const handleScroll = () => {

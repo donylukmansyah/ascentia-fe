@@ -15,6 +15,9 @@ import { Route as BlogsRouteImport } from './routes/blogs'
 import { Route as ContactUsRouteImport } from './routes/contact-us'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as ProductsApplicationsRouteImport } from './routes/products/applications'
+import { Route as ProductsBrandsRouteImport } from './routes/products/brands'
+import { Route as ProductsTypesRouteImport } from './routes/products/types'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +49,21 @@ const ProductsRoute = ProductsRouteImport.update({
   path: '/products',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsApplicationsRoute = ProductsApplicationsRouteImport.update({
+  id: '/applications',
+  path: '/applications',
+  getParentRoute: () => ProductsRoute,
+} as any)
+const ProductsBrandsRoute = ProductsBrandsRouteImport.update({
+  id: '/brands',
+  path: '/brands',
+  getParentRoute: () => ProductsRoute,
+} as any)
+const ProductsTypesRoute = ProductsTypesRouteImport.update({
+  id: '/types',
+  path: '/types',
+  getParentRoute: () => ProductsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,7 +71,10 @@ export interface FileRoutesByFullPath {
   '/blogs': typeof BlogsRoute
   '/contact-us': typeof ContactUsRoute
   '/news': typeof NewsRoute
-  '/products': typeof ProductsRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/products/applications': typeof ProductsApplicationsRoute
+  '/products/brands': typeof ProductsBrandsRoute
+  '/products/types': typeof ProductsTypesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,7 +82,10 @@ export interface FileRoutesByTo {
   '/blogs': typeof BlogsRoute
   '/contact-us': typeof ContactUsRoute
   '/news': typeof NewsRoute
-  '/products': typeof ProductsRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/products/applications': typeof ProductsApplicationsRoute
+  '/products/brands': typeof ProductsBrandsRoute
+  '/products/types': typeof ProductsTypesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,14 +94,34 @@ export interface FileRoutesById {
   '/blogs': typeof BlogsRoute
   '/contact-us': typeof ContactUsRoute
   '/news': typeof NewsRoute
-  '/products': typeof ProductsRoute
+  '/products': typeof ProductsRouteWithChildren
+  '/products/applications': typeof ProductsApplicationsRoute
+  '/products/brands': typeof ProductsBrandsRoute
+  '/products/types': typeof ProductsTypesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about-us' | '/blogs' | '/contact-us' | '/news' | '/products'
+    | '/'
+    | '/about-us'
+    | '/blogs'
+    | '/contact-us'
+    | '/news'
+    | '/products'
+    | '/products/applications'
+    | '/products/brands'
+    | '/products/types'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about-us' | '/blogs' | '/contact-us' | '/news' | '/products'
+  to:
+    | '/'
+    | '/about-us'
+    | '/blogs'
+    | '/contact-us'
+    | '/news'
+    | '/products'
+    | '/products/applications'
+    | '/products/brands'
+    | '/products/types'
   id:
     | '__root__'
     | '/'
@@ -86,6 +130,9 @@ export interface FileRouteTypes {
     | '/contact-us'
     | '/news'
     | '/products'
+    | '/products/applications'
+    | '/products/brands'
+    | '/products/types'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -94,7 +141,7 @@ export interface RootRouteChildren {
   BlogsRoute: typeof BlogsRoute
   ContactUsRoute: typeof ContactUsRoute
   NewsRoute: typeof NewsRoute
-  ProductsRoute: typeof ProductsRoute
+  ProductsRoute: typeof ProductsRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -141,8 +188,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products/applications': {
+      id: '/products/applications'
+      path: '/applications'
+      fullPath: '/products/applications'
+      preLoaderRoute: typeof ProductsApplicationsRouteImport
+      parentRoute: typeof ProductsRoute
+    }
+    '/products/brands': {
+      id: '/products/brands'
+      path: '/brands'
+      fullPath: '/products/brands'
+      preLoaderRoute: typeof ProductsBrandsRouteImport
+      parentRoute: typeof ProductsRoute
+    }
+    '/products/types': {
+      id: '/products/types'
+      path: '/types'
+      fullPath: '/products/types'
+      preLoaderRoute: typeof ProductsTypesRouteImport
+      parentRoute: typeof ProductsRoute
+    }
   }
 }
+
+interface ProductsRouteChildren {
+  ProductsApplicationsRoute: typeof ProductsApplicationsRoute
+  ProductsBrandsRoute: typeof ProductsBrandsRoute
+  ProductsTypesRoute: typeof ProductsTypesRoute
+}
+
+const ProductsRouteChildren: ProductsRouteChildren = {
+  ProductsApplicationsRoute: ProductsApplicationsRoute,
+  ProductsBrandsRoute: ProductsBrandsRoute,
+  ProductsTypesRoute: ProductsTypesRoute,
+}
+
+const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
+  ProductsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -150,7 +234,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogsRoute: BlogsRoute,
   ContactUsRoute: ContactUsRoute,
   NewsRoute: NewsRoute,
-  ProductsRoute: ProductsRoute,
+  ProductsRoute: ProductsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -9,7 +9,7 @@ with sync_playwright() as playwright:
     page.goto("http://localhost:3000", wait_until="load")
 
     header = page.locator("header").filter(
-        has=page.get_by_role("navigation", name="Primary navigation")
+        has=page.locator('button[aria-controls="mobile-navigation"]')
     )
     logo = page.locator('img[alt="Ascentia Arsya Analitika"]')
 
@@ -45,11 +45,19 @@ with sync_playwright() as playwright:
     mobile_toggle.evaluate("(button) => button.click()")
     expect(mobile_toggle).to_have_attribute("aria-expanded", "false")
 
+    page.set_viewport_size({"width": 667, "height": 689})
+    mobile_toggle.click()
+    expect(mobile_toggle).to_have_attribute("aria-expanded", "true")
+    expect(page.locator("#mobile-navigation")).to_be_visible()
+    mobile_toggle.click()
+    expect(mobile_toggle).to_have_attribute("aria-expanded", "false")
     scroll_position = page.evaluate(
         """
         () => {
           document.documentElement.style.minHeight = '2000px'
           document.body.style.minHeight = '2000px'
+          document.documentElement.style.scrollBehavior = 'auto'
+          document.body.style.scrollBehavior = 'auto'
           window.scrollTo(0, 600)
           window.dispatchEvent(new Event('scroll'))
           return window.scrollY
@@ -57,13 +65,32 @@ with sync_playwright() as playwright:
         """
     )
     assert scroll_position == 600
-    page.wait_for_timeout(100)
+    page.wait_for_timeout(300)
     expect(header).to_have_class(re.compile(r"-translate-y-full"))
+    page.evaluate("window.scrollTo(0, 588)")
+    page.wait_for_timeout(100)
+    assert header.evaluate(
+        "(element) => element.getBoundingClientRect().bottom <= 0"
+    )
+    page.evaluate("window.scrollTo(0, 600)")
+    page.wait_for_timeout(100)
+    assert header.evaluate(
+        "(element) => element.getBoundingClientRect().bottom <= 0"
+    )
 
     page.evaluate("window.scrollTo(0, 400)")
     page.wait_for_timeout(100)
     expect(header).not_to_have_class(re.compile(r"-translate-y-full"))
     expect(logo).to_have_attribute("src", "/brand/logo-color.png")
     expect(header).to_have_class(re.compile(r"bg-background/95"))
+    page.evaluate("window.scrollTo(0, 0)")
+    page.wait_for_function(
+        "document.querySelector('header')?.getBoundingClientRect().top >= 0"
+    )
+    top_state = header.evaluate(
+        "(element) => { const rect = element.getBoundingClientRect(); return { scrollY: window.scrollY, top: rect.top, bottom: rect.bottom, className: element.className, scrollBehavior: getComputedStyle(document.documentElement).scrollBehavior } }"
+    )
+    assert top_state["top"] == 0 and top_state["bottom"] > 0, top_state
+    expect(logo).to_have_attribute("src", "/brand/logo-white.png")
 
     browser.close()
