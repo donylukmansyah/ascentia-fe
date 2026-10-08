@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 
-export type HeaderVisibility = 'transparent' | 'visible' | 'hidden'
+export type HeaderVisibility =
+  | 'transparent'
+  | 'visible'
+  | 'hidden'
+  | 'hidden-initial'
 
 // Require sustained upward travel so short mobile scroll corrections don't reveal the header.
 const UPWARD_REVEAL_THRESHOLD = 32
@@ -22,6 +26,7 @@ export function useStickyHeader(
     let previousDirection = 0
     let directionDistance = 0
     let animationFrame: number | undefined
+    let hasRevealedAfterScroll = false
 
     const update = () => {
       animationFrame = undefined
@@ -33,6 +38,7 @@ export function useStickyHeader(
       if (currentScrollY <= topOffset) {
         previousDirection = 0
         directionDistance = 0
+        hasRevealedAfterScroll = false
         setVisibility('transparent')
         return
       }
@@ -56,12 +62,11 @@ export function useStickyHeader(
 
       if (direction < 0) {
         if (directionDistance >= UPWARD_REVEAL_THRESHOLD) {
+          hasRevealedAfterScroll = true
           setVisibility('visible')
         }
-      } else if (currentScrollY < hideOffset) {
-        setVisibility('transparent')
       } else {
-        setVisibility('hidden')
+        setVisibility(hasRevealedAfterScroll ? 'hidden' : 'hidden-initial')
       }
     }
 

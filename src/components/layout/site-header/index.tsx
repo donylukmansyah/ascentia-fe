@@ -20,7 +20,7 @@ export function SiteHeader() {
   const [isProductsMenuOpen, setIsProductsMenuOpen] = useState(false)
   const [language, setLanguage] = useState<LanguageCode>('en')
   const isSolid = mode !== 'transparent'
-  const isHidden = mode === 'hidden'
+  const isHidden = mode === 'hidden' || mode === 'hidden-initial'
   const isHeaderSolid = isSolid || isMenuOpen
 
   useEffect(() => {
@@ -59,7 +59,10 @@ export function SiteHeader() {
           ? 'bg-background text-foreground shadow-[0_1px_0_rgb(37_37_37/8%),0_12px_32px_-16px_rgb(0_0_0/0.12)]'
           : 'bg-transparent text-white',
         isHidden && !isMenuOpen
-          ? 'duration-250 ease-in -translate-y-full'
+          ? cn(
+              '-translate-y-full',
+              mode === 'hidden-initial' ? 'duration-0' : 'duration-250 ease-in',
+            )
           : 'duration-500 ease-out translate-y-0',
       )}
     >

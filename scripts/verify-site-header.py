@@ -11,13 +11,13 @@ with sync_playwright() as playwright:
     header = page.locator("header").filter(
         has=page.locator('button[aria-controls="mobile-navigation"]')
     )
-    logo = page.locator('img[alt="Ascentia Arsya Analitika"]')
+    logo = header.locator('img[alt="Ascentia Arsya Analitika"]')
 
     expect(header).to_be_visible()
     expect(header).to_have_class(re.compile(r"translate-y-0"))
     expect(logo).to_have_attribute("src", "/brand/logo-white.png")
     expect(logo).to_have_class(re.compile(r"\bh-7\b"))
-    expect(page.get_by_role("link", name="Home", exact=True)).to_be_visible()
+    expect(header.get_by_role("link", name="Home", exact=True)).to_be_visible()
 
     page.wait_for_timeout(500)
 
@@ -67,6 +67,7 @@ with sync_playwright() as playwright:
     assert scroll_position == 600
     page.wait_for_timeout(300)
     expect(header).to_have_class(re.compile(r"-translate-y-full"))
+    expect(header).to_have_class(re.compile(r"\bduration-0\b"))
     page.evaluate("window.scrollTo(0, 588)")
     page.wait_for_timeout(100)
     assert header.evaluate(
@@ -81,6 +82,7 @@ with sync_playwright() as playwright:
     page.evaluate("window.scrollTo(0, 400)")
     page.wait_for_timeout(100)
     expect(header).not_to_have_class(re.compile(r"-translate-y-full"))
+    expect(header).to_have_class(re.compile(r"\bduration-500\b"))
     expect(logo).to_have_attribute("src", "/brand/logo-color.png")
     expect(header).to_have_class(re.compile(r"\bbg-background\b"))
     page.evaluate("window.scrollTo(0, 0)")
