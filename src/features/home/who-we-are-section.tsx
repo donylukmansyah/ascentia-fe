@@ -29,8 +29,8 @@ export function WhoWeAreSection({
       aria-labelledby="who-we-are-heading"
       className="relative isolate w-full overflow-hidden bg-foreground text-white"
     >
-      {/* Banner matching Figma dimensions (~380-420px height) */}
-      <div className="relative flex min-h-[340px] flex-col justify-between overflow-hidden sm:min-h-[380px] lg:h-[400px]">
+      {/* Spacious banner container with balanced height */}
+      <div className="relative flex min-h-[480px] flex-col justify-between overflow-hidden sm:min-h-[520px] lg:h-[540px]">
         {/* Background photo: assets-home.webp */}
         <div
           className="absolute inset-0 -z-20 overflow-hidden"
@@ -44,38 +44,35 @@ export function WhoWeAreSection({
           />
         </div>
 
-        {/* Flat dark overlay (#252525 ~55% opacity) */}
+        {/* Flat dark overlay */}
         <div
-          className="absolute inset-0 -z-10 bg-[#252525]/55"
+          className="absolute inset-0 -z-10 bg-[#202224]/60"
           aria-hidden="true"
         />
 
-        {/* Reusable noise texture */}
+        {/* Subtle noise texture */}
         <div
           className="hero-carousel__noise pointer-events-none absolute inset-0 -z-10"
           aria-hidden="true"
         />
 
-        {/* Top: "— Who We Are" positioned upper-left */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-10 sm:px-10 sm:pt-12 lg:px-14 lg:pt-14">
+        {/* Top: "— Who We Are" upper-left */}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-12 sm:px-10 sm:pt-16 lg:px-14 lg:pt-20">
           <h2
             id="who-we-are-heading"
-            className="inline-flex items-center text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-[2.15rem]"
+            className="inline-flex items-center text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.65rem]"
           >
-            <span
-              className="mr-2.5 font-light text-white/90"
-              aria-hidden="true"
-            >
+            <span className="mr-3 font-light text-white/80" aria-hidden="true">
               —
             </span>
             <span>{heading}</span>
           </h2>
         </div>
 
-        {/* Bottom: Paragraph & CTA aligned right-center */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-8 sm:px-10 sm:pb-10 lg:px-14 lg:pb-12">
-          <div className="ml-auto flex w-full max-w-[320px] flex-col items-start gap-3.5 sm:max-w-[360px] sm:gap-4 lg:max-w-[380px]">
-            <p className="text-[11px] leading-relaxed font-normal text-white/90 sm:text-xs">
+        {/* Bottom: Wider paragraph block & CTA button lower-right */}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-10 sm:px-10 sm:pb-14 lg:px-14 lg:pb-16">
+          <div className="ml-auto flex w-full max-w-lg flex-col items-start gap-4 sm:max-w-xl sm:gap-5 lg:max-w-[540px]">
+            <p className="text-sm leading-relaxed font-light text-white/95 sm:text-base lg:text-[15px]">
               {description}
             </p>
             <CtaLink to={ctaTo} size="compact" textTone="light">
@@ -85,7 +82,7 @@ export function WhoWeAreSection({
         </div>
       </div>
 
-      {/* Category ticker attached to the bottom */}
+      {/* Integrated category ticker banner at the bottom */}
       {showCategoryTicker && <CategoryNav />}
     </section>
   )
