@@ -60,7 +60,7 @@ export function HeroSection() {
           key={activeSlide.id}
           className="hero-carousel__copy mt-auto mb-[18vh] flex max-w-[min(100%,42rem)] flex-col items-start gap-5 sm:my-auto"
         >
-          <p className="text-[9px] font-medium tracking-[0.1em] text-white/80 uppercase sm:text-[10px]">
+          <p className="text-[10px] font-bold tracking-[0.12em] text-white/85 uppercase sm:text-[11px]">
             {activeSlide.eyebrow}
           </p>
           <h1 className="max-w-[42rem] text-[clamp(1.875rem,3.4vw,3.375rem)] leading-[1.03] font-bold tracking-[-0.045em] text-white">
@@ -70,10 +70,10 @@ export function HeroSection() {
               <span className="text-accent">{activeSlide.highlight}</span>
             </span>
           </h1>
-          <p className="max-w-[34rem] text-[13px] leading-relaxed font-light text-white/85 sm:text-sm">
+          <p className="max-w-[34rem] text-sm leading-relaxed font-normal text-white/85 sm:text-base">
             {activeSlide.description}
           </p>
-          <CtaLink to={activeSlide.ctaTo} size="compact" textTone="light">
+          <CtaLink to={activeSlide.ctaTo} size="default" textTone="light">
             {activeSlide.ctaLabel}
           </CtaLink>
         </div>

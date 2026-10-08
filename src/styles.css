@@ -52,6 +52,7 @@ body {
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
   --color-foreground: var(--foreground);
+  --color-description-text: var(--description-text);
   --color-background: var(--background);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -66,6 +67,7 @@ body {
   /* Ascentia brand colors */
   --background: oklch(1 0 0); /* #FFFFFF — background */
   --foreground: oklch(0.25 0 0); /* #252525 — body text */
+  --description-text: #66717A; /* #66717A — light-surface descriptions */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.25 0 0);
   --popover: oklch(1 0 0);

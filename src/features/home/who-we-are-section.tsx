@@ -4,6 +4,7 @@ import { CategoryNav } from './category-nav'
 
 interface WhoWeAreSectionProps {
   image?: string
+  eyebrow?: string
   heading?: string
   description?: string
   ctaLabel?: string
@@ -18,6 +19,7 @@ const DEFAULT_DESCRIPTION =
 
 export function WhoWeAreSection({
   image = DEFAULT_IMAGE,
+  eyebrow = 'About Us',
   heading = DEFAULT_HEADING,
   description = DEFAULT_DESCRIPTION,
   ctaLabel = 'Read More',
@@ -29,9 +31,7 @@ export function WhoWeAreSection({
       aria-labelledby="who-we-are-heading"
       className="relative isolate w-full overflow-hidden bg-foreground text-white"
     >
-      {/* Banner container with balanced height and natural spacing */}
-      <div className="relative flex min-h-[380px] flex-col justify-between overflow-hidden sm:min-h-[420px] lg:h-[470px] xl:h-[490px]">
-        {/* Background photo: assets-home.webp */}
+      <div className="relative flex min-h-[460px] flex-col justify-between overflow-hidden sm:min-h-[520px] lg:min-h-[620px] lg:h-[630px] xl:h-[650px]">
         <div
           className="absolute inset-0 -z-20 overflow-hidden"
           aria-hidden="true"
@@ -44,48 +44,39 @@ export function WhoWeAreSection({
           />
         </div>
 
-        {/* Flat dark overlay (#252525 ~55% opacity) */}
         <div
           className="absolute inset-0 -z-10 bg-[#202224]/60"
           aria-hidden="true"
         />
-
-        {/* Subtle noise texture */}
         <div
           className="hero-carousel__noise pointer-events-none absolute inset-0 -z-10"
           aria-hidden="true"
         />
 
-        {/* Top: Heading with thin external decorative line */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-8 sm:px-8 sm:pt-11 lg:px-14 lg:pt-14">
-          <div className="inline-flex items-center gap-3 sm:gap-3.5">
-            <span
-              className="h-[1.5px] w-7 shrink-0 bg-white/90 sm:w-9"
-              aria-hidden="true"
-            />
-            <h2
-              id="who-we-are-heading"
-              className="text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-[2.65rem]"
-            >
-              {heading}
-            </h2>
-          </div>
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-12 sm:px-8 sm:pt-16 lg:px-14 lg:pt-20 xl:pt-24">
+          <p className="text-[10px] font-bold tracking-[0.12em] text-white/85 uppercase sm:text-[11px]">
+            {eyebrow}
+          </p>
+          <h2
+            id="who-we-are-heading"
+            className="mt-2 text-[clamp(2rem,3.4vw,3rem)] leading-[1.04] font-bold tracking-[-0.045em] text-white"
+          >
+            {heading}
+          </h2>
         </div>
 
-        {/* Bottom: Paragraph & CTA aligned lower-right */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-7 sm:px-8 sm:pb-9 lg:px-14 lg:pb-12">
-          <div className="ml-auto flex w-full max-w-md flex-col items-start gap-3.5 sm:max-w-lg sm:gap-4 lg:max-w-[480px]">
-            <p className="text-xs leading-relaxed font-light text-white/95 sm:text-sm lg:text-[14px]">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-10 sm:px-8 sm:pb-14 lg:px-14 lg:pb-18 xl:pb-20">
+          <div className="ml-auto flex w-full max-w-sm flex-col items-start gap-3.5 sm:max-w-md sm:gap-4 lg:max-w-[550px] xl:max-w-[550px]">
+            <p className="text-sm leading-relaxed font-normal text-white/95 sm:text-base">
               {description}
             </p>
-            <CtaLink to={ctaTo} size="compact" textTone="light">
+            <CtaLink to={ctaTo} size="default" textTone="light">
               {ctaLabel}
             </CtaLink>
           </div>
         </div>
       </div>
 
-      {/* Integrated category ticker banner at the bottom */}
       {showCategoryTicker && <CategoryNav />}
     </section>
   )

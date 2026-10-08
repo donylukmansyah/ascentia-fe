@@ -7,6 +7,7 @@ import {
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
+import { SiteFooter } from '#/components/layout/site-footer'
 import { SiteHeader } from '#/components/layout/site-header'
 
 import appCss from '../styles.css?url'
@@ -47,6 +48,7 @@ function RootLayout() {
       <main>
         <Outlet />
       </main>
+      <SiteFooter />
     </>
   )
 }

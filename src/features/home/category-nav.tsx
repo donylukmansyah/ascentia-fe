@@ -21,7 +21,7 @@ export function CategoryNav({
   return (
     <nav
       aria-label="Product categories ticker"
-      className={`group relative overflow-hidden bg-accent py-2.5 text-white sm:py-3 ${className}`}
+      className={`group relative overflow-hidden bg-accent py-3.5 text-white sm:py-4.5 ${className}`}
     >
       <div
         tabIndex={0}
