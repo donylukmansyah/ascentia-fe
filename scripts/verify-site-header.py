@@ -82,7 +82,7 @@ with sync_playwright() as playwright:
     page.wait_for_timeout(100)
     expect(header).not_to_have_class(re.compile(r"-translate-y-full"))
     expect(logo).to_have_attribute("src", "/brand/logo-color.png")
-    expect(header).to_have_class(re.compile(r"bg-background/95"))
+    expect(header).to_have_class(re.compile(r"\bbg-background\b"))
     page.evaluate("window.scrollTo(0, 0)")
     page.wait_for_function(
         "document.querySelector('header')?.getBoundingClientRect().top >= 0"

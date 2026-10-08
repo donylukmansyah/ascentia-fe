@@ -56,14 +56,14 @@ export function SiteHeader() {
         'top-0 inset-x-0 z-50 border-t-[3px] border-primary transform-gpu transition-[background-color,box-shadow,color,translate] motion-reduce:transition-none',
         mode === 'transparent' && !isMenuOpen ? 'absolute' : 'fixed',
         isHeaderSolid
-          ? 'bg-background/95 text-foreground shadow-[0_1px_0_rgb(37_37_37/8%),0_12px_32px_-16px_rgb(0_0_0/0.12)] backdrop-blur-md'
+          ? 'bg-background text-foreground shadow-[0_1px_0_rgb(37_37_37/8%),0_12px_32px_-16px_rgb(0_0_0/0.12)]'
           : 'bg-transparent text-white',
         isHidden && !isMenuOpen
           ? 'duration-250 ease-in -translate-y-full'
           : 'duration-500 ease-out translate-y-0',
       )}
     >
-      <div className="relative z-10 mx-auto flex h-20 max-w-7xl items-center justify-between gap-8 bg-inherit px-5 sm:px-8 lg:h-24 lg:px-12">
+      <div className="relative z-10 mx-auto flex h-20 max-w-7xl items-center justify-between gap-8 px-5 sm:px-8 lg:h-24 lg:px-12">
         <Link
           to="/"
           activeOptions={{ exact: true }}
@@ -71,7 +71,9 @@ export function SiteHeader() {
           className="shrink-0"
         >
           <img
-            src={isHeaderSolid ? '/brand/logo-color.png' : '/brand/logo-white.png'}
+            src={
+              isHeaderSolid ? '/brand/logo-color.png' : '/brand/logo-white.png'
+            }
             alt="Ascentia Arsya Analitika"
             className="h-7 w-auto lg:h-7"
             fetchPriority="high"
@@ -166,7 +168,9 @@ export function SiteHeader() {
           </button>
           <button
             type="button"
-            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-label={
+              isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'
+            }
             aria-expanded={isMenuOpen}
             aria-controls="mobile-navigation"
             onClick={() => setIsMenuOpen((current) => !current)}
@@ -201,7 +205,9 @@ export function SiteHeader() {
           isOpen={isMenuOpen}
           isProductsOpen={isProductsMenuOpen}
           pathname={pathname}
-          onProductsOpenChange={() => setIsProductsMenuOpen((current) => !current)}
+          onProductsOpenChange={() =>
+            setIsProductsMenuOpen((current) => !current)
+          }
           onNavigate={() => setIsMenuOpen(false)}
         />
       </div>
