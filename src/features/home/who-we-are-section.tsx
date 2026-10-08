@@ -29,8 +29,8 @@ export function WhoWeAreSection({
       aria-labelledby="who-we-are-heading"
       className="relative isolate w-full overflow-hidden bg-foreground text-white"
     >
-      {/* Container: tightened height & gaps (mobile compact min-h-[420px], desktop lg:h-[580px]) */}
-      <div className="relative flex min-h-[420px] flex-col justify-between overflow-hidden sm:min-h-[500px] lg:h-[580px] xl:h-[620px]">
+      {/* Banner container matching Figma proportions (~420px height on desktop, compact on mobile) */}
+      <div className="relative flex flex-col overflow-hidden lg:h-[430px] xl:h-[450px]">
         {/* Background photo: assets-home.webp */}
         <div
           className="absolute inset-0 -z-20 overflow-hidden"
@@ -44,7 +44,7 @@ export function WhoWeAreSection({
           />
         </div>
 
-        {/* Flat dark overlay */}
+        {/* Flat dark overlay (#252525 ~55% opacity) */}
         <div
           className="absolute inset-0 -z-10 bg-[#202224]/60"
           aria-hidden="true"
@@ -56,31 +56,34 @@ export function WhoWeAreSection({
           aria-hidden="true"
         />
 
-        {/* Top: "— Who We Are" (compact mobile padding, balanced desktop offset) */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-8 sm:px-8 sm:pt-12 lg:px-14 lg:pt-16">
-          <h2
-            id="who-we-are-heading"
-            className="inline-flex items-center text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-[2.65rem]"
-          >
-            <span
-              className="mr-2.5 font-light text-white/80"
-              aria-hidden="true"
-            >
-              —
-            </span>
-            <span>{heading}</span>
-          </h2>
-        </div>
+        {/* Content layout: unified grid with proportional offsets matching Figma */}
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-5 py-9 sm:px-8 sm:py-12 lg:px-14 lg:py-0">
+          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-12">
+            {/* Left: "— Who We Are" upper-left */}
+            <div className="lg:col-span-5 lg:pt-20">
+              <h2
+                id="who-we-are-heading"
+                className="inline-flex items-center text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-[2.25rem]"
+              >
+                <span
+                  className="mr-3 font-light text-white/80"
+                  aria-hidden="true"
+                >
+                  —
+                </span>
+                <span>{heading}</span>
+              </h2>
+            </div>
 
-        {/* Bottom: Paragraph & CTA button with tighter gap on mobile & desktop */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-8 sm:px-8 sm:pb-10 lg:px-14 lg:pb-12">
-          <div className="ml-auto flex w-full max-w-lg flex-col items-start gap-3.5 sm:max-w-xl sm:gap-4 lg:max-w-[540px]">
-            <p className="text-xs leading-relaxed font-light text-white/95 sm:text-sm lg:text-[15px]">
-              {description}
-            </p>
-            <CtaLink to={ctaTo} size="compact" textTone="light">
-              {ctaLabel}
-            </CtaLink>
+            {/* Right: Paragraph + CTA lower-right, tight natural gap */}
+            <div className="flex flex-col items-start gap-3.5 sm:gap-4 lg:col-span-7 lg:ml-auto lg:max-w-[420px] lg:pt-36">
+              <p className="text-xs leading-relaxed font-light text-white/95 sm:text-[13px] lg:text-[13.5px]">
+                {description}
+              </p>
+              <CtaLink to={ctaTo} size="compact" textTone="light">
+                {ctaLabel}
+              </CtaLink>
+            </div>
           </div>
         </div>
       </div>
