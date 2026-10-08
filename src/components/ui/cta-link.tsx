@@ -31,8 +31,8 @@ export function CtaLink({
     >
       <span
         className={cn(
-          'relative z-10 truncate pr-9 transition-[color,translate] duration-300 ease-out group-hover/cta:translate-x-9 group-hover/cta:text-white group-focus-visible/cta:translate-x-9 group-focus-visible/cta:text-white motion-reduce:transition-none',
-          size === 'compact' && 'pr-[1.375rem] sm:pr-8',
+          'relative z-10 whitespace-nowrap pr-11 transition-[color,translate] duration-300 ease-out group-hover/cta:translate-x-9 group-hover/cta:text-white group-focus-visible/cta:translate-x-9 group-focus-visible/cta:text-white motion-reduce:transition-none',
+          size === 'compact' && 'pr-7 sm:pr-9',
         )}
       >
         {children}
