@@ -29,13 +29,10 @@ export function WhoWeAreSection({
       aria-labelledby="who-we-are-heading"
       className="relative isolate w-full overflow-hidden bg-foreground text-white"
     >
-      {/* Spacious banner container with balanced height */}
-      <div className="relative flex min-h-[480px] flex-col justify-between overflow-hidden sm:min-h-[520px] lg:h-[540px]">
+      {/* Spacious, premium hero banner height (~660-700px on desktop) */}
+      <div className="relative flex min-h-[560px] flex-col justify-between overflow-hidden sm:min-h-[620px] lg:h-[660px] xl:h-[700px]">
         {/* Background photo: assets-home.webp */}
-        <div
-          className="absolute inset-0 -z-20 overflow-hidden"
-          aria-hidden="true"
-        >
+        <div className="absolute inset-0 -z-20 overflow-hidden" aria-hidden="true">
           <img
             src={image}
             alt=""
@@ -57,10 +54,10 @@ export function WhoWeAreSection({
         />
 
         {/* Top: "— Who We Are" upper-left */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-12 sm:px-10 sm:pt-16 lg:px-14 lg:pt-20">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-14 sm:px-10 sm:pt-20 lg:px-14 lg:pt-24">
           <h2
             id="who-we-are-heading"
-            className="inline-flex items-center text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.65rem]"
+            className="inline-flex items-center text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.85rem]"
           >
             <span className="mr-3 font-light text-white/80" aria-hidden="true">
               —
@@ -69,10 +66,10 @@ export function WhoWeAreSection({
           </h2>
         </div>
 
-        {/* Bottom: Wider paragraph block & CTA button lower-right */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-10 sm:px-10 sm:pb-14 lg:px-14 lg:pb-16">
-          <div className="ml-auto flex w-full max-w-lg flex-col items-start gap-4 sm:max-w-xl sm:gap-5 lg:max-w-[540px]">
-            <p className="text-sm leading-relaxed font-light text-white/95 sm:text-base lg:text-[15px]">
+        {/* Bottom: Spacious paragraph & CTA button lower-right */}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-12 sm:px-10 sm:pb-16 lg:px-14 lg:pb-20">
+          <div className="ml-auto flex w-full max-w-lg flex-col items-start gap-5 sm:max-w-xl sm:gap-6 lg:max-w-[560px]">
+            <p className="text-sm leading-relaxed font-light text-white/95 sm:text-base lg:text-[16px]">
               {description}
             </p>
             <CtaLink to={ctaTo} size="compact" textTone="light">
