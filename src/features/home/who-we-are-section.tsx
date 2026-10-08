@@ -56,17 +56,20 @@ export function WhoWeAreSection({
           aria-hidden="true"
         />
 
-        {/* Top: "— Who We Are" upper-left */}
+        {/* Top: Heading with thin external decorative line */}
         <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-8 sm:px-8 sm:pt-11 lg:px-14 lg:pt-14">
-          <h2
-            id="who-we-are-heading"
-            className="inline-flex items-center text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-[2.65rem]"
-          >
-            <span className="mr-3 font-light text-white/80" aria-hidden="true">
-              —
-            </span>
-            <span>{heading}</span>
-          </h2>
+          <div className="inline-flex items-center gap-3 sm:gap-3.5">
+            <span
+              className="h-[1.5px] w-7 shrink-0 bg-white/90 sm:w-9"
+              aria-hidden="true"
+            />
+            <h2
+              id="who-we-are-heading"
+              className="text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-[2.65rem]"
+            >
+              {heading}
+            </h2>
+          </div>
         </div>
 
         {/* Bottom: Paragraph & CTA aligned lower-right */}
