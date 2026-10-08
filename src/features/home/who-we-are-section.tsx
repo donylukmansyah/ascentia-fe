@@ -4,22 +4,24 @@ import { CategoryNav } from './category-nav'
 
 interface WhoWeAreSectionProps {
   image?: string
-  heading?: string
+  headingLine1?: string
+  headingLine2?: string
   description?: string
   ctaLabel?: string
   ctaTo?: string
   showCategoryTicker?: boolean
 }
 
-const DEFAULT_IMAGE =
-  '/images/contact-us/Collaborative Analysis in the Modern Lab 1.webp'
-const DEFAULT_HEADING = 'Who We Are'
+const DEFAULT_IMAGE = '/images/products/assets-products.webp'
+const DEFAULT_HEADING_1 = 'WHO WE'
+const DEFAULT_HEADING_2 = 'ARE'
 const DEFAULT_DESCRIPTION =
   'PT Ascentia Arsya Analitika delivers analytical instruments and laboratory equipment across Indonesia, combining trusted global brands, technical expertise, application training, and continuous support for research, education, mining, and industry.'
 
 export function WhoWeAreSection({
   image = DEFAULT_IMAGE,
-  heading = DEFAULT_HEADING,
+  headingLine1 = DEFAULT_HEADING_1,
+  headingLine2 = DEFAULT_HEADING_2,
   description = DEFAULT_DESCRIPTION,
   ctaLabel = 'Read More',
   ctaTo = '/about-us',
@@ -30,8 +32,8 @@ export function WhoWeAreSection({
       aria-labelledby="who-we-are-heading"
       className="relative isolate w-full overflow-hidden bg-foreground text-white"
     >
-      {/* Visual banner container with fixed/proportional height matching Figma */}
-      <div className="relative flex min-h-[340px] flex-col justify-between overflow-hidden sm:min-h-[360px] lg:h-[380px]">
+      {/* Spacious cinematic banner container (matches 2:1 reference ratio) */}
+      <div className="relative flex min-h-[540px] flex-col justify-between overflow-hidden sm:min-h-[620px] lg:min-h-[680px] lg:h-[68vh] xl:min-h-[760px] max-h-[880px]">
         {/* Background photo */}
         <div
           className="absolute inset-0 -z-20 overflow-hidden"
@@ -41,13 +43,13 @@ export function WhoWeAreSection({
             src={image}
             alt=""
             loading="lazy"
-            className="size-full object-cover object-center brightness-90"
+            className="size-full object-cover object-center brightness-90 contrast-[1.05]"
           />
         </div>
 
-        {/* Flat dark overlay (Figma: #252525 ~55-60% opacity) */}
+        {/* Dark overlay */}
         <div
-          className="absolute inset-0 -z-10 bg-[#252525]/60"
+          className="absolute inset-0 -z-10 bg-black/55 sm:bg-[#1a1c1e]/60"
           aria-hidden="true"
         />
 
@@ -57,26 +59,21 @@ export function WhoWeAreSection({
           aria-hidden="true"
         />
 
-        {/* Top area: Heading anchored at top-left */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-8 sm:px-8 sm:pt-10 lg:px-12 lg:pt-12">
-          <div className="inline-flex items-center gap-3 sm:gap-4">
-            <span
-              className="h-[2px] w-6 shrink-0 bg-white/90 sm:w-8"
-              aria-hidden="true"
-            />
-            <h2
-              id="who-we-are-heading"
-              className="text-2xl font-bold tracking-tight text-white uppercase sm:text-3xl sm:normal-case lg:text-[2rem]"
-            >
-              {heading}
-            </h2>
-          </div>
+        {/* Top-left: Large two-line display heading */}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-12 sm:px-10 sm:pt-16 lg:px-16 lg:pt-20">
+          <h2
+            id="who-we-are-heading"
+            className="text-4xl font-light tracking-tight text-white uppercase sm:text-5xl lg:text-6xl xl:text-7xl"
+          >
+            <span className="block">{headingLine1}</span>
+            <span className="block font-medium">{headingLine2}</span>
+          </h2>
         </div>
 
-        {/* Bottom area: Description & CTA anchored to lower-right */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-8 sm:px-8 sm:pb-10 lg:px-12 lg:pb-12">
-          <div className="ml-auto flex max-w-md flex-col items-start gap-4 sm:max-w-lg sm:gap-5 lg:max-w-[460px]">
-            <p className="text-xs leading-relaxed font-light text-white/85 sm:text-[13px]">
+        {/* Lower-right: Paragraph & CTA button */}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-12 sm:px-10 sm:pb-16 lg:px-16 lg:pb-20">
+          <div className="ml-auto flex max-w-md flex-col items-start gap-5 sm:max-w-lg sm:gap-6 lg:max-w-[480px]">
+            <p className="text-sm leading-relaxed font-light text-white/90 sm:text-base lg:text-[17px]">
               {description}
             </p>
             <CtaLink to={ctaTo} size="compact" textTone="light">
@@ -86,7 +83,7 @@ export function WhoWeAreSection({
         </div>
       </div>
 
-      {/* Integrated category ticker directly attached to the bottom */}
+      {/* Integrated category ticker banner at the bottom */}
       {showCategoryTicker && <CategoryNav />}
     </section>
   )
