@@ -29,53 +29,53 @@ export function WhoWeAreSection({
       aria-labelledby="who-we-are-heading"
       className="relative isolate w-full overflow-hidden bg-foreground text-white"
     >
-      {/* Background photo */}
-      <div
-        className="absolute inset-0 -z-20 overflow-hidden"
-        aria-hidden="true"
-      >
-        <img
-          src={image}
-          alt=""
-          loading="lazy"
-          className="size-full object-cover object-[center_35%] brightness-95"
+      {/* Container: tightened height & gaps (mobile compact min-h-[420px], desktop lg:h-[580px]) */}
+      <div className="relative flex min-h-[420px] flex-col justify-between overflow-hidden sm:min-h-[500px] lg:h-[580px] xl:h-[620px]">
+        {/* Background photo: assets-home.webp */}
+        <div
+          className="absolute inset-0 -z-20 overflow-hidden"
+          aria-hidden="true"
+        >
+          <img
+            src={image}
+            alt=""
+            loading="lazy"
+            className="size-full object-cover object-[center_35%] brightness-95"
+          />
+        </div>
+
+        {/* Flat dark overlay */}
+        <div
+          className="absolute inset-0 -z-10 bg-[#202224]/60"
+          aria-hidden="true"
         />
-      </div>
 
-      {/* Flat dark overlay */}
-      <div
-        className="absolute inset-0 -z-10 bg-[#202224]/60"
-        aria-hidden="true"
-      />
+        {/* Subtle noise texture */}
+        <div
+          className="hero-carousel__noise pointer-events-none absolute inset-0 -z-10"
+          aria-hidden="true"
+        />
 
-      {/* Subtle noise texture */}
-      <div
-        className="hero-carousel__noise pointer-events-none absolute inset-0 -z-10"
-        aria-hidden="true"
-      />
-
-      {/* Content wrapper with unified cohesive spacing (no gaping vertical voids) */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-14 sm:px-10 sm:py-18 lg:px-14 lg:py-22">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-14">
-          {/* Left: Heading upper-left */}
-          <div className="lg:col-span-5">
-            <h2
-              id="who-we-are-heading"
-              className="inline-flex items-center text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[2.65rem]"
+        {/* Top: "— Who We Are" (compact mobile padding, balanced desktop offset) */}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-8 sm:px-8 sm:pt-12 lg:px-14 lg:pt-16">
+          <h2
+            id="who-we-are-heading"
+            className="inline-flex items-center text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-[2.65rem]"
+          >
+            <span
+              className="mr-2.5 font-light text-white/80"
+              aria-hidden="true"
             >
-              <span
-                className="mr-3 font-light text-white/80"
-                aria-hidden="true"
-              >
-                —
-              </span>
-              <span>{heading}</span>
-            </h2>
-          </div>
+              —
+            </span>
+            <span>{heading}</span>
+          </h2>
+        </div>
 
-          {/* Right: Controlled gap, aligned offset */}
-          <div className="flex flex-col items-start gap-5 lg:col-span-7 lg:ml-auto lg:max-w-xl lg:pt-8">
-            <p className="text-sm leading-relaxed font-light text-white/95 sm:text-base lg:text-[15px]">
+        {/* Bottom: Paragraph & CTA button with tighter gap on mobile & desktop */}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-8 sm:px-8 sm:pb-10 lg:px-14 lg:pb-12">
+          <div className="ml-auto flex w-full max-w-lg flex-col items-start gap-3.5 sm:max-w-xl sm:gap-4 lg:max-w-[540px]">
+            <p className="text-xs leading-relaxed font-light text-white/95 sm:text-sm lg:text-[15px]">
               {description}
             </p>
             <CtaLink to={ctaTo} size="compact" textTone="light">
