@@ -28,67 +28,65 @@ export function WhoWeAreSection({
   return (
     <section
       aria-labelledby="who-we-are-heading"
-      className="relative isolate overflow-hidden bg-foreground text-white"
+      className="relative isolate w-full overflow-hidden bg-foreground text-white"
     >
-      {/* Background Image Layer */}
-      <div
-        className="absolute inset-0 -z-20 overflow-hidden"
-        aria-hidden="true"
-      >
-        <img
-          src={image}
-          alt=""
-          loading="lazy"
-          className="size-full object-cover object-center brightness-95"
+      {/* Visual banner container with fixed/proportional height matching Figma */}
+      <div className="relative flex min-h-[340px] flex-col justify-between overflow-hidden sm:min-h-[360px] lg:h-[380px]">
+        {/* Background photo */}
+        <div
+          className="absolute inset-0 -z-20 overflow-hidden"
+          aria-hidden="true"
+        >
+          <img
+            src={image}
+            alt=""
+            loading="lazy"
+            className="size-full object-cover object-center brightness-90"
+          />
+        </div>
+
+        {/* Flat dark overlay (Figma: #252525 ~55-60% opacity) */}
+        <div
+          className="absolute inset-0 -z-10 bg-[#252525]/60"
+          aria-hidden="true"
         />
-      </div>
 
-      {/* Dark Overlay Layer */}
-      <div
-        className="absolute inset-0 -z-10 bg-[#252525]/60"
-        aria-hidden="true"
-      />
+        {/* Subtle noise texture */}
+        <div
+          className="hero-carousel__noise pointer-events-none absolute inset-0 -z-10"
+          aria-hidden="true"
+        />
 
-      {/* Reusable Noise Layer */}
-      <div
-        className="hero-carousel__noise pointer-events-none absolute inset-0 -z-10"
-        aria-hidden="true"
-      />
-
-      {/* Main Content Container */}
-      <div className="relative z-10 mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center lg:gap-16">
-          {/* Left: Heading with decorative dash */}
-          <div className="lg:col-span-5">
-            <div className="flex items-center gap-3 sm:gap-4">
-              <span
-                className="h-[2px] w-6 shrink-0 bg-white/80 sm:w-8"
-                aria-hidden="true"
-              />
-              <h2
-                id="who-we-are-heading"
-                className="text-2xl font-bold tracking-tight text-white uppercase sm:text-3xl sm:tracking-normal lg:text-4xl"
-              >
-                {heading}
-              </h2>
-            </div>
+        {/* Top area: Heading anchored at top-left */}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-8 sm:px-8 sm:pt-10 lg:px-12 lg:pt-12">
+          <div className="inline-flex items-center gap-3 sm:gap-4">
+            <span
+              className="h-[2px] w-6 shrink-0 bg-white/90 sm:w-8"
+              aria-hidden="true"
+            />
+            <h2
+              id="who-we-are-heading"
+              className="text-2xl font-bold tracking-tight text-white uppercase sm:text-3xl sm:normal-case lg:text-[2rem]"
+            >
+              {heading}
+            </h2>
           </div>
+        </div>
 
-          {/* Right: Description & CTA */}
-          <div className="flex flex-col items-start lg:col-span-7">
-            <p className="max-w-2xl text-sm leading-relaxed font-normal text-white/90 sm:text-base">
+        {/* Bottom area: Description & CTA anchored to lower-right */}
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pb-8 sm:px-8 sm:pb-10 lg:px-12 lg:pb-12">
+          <div className="ml-auto flex max-w-md flex-col items-start gap-4 sm:max-w-lg sm:gap-5 lg:max-w-[460px]">
+            <p className="text-xs leading-relaxed font-light text-white/85 sm:text-[13px]">
               {description}
             </p>
-            <div className="mt-6 sm:mt-8">
-              <CtaLink to={ctaTo} size="compact" textTone="light">
-                {ctaLabel}
-              </CtaLink>
-            </div>
+            <CtaLink to={ctaTo} size="compact" textTone="light">
+              {ctaLabel}
+            </CtaLink>
           </div>
         </div>
       </div>
 
-      {/* Integrated category marquee banner at bottom */}
+      {/* Integrated category ticker directly attached to the bottom */}
       {showCategoryTicker && <CategoryNav />}
     </section>
   )
