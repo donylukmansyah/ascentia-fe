@@ -2,11 +2,12 @@
 
 ## Goal
 
-Keep files easy to find as Ascentia grows:
+Keep a WordPress-backed marketing site easy to navigate:
 
-- Find a URL in `routes/`.
-- Find shared UI in `components/`.
-- Find business-specific code in `features/`.
+- Find a URL and page composition in `routes/`.
+- Find a page's UI and page-specific content in `features/`.
+- Find persistent shell UI in `components/layout/`.
+- Find context-free primitives in `components/ui/`.
 - Find cross-cutting helpers in `lib/`.
 
 ## Structure
@@ -16,118 +17,152 @@ src/
   routes/
     __root.tsx
     index.tsx
+    about-us.tsx
+    products.tsx
     products/
-      index.tsx
-      $slug.tsx
+      brands.tsx
+      types.tsx
+      applications.tsx
+
+  features/
+    home/
+      hero-section.tsx
+      hero-data.ts
+      brand-marquee.tsx
+      brand-partners.ts
+      who-we-are-section.tsx
+    products/
+      product-card.tsx
+      product-grid.tsx
+      product-filter.tsx
+      product-api.ts
+      product-types.ts
+    articles/
+      article-card.tsx
+      article-grid.tsx
+      article-api.ts
+      article-types.ts
 
   components/
     layout/
       site-header.tsx
+      site-header/
       site-footer.tsx
     ui/
       button.tsx
-      dialog.tsx
+      cta-link.tsx
+      dropdown-menu.tsx
 
-  features/
-    home/
-      home-hero.tsx
-    products/
-      product-card.tsx
-      product-grid.tsx
-      product-api.ts
-      product-types.ts
-
+  hooks/
+    use-sticky-header.ts
   lib/
     wordpress.ts
     utils.ts
-
   styles.css
 ```
 
-The example shows the intended shape, not files that must exist now.
+The example is a target shape, not a list of folders to create now. Create a
+feature only when work begins in that domain.
 
 ## Rules
 
 ### `routes/`
 
-TanStack Router owns this directory. A route file maps to a URL, loads data,
-and composes page sections. Do not put reusable UI here.
+TanStack Router owns this directory. A route file maps to a URL, handles URL
+parameters or search state, wires route loaders, and composes feature UI.
+
+Do not put reusable UI or WordPress mapping code in a route.
 
 Examples:
 
 - `routes/index.tsx` → `/`
-- `routes/products/index.tsx` → `/products`
-- `routes/products/$slug.tsx` → `/products/:slug`
-
-### `components/`
-
-Contains UI shared by multiple routes or features.
-
-- `components/layout/` — persistent site structure: header and footer.
-- `components/ui/` — context-free primitives, including local shadcn
-  components such as `Button` and `Dialog`.
-
-`site-header.tsx` means the header for the whole site. A page-specific title
-area belongs to its feature, not `components/layout/`.
+- `routes/products.tsx` → `/products`
+- `routes/products/brands.tsx` → `/products/brands`
 
 ### `features/`
 
-Contains code with business or page context. Keep related code near each
-other: UI, types, data access, and validation for the same feature.
+A feature owns related UI, local content, types, validation, and future
+WordPress REST mapping for one page context or business domain.
 
-Start flat:
+- `features/home/` owns homepage-only sections such as hero, marquee, and
+  who-we-are.
+- `features/products/` owns product listing, detail, filter, and product data.
+- `features/articles/` owns the shared news/blog domain. News and blogs should
+  be separate queries or categories until WordPress proves they need distinct
+  domains.
+
+Start a feature flat. Add subdirectories only after several files form a
+clear unit.
 
 ```text
 features/products/
   product-card.tsx
+  product-grid.tsx
   product-api.ts
   product-types.ts
 ```
 
-Add subdirectories only once a feature has enough files to make the flat
-directory hard to scan:
+For example, create `features/products/product-detail/` only when detail UI
+needs multiple files.
 
-```text
-features/products/
-  components/
-    product-card.tsx
-    product-grid.tsx
-    product-filters.tsx
-  product-api.ts
-  product-types.ts
-```
+### `components/layout/`
+
+Persistent site shell only: `site-header`, `site-footer`, and their local
+children. The header may use `hooks/use-sticky-header` because that hook is an
+established shared project path.
+
+### `components/ui/`
+
+Context-free primitives reusable by any feature: buttons, form controls,
+dropdowns, cards, carousel mechanics, pagination, and tabs. Do not put a
+business-specific `ProductCard` or a page-specific hero here.
 
 ### `lib/`
 
-Contains small shared helpers without page or business context.
+Small cross-cutting helpers with no page or business context.
 
-- `wordpress.ts` — configured WordPress request helpers.
+- `wordpress.ts` — configured WordPress REST request helpers, when integration
+  starts.
 - `utils.ts` — generic utilities such as `cn`.
 
-Do not create an empty `utils/`, `services/`, `stores/`, `hooks/`, `schemas/`,
-or `server/` directory. Add a folder only when real code needs it.
+Do not pre-create empty `api/`, `services/`, `stores/`, `schemas/`, or `hooks/`
+directories.
+
+## Reuse decisions
+
+Keep components inside the first feature that needs them. Move to shared UI
+only after a second concrete use exposes a stable, context-free API.
+
+Examples:
+
+- Homepage hero and who-we-are stay in `features/home/`.
+- A brands marquee stays in `features/home/` while it is home-only.
+- When customer and brand marquees need the same mechanics, extract only the
+  generic mechanics to `components/ui/logo-marquee.tsx`; each feature keeps its
+  own title and logo data.
+- Product cards belong to `features/products/`, even when used on home and a
+  product detail recommendation list.
+- Article cards belong to `features/articles/`, shared by news and blog views.
 
 ## Dependency direction
 
 ```text
-routes → features → components / lib
+routes → features → components / hooks / lib
 ```
 
-`components/` and `lib/` must not import from `features/` or `routes/`.
-Feature code may import shared components and helpers. Route code may compose
-features.
+`components/`, `hooks/`, and `lib/` must not import from `features/` or
+`routes/`. Features may use shared modules. Routes compose features.
 
 ## Naming
 
-- Use lowercase kebab-case filenames: `site-header.tsx`, `product-card.tsx`.
-- Name files by their role: `product-api.ts`, not `helpers.ts`.
-- Keep one primary export per file when practical.
-- Prefer direct imports. Do not add barrel `index.ts` files only to shorten
+- Use lowercase kebab-case filenames: `product-card.tsx`.
+- Name files by responsibility: `product-api.ts`, not `helpers.ts`.
+- Prefer direct imports. Do not add barrel `index.ts` files solely to shorten
   import paths.
+- Run `pnpm generate-routes` after route files change. Never edit
+  `src/routeTree.gen.ts` directly.
 
 ## Growth rule
 
-Use the smallest structure that keeps code local and obvious. Split a file or
-add a directory when it becomes hard to scan, its responsibility is unclear,
-or several files belong to the same feature—not in anticipation of future
-complexity.
+Use the smallest structure that keeps ownership obvious. Do not create feature
+folders, WordPress clients, or API layers before their implementation exists.

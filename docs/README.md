@@ -13,4 +13,6 @@ docs/
 Current documents:
 
 - [Folder conventions](architecture/folder-conventions.md)
-
+- [WordPress content model and frontend data flow](architecture/wordpress-content-model.md)
+- [WordPress headless research](architecture/wordpress-headless-research.md)
+- [Feature-based foldering research](architecture/feature-based-foldering-research.md)
