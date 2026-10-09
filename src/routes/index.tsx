@@ -15,7 +15,7 @@ function Home() {
       <BrandMarquee />
       <WhoWeAreSection />
       <FeaturedProductsSection />
-      <ContactPanel className="bg-muted py-16 sm:py-20 lg:py-24" />
+      <ContactPanel className="bg-[#F7F9FC] py-16 sm:py-20 lg:py-24" />
     </>
   )
 }

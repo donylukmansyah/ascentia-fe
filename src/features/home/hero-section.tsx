@@ -40,7 +40,9 @@ export function HeroSection() {
             aria-hidden="true"
             fetchPriority={index === 0 ? 'high' : undefined}
             loading={index === 0 ? 'eager' : 'lazy'}
-            className={`hero-carousel__image absolute inset-0 size-full object-cover ${index === activeIndex ? 'is-active' : ''}`}
+            decoding="async"
+            draggable={false}
+            className={`hero-carousel__image pointer-events-none absolute inset-0 size-full select-none object-cover ${index === activeIndex ? 'is-active' : ''}`}
             style={{ objectPosition: slide.imagePosition }}
           />
         ))}

@@ -129,12 +129,12 @@ export function FeaturedProductsSection({
           tabIndex={0}
           role="region"
           aria-label="Featured products catalog"
-          className="mt-10 flex gap-6 overflow-x-auto pb-4 pt-2 scroll-smooth scrollbar-none snap-x snap-mandatory focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:mt-12"
+          className="mt-10 flex gap-4 overflow-x-auto pb-4 pt-2 scroll-smooth scrollbar-none snap-x snap-mandatory focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:mt-12 sm:gap-6"
         >
           {products.map((product) => (
             <div
               key={product.id}
-              className="min-w-0 shrink-0 snap-start basis-full sm:basis-[calc(50%-12px)] lg:basis-[calc(33.333333%-16px)]"
+              className="min-w-0 shrink-0 snap-start basis-[88%] sm:basis-[calc(50%-12px)] lg:basis-[calc(33.333333%-16px)]"
             >
               <ProductCard product={product} />
             </div>
