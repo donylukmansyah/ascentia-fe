@@ -67,7 +67,7 @@ body {
   /* Ascentia brand colors */
   --background: oklch(1 0 0); /* #FFFFFF — background */
   --foreground: oklch(0.25 0 0); /* #252525 — body text */
-  --description-text: #66717A; /* #66717A — light-surface descriptions */
+  --description-text: #66717a; /* #66717A — light-surface descriptions */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.25 0 0);
   --popover: oklch(1 0 0);
@@ -147,6 +147,12 @@ body {
 .hero-carousel__image.is-active {
   opacity: 1;
   transform: scale(1);
+}
+
+.who-we-are__image {
+  transform: scale(var(--who-we-are-scale, 1.2));
+  transform-origin: center;
+  will-change: transform;
 }
 
 .hero-carousel__overlay {
@@ -263,6 +269,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .hero-carousel__image,
+  .who-we-are__image,
   .hero-carousel__copy,
   .hero-carousel__progress,
   .brand-marquee__track {
@@ -270,6 +277,10 @@ body {
     transition: none;
     transform: none;
     translate: none;
+  }
+
+  .who-we-are__image {
+    will-change: auto;
   }
 }
 

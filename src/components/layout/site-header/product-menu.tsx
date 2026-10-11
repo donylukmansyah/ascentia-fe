@@ -13,11 +13,13 @@ import { cn } from '#/lib/utils'
 
 type ProductMenuProps = {
   className?: string
+  onOpenChange?: (open: boolean) => void
 }
 
-export function ProductMenu({ className }: ProductMenuProps) {
+export function ProductMenu({ className, onOpenChange }: ProductMenuProps) {
+  // Non-modal menubar dropdown: interaction stays with the page, no scroll lock.
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false} onOpenChange={(open) => onOpenChange?.(open)}>
       <DropdownMenuTrigger
         className={cn(
           'group inline-flex cursor-pointer items-center gap-1 py-2 text-[11px] font-medium tracking-[-0.01em] uppercase transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4',
@@ -40,26 +42,31 @@ export function ProductMenu({ className }: ProductMenuProps) {
           Browse products by
         </p>
         <ul className="grid grid-cols-2 gap-1">
-          {productBrowseItems.map(({ label, description, href, icon: Icon }) => (
-            <li key={href} className={label === 'Applications' ? 'col-span-2' : ''}>
-              <DropdownMenuItem
-                render={<Link to={href} />}
-                className="group flex cursor-pointer items-start gap-2.5 rounded-lg px-2 py-2 hover:bg-muted focus:bg-muted"
+          {productBrowseItems.map(
+            ({ label, description, href, icon: Icon }) => (
+              <li
+                key={href}
+                className={label === 'Applications' ? 'col-span-2' : ''}
               >
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-primary transition-colors group-hover:border-primary/25 group-focus:border-primary/25">
-                  <Icon className="size-4.5" aria-hidden="true" />
-                </span>
-                <span className="min-w-0 pt-0.5">
-                  <span className="block text-[13px] font-semibold leading-none text-foreground">
-                    {label}
+                <DropdownMenuItem
+                  render={<Link to={href} />}
+                  className="group flex cursor-pointer items-start gap-2.5 rounded-lg px-2 py-2 hover:bg-muted focus:bg-muted"
+                >
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-primary transition-colors group-hover:border-primary/25 group-focus:border-primary/25">
+                    <Icon className="size-4.5" aria-hidden="true" />
                   </span>
-                  <span className="mt-0.5 block text-[11px] leading-snug text-muted-foreground">
-                    {description}
+                  <span className="min-w-0 pt-0.5">
+                    <span className="block text-[13px] font-semibold leading-none text-foreground">
+                      {label}
+                    </span>
+                    <span className="mt-0.5 block text-[11px] leading-snug text-muted-foreground">
+                      {description}
+                    </span>
                   </span>
-                </span>
-              </DropdownMenuItem>
-            </li>
-          ))}
+                </DropdownMenuItem>
+              </li>
+            ),
+          )}
         </ul>
       </DropdownMenuContent>
     </DropdownMenu>

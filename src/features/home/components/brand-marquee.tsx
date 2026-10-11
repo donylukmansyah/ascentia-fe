@@ -1,4 +1,4 @@
-import { brandPartners } from './brand-partners'
+import { brandPartners } from '../constants/brand-partners'
 
 interface BrandMarqueeProps {
   title?: string

@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router'
 import { ArrowUpRight, Box } from 'lucide-react'
 
 import { cn } from '#/lib/utils'
-import type { ProductCardData } from './product-types'
+import type { ProductCardData } from '../types/product'
 
 export interface ProductCardProps {
   product: ProductCardData

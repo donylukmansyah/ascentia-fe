@@ -30,10 +30,10 @@
 ## Architecture & Ownership
 
 - Read `docs/architecture/folder-conventions.md` before adding or moving source files.
-- `src/routes/` owns URL identity, route params/search, loaders, and page composition only.
-- `src/features/` owns page/domain UI, local types, mapping, and API behavior. The implemented homepage belongs in `src/features/home/`.
+- `src/routes/` owns URL identity, route params/search, and loaders. It selects feature page modules; do not put page markup there.
+- `src/features/` is feature-first: use `pages/` for page composition, `components/` for feature UI, `constants/` for local static content, and `types/` for feature models. Add `api/`, `hooks/`, or `forms/` only when implemented. The homepage belongs in `src/features/home/`.
 - `src/components/layout/` owns persistent site shell; `src/components/ui/` owns context-free primitives only.
-- Dependency direction: `routes → features → components / hooks / lib`. Shared modules must not import from routes or features.
+- Dependency direction: `routes → features → components / hooks / lib`. Shared modules must not import from routes or features; routes select feature pages.
 - Use lowercase kebab-case names. Prefer direct imports; do not add a barrel solely to shorten imports.
 
 ## Headless WordPress & WooCommerce

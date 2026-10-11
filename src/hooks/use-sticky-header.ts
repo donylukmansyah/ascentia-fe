@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
 
 export type HeaderVisibility =
-  | 'transparent'
-  | 'visible'
-  | 'hidden'
-  | 'hidden-initial'
+  'transparent' | 'visible' | 'hidden' | 'hidden-initial'
 
 // Require sustained upward travel so short mobile scroll corrections don't reveal the header.
 const UPWARD_REVEAL_THRESHOLD = 32
@@ -13,15 +10,24 @@ type UseStickyHeaderOptions = {
   topOffset?: number
   hideOffset?: number
   tolerance?: number
+  // While true the header keeps its current visibility (e.g. a dropdown is open).
+  paused?: boolean
 }
 
 export function useStickyHeader(
   options: UseStickyHeaderOptions = {},
 ): HeaderVisibility {
-  const { topOffset = 12, hideOffset = 320, tolerance = 8 } = options
+  const {
+    topOffset = 12,
+    hideOffset = 320,
+    tolerance = 8,
+    paused = false,
+  } = options
   const [visibility, setVisibility] = useState<HeaderVisibility>('transparent')
 
   useEffect(() => {
+    if (paused) return
+
     let previousScrollY = window.scrollY
     let previousDirection = 0
     let directionDistance = 0
@@ -86,7 +92,7 @@ export function useStickyHeader(
         window.cancelAnimationFrame(animationFrame)
       }
     }
-  }, [topOffset, hideOffset, tolerance])
+  }, [topOffset, hideOffset, tolerance, paused])
 
   return visibility
 }

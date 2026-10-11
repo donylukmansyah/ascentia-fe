@@ -15,10 +15,16 @@ export function SiteHeader() {
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
   })
-  const mode = useStickyHeader({ hideOffset: 320 })
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isProductsMenuOpen, setIsProductsMenuOpen] = useState(false)
+  const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false)
   const [language, setLanguage] = useState<LanguageCode>('en')
+  // Keep the header pinned while a desktop dropdown is open so the non-modal
+  // popup never detaches from its trigger on scroll.
+  const mode = useStickyHeader({
+    hideOffset: 320,
+    paused: isDesktopDropdownOpen,
+  })
   const isSolid = mode !== 'transparent'
   const isHidden = mode === 'hidden' || mode === 'hidden-initial'
   const isHeaderSolid = isSolid || isMenuOpen
@@ -26,6 +32,7 @@ export function SiteHeader() {
   useEffect(() => {
     setIsMenuOpen(false)
     setIsProductsMenuOpen(false)
+    setIsDesktopDropdownOpen(false)
   }, [pathname])
 
   useEffect(() => {
@@ -92,6 +99,7 @@ export function SiteHeader() {
                 return (
                   <li key={item.href}>
                     <ProductMenu
+                      onOpenChange={setIsDesktopDropdownOpen}
                       className={
                         isHeaderSolid
                           ? 'text-foreground/75 hover:text-foreground'
@@ -137,6 +145,7 @@ export function SiteHeader() {
           <LanguagePicker
             language={language}
             onLanguageChange={setLanguage}
+            onOpenChange={setIsDesktopDropdownOpen}
             className={
               isHeaderSolid
                 ? 'text-foreground/80 hover:text-foreground'

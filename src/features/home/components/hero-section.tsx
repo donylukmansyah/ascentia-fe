@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { CtaLink } from '#/components/ui/cta-link'
 import { cn } from '#/lib/utils'
 
-import { heroSlides } from './hero-data'
+import { heroSlides } from '../constants/hero'
 
 const AUTOPLAY_DELAY = 6500
 

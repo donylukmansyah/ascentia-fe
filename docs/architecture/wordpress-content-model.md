@@ -16,12 +16,14 @@ WordPress / WooCommerce
   → public REST response
   → feature-owned API mapper
   → typed frontend model
-  → React UI
+  → feature components and pages
 ```
 
-- `routes/` handle URL params, search params, route loaders, and composition.
-- `features/products/` will own product requests, mapping, list/detail UI, and
-  filtering.
+- `routes/` handle URL params, search params, and route loaders; they select
+  feature pages.
+- `features/products/pages/` composes product UI;
+  `features/products/api/` owns requests and mapping; and
+  `features/products/types/` owns frontend product models.
 - `features/articles/` will own shared news/blog requests, mapping, list/detail
   UI, and filtering.
 - `lib/wordpress.ts` will contain only generic request helpers once integration

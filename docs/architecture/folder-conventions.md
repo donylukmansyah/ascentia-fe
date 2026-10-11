@@ -4,8 +4,9 @@
 
 Keep a WordPress-backed marketing site easy to navigate:
 
-- Find a URL and page composition in `routes/`.
-- Find a page's UI and page-specific content in `features/`.
+- Find a URL, route params/search, and loaders in `routes/`.
+- Find each page's composition, UI, content, and future data access in
+  `features/`.
 - Find persistent shell UI in `components/layout/`.
 - Find context-free primitives in `components/ui/`.
 - Find cross-cutting helpers in `lib/`.
@@ -26,27 +27,53 @@ src/
 
   features/
     home/
-      hero-section.tsx
-      hero-data.ts
-      brand-marquee.tsx
-      brand-partners.ts
-      who-we-are-section.tsx
+      components/
+        hero-section.tsx
+        brand-marquee.tsx
+        who-we-are-section.tsx
+      constants/
+        hero.ts
+        brand-partners.ts
+      pages/
+        home-page.tsx
+    about/
+      components/
+        hero-section.tsx
+        company-section.tsx
+        vision-mission-section.tsx
+      constants/
+        hero.ts
+        company.ts
+      pages/
+        about-page.tsx
+    contact/
+      components/
+        contact-form.tsx
+        contact-panel.tsx
+      pages/
+        contact-page.tsx
     products/
-      product-card.tsx
-      product-grid.tsx
-      product-filter.tsx
-      product-api.ts
-      product-types.ts
+      components/
+        product-card.tsx
+      constants/
+        products.ts
+      pages/
+        products-page.tsx
+      types/
+        product.ts
     articles/
-      article-card.tsx
-      article-grid.tsx
-      article-api.ts
-      article-types.ts
+      api/
+        get-articles.ts
+      components/
+        article-card.tsx
+        article-grid.tsx
+      pages/
+        articles-page.tsx
 
   components/
     layout/
-      site-header.tsx
       site-header/
+        index.tsx
       site-footer.tsx
     ui/
       button.tsx
@@ -69,9 +96,9 @@ feature only when work begins in that domain.
 ### `routes/`
 
 TanStack Router owns this directory. A route file maps to a URL, handles URL
-parameters or search state, wires route loaders, and composes feature UI.
+parameters or search state, wires route loaders, and selects a feature page.
 
-Do not put reusable UI or WordPress mapping code in a route.
+Do not put page markup, reusable UI, or WordPress mapping code in a route.
 
 Examples:
 
@@ -81,8 +108,20 @@ Examples:
 
 ### `features/`
 
-A feature owns related UI, local content, types, validation, and future
-WordPress REST mapping for one page context or business domain.
+A feature owns one page context or business domain. Its `pages/` modules
+compose feature UI; its other folders keep related implementation local.
+
+Use a folder only when it contains real implementation:
+
+- `components/` — page/domain UI used inside that feature.
+- `constants/` — static local content and configuration.
+- `types/` — local frontend models shared within that feature.
+- `api/` — feature-specific WordPress or WooCommerce reads and mapping.
+- `hooks/` — feature-specific state or browser behavior.
+- `forms/` — feature-specific validation and form definitions.
+- `pages/` — page modules selected by `routes/`.
+
+Not every feature needs every folder. Do not pre-create empty folders.
 
 - `features/home/` owns homepage-only sections such as hero, marquee, and
   who-we-are.
@@ -91,19 +130,21 @@ WordPress REST mapping for one page context or business domain.
   be separate queries or categories until WordPress proves they need distinct
   domains.
 
-Start a feature flat. Add subdirectories only after several files form a
-clear unit.
-
 ```text
 features/products/
-  product-card.tsx
-  product-grid.tsx
-  product-api.ts
-  product-types.ts
+  components/
+    product-card.tsx
+  constants/
+    products.ts
+  pages/
+    products-page.tsx
+  types/
+    product.ts
 ```
 
-For example, create `features/products/product-detail/` only when detail UI
-needs multiple files.
+Keep product-specific UI in `features/products/components/`, even when home
+also renders it. Extract to `components/ui/` only after a second concrete,
+context-free use.
 
 ### `components/layout/`
 
@@ -128,6 +169,27 @@ Small cross-cutting helpers with no page or business context.
 Do not pre-create empty `api/`, `services/`, `stores/`, `schemas/`, or `hooks/`
 directories.
 
+## Future Fetches
+
+When WordPress integration starts, keep endpoint behavior inside its owning
+feature. Inspect the real public response first, then add only the needed
+modules.
+
+```text
+features/products/
+  api/
+    get-products.ts
+    get-product.ts
+    product-mapper.ts
+  types/
+    product.ts
+```
+
+`api/` modules fetch and map Store API responses into `types/` models.
+`components/` and `pages/` consume frontend models only; they never receive
+raw WordPress responses or privileged credentials. If browser CORS blocks a
+public read, add a server-side fetch path rather than exposing secrets.
+
 ## Reuse decisions
 
 Keep components inside the first feature that needs them. Move to shared UI
@@ -151,7 +213,7 @@ routes → features → components / hooks / lib
 ```
 
 `components/`, `hooks/`, and `lib/` must not import from `features/` or
-`routes/`. Features may use shared modules. Routes compose features.
+`routes/`. Features may use shared modules. Routes select feature pages.
 
 ## Naming
 
@@ -164,5 +226,5 @@ routes → features → components / hooks / lib
 
 ## Growth rule
 
-Use the smallest structure that keeps ownership obvious. Do not create feature
-folders, WordPress clients, or API layers before their implementation exists.
+Use feature-first folders for page/domain work. Add `api/`, `hooks/`, `forms/`,
+`constants/`, or `types/` only when their first real file exists.
