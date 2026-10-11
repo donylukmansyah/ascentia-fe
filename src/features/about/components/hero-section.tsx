@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 
-import { aboutHeroContent } from './about-hero-data'
+import { aboutHeroContent } from '../constants/hero'
 
 interface AboutHeroSectionProps {
   imagePosition?: string

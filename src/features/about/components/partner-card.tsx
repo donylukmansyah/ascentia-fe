@@ -1,7 +1,7 @@
-import { CircleArrow } from '#/components/ui/circle-arrow'
 import { cn } from 'cn'
 
-import type { AboutPartner } from './about-partners-data'
+import type { AboutPartner } from '../constants/partners'
+import { CircleArrow } from './circle-arrow'
 
 interface AboutPartnerCardProps {
   partner: AboutPartner

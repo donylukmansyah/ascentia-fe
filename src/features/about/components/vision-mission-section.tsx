@@ -1,8 +1,7 @@
-import { CircleArrow } from '#/components/ui/circle-arrow'
-import { FlipCard } from '#/components/ui/flip-card'
-import { MediaCard } from '#/components/ui/media-card'
-
-import { aboutVisionMissionContent } from './about-vision-mission-data'
+import { aboutVisionMissionContent } from '../constants/vision-mission'
+import { CircleArrow } from './circle-arrow'
+import { FlipCard } from './flip-card'
+import { MediaCard } from './media-card'
 
 interface AboutVisionMissionSectionProps {
   visionTitle?: string

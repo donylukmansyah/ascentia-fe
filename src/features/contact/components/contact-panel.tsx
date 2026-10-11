@@ -1,6 +1,8 @@
 import { ArrowUpRight, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 
+import { cn } from '#/lib/utils'
+
 import { ContactForm } from './contact-form'
 
 interface ContactPanelProps {
@@ -9,7 +11,10 @@ interface ContactPanelProps {
 
 export function ContactPanel({ className }: ContactPanelProps) {
   return (
-    <section aria-labelledby="contact-panel-heading" className={className}>
+    <section
+      aria-labelledby="contact-panel-heading"
+      className={cn('overflow-x-clip', className)}
+    >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         <div className="relative grid overflow-visible border border-border bg-background shadow-[0_2px_8px_-6px_rgb(0_0_0/0.12)] lg:grid-cols-[1.2fr_0.8fr]">
           <span
@@ -37,7 +42,7 @@ export function ContactPanel({ className }: ContactPanelProps) {
             +
           </span>
 
-          <div className="p-7 sm:p-10 lg:px-12 lg:py-11">
+          <div data-aos="fade-right" className="p-7 sm:p-10 lg:px-12 lg:py-11">
             <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
               Contact Us
             </p>
@@ -126,7 +131,11 @@ export function ContactPanel({ className }: ContactPanelProps) {
             </Link>
           </div>
 
-          <div className="border-t border-border bg-background p-7 sm:p-10 lg:border-t-0 lg:border-l lg:px-12 lg:py-11">
+          <div
+            data-aos="fade-left"
+            data-aos-delay="150"
+            className="border-t border-border bg-background p-7 sm:p-10 lg:border-t-0 lg:border-l lg:px-12 lg:py-11"
+          >
             <ContactForm className="mx-auto w-full max-w-sm" />
           </div>
         </div>

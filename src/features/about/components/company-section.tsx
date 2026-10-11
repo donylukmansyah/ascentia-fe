@@ -1,28 +1,28 @@
-import { aboutPartnerContent } from './about-partner-data'
+import { aboutCompanyContent } from '../constants/company'
 
-interface AboutPartnerSectionProps {
+interface AboutCompanySectionProps {
   eyebrow?: string
   title?: string
   paragraphs?: readonly string[]
 }
 
-export function AboutPartnerSection({
-  eyebrow = aboutPartnerContent.eyebrow,
-  title = aboutPartnerContent.title,
-  paragraphs = aboutPartnerContent.paragraphs,
-}: AboutPartnerSectionProps) {
+export function AboutCompanySection({
+  eyebrow = aboutCompanyContent.eyebrow,
+  title = aboutCompanyContent.title,
+  paragraphs = aboutCompanyContent.paragraphs,
+}: AboutCompanySectionProps) {
   return (
     <section
       id="about-content"
-      aria-labelledby="about-partner-heading"
+      aria-labelledby="about-company-heading"
       className="bg-background py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-5 sm:px-8 lg:flex-row lg:items-center lg:gap-16 lg:px-12">
         <div className="relative w-full pb-10 sm:pb-14 lg:max-w-[520px] lg:shrink-0">
           <div className="relative w-[80%]">
             <img
-              src={aboutPartnerContent.mainImage.src}
-              alt={aboutPartnerContent.mainImage.alt}
+              src={aboutCompanyContent.mainImage.src}
+              alt={aboutCompanyContent.mainImage.alt}
               loading="lazy"
               decoding="async"
               className="aspect-square w-full object-cover"
@@ -35,8 +35,8 @@ export function AboutPartnerSection({
           <div className="absolute right-0 bottom-0 w-[46%] border-4 border-white bg-white sm:border-[6px]">
             <div className="relative">
               <img
-                src={aboutPartnerContent.overlapImage.src}
-                alt={aboutPartnerContent.overlapImage.alt}
+                src={aboutCompanyContent.overlapImage.src}
+                alt={aboutCompanyContent.overlapImage.alt}
                 loading="lazy"
                 decoding="async"
                 className="aspect-[4/3] w-full object-cover"
@@ -54,7 +54,7 @@ export function AboutPartnerSection({
             {eyebrow}
           </p>
           <h2
-            id="about-partner-heading"
+            id="about-company-heading"
             className="mt-2 text-[clamp(2rem,3.4vw,3rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
           >
             {title}

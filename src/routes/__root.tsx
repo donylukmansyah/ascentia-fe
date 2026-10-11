@@ -9,6 +9,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import { SiteFooter } from '#/components/layout/site-footer'
 import { SiteHeader } from '#/components/layout/site-header'
+import { SocialDock } from '#/components/layout/social-dock/social-dock'
 
 import appCss from '../styles.css?url'
 
@@ -49,6 +50,7 @@ function RootLayout() {
         <Outlet />
       </main>
       <SiteFooter />
+      <SocialDock />
     </>
   )
 }
@@ -58,6 +60,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <noscript>
+          <style>
+            {'[data-aos]{opacity:1!important;transform:none!important}'}
+          </style>
+        </noscript>
       </head>
       <body>
         {children}

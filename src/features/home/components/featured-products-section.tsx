@@ -5,9 +5,9 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
 import { CtaLink } from '#/components/ui/cta-link'
-import { ProductCard } from '#/features/products/product-card'
-import { featuredProducts } from '#/features/products/products-data'
-import type { ProductCardData } from '#/features/products/product-types'
+import { ProductCard } from '#/features/products/components/product-card'
+import { featuredProducts } from '#/features/products/constants/products'
+import type { ProductCardData } from '#/features/products/types/product'
 
 interface FeaturedProductsSectionProps {
   kicker?: string
@@ -74,10 +74,13 @@ export function FeaturedProductsSection({
   return (
     <section
       aria-labelledby="featured-products-heading"
-      className="bg-background py-16 sm:py-20 lg:py-24"
+      className="overflow-x-clip bg-background py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div
+          data-aos="fade-left"
+          className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
+        >
           <div className="max-w-2xl">
             <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
               {kicker}
@@ -131,9 +134,11 @@ export function FeaturedProductsSection({
           aria-label="Featured products catalog"
           className="mt-10 flex gap-4 overflow-x-auto pb-4 pt-2 scroll-smooth scrollbar-none snap-x snap-mandatory focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:mt-12 sm:gap-6"
         >
-          {products.map((product) => (
+          {products.map((product, index) => (
             <div
               key={product.id}
+              data-aos="fade-up"
+              data-aos-delay={index < 3 ? String(index * 100) : undefined}
               className="min-w-0 shrink-0 snap-start basis-[88%] sm:basis-[calc(50%-12px)] lg:basis-[calc(33.333333%-16px)]"
             >
               <ProductCard product={product} />

@@ -3,8 +3,8 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
 
-import { AboutPartnerCard } from './about-partner-card'
-import { aboutPartnersContent } from './about-partners-data'
+import { aboutPartnersContent } from '../constants/partners'
+import { AboutPartnerCard } from './partner-card'
 
 interface AboutPartnersSectionProps {
   eyebrow?: string

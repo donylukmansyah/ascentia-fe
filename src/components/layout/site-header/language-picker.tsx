@@ -19,12 +19,14 @@ type LanguageCode = (typeof languages)[number]['code']
 type LanguagePickerProps = {
   language: LanguageCode
   onLanguageChange: (language: LanguageCode) => void
+  onOpenChange?: (open: boolean) => void
   className?: string
 }
 
 export function LanguagePicker({
   language,
   onLanguageChange,
+  onOpenChange,
   className,
 }: LanguagePickerProps) {
   const activeLanguage = languages.find((item) => item.code === language)
@@ -34,7 +36,8 @@ export function LanguagePicker({
   }
 
   return (
-    <DropdownMenu>
+    // Non-modal menubar dropdown: no page scroll lock for a two-item picker.
+    <DropdownMenu modal={false} onOpenChange={(open) => onOpenChange?.(open)}>
       <DropdownMenuTrigger
         className={cn(
           'inline-flex cursor-pointer items-center gap-1.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4',
@@ -51,7 +54,10 @@ export function LanguagePicker({
         <span className="text-[11px] font-medium tracking-[-0.01em]">
           {activeLanguage.code.toUpperCase()}
         </span>
-        <ChevronDown className="size-3 transition-transform duration-200" aria-hidden="true" />
+        <ChevronDown
+          className="size-3 transition-transform duration-200"
+          aria-hidden="true"
+        />
       </DropdownMenuTrigger>
 
       <DropdownMenuContent

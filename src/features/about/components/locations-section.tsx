@@ -1,4 +1,4 @@
-import { aboutLocationsContent } from './about-locations-data'
+import { aboutLocationsContent } from '../constants/locations'
 
 interface AboutLocationsSectionProps {
   eyebrow?: string

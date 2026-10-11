@@ -1,4 +1,4 @@
-export const aboutPartnerContent = {
+export const aboutCompanyContent = {
   eyebrow: 'Established in 2022',
   title: 'A practical partner for laboratories and industry',
   paragraphs: [

@@ -1,4 +1,4 @@
-import type { ProductCardData } from './product-types'
+import type { ProductCardData } from '../types/product'
 
 export const mockProducts: ProductCardData[] = [
   {
