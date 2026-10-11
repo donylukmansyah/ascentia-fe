@@ -24,7 +24,7 @@ const glyphClass = 'size-5'
 
 const SCROLL_THRESHOLD = 300
 
-// Inline IG glyph: no brand icons in lucide, skip extra dep.
+// No brand icons in lucide.
 function InstagramIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -103,7 +103,6 @@ export function SocialDock({ className }: { className?: string }) {
   const openRef = useRef(open)
   openRef.current = open
 
-  // FAB shows after hero, always on short pages.
   const [visible, setVisible] = useState(false)
   const visibleRef = useRef(visible)
   visibleRef.current = visible
@@ -142,7 +141,6 @@ export function SocialDock({ className }: { className?: string }) {
     })
   }, [])
 
-  // Park drops in trigger on mount.
   useEffect(() => {
     dropRefs.current.forEach((drop) => {
       if (!drop) return
@@ -173,14 +171,12 @@ export function SocialDock({ className }: { className?: string }) {
       return
     }
 
-    // Goo layer animates, crisp drops follow.
     setGooVisible(true)
     blobRefs.current.forEach((blob) => {
       if (blob) blob.style.opacity = '1'
     })
     if (triggerBlobRef.current) triggerBlobRef.current.style.opacity = '1'
 
-    // Trigger pops, icon turns to X.
     if (triggerRef.current) {
       play(
         animate(
@@ -200,7 +196,6 @@ export function SocialDock({ className }: { className?: string }) {
       )
     }
 
-    // Drops pop out bottom-first, staggered.
     SOCIAL_ITEMS.forEach((_item, i) => {
       const order = DROP_COUNT - 1 - i
       const delay = 0.03 + order * 0.055
@@ -232,7 +227,6 @@ export function SocialDock({ className }: { className?: string }) {
       }
     })
 
-    // Hide goo after land.
     later(0.62, () => {
       play(animate(gooRef.current!, { opacity: [1, 0] }, { duration: 0.16 }))
       later(0.16, () => setGooVisible(false))
@@ -268,7 +262,6 @@ export function SocialDock({ className }: { className?: string }) {
         )
       }
 
-      // Drops dive back top-first.
       SOCIAL_ITEMS.forEach((_item, i) => {
         const delay = 0.06 + i * 0.045
         const drop = dropRefs.current[i]
@@ -329,7 +322,7 @@ export function SocialDock({ className }: { className?: string }) {
     else runOpen()
   }, [runClose, runOpen])
 
-  // FAB shows after hero, always on short pages.
+  // Show after hero, always on short pages.
   useEffect(() => {
     let frame: number | null = null
 

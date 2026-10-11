@@ -9,6 +9,3 @@ export interface ProductCardData {
   application?: string
   shortDescription?: string
 }
-
-// Legacy alias
-export type Product = ProductCardData

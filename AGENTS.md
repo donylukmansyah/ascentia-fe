@@ -55,9 +55,10 @@
 
 ## Comments
 
-- // one line only. No JSDoc, no block comments.
-- Comment non-obvious why only, never obvious what.
-- Delete commented-out code. Match ecommerce-frontend: sparse notes.
+- // one line only. Max 60 chars. No JSDoc, no /* */.
+- Why-only when code cannot show it. Never restate obvious animation/layout.
+- One note per spot, never duplicate same reason in one file.
+- Delete commented-out code, TODO, dead aliases. Keep: // Non-modal: no scroll lock. Drop: // Drops pop out bottom-first.
 
 ## Verification
 

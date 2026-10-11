@@ -217,9 +217,11 @@ routes → features → components / hooks / lib
 
 ## Comments
 
-- // one line only. No JSDoc, no block comments.
-- Max one short line per spot. Explain why only when code cannot show it.
-- Delete commented-out code. Example: // Pin header while dropdown open.
+- // one line only. Max 60 chars. No JSDoc, no /* */.
+- Why-only when code cannot show it. Never restate obvious animation/layout.
+- One note per spot, never duplicate same reason in one file.
+- Delete commented-out code, TODO, dead aliases. Keep: // Pin header while dropdown open. Drop: // Drops pop out bottom-first.
+- Audit 2026-10-11: 20 notes in 9 files to 12; social-dock 10 to 3, drop dead Product alias, drop CSS section header.
 
 ## Naming
 

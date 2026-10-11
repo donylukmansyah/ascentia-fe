@@ -64,7 +64,6 @@ body {
 }
 
 :root {
-  /* Ascentia brand colors */
   --background: oklch(1 0 0); /* #FFFFFF — background */
   --foreground: oklch(0.25 0 0); /* #252525 — body text */
   --description-text: #66717a; /* #66717A — light-surface descriptions */
