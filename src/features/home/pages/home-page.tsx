@@ -1,7 +1,3 @@
-import AOS from 'aos'
-import 'aos/dist/aos.css'
-import { useEffect } from 'react'
-
 import { ContactPanel } from '#/features/contact/components/contact-panel'
 
 import { BrandMarquee } from '../components/brand-marquee'
@@ -9,28 +5,7 @@ import { FeaturedProductsSection } from '../components/featured-products-section
 import { HeroSection } from '../components/hero-section'
 import { WhoWeAreSection } from '../components/who-we-are-section'
 
-// AOS init once, refresh on remount.
-let isAosInitialized = false
-
 export function HomePage() {
-  useEffect(() => {
-    AOS.init({
-      once: true,
-      offset: 120,
-      duration: 600,
-      // Keep content visible if reduced motion.
-      disable: () =>
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    })
-
-    if (isAosInitialized) {
-      AOS.refreshHard()
-    } else {
-      AOS.refresh()
-      isAosInitialized = true
-    }
-  }, [])
-
   return (
     <>
       <HeroSection />

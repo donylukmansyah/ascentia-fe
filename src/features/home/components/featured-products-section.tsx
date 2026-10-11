@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
 import { CtaLink } from '#/components/ui/cta-link'
+import { Reveal } from '#/components/ui/reveal'
 import { ProductCard } from '#/features/products/components/product-card'
 import { featuredProducts } from '#/features/products/constants/products'
 import type { ProductCardData } from '#/features/products/types/product'
@@ -77,8 +78,8 @@ export function FeaturedProductsSection({
       className="overflow-x-clip bg-background py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        <div
-          data-aos="fade-left"
+        <Reveal
+          variant="left"
           className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between"
         >
           <div className="max-w-2xl">
@@ -124,7 +125,7 @@ export function FeaturedProductsSection({
               <ArrowRight className="size-5" aria-hidden="true" />
             </Button>
           </div>
-        </div>
+        </Reveal>
 
         <div
           ref={scrollContainerRef}
@@ -135,14 +136,14 @@ export function FeaturedProductsSection({
           className="mt-10 flex gap-4 overflow-x-auto pb-4 pt-2 scroll-smooth scrollbar-none snap-x snap-mandatory focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:mt-12 sm:gap-6"
         >
           {products.map((product, index) => (
-            <div
+            <Reveal
               key={product.id}
-              data-aos="fade-up"
-              data-aos-delay={index < 3 ? String(index * 100) : undefined}
+              variant="up"
+              delay={index < 3 ? index * 0.1 : 0}
               className="min-w-0 shrink-0 snap-start basis-[88%] sm:basis-[calc(50%-12px)] lg:basis-[calc(33.333333%-16px)]"
             >
               <ProductCard product={product} />
-            </div>
+            </Reveal>
           ))}
         </div>
 
