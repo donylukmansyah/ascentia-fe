@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 
 import { aboutHeroContent } from '../constants/hero'
 
@@ -13,53 +14,17 @@ export function AboutHeroSection({
   parallaxRange = 80,
 }: AboutHeroSectionProps = {}) {
   const sectionRef = useRef<HTMLElement>(null)
-  const imageRef = useRef<HTMLImageElement>(null)
-
-  useEffect(() => {
-    const section = sectionRef.current
-    const image = imageRef.current
-    if (!section || !image) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-
-    let frame: number | null = null
-    let visible = false
-
-    const update = () => {
-      frame = null
-      if (!visible) return
-      const rect = section.getBoundingClientRect()
-      const progress = Math.min(
-        1,
-        Math.max(0, -rect.top / Math.max(1, rect.height)),
-      )
-      const eased = progress * progress * (3 - 2 * progress)
-      image.style.translate = `0 ${(-parallaxRange + eased * parallaxRange * 2).toFixed(2)}px`
-    }
-
-    const schedule = () => {
-      if (frame === null) frame = window.requestAnimationFrame(update)
-    }
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        visible = entry.isIntersecting
-        if (visible) schedule()
-      },
-      { rootMargin: '120px 0px' },
-    )
-    const onScroll = () => {
-      if (visible) schedule()
-    }
-
-    observer.observe(section)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', schedule)
-    return () => {
-      observer.disconnect()
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', schedule)
-      if (frame !== null) window.cancelAnimationFrame(frame)
-    }
-  }, [parallaxRange])
+  const reduceMotion = useReducedMotion() ?? false
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  })
+  // Background drift tied to scroll position.
+  const imageY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [-parallaxRange, parallaxRange],
+  )
 
   return (
     <section
@@ -67,13 +32,15 @@ export function AboutHeroSection({
       aria-labelledby="about-hero-heading"
       className="relative isolate flex min-h-[440px] w-full items-center overflow-hidden bg-foreground text-white sm:min-h-[500px] lg:min-h-[560px]"
     >
-      <img
-        ref={imageRef}
+      <motion.img
         src={aboutHeroContent.image}
         alt=""
         fetchPriority="high"
         decoding="async"
-        style={{ objectPosition: imagePosition }}
+        style={{
+          objectPosition: imagePosition,
+          y: reduceMotion ? 0 : imageY,
+        }}
         className="absolute inset-x-0 -top-24 -z-20 h-[calc(100%+12rem)] w-full object-cover"
       />
       <div

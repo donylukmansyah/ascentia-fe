@@ -1,5 +1,7 @@
 import * as MapLibreGL from 'maplibre-gl'
+import { setWorkerUrl } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import {
   createContext,
   useContext,
@@ -7,11 +9,14 @@ import {
   useMemo,
   useRef,
   useState,
-  type ReactNode,
 } from 'react'
+import type { ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
 import { cn } from 'cn'
+
+// Bundled worker so Vite emits sibling chunk.
+setWorkerUrl(workerUrl)
 
 const LIGHT_STYLE =
   'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json'
@@ -29,9 +34,15 @@ type OfficeMapProps = {
   children?: ReactNode
   className?: string
   viewport: MapViewport
+  cooperativeGestures?: boolean
 }
 
-export function OfficeMap({ children, className, viewport }: OfficeMapProps) {
+export function OfficeMap({
+  children,
+  className,
+  viewport,
+  cooperativeGestures = true,
+}: OfficeMapProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [map, setMap] = useState<MapLibreGL.Map | null>(null)
   const [mounted, setMounted] = useState(false)
@@ -46,10 +57,24 @@ export function OfficeMap({ children, className, viewport }: OfficeMapProps) {
       style: LIGHT_STYLE,
       center: viewportRef.current.center,
       zoom: viewportRef.current.zoom,
+      // Page scroll passes through; zoom needs Ctrl.
+      cooperativeGestures,
+      // Friendly cooperative gesture hints.
+      locale: {
+        'CooperativeGesturesHandler.WindowsHelpText':
+          'Scroll untuk lanjut • Ctrl + scroll untuk zoom',
+        'CooperativeGesturesHandler.MacHelpText':
+          'Scroll untuk lanjut • ⌘ + scroll untuk zoom',
+        'CooperativeGesturesHandler.MobileHelpText':
+          'Geser 1 jari untuk scroll • 2 jari untuk peta',
+      },
       attributionControl: { compact: true },
     })
+    const handleLoad = () => instance.resize()
+    instance.on('load', handleLoad)
     setMap(instance)
     return () => {
+      instance.off('load', handleLoad)
       instance.remove()
       setMap(null)
     }
@@ -69,6 +94,13 @@ export function OfficeMap({ children, className, viewport }: OfficeMapProps) {
   )
 }
 const MarkerContext = createContext<{ marker: MapLibreGL.Marker } | null>(null)
+
+// One open card per map at a time.
+const openClosers = new WeakMap<MapLibreGL.Map, Set<() => void>>()
+
+// Hidden staging keeps content measurable.
+const STAGED_HIDDEN_CSS =
+  'position:absolute;top:0;left:0;visibility:hidden;pointer-events:none;'
 
 type OfficeMarkerProps = {
   longitude: number
@@ -94,7 +126,6 @@ export function OfficeMarker({
             element: document.createElement('div'),
           }).setLngLat([longitude, latitude]),
     // Fixed coords per marker instance.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   )
 
@@ -132,12 +163,15 @@ export function MarkerPin({
 export function MarkerCard({
   children,
   className,
+  popupClassName,
 }: {
   children: ReactNode
   className?: string
+  popupClassName?: string
 }) {
   const { map } = useContext(MapContext)
   const markerContext = useContext(MarkerContext)
+  const [openCount, setOpenCount] = useState(0)
   const container = useMemo(
     () =>
       typeof document === 'undefined' ? null : document.createElement('div'),
@@ -145,38 +179,70 @@ export function MarkerCard({
   )
   const popup = useMemo(
     () =>
-      new MapLibreGL.Popup({ offset: 16, closeButton: false }).setMaxWidth(
-        'none',
-      ),
-    [],
+      new MapLibreGL.Popup({
+        offset: 18,
+        closeButton: false,
+        closeOnClick: false,
+        className: popupClassName,
+      }).setMaxWidth('none'),
+    [popupClassName],
   )
 
   useEffect(() => {
     if (!map || !markerContext || !container) return
     const { marker } = markerContext
     popup.setDOMContent(container)
-    const open = () => popup.setLngLat(marker.getLngLat()).addTo(map)
-    const close = () => popup.remove()
+    const staged = container.parentElement
+    // Stage hidden so anchor measures real size.
+    if (staged instanceof HTMLElement) {
+      staged.style.cssText = STAGED_HIDDEN_CSS
+      map.getContainer().appendChild(staged)
+    }
+    // Click toggles; map click and Escape close.
+    const close = () => {
+      if (staged instanceof HTMLElement)
+        staged.style.cssText = STAGED_HIDDEN_CSS
+      popup.remove()
+    }
+    const closers = openClosers.get(map) ?? new Set<() => void>()
+    openClosers.set(map, closers)
+    closers.add(close)
+    const toggle = () => {
+      if (popup.isOpen()) {
+        close()
+        return
+      }
+      closers.forEach((fn) => {
+        if (fn !== close) fn()
+      })
+      setOpenCount((count) => count + 1)
+      if (staged instanceof HTMLElement) staged.style.cssText = ''
+      popup.setLngLat(marker.getLngLat()).addTo(map)
+    }
+    const closeOnMapClick = (event: MapLibreGL.MapMouseEvent) => {
+      const target = event.originalEvent.target as HTMLElement | null
+      if (target?.closest('.maplibregl-marker')) return
+      close()
+    }
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') close()
+    }
     const element = marker.getElement()
-    element.addEventListener('click', open)
-    element.addEventListener('mouseenter', open)
-    element.addEventListener('mouseleave', close)
+    element.addEventListener('click', toggle)
+    map.on('click', closeOnMapClick)
+    document.addEventListener('keydown', closeOnEscape)
     return () => {
-      element.removeEventListener('click', open)
-      element.removeEventListener('mouseenter', open)
-      element.removeEventListener('mouseleave', close)
+      closers.delete(close)
+      element.removeEventListener('click', toggle)
+      map.off('click', closeOnMapClick)
+      document.removeEventListener('keydown', closeOnEscape)
       popup.remove()
     }
   }, [container, map, markerContext, popup])
 
   if (!container) return null
   return createPortal(
-    <div
-      className={cn(
-        'pointer-events-auto w-64 overflow-hidden rounded-xl bg-background shadow-xl',
-        className,
-      )}
-    >
+    <div key={openCount} className={cn('pointer-events-auto', className)}>
       {children}
     </div>,
     container,

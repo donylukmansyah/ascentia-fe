@@ -23,6 +23,10 @@ export const aboutLocationsContent = {
     center: [117.5, -2.5] as [number, number],
     zoom: 4.2,
   },
+  mobileViewport: {
+    center: [115, -1.6] as [number, number],
+    zoom: 3.6,
+  },
   offices: [
     {
       id: 'jakarta',
