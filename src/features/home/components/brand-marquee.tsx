@@ -4,7 +4,7 @@ interface BrandMarqueeProps {
   title?: string
 }
 
-// 3x duplicate per block ensures track width always exceeds any wide screen
+// 3x dupes keep track wider than screen.
 const marqueeItems = [...brandPartners, ...brandPartners, ...brandPartners]
 
 export function BrandMarquee({

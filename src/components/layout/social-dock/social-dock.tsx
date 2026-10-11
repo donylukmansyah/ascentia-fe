@@ -24,9 +24,7 @@ const glyphClass = 'size-5'
 
 const SCROLL_THRESHOLD = 300
 
-/* Instagram glyph drawn inline: lucide-react in this repo no longer ships
-   brand icons, so the official outline mark is inlined instead of adding a
-   dependency for a single icon. */
+// Inline IG glyph: no brand icons in lucide, skip extra dep.
 function InstagramIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -75,7 +73,7 @@ const SOCIAL_ITEMS: SocialDockItem[] = [
   },
 ]
 
-/* Top offset of each drop inside the stack, index 0 is the topmost drop. */
+// Drop offset, index 0 = top.
 const dropTop = (index: number) =>
   STACK_HEIGHT - TRIGGER_SIZE - (index + 1) * (DROP_SIZE + GAP)
 
@@ -105,8 +103,7 @@ export function SocialDock({ className }: { className?: string }) {
   const openRef = useRef(open)
   openRef.current = open
 
-  /* Scroll-triggered visibility: the FAB pops in after scrolling past the
-     hero, and stays visible on pages too short to scroll. */
+  // FAB shows after hero, always on short pages.
   const [visible, setVisible] = useState(false)
   const visibleRef = useRef(visible)
   visibleRef.current = visible
@@ -145,7 +142,7 @@ export function SocialDock({ className }: { className?: string }) {
     })
   }, [])
 
-  /* Mount: park every drop inside the trigger, instantly. */
+  // Park drops in trigger on mount.
   useEffect(() => {
     dropRefs.current.forEach((drop) => {
       if (!drop) return
@@ -176,14 +173,14 @@ export function SocialDock({ className }: { className?: string }) {
       return
     }
 
-    /* Goo layer takes the picture; crisp drops ride the same motion. */
+    // Goo layer animates, crisp drops follow.
     setGooVisible(true)
     blobRefs.current.forEach((blob) => {
       if (blob) blob.style.opacity = '1'
     })
     if (triggerBlobRef.current) triggerBlobRef.current.style.opacity = '1'
 
-    /* Trigger swells, icon spins into a cross. */
+    // Trigger pops, icon turns to X.
     if (triggerRef.current) {
       play(
         animate(
@@ -203,7 +200,7 @@ export function SocialDock({ className }: { className?: string }) {
       )
     }
 
-    /* Drops burst out bottom-first with a pop spring, staggered. */
+    // Drops pop out bottom-first, staggered.
     SOCIAL_ITEMS.forEach((_item, i) => {
       const order = DROP_COUNT - 1 - i
       const delay = 0.03 + order * 0.055
@@ -235,7 +232,7 @@ export function SocialDock({ className }: { className?: string }) {
       }
     })
 
-    /* Hand the picture back to the crisp layer once everything lands. */
+    // Hide goo after land.
     later(0.62, () => {
       play(animate(gooRef.current!, { opacity: [1, 0] }, { duration: 0.16 }))
       later(0.16, () => setGooVisible(false))
@@ -271,7 +268,7 @@ export function SocialDock({ className }: { className?: string }) {
         )
       }
 
-      /* Top-first dive back into the trigger, then the trigger splats. */
+      // Drops dive back top-first.
       SOCIAL_ITEMS.forEach((_item, i) => {
         const delay = 0.06 + i * 0.045
         const drop = dropRefs.current[i]
@@ -332,8 +329,7 @@ export function SocialDock({ className }: { className?: string }) {
     else runOpen()
   }, [runClose, runOpen])
 
-  /* Scroll-triggered visibility: the FAB pops in after scrolling past the
-     hero, and stays visible on pages too short to scroll. */
+  // FAB shows after hero, always on short pages.
   useEffect(() => {
     let frame: number | null = null
 
@@ -425,7 +421,6 @@ export function SocialDock({ className }: { className?: string }) {
         className="relative"
         style={{ width: TRIGGER_SIZE, height: STACK_HEIGHT }}
       >
-        {/* Goo layer: draws one liquid mass while anything moves. */}
         <svg
           ref={gooRef}
           width={TRIGGER_SIZE + GOO_PAD * 2}
@@ -475,7 +470,6 @@ export function SocialDock({ className }: { className?: string }) {
           </g>
         </svg>
 
-        {/* Crisp drops. */}
         <div
           id={menuId}
           role="menu"

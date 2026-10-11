@@ -53,6 +53,12 @@
 - Static assets live in `public/` (e.g. `public/icons/flags/`, `public/brand/`).
 - If running `.output/server/index.mjs`, rebuild (`pnpm build`) after adding new files to `public/` so Nitro copies them into `.output/public/`.
 
+## Comments
+
+- // one line only. No JSDoc, no block comments.
+- Comment non-obvious why only, never obvious what.
+- Delete commented-out code. Match ecommerce-frontend: sparse notes.
+
 ## Verification
 
 - Header smoke test: `python scripts/verify-site-header.py` (requires server on `http://localhost:3000`).

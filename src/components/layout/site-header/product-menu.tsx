@@ -17,7 +17,7 @@ type ProductMenuProps = {
 }
 
 export function ProductMenu({ className, onOpenChange }: ProductMenuProps) {
-  // Non-modal menubar dropdown: interaction stays with the page, no scroll lock.
+  // Non-modal: no scroll lock.
   return (
     <DropdownMenu modal={false} onOpenChange={(open) => onOpenChange?.(open)}>
       <DropdownMenuTrigger

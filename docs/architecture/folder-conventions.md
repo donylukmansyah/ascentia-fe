@@ -215,6 +215,12 @@ routes → features → components / hooks / lib
 `components/`, `hooks/`, and `lib/` must not import from `features/` or
 `routes/`. Features may use shared modules. Routes select feature pages.
 
+## Comments
+
+- // one line only. No JSDoc, no block comments.
+- Max one short line per spot. Explain why only when code cannot show it.
+- Delete commented-out code. Example: // Pin header while dropdown open.
+
 ## Naming
 
 - Use lowercase kebab-case filenames: `product-card.tsx`.

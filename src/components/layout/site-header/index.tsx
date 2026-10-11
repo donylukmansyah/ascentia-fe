@@ -19,8 +19,7 @@ export function SiteHeader() {
   const [isProductsMenuOpen, setIsProductsMenuOpen] = useState(false)
   const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false)
   const [language, setLanguage] = useState<LanguageCode>('en')
-  // Keep the header pinned while a desktop dropdown is open so the non-modal
-  // popup never detaches from its trigger on scroll.
+  // Pin header while dropdown open.
   const mode = useStickyHeader({
     hideOffset: 320,
     paused: isDesktopDropdownOpen,

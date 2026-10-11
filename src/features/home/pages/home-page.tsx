@@ -9,7 +9,7 @@ import { FeaturedProductsSection } from '../components/featured-products-section
 import { HeroSection } from '../components/hero-section'
 import { WhoWeAreSection } from '../components/who-we-are-section'
 
-// AOS keeps a global store and listeners: init once, re-collect nodes on remount.
+// AOS init once, refresh on remount.
 let isAosInitialized = false
 
 export function HomePage() {
@@ -18,7 +18,7 @@ export function HomePage() {
       once: true,
       offset: 120,
       duration: 600,
-      // disable strips data-aos so content stays visible without motion.
+      // Keep content visible if reduced motion.
       disable: () =>
         window.matchMedia('(prefers-reduced-motion: reduce)').matches,
     })

@@ -36,7 +36,7 @@ export function LanguagePicker({
   }
 
   return (
-    // Non-modal menubar dropdown: no page scroll lock for a two-item picker.
+    // Non-modal: no scroll lock.
     <DropdownMenu modal={false} onOpenChange={(open) => onOpenChange?.(open)}>
       <DropdownMenuTrigger
         className={cn(
