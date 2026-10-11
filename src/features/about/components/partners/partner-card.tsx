@@ -1,13 +1,14 @@
 import { cn } from 'cn'
 
-import type { AboutPartner } from '../constants/partners'
-import { CircleArrow } from './circle-arrow'
+import type { AboutPartner } from '../../constants/partners'
+import { CircleArrow } from '../circle-arrow'
 
 interface AboutPartnerCardProps {
   partner: AboutPartner
   active?: boolean
   onSelect?: () => void
   className?: string
+  tabIndex?: number
 }
 
 export function AboutPartnerCard({
@@ -15,18 +16,20 @@ export function AboutPartnerCard({
   active = false,
   onSelect,
   className,
+  tabIndex,
 }: AboutPartnerCardProps) {
   return (
     <button
       type="button"
       onClick={onSelect}
+      tabIndex={tabIndex}
       aria-pressed={active}
       aria-label={`Show ${partner.name} details`}
       className={cn(
-        'flex min-h-[380px] w-full cursor-pointer flex-col justify-between rounded-[20px] p-6 text-left transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:min-h-[420px] sm:p-8',
+        'flex min-h-[320px] w-full cursor-pointer flex-col justify-between rounded-lg p-6 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:p-7 lg:min-h-[360px]',
         active
-          ? 'bg-gradient-to-br from-[#288AC6] to-[#255DA2] text-white shadow-[0_18px_40px_-20px_rgb(37_93_162/0.55)]'
-          : 'border border-border/60 bg-white text-foreground shadow-[0_2px_8px_-6px_rgb(0_0_0/0.12)]',
+          ? 'bg-gradient-to-br from-[#288AC6] to-[#255DA2] text-white shadow-[0_16px_30px_-18px_rgb(15_23_42/0.35)]'
+          : 'border border-black/5 bg-white text-foreground shadow-lg',
         className,
       )}
     >
@@ -38,7 +41,7 @@ export function AboutPartnerCard({
             loading="lazy"
             decoding="async"
             draggable={false}
-            className="h-8 w-auto object-contain"
+            className="h-7 w-auto object-contain"
           />
           <span className="text-lg font-bold tracking-tight">
             {partner.name}

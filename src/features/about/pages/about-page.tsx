@@ -1,8 +1,11 @@
 import { AboutCompanySection } from '../components/company-section'
+import { AboutCustomersSection } from '../components/customers-section'
+import { AboutGallerySection } from '../components/gallery/gallery-section'
 import { AboutHeroSection } from '../components/hero-section'
-import { AboutLocationsSection } from '../components/locations-section'
-import { AboutPartnersSection } from '../components/partners-section'
-import { AboutVisionMissionSection } from '../components/vision-mission-section'
+import { AboutLocationsSection } from '../components/locations/locations-section'
+import { AboutPartnersSection } from '../components/partners/partners-section'
+import { AboutStatsBand } from '../components/stats-band'
+import { AboutVisionMissionSection } from '../components/vision-mission/vision-mission-section'
 
 export function AboutPage() {
   return (
@@ -12,6 +15,9 @@ export function AboutPage() {
       <AboutVisionMissionSection />
       <AboutLocationsSection />
       <AboutPartnersSection />
+      <AboutCustomersSection />
+      <AboutStatsBand />
+      <AboutGallerySection />
     </>
   )
 }

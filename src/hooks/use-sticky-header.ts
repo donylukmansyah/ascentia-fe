@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react'
 export type HeaderVisibility =
   'transparent' | 'visible' | 'hidden' | 'hidden-initial'
 
-// Require sustained upward travel so short mobile scroll corrections don't reveal the header.
+// Need sustained upward scroll to reveal.
 const UPWARD_REVEAL_THRESHOLD = 32
 
 type UseStickyHeaderOptions = {
   topOffset?: number
   hideOffset?: number
   tolerance?: number
-  // While true the header keeps its current visibility (e.g. a dropdown is open).
+  // Pause keeps visibility (dropdown open).
   paused?: boolean
 }
 

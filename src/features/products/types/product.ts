@@ -1,7 +1,4 @@
-/**
- * Frontend product model for catalog cards and recommendation rails.
- * Aligns with WooCommerce Store API and WordPress ACF product fields.
- */
+// Frontend product model: Woo Store API + WP ACF fields.
 export interface ProductCardData {
   id: string
   slug: string
@@ -12,6 +9,3 @@ export interface ProductCardData {
   application?: string
   shortDescription?: string
 }
-
-// Backward-compatibility alias
-export type Product = ProductCardData

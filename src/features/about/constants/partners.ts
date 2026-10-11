@@ -7,6 +7,8 @@ export interface AboutPartner {
   logoAlt: string
   image: string
   imageAlt: string
+  imageWidth: number
+  imageHeight: number
 }
 
 export const aboutPartnersContent = {
@@ -29,6 +31,8 @@ export const aboutPartnersContent = {
       logoAlt: 'XRF Scientific logo',
       image: '/images/about-us/foto-5.webp',
       imageAlt: 'XRF Scientific exhibition booth with visitors',
+      imageWidth: 921,
+      imageHeight: 614,
     },
     {
       id: 'oreas',
@@ -40,6 +44,8 @@ export const aboutPartnersContent = {
       logoAlt: 'OREAS logo',
       image: '/images/about-us/foto-3.webp',
       imageAlt: 'Grand opening event of Dynatech International Kendari branch',
+      imageWidth: 1043,
+      imageHeight: 540,
     },
     {
       id: 'specac',
@@ -51,6 +57,8 @@ export const aboutPartnersContent = {
       logoAlt: 'Specac logo',
       image: '/images/about-us/foto-6.webp',
       imageAlt: 'Ascentia team group photo at a laboratory training event',
+      imageWidth: 962,
+      imageHeight: 641,
     },
     {
       id: 'mettler-toledo',
@@ -62,6 +70,8 @@ export const aboutPartnersContent = {
       logoAlt: 'Mettler Toledo logo',
       image: '/images/about-us/foto-2.webp',
       imageAlt: 'Ascentia reception area with company logo',
+      imageWidth: 663,
+      imageHeight: 717,
     },
     {
       id: 'king-yosion',
@@ -73,6 +83,8 @@ export const aboutPartnersContent = {
       logoAlt: 'King Yosion logo',
       image: '/images/about-us/foto-1.webp',
       imageAlt: 'Ascentia meeting room with presentation setup',
+      imageWidth: 498,
+      imageHeight: 540,
     },
     {
       id: 'brammer',
@@ -84,6 +96,8 @@ export const aboutPartnersContent = {
       logoAlt: 'Brammer Standard logo',
       image: '/images/about-us/foto-4.webp',
       imageAlt: 'Ascentia team meeting with a client in a meeting room',
+      imageWidth: 547,
+      imageHeight: 590,
     },
   ] as AboutPartner[],
 } as const

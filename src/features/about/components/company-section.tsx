@@ -1,3 +1,5 @@
+import { Reveal } from '#/components/ui/reveal'
+
 import { aboutCompanyContent } from '../constants/company'
 
 interface AboutCompanySectionProps {
@@ -18,7 +20,10 @@ export function AboutCompanySection({
       className="bg-background py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-12 px-5 sm:px-8 lg:flex-row lg:items-center lg:gap-16 lg:px-12">
-        <div className="relative w-full pb-10 sm:pb-14 lg:max-w-[520px] lg:shrink-0">
+        <Reveal
+          variant="right"
+          className="relative w-full pb-10 sm:pb-14 lg:max-w-[520px] lg:shrink-0"
+        >
           <div className="relative w-[80%]">
             <img
               src={aboutCompanyContent.mainImage.src}
@@ -47,9 +52,9 @@ export function AboutCompanySection({
               />
             </div>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="w-full max-w-2xl">
+        <Reveal variant="left" delay={0.1} className="w-full max-w-2xl">
           <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
             {eyebrow}
           </p>
@@ -67,7 +72,7 @@ export function AboutCompanySection({
               {paragraph}
             </p>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   )

@@ -60,11 +60,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
-        <noscript>
-          <style>
-            {'[data-aos]{opacity:1!important;transform:none!important}'}
-          </style>
-        </noscript>
       </head>
       <body>
         {children}

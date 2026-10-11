@@ -1,6 +1,7 @@
 import { ArrowUpRight, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 
+import { Reveal } from '#/components/ui/reveal'
 import { cn } from '#/lib/utils'
 
 import { ContactForm } from './contact-form'
@@ -42,7 +43,7 @@ export function ContactPanel({ className }: ContactPanelProps) {
             +
           </span>
 
-          <div data-aos="fade-right" className="p-7 sm:p-10 lg:px-12 lg:py-11">
+          <Reveal variant="right" className="p-7 sm:p-10 lg:px-12 lg:py-11">
             <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
               Contact Us
             </p>
@@ -129,15 +130,15 @@ export function ContactPanel({ className }: ContactPanelProps) {
                 aria-hidden="true"
               />
             </Link>
-          </div>
+          </Reveal>
 
-          <div
-            data-aos="fade-left"
-            data-aos-delay="150"
+          <Reveal
+            variant="left"
+            delay={0.15}
             className="border-t border-border bg-background p-7 sm:p-10 lg:border-t-0 lg:border-l lg:px-12 lg:py-11"
           >
             <ContactForm className="mx-auto w-full max-w-sm" />
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

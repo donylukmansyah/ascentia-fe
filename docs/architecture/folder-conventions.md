@@ -215,6 +215,14 @@ routes → features → components / hooks / lib
 `components/`, `hooks/`, and `lib/` must not import from `features/` or
 `routes/`. Features may use shared modules. Routes select feature pages.
 
+## Comments
+
+- // one line only. Max 60 chars. No JSDoc, no /* */.
+- Why-only when code cannot show it. Never restate obvious animation/layout.
+- One note per spot, never duplicate same reason in one file.
+- Delete commented-out code, TODO, dead aliases. Keep: // Pin header while dropdown open. Drop: // Drops pop out bottom-first.
+- Audit 2026-10-11: 20 notes in 9 files to 12; social-dock 10 to 3, drop dead Product alias, drop CSS section header.
+
 ## Naming
 
 - Use lowercase kebab-case filenames: `product-card.tsx`.
