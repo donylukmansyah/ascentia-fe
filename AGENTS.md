@@ -62,4 +62,4 @@
 
 ## Verification
 
-- Header smoke test: `python scripts/verify-site-header.py` (requires server on `http://localhost:3000`).
+- Header smoke test: `python scripts/verify/verify-site-header.py` (requires server on `http://localhost:3000`).
