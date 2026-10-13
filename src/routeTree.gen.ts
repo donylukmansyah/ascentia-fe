@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogsRouteImport } from './routes/blogs'
+import { Route as NewsRouteImport } from './routes/news'
+import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogsRoute = BlogsRouteImport.update({
+  id: '/blogs',
+  path: '/blogs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
+  id: '/articles/$slug',
+  path: '/articles/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/blogs': typeof BlogsRoute
+  '/news': typeof NewsRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/blogs': typeof BlogsRoute
+  '/news': typeof NewsRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/blogs': typeof BlogsRoute
+  '/news': typeof NewsRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/blogs' | '/news' | '/articles/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/blogs' | '/news' | '/articles/$slug'
+  id: '__root__' | '/' | '/blogs' | '/news' | '/articles/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BlogsRoute: typeof BlogsRoute
+  NewsRoute: typeof NewsRoute
+  ArticlesSlugRoute: typeof ArticlesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,21 +78,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blogs': {
+      id: '/blogs'
+      path: '/blogs'
+      fullPath: '/blogs'
+      preLoaderRoute: typeof BlogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles/$slug': {
+      id: '/articles/$slug'
+      path: '/articles/$slug'
+      fullPath: '/articles/$slug'
+      preLoaderRoute: typeof ArticlesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BlogsRoute: BlogsRoute,
+  NewsRoute: NewsRoute,
+  ArticlesSlugRoute: ArticlesSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
