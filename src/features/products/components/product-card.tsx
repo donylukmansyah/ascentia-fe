@@ -1,4 +1,3 @@
-import type { ComponentProps } from 'react'
 import { Link } from '@tanstack/react-router'
 import { ArrowUpRight, Box } from 'lucide-react'
 
@@ -7,15 +6,10 @@ import type { ProductCardData } from '../types/product'
 
 export interface ProductCardProps {
   product: ProductCardData
-  to?: ComponentProps<typeof Link>['to']
   className?: string
 }
 
-export function ProductCard({
-  product,
-  to = '/products',
-  className,
-}: ProductCardProps) {
+export function ProductCard({ product, className }: ProductCardProps) {
   return (
     <article
       aria-label={product.name}
@@ -31,6 +25,7 @@ export function ProductCard({
             alt={product.name}
             loading="lazy"
             decoding="async"
+            draggable={false}
             className="h-[84%] w-[84%] object-contain transition-transform duration-500 ease-out group-hover:scale-105 motion-reduce:transition-none"
           />
         ) : (
@@ -43,14 +38,16 @@ export function ProductCard({
         )}
       </div>
 
-      <div className="flex flex-1 flex-col justify-between p-4">
-        <div>
+      <div className="flex min-w-0 flex-1 flex-col justify-between p-4">
+        <div className="min-w-0">
           <p className="text-[10px] font-extrabold tracking-[0.1em] text-primary uppercase sm:text-[11px]">
             {product.brand}
           </p>
-          <h3 className="mt-2 text-base font-semibold leading-[1.15] tracking-[-0.025em] text-foreground transition-colors group-hover:text-primary">
+          <h3 className="mt-2 line-clamp-2 min-h-[2.3em] text-base font-semibold break-words leading-[1.15] tracking-[-0.025em] text-foreground transition-colors group-hover:text-primary">
             <Link
-              to={to}
+              to="/products/$slug"
+              params={{ slug: product.slug }}
+              title={product.name}
               className="before:absolute before:inset-0 focus-visible:outline-none"
             >
               {product.name}
