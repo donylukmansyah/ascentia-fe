@@ -15,6 +15,9 @@ import { Route as BlogsRouteImport } from './routes/blogs'
 import { Route as ContactUsRouteImport } from './routes/contact-us'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
+import { Route as ProductsIndexRouteImport } from './routes/products/index'
+import { Route as ProductsSlugRouteImport } from './routes/products/$slug'
 import { Route as ProductsApplicationsRouteImport } from './routes/products/applications'
 import { Route as ProductsBrandsRouteImport } from './routes/products/brands'
 import { Route as ProductsTypesRouteImport } from './routes/products/types'
@@ -49,6 +52,21 @@ const ProductsRoute = ProductsRouteImport.update({
   path: '/products',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
+  id: '/articles/$slug',
+  path: '/articles/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsIndexRoute = ProductsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProductsRoute,
+} as any)
+const ProductsSlugRoute = ProductsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ProductsRoute,
+} as any)
 const ProductsApplicationsRoute = ProductsApplicationsRouteImport.update({
   id: '/applications',
   path: '/applications',
@@ -72,9 +90,12 @@ export interface FileRoutesByFullPath {
   '/contact-us': typeof ContactUsRoute
   '/news': typeof NewsRoute
   '/products': typeof ProductsRouteWithChildren
+  '/articles/$slug': typeof ArticlesSlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
   '/products/applications': typeof ProductsApplicationsRoute
   '/products/brands': typeof ProductsBrandsRoute
   '/products/types': typeof ProductsTypesRoute
+  '/products/': typeof ProductsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -82,10 +103,12 @@ export interface FileRoutesByTo {
   '/blogs': typeof BlogsRoute
   '/contact-us': typeof ContactUsRoute
   '/news': typeof NewsRoute
-  '/products': typeof ProductsRouteWithChildren
+  '/articles/$slug': typeof ArticlesSlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
   '/products/applications': typeof ProductsApplicationsRoute
   '/products/brands': typeof ProductsBrandsRoute
   '/products/types': typeof ProductsTypesRoute
+  '/products': typeof ProductsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,9 +118,12 @@ export interface FileRoutesById {
   '/contact-us': typeof ContactUsRoute
   '/news': typeof NewsRoute
   '/products': typeof ProductsRouteWithChildren
+  '/articles/$slug': typeof ArticlesSlugRoute
+  '/products/$slug': typeof ProductsSlugRoute
   '/products/applications': typeof ProductsApplicationsRoute
   '/products/brands': typeof ProductsBrandsRoute
   '/products/types': typeof ProductsTypesRoute
+  '/products/': typeof ProductsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -108,9 +134,12 @@ export interface FileRouteTypes {
     | '/contact-us'
     | '/news'
     | '/products'
+    | '/articles/$slug'
+    | '/products/$slug'
     | '/products/applications'
     | '/products/brands'
     | '/products/types'
+    | '/products/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -118,10 +147,12 @@ export interface FileRouteTypes {
     | '/blogs'
     | '/contact-us'
     | '/news'
-    | '/products'
+    | '/articles/$slug'
+    | '/products/$slug'
     | '/products/applications'
     | '/products/brands'
     | '/products/types'
+    | '/products'
   id:
     | '__root__'
     | '/'
@@ -130,9 +161,12 @@ export interface FileRouteTypes {
     | '/contact-us'
     | '/news'
     | '/products'
+    | '/articles/$slug'
+    | '/products/$slug'
     | '/products/applications'
     | '/products/brands'
     | '/products/types'
+    | '/products/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -142,6 +176,7 @@ export interface RootRouteChildren {
   ContactUsRoute: typeof ContactUsRoute
   NewsRoute: typeof NewsRoute
   ProductsRoute: typeof ProductsRouteWithChildren
+  ArticlesSlugRoute: typeof ArticlesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -188,6 +223,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/articles/$slug': {
+      id: '/articles/$slug'
+      path: '/articles/$slug'
+      fullPath: '/articles/$slug'
+      preLoaderRoute: typeof ArticlesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/': {
+      id: '/products/'
+      path: '/'
+      fullPath: '/products/'
+      preLoaderRoute: typeof ProductsIndexRouteImport
+      parentRoute: typeof ProductsRoute
+    }
+    '/products/$slug': {
+      id: '/products/$slug'
+      path: '/$slug'
+      fullPath: '/products/$slug'
+      preLoaderRoute: typeof ProductsSlugRouteImport
+      parentRoute: typeof ProductsRoute
+    }
     '/products/applications': {
       id: '/products/applications'
       path: '/applications'
@@ -213,15 +269,19 @@ declare module '@tanstack/react-router' {
 }
 
 interface ProductsRouteChildren {
+  ProductsSlugRoute: typeof ProductsSlugRoute
   ProductsApplicationsRoute: typeof ProductsApplicationsRoute
   ProductsBrandsRoute: typeof ProductsBrandsRoute
   ProductsTypesRoute: typeof ProductsTypesRoute
+  ProductsIndexRoute: typeof ProductsIndexRoute
 }
 
 const ProductsRouteChildren: ProductsRouteChildren = {
+  ProductsSlugRoute: ProductsSlugRoute,
   ProductsApplicationsRoute: ProductsApplicationsRoute,
   ProductsBrandsRoute: ProductsBrandsRoute,
   ProductsTypesRoute: ProductsTypesRoute,
+  ProductsIndexRoute: ProductsIndexRoute,
 }
 
 const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
@@ -235,16 +295,8 @@ const rootRouteChildren: RootRouteChildren = {
   ContactUsRoute: ContactUsRoute,
   NewsRoute: NewsRoute,
   ProductsRoute: ProductsRouteWithChildren,
+  ArticlesSlugRoute: ArticlesSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

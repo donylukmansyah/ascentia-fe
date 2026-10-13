@@ -164,10 +164,12 @@ export function MarkerCard({
   children,
   className,
   popupClassName,
+  defaultOpen = false,
 }: {
   children: ReactNode
   className?: string
   popupClassName?: string
+  defaultOpen?: boolean
 }) {
   const { map } = useContext(MapContext)
   const markerContext = useContext(MarkerContext)
@@ -231,6 +233,9 @@ export function MarkerCard({
     element.addEventListener('click', toggle)
     map.on('click', closeOnMapClick)
     document.addEventListener('keydown', closeOnEscape)
+    if (defaultOpen) {
+      toggle()
+    }
     return () => {
       closers.delete(close)
       element.removeEventListener('click', toggle)
