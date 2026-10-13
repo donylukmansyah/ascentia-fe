@@ -17,9 +17,9 @@ interface WhoWeAreSectionProps {
 }
 
 const DEFAULT_IMAGE = '/images/homepage/assets-home.webp'
-const DEFAULT_HEADING = 'Who We Are'
+const DEFAULT_HEADING = 'Engineered for Analytical Precision'
 const DEFAULT_DESCRIPTION =
-  'PT Ascentia Arsya Analitika delivers analytical instruments and laboratory equipment across Indonesia, combining trusted global brands, technical expertise, application training, and continuous support for research, education, mining, and industry.'
+  'PT Ascentia Arsya Analitika is the specialized analytical instrumentation division of PT Dynatech International Group. Backed by two decades of engineering heritage and strategic hubs in Jakarta and Kendari, we partner with world leaders including XRF Scientific and OREAS to deliver reliable sample preparation, certified reference materials, and dedicated on-site engineering support across Indonesia.'
 
 export function WhoWeAreSection({
   image = DEFAULT_IMAGE,
@@ -79,7 +79,7 @@ export function WhoWeAreSection({
           </p>
           <h2
             id="who-we-are-heading"
-            className="mt-2 text-[clamp(2rem,3.4vw,3rem)] leading-[1.04] font-bold tracking-[-0.045em] text-white"
+            className="mt-2 text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-white"
           >
             {heading}
           </h2>
