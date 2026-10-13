@@ -1,9 +1,9 @@
 export const aboutCompanyContent = {
-  eyebrow: 'Established in 2022',
-  title: 'A practical partner for laboratories and industry',
+  eyebrow: 'Dynatech International Group Heritage',
+  title: 'Dedicated Analytical Instrumentation Partner for Indonesian Industry',
   paragraphs: [
-    'As part of the Dynatech International Group, Ascentia brings nearly two decades of distribution experience into analytical instrumentation and laboratory equipment.',
-    'We work close to the application: helping laboratories and industrial teams select the right solution, prepare samples reliably, and sustain dependable analytical work.',
+    'Established in 2022 as part of the PT Dynatech International Group, PT Ascentia Arsya Analitika brings nearly two decades of engineering and distribution heritage to analytical laboratories across Indonesia.',
+    'From our headquarters in Jakarta and regional support facility in Kendari, we deliver specialized sample preparation systems, X-ray technologies, and certified reference materials (CRMs) to mining, cement, petrochemical, and academic research leaders.',
   ],
   mainImage: {
     src: '/images/about-us/foto-4.webp',

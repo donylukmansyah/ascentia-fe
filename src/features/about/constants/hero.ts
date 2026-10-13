@@ -1,7 +1,6 @@
 export const aboutHeroContent = {
-  eyebrow: 'About Us',
   title: 'About Us',
   description:
-    'Analytical instruments, trusted materials, and technical support for the work behind reliable results.',
+    'Innovative analytical technologies and first-rate support for laboratories and industry.',
   image: '/images/homepage/assets-home.webp',
 } as const

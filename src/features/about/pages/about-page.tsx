@@ -10,7 +10,7 @@ import { AboutVisionMissionSection } from '../components/vision-mission/vision-m
 export function AboutPage() {
   return (
     <>
-      <AboutHeroSection imagePosition="center 90px " />
+      <AboutHeroSection imagePosition="center 70px " />
       <AboutCompanySection />
       <AboutVisionMissionSection />
       <AboutLocationsSection />
