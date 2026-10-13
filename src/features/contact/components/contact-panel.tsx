@@ -8,11 +8,21 @@ import { ContactForm } from './contact-form'
 
 interface ContactPanelProps {
   className?: string
+  id?: string
+  officeHash?: string
+  showPageLink?: boolean
 }
 
-export function ContactPanel({ className }: ContactPanelProps) {
+export function ContactPanel({
+  className,
+  id,
+  officeHash,
+  showPageLink = true,
+}: ContactPanelProps) {
   return (
     <section
+      id={id}
+      tabIndex={id ? -1 : undefined}
       aria-labelledby="contact-panel-heading"
       className={cn('overflow-x-clip', className)}
     >
@@ -51,11 +61,12 @@ export function ContactPanel({ className }: ContactPanelProps) {
               id="contact-panel-heading"
               className="mt-2 max-w-md text-[clamp(2rem,3.4vw,3rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
             >
-              Tell us what you need to analyse.
+              Consult Our Analytical Application Specialists
             </h2>
             <p className="mt-4 max-w-md text-sm leading-relaxed font-normal text-description-text sm:text-base">
-              Share your application or challenge. Our team will help identify
-              the next practical step.
+              Share your sample preparation, XRF analysis, or reference material
+              specifications. Our engineers in Jakarta and Kendari will
+              recommend the exact instrument and workflow.
             </p>
 
             <div className="mt-8 grid gap-4 border-t border-border pt-4 sm:grid-cols-2">
@@ -105,7 +116,8 @@ export function ContactPanel({ className }: ContactPanelProps) {
               </a>
               <Link
                 to="/contact-us"
-                className="group flex min-h-11 items-center gap-3 text-sm text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                hash={officeHash}
+                className="group flex min-h-11 cursor-pointer items-center gap-3 text-sm text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
               >
                 <span className="grid size-10 shrink-0 place-items-center bg-primary/10 text-primary">
                   <MapPin className="size-4" aria-hidden="true" />
@@ -120,24 +132,29 @@ export function ContactPanel({ className }: ContactPanelProps) {
               </Link>
             </div>
 
-            <Link
-              to="/contact-us"
-              className="mt-7 inline-flex items-center gap-1 text-[10px] font-medium tracking-[-0.01em] text-foreground underline underline-offset-3 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-            >
-              Open full contact page
-              <ArrowUpRight
-                className="size-3 text-primary"
-                aria-hidden="true"
-              />
-            </Link>
+            {showPageLink ? (
+              <Link
+                to="/contact-us"
+                className="mt-7 inline-flex cursor-pointer items-center gap-1 text-[10px] font-medium tracking-[-0.01em] text-foreground underline underline-offset-3 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+              >
+                Open full contact page
+                <ArrowUpRight
+                  className="size-3 text-primary"
+                  aria-hidden="true"
+                />
+              </Link>
+            ) : null}
           </Reveal>
 
           <Reveal
             variant="left"
             delay={0.15}
-            className="border-t border-border bg-background p-7 sm:p-10 lg:border-t-0 lg:border-l lg:px-12 lg:py-11"
+            className={cn(
+              'border-t border-border p-7 sm:p-10 lg:border-t-0 lg:border-l lg:px-12 lg:py-11',
+              showPageLink ? 'bg-background' : 'bg-[#F7F9FC]',
+            )}
           >
-            <ContactForm className="mx-auto w-full max-w-sm" />
+            <ContactForm className="w-full" />
           </Reveal>
         </div>
       </div>

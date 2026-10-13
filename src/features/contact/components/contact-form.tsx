@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react'
+import { useState } from 'react'
 
 import { cn } from '#/lib/utils'
 
@@ -7,10 +8,15 @@ interface ContactFormProps {
 }
 
 export function ContactForm({ className }: ContactFormProps) {
+  const [showDeliveryNotice, setShowDeliveryNotice] = useState(false)
+
   return (
     <form
       className={cn('grid content-start gap-4', className)}
-      onSubmit={(event) => event.preventDefault()}
+      onSubmit={(event) => {
+        event.preventDefault()
+        setShowDeliveryNotice(true)
+      }}
     >
       <label className="grid gap-1.5 text-[10px] font-bold tracking-[0.08em] text-foreground/75 uppercase">
         Name
@@ -55,6 +61,19 @@ export function ContactForm({ className }: ContactFormProps) {
           />
         </span>
       </button>
+      {showDeliveryNotice ? (
+        <p role="status" className="text-sm leading-relaxed text-foreground">
+          Your message has not been sent. Online enquiries are not connected
+          yet. Please email{' '}
+          <a
+            href="mailto:sales@ascentia.co.id"
+            className="cursor-pointer font-medium underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+          >
+            sales@ascentia.co.id
+          </a>
+          . Your message remains above for copying.
+        </p>
+      ) : null}
     </form>
   )
 }
