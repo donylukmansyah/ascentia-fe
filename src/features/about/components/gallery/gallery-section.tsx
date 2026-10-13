@@ -30,7 +30,7 @@ export function AboutGallerySection({
             </p>
             <h2
               id="about-gallery-heading"
-              className="mt-2 text-[clamp(2rem,3.4vw,3rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
+              className="mt-2 text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
             >
               {title}
             </h2>

@@ -45,6 +45,9 @@ export function AboutPartnersSection({
   const leftGlobalRef = useRef(count)
   leftGlobalRef.current = leftGlobal
   const flightRef = useRef<number | null>(null)
+  const dragStartRef = useRef<{ x: number; y: number } | null>(null)
+  const dragMovedRef = useRef(false)
+  const suppressClickRef = useRef(false)
 
   const active = partners[((leftGlobal % count) + count) % count]
   const [photoBaseId, setPhotoBaseId] = useState(active.id)
@@ -171,9 +174,11 @@ export function AboutPartnersSection({
       const start = leftOf(middleStart) - pad
       const setWidth = leftOf(thirdStart) - leftOf(middleStart)
       if (setWidth <= 0) return
-      // Wrap across copies keeps the loop seamless.
-      // Skip during smooth glides to avoid mid-flight jumps.
-      if (!animatingRef.current) {
+      // Desktop wraps across copies; mobile keeps native snap stable.
+      if (
+        window.matchMedia('(min-width: 768px)').matches &&
+        !animatingRef.current
+      ) {
         if (container.scrollLeft < start) container.scrollLeft += setWidth
         else if (container.scrollLeft >= start + setWidth)
           container.scrollLeft -= setWidth
@@ -248,14 +253,57 @@ export function AboutPartnersSection({
     setCycle((c) => c + 1)
   }, [cancelGlide])
 
-  const handleGrab = useCallback(() => {
-    takeover()
-    setAutoPaused(true)
-  }, [takeover])
+  const handleGrab = useCallback(
+    (event: { clientX: number; clientY: number }) => {
+      dragStartRef.current = { x: event.clientX, y: event.clientY }
+      dragMovedRef.current = false
+      takeover()
+      setAutoPaused(true)
+    },
+    [takeover],
+  )
+
+  const handleMove = useCallback(
+    (event: { clientX: number; clientY: number }) => {
+      const start = dragStartRef.current
+      if (!start || dragMovedRef.current) return
+      const drift = Math.max(
+        Math.abs(event.clientX - start.x),
+        Math.abs(event.clientY - start.y),
+      )
+      if (drift > 8) dragMovedRef.current = true
+    },
+    [],
+  )
 
   const handleRelease = useCallback(() => {
+    dragStartRef.current = null
+    if (dragMovedRef.current) {
+      suppressClickRef.current = true
+      setCycle((c) => c + 1)
+    }
     setAutoPaused(false)
   }, [])
+
+  const handleClickCapture = useCallback(
+    (event: { preventDefault: () => void; stopPropagation: () => void }) => {
+      if (!suppressClickRef.current) return
+      // Dragged pointer must not trigger card select.
+      suppressClickRef.current = false
+      event.preventDefault()
+      event.stopPropagation()
+    },
+    [],
+  )
+
+  const handleWheel = useCallback(
+    (event: { deltaX: number; deltaY: number }) => {
+      if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return
+      // Vertical page scroll passes through untouched.
+      takeover()
+    },
+    [takeover],
+  )
 
   useEffect(() => {
     partners.forEach((partner) => {
@@ -279,6 +327,8 @@ export function AboutPartnersSection({
     const target = options.reduce((a, b) =>
       Math.abs(b - base) < Math.abs(a - base) ? b : a,
     )
+    // Active card stays put, no micro-glide.
+    if (target === base) return
     flightRef.current = target
     scrollToGlobal(target, smoothBehavior(), true)
     poke()
@@ -313,7 +363,7 @@ export function AboutPartnersSection({
             </p>
             <h2
               id="about-partners-heading"
-              className="mt-2 text-[clamp(2rem,3.4vw,3rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
+              className="mt-2 text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
             >
               {title}
             </h2>
@@ -351,20 +401,22 @@ export function AboutPartnersSection({
                 ref={scrollContainerRef}
                 onScroll={handleScroll}
                 onPointerDown={handleGrab}
-                onWheel={takeover}
+                onPointerMove={handleMove}
+                onWheel={handleWheel}
                 onKeyDown={takeover}
                 onPointerUp={handleRelease}
                 onPointerCancel={handleRelease}
+                onClickCapture={handleClickCapture}
                 tabIndex={0}
                 role="region"
                 aria-label="Partner brands catalog"
-                className="relative -mx-5 flex snap-x snap-mandatory gap-6 overflow-x-auto overflow-y-clip px-5 py-8 scrollbar-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:-mx-8 sm:px-8 md:mx-0 md:px-1 md:pl-2 md:pr-1"
+                className="relative -mr-5 flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain overflow-y-clip py-8 pr-5 scrollbar-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:cursor-grabbing sm:-mr-8 sm:pr-8 md:mx-0 md:px-1 md:pl-2 md:pr-1"
               >
                 {looped.map(({ partner, index, copy, global, key }) => (
                   <div
                     key={key}
                     data-partner-card
-                    className="w-[250px] shrink-0 snap-start sm:w-[280px]"
+                    className="w-[calc(100vw-80px)] shrink-0 snap-start sm:w-[280px] md:w-[250px]"
                   >
                     <AboutPartnerCard
                       partner={partner}

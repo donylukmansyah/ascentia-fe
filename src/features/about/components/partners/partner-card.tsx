@@ -26,23 +26,39 @@ export function AboutPartnerCard({
       aria-pressed={active}
       aria-label={`Show ${partner.name} details`}
       className={cn(
-        'flex min-h-[320px] w-full cursor-pointer flex-col justify-between rounded-lg p-6 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:p-7 lg:min-h-[360px]',
-        active
-          ? 'bg-gradient-to-br from-[#288AC6] to-[#255DA2] text-white shadow-[0_16px_30px_-18px_rgb(15_23_42/0.35)]'
-          : 'border border-black/5 bg-white text-foreground shadow-lg',
+        'group relative flex min-h-[320px] w-full cursor-pointer flex-col justify-between overflow-hidden rounded-lg bg-white p-6 text-left text-foreground shadow-lg ring-1 ring-black/5 transition-[color,box-shadow] duration-300 ease-out motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary before:absolute before:inset-0 before:bg-gradient-to-br before:from-[#288AC6] before:to-[#255DA2] before:opacity-0 before:transition-opacity before:duration-300 before:ease-out motion-reduce:before:transition-none sm:p-7 lg:min-h-[360px]',
+        active &&
+          'text-white shadow-[0_16px_30px_-18px_rgb(15_23_42/0.35)] ring-transparent before:opacity-100',
         className,
       )}
     >
-      <div>
+      <div className="relative z-10">
         <div className="flex items-center gap-3">
-          <img
-            src={active ? partner.logoWhite : partner.logo}
-            alt={partner.logoAlt}
-            loading="lazy"
-            decoding="async"
-            draggable={false}
-            className="h-7 w-auto object-contain"
-          />
+          <span className="relative block h-7 max-w-[140px] flex-1">
+            <img
+              src={partner.logo}
+              alt={partner.logoAlt}
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+              className={cn(
+                'absolute inset-0 h-7 w-auto max-w-full object-contain transition-opacity duration-200 ease-out',
+                active && 'opacity-0',
+              )}
+            />
+            <img
+              src={partner.logoWhite}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+              className={cn(
+                'absolute inset-0 h-7 w-auto max-w-full object-contain opacity-0 transition-opacity duration-200 ease-out',
+                active && 'opacity-100',
+              )}
+            />
+          </span>
           <span className="text-lg font-bold tracking-tight">
             {partner.name}
           </span>
@@ -50,20 +66,20 @@ export function AboutPartnerCard({
         <span
           aria-hidden="true"
           className={cn(
-            'mt-4 block h-[2px] w-10',
-            active ? 'bg-white/60' : 'bg-accent',
+            'mt-4 block h-[2px] w-10 bg-accent transition-colors duration-300 ease-out',
+            active && 'bg-white/60',
           )}
         />
         <p
           className={cn(
-            'mt-4 text-sm leading-relaxed font-normal',
+            'mt-4 text-sm leading-relaxed font-normal transition-colors duration-300 ease-out',
             active ? 'text-white/85' : 'text-description-text',
           )}
         >
           {partner.description}
         </p>
       </div>
-      <div className="mt-8 flex justify-end">
+      <div className="relative z-10 mt-8 flex justify-end">
         <CircleArrow
           className={
             active
