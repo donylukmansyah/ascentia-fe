@@ -80,6 +80,7 @@ export function MobileNavigation({
                         <Link
                           key={href}
                           to={href}
+                          search={{ category: '', q: '', page: 1 }}
                           tabIndex={isOpen && isProductsOpen ? 0 : -1}
                           onClick={onNavigate}
                           className="flex items-center gap-3 rounded-lg px-2 py-2 text-foreground/75 transition-colors hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"

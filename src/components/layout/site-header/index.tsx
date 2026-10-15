@@ -15,18 +15,27 @@ export function SiteHeader() {
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
   })
+  // Root-only match means no page matched.
+  const isRouteNotFound = useRouterState({
+    select: (state) =>
+      state.matches.length <= 1 ||
+      state.matches.some(
+        (match) => match.status === 'notFound' || match.routeId === '/$',
+      ),
+  })
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isProductsMenuOpen, setIsProductsMenuOpen] = useState(false)
   const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false)
   const [language, setLanguage] = useState<LanguageCode>('en')
   // Pin header while dropdown open.
   const mode = useStickyHeader({
-    hideOffset: 320,
     paused: isDesktopDropdownOpen,
   })
   const isSolid = mode !== 'transparent'
   const isHidden = mode === 'hidden' || mode === 'hidden-initial'
   const isHeaderSolid = isSolid || isMenuOpen
+  // Dark nav over light not-found pages.
+  const isDarkContent = isHeaderSolid || isRouteNotFound
 
   useEffect(() => {
     setIsMenuOpen(false)
@@ -62,8 +71,9 @@ export function SiteHeader() {
         'top-0 inset-x-0 z-50 border-t-[3px] border-primary transform-gpu transition-[background-color,box-shadow,color,translate] motion-reduce:transition-none',
         mode === 'transparent' && !isMenuOpen ? 'absolute' : 'fixed',
         isHeaderSolid
-          ? 'bg-background text-foreground shadow-[0_1px_0_rgb(37_37_37/8%),0_12px_32px_-16px_rgb(0_0_0/0.12)]'
-          : 'bg-transparent text-white',
+          ? 'bg-background shadow-[0_1px_0_rgb(37_37_37/8%),0_12px_32px_-16px_rgb(0_0_0/0.12)]'
+          : 'bg-transparent',
+        isDarkContent ? 'text-foreground' : 'text-white',
         isHidden && !isMenuOpen
           ? cn(
               '-translate-y-full',
@@ -81,7 +91,7 @@ export function SiteHeader() {
         >
           <img
             src={
-              isHeaderSolid ? '/brand/logo-color.png' : '/brand/logo-white.png'
+              isDarkContent ? '/brand/logo-color.png' : '/brand/logo-white.png'
             }
             alt="Ascentia Arsya Analitika"
             className="h-7 w-auto lg:h-7"
@@ -100,7 +110,7 @@ export function SiteHeader() {
                     <ProductMenu
                       onOpenChange={setIsDesktopDropdownOpen}
                       className={
-                        isHeaderSolid
+                        isDarkContent
                           ? 'text-foreground/75 hover:text-foreground'
                           : 'text-white/80 hover:text-white'
                       }
@@ -116,13 +126,13 @@ export function SiteHeader() {
                     aria-current={isActive ? 'page' : undefined}
                     className={cn(
                       'relative block py-2 text-[11px] font-medium tracking-[-0.01em] uppercase transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-[1.5px] after:origin-left after:rounded-full after:bg-primary after:transition-transform hover:after:scale-x-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4',
-                      isHeaderSolid
+                      isDarkContent
                         ? 'text-foreground/75 hover:text-foreground'
                         : 'text-white/80 hover:text-white',
                       isActive
                         ? cn(
                             'after:scale-x-100',
-                            isHeaderSolid ? 'text-foreground' : 'text-white',
+                            isDarkContent ? 'text-foreground' : 'text-white',
                           )
                         : 'after:scale-x-0',
                     )}
@@ -138,7 +148,7 @@ export function SiteHeader() {
         <div
           className={cn(
             'hidden items-center gap-3 lg:flex',
-            isHeaderSolid ? 'text-foreground/80' : 'text-white/90',
+            isDarkContent ? 'text-foreground/80' : 'text-white/90',
           )}
         >
           <LanguagePicker
@@ -146,7 +156,7 @@ export function SiteHeader() {
             onLanguageChange={setLanguage}
             onOpenChange={setIsDesktopDropdownOpen}
             className={
-              isHeaderSolid
+              isDarkContent
                 ? 'text-foreground/80 hover:text-foreground'
                 : 'text-white/90 hover:text-white'
             }
@@ -157,7 +167,7 @@ export function SiteHeader() {
             aria-label="Search"
             className={cn(
               'inline-flex cursor-pointer items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4',
-              isHeaderSolid ? 'hover:text-foreground' : 'hover:text-white',
+              isDarkContent ? 'hover:text-foreground' : 'hover:text-white',
             )}
           >
             <Search className="size-[18px]" aria-hidden="true" />
@@ -170,7 +180,7 @@ export function SiteHeader() {
             aria-label="Search"
             className={cn(
               'inline-flex size-10 cursor-pointer items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4',
-              isHeaderSolid
+              isDarkContent
                 ? 'text-foreground hover:text-primary'
                 : 'text-white hover:text-white/70',
             )}
@@ -187,7 +197,7 @@ export function SiteHeader() {
             onClick={() => setIsMenuOpen((current) => !current)}
             className={cn(
               'inline-flex size-10 cursor-pointer items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4',
-              isHeaderSolid
+              isDarkContent
                 ? 'text-foreground hover:text-primary'
                 : 'text-white hover:text-white/70',
             )}
