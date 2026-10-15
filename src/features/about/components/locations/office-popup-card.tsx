@@ -1,6 +1,8 @@
 import { motion, useReducedMotion } from 'motion/react'
 import type { Variants } from 'motion/react'
-import { ArrowUpRight, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
+import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
+
+import { CtaLink } from '#/components/ui/cta-link'
 
 import type { OfficeLocation } from '../../constants/locations'
 
@@ -24,7 +26,7 @@ export function OfficePopupCard({ office }: { office: OfficeLocation }) {
 
   return (
     <motion.div
-      className="w-[min(300px,82vw)] select-none"
+      className="w-[min(300px,82vw)] max-w-full select-none"
       initial={{ opacity: 0, scale: 0.94 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={
@@ -98,27 +100,16 @@ export function OfficePopupCard({ office }: { office: OfficeLocation }) {
                   />
                   {office.whatsapp}
                 </motion.a>
-                <motion.a
-                  variants={item}
-                  href={office.mapsUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Open ${office.name} in Google Maps`}
-                  className="group/cta relative mt-1.5 inline-flex min-h-11 w-full cursor-pointer items-center justify-center overflow-hidden rounded-full bg-accent px-4 text-[13px] font-medium text-white transition-[background-color,color,translate] duration-200 ease hover:-translate-y-0.5 hover:bg-[var(--brand-dark)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none"
-                >
-                  <span className="relative z-10 pr-9 transition-[color,translate] duration-300 ease-out group-hover/cta:translate-x-9 group-focus-visible/cta:translate-x-9 motion-reduce:transition-none">
-                    Open in Google Maps
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="absolute top-1/2 left-full z-0 grid size-9 -translate-x-[115%] -translate-y-1/2 place-items-center rounded-full bg-white text-foreground transition-[left,translate] duration-400 ease-out group-hover/cta:left-0 group-hover/cta:translate-x-[15%] group-focus-visible/cta:left-0 group-focus-visible/cta:translate-x-[15%] motion-reduce:transition-none"
+                <motion.div variants={item}>
+                  <CtaLink
+                    to={office.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1.5 w-full"
                   >
-                    <ArrowUpRight
-                      className="size-4 transition-transform duration-300 ease-out group-hover/cta:rotate-45 group-focus-visible/cta:rotate-45 motion-reduce:transition-none"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </motion.a>
+                    Open in Google Maps
+                  </CtaLink>
+                </motion.div>
               </div>
             </div>
           </div>
