@@ -37,7 +37,7 @@ export function ProductSearchPanel({
     >
       <div className="absolute inset-x-0 top-0 -translate-y-1/2">
         <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
-          <div className="rounded-t-2xl bg-white pb p-4 sm:p-5">
+          <div className="rounded-t-2xl bg-white p-4 sm:p-5">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <h2 className="text-lg font-bold tracking-[-0.02em] text-foreground sm:text-xl">
                 {heading}

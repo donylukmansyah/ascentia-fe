@@ -12,9 +12,8 @@ export interface ProductCardProps {
 export function ProductCard({ product, className }: ProductCardProps) {
   return (
     <article
-      aria-label={product.name}
       className={cn(
-        'group relative flex h-full flex-col overflow-hidden rounded-[4px] border border-border bg-white transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-sm motion-reduce:hover:translate-none',
+        'group relative flex h-full flex-col overflow-hidden rounded-[4px] border border-border bg-white transition-all duration-300 group-focus-visible:ring-2 group-focus-visible:ring-primary group-focus-visible:ring-offset-2 hover:-translate-y-1 hover:border-primary/40 hover:shadow-sm motion-reduce:hover:translate-none',
         className,
       )}
     >
@@ -22,7 +21,11 @@ export function ProductCard({ product, className }: ProductCardProps) {
         {product.image ? (
           <img
             src={product.image}
-            alt={product.name}
+            srcSet={product.imageSrcSet}
+            sizes="(min-width: 1024px) 260px, (min-width: 640px) 45vw, 50vw"
+            alt={product.imageAlt || product.name}
+            width={400}
+            height={300}
             loading="lazy"
             decoding="async"
             draggable={false}

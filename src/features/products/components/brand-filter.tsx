@@ -1,10 +1,10 @@
 import { cn } from 'cn'
 
-import type { ProductBrand } from '../constants/brands'
+import type { ProductTaxonomy } from '../types/product'
 
 interface BrandFilterProps {
-  brands: ProductBrand[]
-  activeId: string
+  brands: ProductTaxonomy[]
+  activeSlug: string
   onSelect: (id: string) => void
   className?: string
   title?: string
@@ -15,13 +15,13 @@ const ALL_BRAND_ID = 'all'
 
 export function BrandFilter({
   brands,
-  activeId,
+  activeSlug,
   onSelect,
   className,
   title = 'Brands',
   label = 'Filter by brand',
 }: BrandFilterProps) {
-  const entries: ProductBrand[] = [{ id: ALL_BRAND_ID, name: 'All' }, ...brands]
+  const entries = [{ id: ALL_BRAND_ID, slug: ALL_BRAND_ID, name: 'All', logo: undefined }, ...brands]
 
   return (
     <div className={className}>
@@ -34,11 +34,11 @@ export function BrandFilter({
           <button
             key={brand.id}
             type="button"
-            onClick={() => onSelect(brand.id)}
-            aria-pressed={brand.id === activeId}
+            onClick={() => onSelect(brand.slug)}
+            aria-pressed={brand.slug === activeSlug}
             className={cn(
               'flex min-h-11 shrink-0 cursor-pointer items-center border-b-2 px-4 text-sm font-semibold whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
-              brand.id === activeId
+              brand.slug === activeSlug
                 ? 'border-primary text-primary'
                 : 'border-transparent text-foreground/70 hover:border-primary/40 hover:text-foreground',
             )}
@@ -54,13 +54,13 @@ export function BrandFilter({
         </h2>
         <ul className="mt-2">
           {entries.map((brand) => {
-            const active = brand.id === activeId
+            const active = brand.slug === activeSlug
             const isAll = brand.id === ALL_BRAND_ID
             return (
               <li key={brand.id} className="border-b border-border">
                 <button
                   type="button"
-                  onClick={() => onSelect(brand.id)}
+                  onClick={() => onSelect(brand.slug)}
                   aria-pressed={active}
                   className={cn(
                     'relative flex w-full cursor-pointer items-center gap-2.5 px-4 text-left text-[13px] font-semibold transition-colors',

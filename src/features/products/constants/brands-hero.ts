@@ -3,12 +3,11 @@ export const brandsHeroContent = {
   breadcrumbCurrent: 'Brands',
   title: 'Authorized Principal Brands',
   exploreLabel: 'Explore authorized brand solutions',
-  anchorId: 'brands-content',
   image: '/images/products/assets-products.webp',
 } as const
 
 export const productSearchContent = {
-  heading: 'Search instruments, consumables, and certified reference standards',
+  heading: 'Search Products & Standards',
   placeholder: 'Search by model, brand, or application...',
   label: 'Search products',
 } as const

@@ -16,7 +16,7 @@ export function ProductDetailHero({ product }: ProductDetailHeroProps) {
     offset: ['start end', 'end start'],
   })
   const imageY = useTransform(scrollYProgress, [0, 1], [-42, 42])
-  const heroImage = product.heroImage ?? product.image
+  const heroImage = product.image
 
   return (
     <section
@@ -53,7 +53,7 @@ export function ProductDetailHero({ product }: ProductDetailHeroProps) {
           />
           <h1
             id="product-detail-heading"
-            className="mt-7 line-clamp-2 text-[clamp(1.875rem,3.4vw,3.375rem)] leading-[1.03] font-bold tracking-[-0.045em] text-white break-words text-balance"
+            className="mt-7 text-[clamp(1.875rem,3.4vw,3.375rem)] leading-[1.1] font-bold tracking-[-0.03em] text-white break-words text-balance"
           >
             {product.name}
           </h1>
