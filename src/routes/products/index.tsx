@@ -1,7 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router'
-
-import { ProductsPage } from '#/features/products/pages/products-page'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/products/')({
-  component: ProductsPage,
+  beforeLoad: () => {
+    throw redirect({ to: '/products/brands', search: { category: '', q: '', page: 1 } })
+  },
 })
