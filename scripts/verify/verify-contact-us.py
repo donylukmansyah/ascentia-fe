@@ -71,16 +71,89 @@ with sync_playwright() as playwright:
             bounds = locations.get_by_role("button", name=f"Lihat info kantor {office}").bounding_box()
             assert bounds["x"] >= map_bounds["x"], (office, bounds, map_bounds)
             assert bounds["x"] + bounds["width"] <= map_bounds["x"] + map_bounds["width"], (office, bounds, map_bounds)
-        locations.get_by_role("button", name="Lihat info kantor Jakarta").click()
-        assert locations.get_by_text("Jakarta Head Office", exact=True).is_visible()
+        for office in ("Kendari", "Jakarta"):
+            marker = locations.get_by_role("button", name=f"Lihat info kantor {office}")
+            marker.click()
+            popup = locations.locator(".office-popup")
+            popup.wait_for()
+            page.wait_for_function(
+                """() => {
+                    const popup = document.querySelector('.office-popup');
+                    const box = popup.getBoundingClientRect();
+                    const map = popup.closest('.maplibregl-map').getBoundingClientRect();
+                    return box.top >= map.top && box.bottom <= map.bottom
+                        && box.left >= map.left && box.right <= map.right;
+                }""",
+                timeout=3000,
+            )
+            assert popup.locator('a[href*="google.com/maps"]').is_visible()
+            assert marker.get_attribute("aria-expanded") == "true"
+            page.keyboard.press("Escape")
+            assert locations.locator(".office-popup").count() == 0
+            marker.focus()
+            page.keyboard.press("Enter")
+            popup.wait_for()
+            page.keyboard.press("Escape")
+            assert marker.evaluate("element => element === document.activeElement")
+            assert marker.get_attribute("aria-expanded") == "false"
+            for other_office in ("Jakarta", "Kendari"):
+                other = locations.get_by_role("button", name=f"Lihat info kantor {other_office}").bounding_box()
+                current_bounds = locations.bounding_box()
+                assert other["x"] >= current_bounds["x"]
+                assert other["x"] + other["width"] <= current_bounds["x"] + current_bounds["width"]
         jakarta_section = page.locator("#jakarta-map")
         canvas = jakarta_section.locator("canvas.maplibregl-canvas")
         canvas.wait_for()
-        assert abs(jakarta_section.locator(".relative.h-\\[380px\\]").bounding_box()["width"] - width) < 1
+        map_element = jakarta_section.locator(".maplibregl-map")
+        assert abs(map_element.bounding_box()["width"] - width) < 1
         page.wait_for_selector("#jakarta-map .maplibregl-marker")
         directions = jakarta_section.get_by_role("link", name="Get directions", exact=True)
         assert "destination_place_id=ChIJAfPlzjL3aS4RJgkrqoECgtU" in directions.get_attribute("href")
         assert "Business Park Kebon Jeruk D2-12" in jakarta_section.inner_text()
+        assert directions.evaluate("element => getComputedStyle(element).color") == "rgb(255, 255, 255)"
+        assert directions.evaluate("element => getComputedStyle(element).fontWeight") == "500"
+        assert directions.evaluate(
+            """element => {
+                const sample = document.createElement('span');
+                sample.style.backgroundColor = 'var(--accent)';
+                document.body.append(sample);
+                const matches = getComputedStyle(element).backgroundColor === getComputedStyle(sample).backgroundColor;
+                sample.remove();
+                return matches;
+            }"""
+        ), "CTA must use --accent"
+        assert panel.get_by_role("button", name="Send enquiry").evaluate(
+            "element => getComputedStyle(element).backgroundColor"
+        ) == directions.evaluate("element => getComputedStyle(element).backgroundColor")
+        card = jakarta_section.locator('[aria-labelledby="jakarta-map-heading"]')
+        card_box, map_box = card.bounding_box(), map_element.bounding_box()
+        if width >= 1024:
+            assert card_box["y"] >= map_box["y"]
+            assert card_box["y"] + card_box["height"] <= map_box["y"] + map_box["height"]
+        else:
+            assert card_box["y"] + card_box["height"] <= map_box["y"]
+        assert jakarta_section.get_by_role("button", name="Lihat info kantor Jakarta").is_visible()
+        small_popup = jakarta_section.locator(".maplibregl-popup")
+        if small_popup.count() == 0:
+            jakarta_section.get_by_role("button", name="Lihat info kantor Jakarta").click()
+        small_popup.wait_for()
+        assert small_popup.bounding_box()["height"] < 120
+        small_popup.get_by_role("button", name="Close popup").click()
+        assert jakarta_section.locator(".maplibregl-popup").count() == 0
+        for current_map in (locations.locator(".maplibregl-map"), map_element):
+            current_map.scroll_into_view_if_needed()
+            bounds = current_map.bounding_box()
+            page.mouse.move(bounds["x"] + bounds["width"] * 0.8, bounds["y"] + bounds["height"] * 0.7)
+            before_scroll = page.evaluate("window.scrollY")
+            page.mouse.wheel(0, 80)
+            hint = current_map.locator(".maplibregl-cooperative-gesture-screen")
+            page.wait_for_function(
+                "element => element.classList.contains('maplibregl-show')",
+                arg=hint.element_handle(),
+            )
+            assert hint.evaluate("element => getComputedStyle(element).backgroundColor") == "rgba(0, 0, 0, 0)"
+            assert hint.bounding_box()["height"] < 80
+            page.wait_for_function("before => window.scrollY > before", arg=before_scroll)
         page.locator("#jakarta-map").screenshot(path=str(SCREENSHOTS / f"jakarta-map-{width}.png"))
         assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), f"Overflow at {width}px"
         panel.get_by_role("link", name="Office").click()
@@ -110,7 +183,10 @@ with sync_playwright() as playwright:
     open_page(page, "/")
     assert page.get_by_role("link", name="Open full contact page").count() == 1
     assert page.locator("#contact-content").count() == 0
-    print("PASS: reduced motion; homepage contact panel unchanged")
+    home_cta = page.locator('a[class*="group/cta"]').first
+    assert home_cta.evaluate("element => getComputedStyle(element).color") == "rgb(255, 255, 255)"
+    assert home_cta.evaluate("element => getComputedStyle(element).fontWeight") == "500"
+    print("PASS: reduced motion; homepage contact panel unchanged; shared CTA parity")
     context.close()
     context = browser.new_context(viewport={"width": 1440, "height": 600}, reduced_motion="no-preference")
     page = context.new_page()

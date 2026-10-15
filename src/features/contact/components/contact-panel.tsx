@@ -61,7 +61,7 @@ export function ContactPanel({
               id="contact-panel-heading"
               className="mt-2 max-w-md text-[clamp(2rem,3.4vw,3rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
             >
-              Consult Our Analytical Application Specialists
+              Tell us what you need to analyse
             </h2>
             <p className="mt-4 max-w-md text-sm leading-relaxed font-normal text-description-text sm:text-base">
               Share your sample preparation, XRF analysis, or reference material

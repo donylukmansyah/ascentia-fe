@@ -1,3 +1,5 @@
+import { MapPin } from 'lucide-react'
+
 import { CtaLink } from '#/components/ui/cta-link'
 import {
   MarkerCard,
@@ -7,7 +9,6 @@ import {
 } from '#/components/ui/map'
 import { PageHero } from '#/components/ui/page-hero'
 import { AboutLocationsSection } from '#/features/about/components/locations/locations-section'
-import { OfficePopupCard } from '#/features/about/components/locations/office-popup-card'
 import { aboutLocationsContent } from '#/features/about/constants/locations'
 
 import { ContactPanel } from '../components/contact-panel'
@@ -44,31 +45,36 @@ export function ContactPage() {
         id="jakarta-map"
         tabIndex={-1}
         aria-labelledby="jakarta-map-heading"
-        className="scroll-mt-28 bg-[#F7F9FC] outline-none"
+        className="relative isolate scroll-mt-28 bg-[#F7F9FC] outline-none"
       >
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 py-8 sm:px-8 sm:py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:px-12">
-          <div>
-            <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
-              Jakarta · Head Office
-            </p>
-            <h2
-              id="jakarta-map-heading"
-              className="mt-2 text-xl leading-snug font-bold tracking-[-0.03em] text-foreground sm:text-2xl"
-            >
-              PT Ascentia Arsya Analitika
-            </h2>
-            <address className="mt-3 max-w-xl text-sm leading-relaxed text-description-text not-italic sm:text-base">
-              {jakartaOffice.address}
-            </address>
-          </div>
-          <CtaLink
-            to={jakartaDirectionsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full shrink-0 sm:w-fit"
+        <div className="pointer-events-none relative z-10 mx-auto w-full max-w-7xl px-5 py-8 sm:px-8 sm:py-10 lg:absolute lg:inset-x-0 lg:top-12 lg:px-12 lg:py-0">
+          <div
+            aria-labelledby="jakarta-map-heading"
+            className="pointer-events-auto flex flex-col gap-5 lg:w-[360px] lg:rounded-xl lg:bg-background lg:p-6 lg:shadow-md"
           >
-            Get directions
-          </CtaLink>
+            <div>
+              <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
+                Jakarta · Head Office
+              </p>
+              <h2
+                id="jakarta-map-heading"
+                className="mt-2 text-xl leading-snug font-bold tracking-[-0.03em] text-foreground sm:text-2xl"
+              >
+                PT Ascentia Arsya Analitika
+              </h2>
+              <address className="mt-3 max-w-xl text-sm leading-relaxed text-description-text not-italic sm:text-base">
+                {jakartaOffice.address}
+              </address>
+            </div>
+            <CtaLink
+              to={jakartaDirectionsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-fit lg:w-full"
+            >
+              Get directions
+            </CtaLink>
+          </div>
         </div>
         <div className="relative h-[380px] w-full sm:h-[480px] lg:h-[540px]">
           <OfficeMap
@@ -81,10 +87,29 @@ export function ContactPage() {
             <OfficeMarker
               longitude={jakartaOffice.longitude}
               latitude={jakartaOffice.latitude}
+              anchor="bottom"
             >
-              <MarkerPin />
-              <MarkerCard defaultOpen>
-                <OfficePopupCard office={jakartaOffice} />
+              <MarkerPin>
+                <button
+                  type="button"
+                  aria-label="Lihat info kantor Jakarta"
+                  className="flex cursor-pointer items-center justify-center rounded-full text-primary drop-shadow-md transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none motion-reduce:hover:scale-100"
+                >
+                  <MapPin
+                    aria-hidden="true"
+                    className="size-10 fill-primary stroke-white"
+                  />
+                </button>
+              </MarkerPin>
+              <MarkerCard defaultOpen closeButton>
+                <div className="max-w-[min(220px,65vw)] px-2 py-1 pr-6 font-sans">
+                  <p className="text-sm font-semibold text-foreground">
+                    PT Ascentia Arsya Analitika
+                  </p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Head Office · Jakarta
+                  </p>
+                </div>
               </MarkerCard>
             </OfficeMarker>
           </OfficeMap>
