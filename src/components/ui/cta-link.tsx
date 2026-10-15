@@ -10,18 +10,24 @@ type CtaLinkProps = {
   size?: 'default' | 'compact'
   textTone?: 'dark' | 'light'
   to: ComponentProps<typeof Link>['to']
+  target?: ComponentProps<'a'>['target']
+  rel?: string
 }
 
 export function CtaLink({
   children,
   className,
   size = 'default',
-  textTone = 'dark',
+  textTone = 'light',
   to,
+  target,
+  rel,
 }: CtaLinkProps) {
   return (
     <Link
       to={to}
+      target={target}
+      rel={rel}
       className={cn(
         'group/cta relative inline-flex min-h-10 shrink-0 cursor-pointer items-center overflow-hidden rounded-full bg-accent py-1 pr-1 pl-3.5 text-xs leading-none font-medium tracking-normal transition-[background-color,color,translate] duration-200 ease hover:-translate-y-0.5 hover:bg-[var(--brand-dark)] hover:text-white focus-visible:bg-[var(--brand-dark)] focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none sm:min-h-[52px] sm:pl-[1.35rem] sm:text-[13px]',
         size === 'compact' && 'min-h-9 py-0 pr-1 pl-3 sm:min-h-11 sm:pl-3.5',
