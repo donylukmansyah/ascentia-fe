@@ -18,6 +18,15 @@ export const Route = createFileRoute('/articles/$slug')({
     const backTo: '/blogs' | '/news' = blog ? '/blogs' : '/news'
     return { article, backTo }
   },
+  head: ({ loaderData }) => {
+    const article = loaderData?.article
+    const title = `${article?.title.replace(/\.$/, '') ?? 'Article'} | Ascentia Arsya Analitika`
+    return {
+      meta: article
+        ? [{ title }, { name: 'description', content: article.excerpt }]
+        : [{ title }],
+    }
+  },
   component: ArticleDetailRoute,
   notFoundComponent: ArticleNotFoundPage,
 })
