@@ -105,16 +105,20 @@ function PagePagination({
   totalPages,
   onPageChange,
   className,
+  disabled = false,
 }: {
   page: number
   totalPages: number
+  disabled?: boolean
   onPageChange: (page: number) => void
   className?: string
 }) {
   if (totalPages <= 1) return null
 
   const current = Math.min(Math.max(page, 1), totalPages)
-  // ponytail: few pages; add ellipsis for larger feeds.
+  const pages = [...new Set([1, current - 1, current, current + 1, totalPages])]
+    .filter((value) => value >= 1 && value <= totalPages)
+    .sort((left, right) => left - right)
 
   return (
     <Pagination className={className}>
@@ -124,7 +128,7 @@ function PagePagination({
             type="button"
             variant="outline"
             size="icon"
-            disabled={current === 1}
+            disabled={disabled || current === 1}
             onClick={() => onPageChange(current - 1)}
             aria-label="Previous page"
             className="size-10 cursor-pointer rounded-[4px] text-primary sm:size-11"
@@ -132,32 +136,34 @@ function PagePagination({
             <ChevronLeftIcon className="size-4" aria-hidden="true" />
           </Button>
         </PaginationItem>
-        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-          (pageNumber) => (
-            <PaginationItem key={pageNumber}>
-              <Button
-                type="button"
-                variant={pageNumber === current ? 'default' : 'outline'}
-                size="icon"
-                onClick={() => onPageChange(pageNumber)}
-                aria-label={`Go to page ${pageNumber}`}
-                aria-current={pageNumber === current ? 'page' : undefined}
-                className={cn(
-                  'size-10 cursor-pointer rounded-[4px] border-primary sm:size-11',
-                  pageNumber !== current && 'text-primary',
-                )}
-              >
-                {pageNumber}
-              </Button>
-            </PaginationItem>
-          ),
-        )}
+        {pages.map((pageNumber, index) => (
+          <PaginationItem key={pageNumber} className="flex items-center gap-2">
+            {index > 0 && pageNumber - pages[index - 1] > 1 && (
+              <PaginationEllipsis />
+            )}
+            <Button
+              type="button"
+              variant={pageNumber === current ? 'default' : 'outline'}
+              size="icon"
+              disabled={disabled}
+              onClick={() => onPageChange(pageNumber)}
+              aria-label={`Go to page ${pageNumber}`}
+              aria-current={pageNumber === current ? 'page' : undefined}
+              className={cn(
+                'size-10 cursor-pointer rounded-[4px] border-primary sm:size-11',
+                pageNumber !== current && 'text-primary',
+              )}
+            >
+              {pageNumber}
+            </Button>
+          </PaginationItem>
+        ))}
         <PaginationItem>
           <Button
             type="button"
             variant="outline"
             size="icon"
-            disabled={current === totalPages}
+            disabled={disabled || current === totalPages}
             onClick={() => onPageChange(current + 1)}
             aria-label="Next page"
             className="size-10 cursor-pointer rounded-[4px] text-primary sm:size-11"

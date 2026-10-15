@@ -5,6 +5,37 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.logo-loader-highlight {
+  background: linear-gradient(
+    110deg,
+    transparent 40%,
+    rgb(255 255 255 / 0.9) 50%,
+    transparent 60%
+  );
+  background-size: 300% 100%;
+  mask-image: var(--logo-loader-image);
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  animation: logo-loader-sweep 1.8s ease-in-out infinite;
+}
+
+@keyframes logo-loader-sweep {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-loader-highlight {
+    animation: none;
+    display: none;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -135,6 +166,95 @@ body {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+.product-rich-text {
+  color: var(--description-text);
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+.product-rich-text > * + * {
+  margin-top: 1rem;
+}
+
+.product-rich-text :is(h2, h3, h4, h5, h6) {
+  color: var(--foreground);
+  font-weight: 700;
+  line-height: 1.35;
+  margin-top: 1.75rem;
+  text-wrap: balance;
+}
+
+.product-rich-text h2 {
+  font-size: 1.375rem;
+}
+.product-rich-text h3 {
+  font-size: 1.125rem;
+}
+.product-rich-text :is(h4, h5, h6) {
+  font-size: 1rem;
+}
+.product-rich-text :is(ul, ol) {
+  padding-left: 1.5rem;
+}
+.product-rich-text ul {
+  list-style: disc;
+}
+.product-rich-text ol {
+  list-style: decimal;
+}
+.product-rich-text li + li {
+  margin-top: 0.5rem;
+}
+.product-rich-text li > :is(ul, ol) {
+  margin-top: 0.5rem;
+}
+.product-rich-text :is(strong, b, th, dt) {
+  color: var(--foreground);
+  font-weight: 700;
+}
+.product-rich-text :is(em, i) {
+  font-style: italic;
+}
+.product-rich-text a[href] {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.product-rich-text a[href]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+.product-rich-text blockquote {
+  background: var(--muted);
+  padding: 1rem;
+}
+.product-rich-text img {
+  max-width: 100%;
+  height: auto;
+}
+.product-rich-text table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+.product-rich-text :is(th, td) {
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+.product-rich-text caption {
+  color: var(--foreground);
+  text-align: left;
+  font-weight: 700;
+  padding-bottom: 0.5rem;
+}
+.product-rich-text dd {
+  margin-top: 0.25rem;
+}
+
 .hero-carousel__image {
   opacity: 0;
   transform: scale(1.025);
@@ -234,8 +354,7 @@ body {
 }
 
 /* Cooperative hint as a small pill, no full dim. */
-section[aria-labelledby='about-locations-heading']
-  .maplibregl-cooperative-gesture-screen {
+.office-map .maplibregl-cooperative-gesture-screen {
   background: transparent;
   inset: 0.75rem 0 auto 0;
   display: flex;
@@ -247,17 +366,12 @@ section[aria-labelledby='about-locations-heading']
   transition: opacity 0.25s ease;
 }
 
-section[aria-labelledby='about-locations-heading']
-  .maplibregl-cooperative-gesture-screen.maplibregl-show {
+.office-map .maplibregl-cooperative-gesture-screen.maplibregl-show {
   opacity: 1;
 }
 
-section[aria-labelledby='about-locations-heading']
-  .maplibregl-cooperative-gesture-screen
-  .maplibregl-desktop-message,
-section[aria-labelledby='about-locations-heading']
-  .maplibregl-cooperative-gesture-screen
-  .maplibregl-mobile-message {
+.office-map .maplibregl-cooperative-gesture-screen .maplibregl-desktop-message,
+.office-map .maplibregl-cooperative-gesture-screen .maplibregl-mobile-message {
   display: none;
   background: color-mix(in srgb, var(--background) 88%, transparent);
   backdrop-filter: blur(8px);
@@ -274,7 +388,7 @@ section[aria-labelledby='about-locations-heading']
 }
 
 @media (hover: hover) and (pointer: fine) {
-  section[aria-labelledby='about-locations-heading']
+  .office-map
     .maplibregl-cooperative-gesture-screen
     .maplibregl-desktop-message {
     display: block;
@@ -282,7 +396,7 @@ section[aria-labelledby='about-locations-heading']
 }
 
 @media (hover: none), (pointer: coarse) {
-  section[aria-labelledby='about-locations-heading']
+  .office-map
     .maplibregl-cooperative-gesture-screen
     .maplibregl-mobile-message {
     display: block;
@@ -297,6 +411,17 @@ section[aria-labelledby='about-locations-heading']
 
 .office-popup .maplibregl-popup-tip {
   display: none;
+}
+
+.office-map .maplibregl-popup-close-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+}
+
+.office-map .maplibregl-popup-close-button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 @keyframes brand-marquee-scroll {
@@ -352,6 +477,7 @@ section[aria-labelledby='about-locations-heading']
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .office-map .maplibregl-cooperative-gesture-screen,
   .hero-carousel__image,
   .who-we-are__image,
   .hero-carousel__copy,
@@ -380,4 +506,3 @@ section[aria-labelledby='about-locations-heading']
     @apply font-sans;
   }
 }
-

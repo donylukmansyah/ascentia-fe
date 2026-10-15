@@ -18,7 +18,7 @@ export function CtaLink({
   children,
   className,
   size = 'default',
-  textTone = 'dark',
+  textTone = 'light',
   to,
   target,
   rel,
