@@ -17,7 +17,7 @@ interface WhoWeAreSectionProps {
 }
 
 const DEFAULT_IMAGE = '/images/homepage/assets-home.webp'
-const DEFAULT_HEADING = 'Engineered for Analytical Precision'
+const DEFAULT_HEADING = 'Who We Are'
 const DEFAULT_DESCRIPTION =
   'PT Ascentia Arsya Analitika is the specialized analytical instrumentation division of PT Dynatech International Group. Backed by two decades of engineering heritage and strategic hubs in Jakarta and Kendari, we partner with world leaders including XRF Scientific and OREAS to deliver reliable sample preparation, certified reference materials, and dedicated on-site engineering support across Indonesia.'
 

@@ -16,8 +16,8 @@ export const heroSlides: HeroSlide[] = [
     id: 'sample-preparation',
     label: 'Sample Preparation',
     eyebrow: 'Precision Sample Preparation & Fusion',
-    titleLines: ['Automated Fusion &', 'Sample Preparation'],
-    highlight: 'Systems',
+    titleLines: ['Laboratory and', 'Equipment'],
+    highlight: 'Distributor',
     description:
       'Electric and gas fusion machines engineered for zero-defect fused bead repeatability in high-throughput XRF and ICP analysis.',
     image: '/images/homepage/xrf-home.webp',
