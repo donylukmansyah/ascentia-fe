@@ -22,7 +22,7 @@ export function MediaCard({
   return (
     <article
       className={cn(
-        'relative isolate flex min-h-[420px] flex-col overflow-hidden rounded-3xl bg-foreground text-white sm:min-h-[480px]',
+        'group/media-card relative isolate flex min-h-[420px] flex-col overflow-hidden rounded-3xl bg-foreground text-white sm:min-h-[480px]',
         className,
       )}
     >
@@ -31,7 +31,7 @@ export function MediaCard({
         alt={imageAlt}
         loading="lazy"
         decoding="async"
-        className="absolute inset-0 -z-20 size-full object-cover"
+        className="absolute inset-0 -z-20 size-full object-cover transition-transform duration-700 ease-out group-hover/media-card:scale-105 motion-reduce:transition-none"
       />
       <div
         className="hero-carousel__overlay pointer-events-none absolute inset-0 -z-10 opacity-60"

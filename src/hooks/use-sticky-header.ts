@@ -8,7 +8,6 @@ const UPWARD_REVEAL_THRESHOLD = 32
 
 type UseStickyHeaderOptions = {
   topOffset?: number
-  hideOffset?: number
   tolerance?: number
   // Pause keeps visibility (dropdown open).
   paused?: boolean
@@ -17,12 +16,7 @@ type UseStickyHeaderOptions = {
 export function useStickyHeader(
   options: UseStickyHeaderOptions = {},
 ): HeaderVisibility {
-  const {
-    topOffset = 12,
-    hideOffset = 320,
-    tolerance = 8,
-    paused = false,
-  } = options
+  const { topOffset = 12, tolerance = 8, paused = false } = options
   const [visibility, setVisibility] = useState<HeaderVisibility>('transparent')
 
   useEffect(() => {
@@ -92,7 +86,7 @@ export function useStickyHeader(
         window.cancelAnimationFrame(animationFrame)
       }
     }
-  }, [topOffset, hideOffset, tolerance, paused])
+  }, [topOffset, tolerance, paused])
 
   return visibility
 }

@@ -1,4 +1,4 @@
-import { Mail, MessageCircle, Phone, Plus } from 'lucide-react'
+import { Mail, Phone, Plus } from 'lucide-react'
 import { animate } from 'motion/react'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 
@@ -7,6 +7,7 @@ import { cn } from '#/lib/utils'
 interface SocialDockItem {
   id: string
   label: string
+  tooltip: string
   href: string
   external?: boolean
   icon: React.ReactNode
@@ -44,29 +45,46 @@ function InstagramIcon({ className }: { className?: string }) {
   )
 }
 
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.149-.198.297-.767.967-.94 1.164-.173.198-.347.223-.644.074-.297-.148-1.255-.463-2.39-1.477-.883-.787-1.478-1.76-1.65-2.057-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.496.099-.198.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.298-1.04 1.016-1.04 2.479 0 1.462 1.065 2.876 1.213 3.074.148.198 2.095 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.414.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.868 9.868 0 0 1-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.375a9.868 9.868 0 0 1-1.509-5.26c.001-5.447 4.428-9.876 9.878-9.876a9.844 9.844 0 0 1 6.987 2.897 9.843 9.843 0 0 1 2.896 6.988c-.002 5.447-4.429 9.876-9.88 9.876m8.392-18.263A11.79 11.79 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892a11.84 11.84 0 0 0 1.582 5.96L0 24l6.335-1.662a11.868 11.868 0 0 0 5.709 1.454h.005c6.554 0 11.89-5.336 11.893-11.893a11.82 11.82 0 0 0-3.499-8.377Z" />
+    </svg>
+  )
+}
+
 const SOCIAL_ITEMS: SocialDockItem[] = [
   {
     id: 'email',
     label: 'Email sales@ascentia.co.id',
+    tooltip: 'Email',
     href: 'mailto:sales@ascentia.co.id',
     icon: <Mail className={glyphClass} aria-hidden="true" />,
   },
   {
     id: 'phone',
     label: 'Telepon (021) 2932-5739',
+    tooltip: 'Telepon',
     href: 'tel:+622129325739',
     icon: <Phone className={glyphClass} aria-hidden="true" />,
   },
   {
     id: 'whatsapp',
     label: 'WhatsApp +62 851-8606-1000',
+    tooltip: 'WhatsApp',
     href: 'https://wa.me/6285186061000',
     external: true,
-    icon: <MessageCircle className={glyphClass} aria-hidden="true" />,
+    icon: <WhatsAppIcon className={glyphClass} />,
   },
   {
     id: 'instagram',
     label: 'Instagram @ascentia.analitika',
+    tooltip: 'Instagram',
     href: 'https://www.instagram.com/ascentia.analitika/',
     external: true,
     icon: <InstagramIcon className={glyphClass} />,
@@ -405,8 +423,7 @@ export function SocialDock({ className }: { className?: string }) {
       aria-hidden={!visible}
       style={{ opacity: 0 }}
       className={cn(
-        'fixed right-5 bottom-5 z-40 sm:right-6 sm:bottom-6',
-        !visible && 'pointer-events-none',
+        'pointer-events-none fixed right-5 bottom-5 z-40 sm:right-6 sm:bottom-6',
         className,
       )}
     >
@@ -483,15 +500,19 @@ export function SocialDock({ className }: { className?: string }) {
               aria-label={item.label}
               tabIndex={open ? 0 : -1}
               onClick={() => runClose(false)}
-              className="absolute grid cursor-pointer place-items-center rounded-full border border-border bg-background text-primary shadow-[0_3px_6px_-1px_rgb(0_0_0/0.10)] transition-colors outline-none hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none"
+              className="group absolute grid cursor-pointer place-items-center rounded-full border border-border bg-background text-primary shadow-[0_3px_6px_-1px_rgb(0_0_0/0.10)] transition-colors outline-none hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-reduce:transition-none"
               style={{
                 width: DROP_SIZE,
                 height: DROP_SIZE,
                 left: (TRIGGER_SIZE - DROP_SIZE) / 2,
                 top: dropTop(i),
+                pointerEvents: visible && open ? 'auto' : 'none',
               }}
             >
               {item.icon}
+              <span className="pointer-events-none absolute right-[calc(100%+0.75rem)] whitespace-nowrap rounded-md bg-foreground px-2.5 py-1.5 text-xs font-semibold text-white opacity-0 shadow-sm translate-x-1 transition-[opacity,translate] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 motion-reduce:transition-none">
+                {item.tooltip}
+              </span>
             </a>
           ))}
         </div>
@@ -506,7 +527,11 @@ export function SocialDock({ className }: { className?: string }) {
           aria-controls={menuId}
           aria-label={open ? 'Tutup menu kontak' : 'Buka menu kontak'}
           className="absolute right-0 bottom-0 grid cursor-pointer place-items-center rounded-full bg-accent text-white shadow-[0_8px_20px_-6px_rgb(0_0_0/0.35)] outline-none transition-[background-color] hover:bg-[var(--brand-dark)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none"
-          style={{ width: TRIGGER_SIZE, height: TRIGGER_SIZE }}
+          style={{
+            width: TRIGGER_SIZE,
+            height: TRIGGER_SIZE,
+            pointerEvents: visible ? 'auto' : 'none',
+          }}
         >
           <span ref={triggerIconRef} className="flex">
             <Plus className="size-6" aria-hidden="true" />

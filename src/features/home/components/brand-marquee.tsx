@@ -1,14 +1,21 @@
 import { LogoMarquee } from '#/components/ui/logo-marquee'
 
-import { brandPartners } from '../constants/brand-partners'
+import type { ProductTaxonomy } from '#/features/products/types/product'
 
 interface BrandMarqueeProps {
+  brands: ProductTaxonomy[]
   title?: string
 }
 
 export function BrandMarquee({
+  brands,
   title = 'Brands we represent',
 }: BrandMarqueeProps) {
+  const logos = brands.flatMap((brand) =>
+    brand.logo?.trim() ? [{ src: brand.logo, alt: brand.name }] : [],
+  )
+  if (!logos.length) return null
+
   return (
     <section
       aria-label={title}
@@ -24,10 +31,7 @@ export function BrandMarquee({
 
         <LogoMarquee
           label={title}
-          items={brandPartners.map((brand) => ({
-            src: brand.logo,
-            alt: brand.name,
-          }))}
+          items={logos}
           itemClassName="h-7 sm:h-8"
           imgClassName="grayscale opacity-65 transition-[filter,opacity] duration-300 hover:grayscale-0 hover:opacity-100 motion-reduce:transition-none"
         />

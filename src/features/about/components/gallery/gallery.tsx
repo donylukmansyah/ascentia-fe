@@ -1,15 +1,16 @@
 import * as React from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { motion } from 'motion/react'
 import type { Transition } from 'motion/react'
-import { X } from 'lucide-react'
 
-import { cn } from 'cn'
+import { ImageLightbox } from '#/components/ui/image-lightbox'
+import { cn } from '#/lib/utils'
 
 import type { GalleryPhoto } from '../../constants/gallery'
 
 type GalleryContextValue = {
   selected: GalleryPhoto | null
   select: (photo: GalleryPhoto | null) => void
+  photos: GalleryPhoto[]
 }
 
 const GalleryContext = React.createContext<GalleryContextValue | null>(null)
@@ -28,34 +29,45 @@ function useGallery() {
   return context
 }
 
-export function Gallery({ children }: { children: React.ReactNode }) {
+export function Gallery({
+  children,
+  photos = [],
+}: {
+  children: React.ReactNode
+  photos?: GalleryPhoto[]
+}) {
   const [selected, setSelected] = React.useState<GalleryPhoto | null>(null)
-
-  React.useEffect(() => {
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setSelected(null)
-    }
-    window.addEventListener('keydown', closeOnEscape)
-    return () => window.removeEventListener('keydown', closeOnEscape)
-  }, [])
-
-  // Lock page scroll while the modal is open.
-  React.useEffect(() => {
-    document.body.style.overflow = selected ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [selected])
+  const returnFocus = React.useRef<HTMLElement | null>(null)
 
   const value = React.useMemo(
-    () => ({ selected, select: setSelected }),
-    [selected],
+    () => ({
+      selected,
+      select: (photo: GalleryPhoto | null) => {
+        if (photo) {
+          returnFocus.current =
+            document.activeElement instanceof HTMLElement
+              ? document.activeElement
+              : null
+        }
+        setSelected(photo)
+      },
+      photos,
+    }),
+    [selected, photos],
   )
 
   return (
     <GalleryContext.Provider value={value}>
       {children}
-      <GalleryModal />
+      <ImageLightbox
+        images={photos}
+        selectedId={selected?.id ?? null}
+        onSelect={(id) => setSelected(photos.find((p) => p.id === id) ?? null)}
+        onClose={() => setSelected(null)}
+        returnFocus={returnFocus}
+        title="Gallery viewer"
+        closeAriaLabel="Close gallery"
+      />
     </GalleryContext.Provider>
   )
 }
@@ -110,64 +122,5 @@ export function GalleryImage({
         transition={{ duration: 0.2 }}
       />
     </motion.figure>
-  )
-}
-
-function GalleryModal() {
-  const context = React.useContext(GalleryContext)
-  const selected = context?.selected
-  const select = context?.select
-
-  return (
-    <AnimatePresence>
-      {selected && select && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="absolute inset-0 bg-black/80 backdrop-blur-2xl"
-            onClick={() => select(null)}
-          />
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-label={selected.alt}
-            className="relative z-10 flex h-full w-full cursor-zoom-out items-center justify-center"
-            drag="y"
-            dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={0.8}
-            onDragEnd={(_, info) => {
-              const draggedFar = Math.abs(info.offset.y) > 100
-              const flungFast = Math.abs(info.velocity.y) > 300
-              if (draggedFar || flungFast) select(null)
-            }}
-            onClick={() => select(null)}
-          >
-            <motion.img
-              layoutId={`inside-ascentia-${selected.id}`}
-              src={selected.src}
-              alt={selected.alt}
-              draggable={false}
-              className="h-auto max-h-[90vh] w-auto max-w-[95vw] rounded-xl object-contain shadow-2xl will-change-transform"
-              transition={spring}
-            />
-          </motion.div>
-          <motion.button
-            type="button"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ delay: 0.1, duration: 0.2 }}
-            className="absolute top-6 right-6 z-50 cursor-pointer rounded-full bg-white/10 p-2.5 text-white backdrop-blur-md transition-colors outline-none hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-white"
-            onClick={() => select(null)}
-            aria-label="Close gallery"
-          >
-            <X className="size-5" aria-hidden="true" />
-          </motion.button>
-        </div>
-      )}
-    </AnimatePresence>
   )
 }

@@ -12,10 +12,10 @@ export interface AboutPartner {
 }
 
 export const aboutPartnersContent = {
-  eyebrow: 'Our Partner',
-  title: 'Capabilities built with specialists.',
+  eyebrow: 'Our Partners',
+  title: 'Specialist technology. Applied expertise',
   description:
-    'We represent specialist brands across analytical instrumentation, sample preparation, reference materials, and precision measurement.',
+    'We represent leading brands in analytical instrumentation, sample preparation, certified reference materials, and precision measurement.',
   sideImage: {
     src: '/images/about-us/foto-5.webp',
     alt: 'Ascentia exhibition booth with visitors',
@@ -25,7 +25,7 @@ export const aboutPartnersContent = {
       id: 'xrf-scientific',
       name: 'XRF Scientific',
       description:
-        'High-performance fusion and sample preparation instruments for dependable XRF analysis.',
+        'High-quality sample preparation equipment, chemicals, and analytical solutions for XRF workflows.',
       logo: '/images/about-us/our-partner-logo/xrf-scientific.png',
       logoWhite: '/images/about-us/our-partner-logo-white/xrf-scientific.png',
       logoAlt: 'XRF Scientific logo',
@@ -38,7 +38,7 @@ export const aboutPartnersContent = {
       id: 'oreas',
       name: 'OREAS',
       description:
-        'Certified reference materials for quality control in mining and exploration.',
+        'Certified reference materials supporting reliable quality control across mining and exploration.',
       logo: '/images/about-us/our-partner-logo/OREAS.png',
       logoWhite: '/images/about-us/our-partner-logo-white/Oreas.png',
       logoAlt: 'OREAS logo',
@@ -51,7 +51,7 @@ export const aboutPartnersContent = {
       id: 'specac',
       name: 'Specac',
       description:
-        'Precision sample preparation and optical components for spectroscopy.',
+        'Sample preparation and spectroscopy accessories for pharmaceutical, environmental, materials, and industrial laboratories.',
       logo: '/images/about-us/our-partner-logo/Specac-Science-Pulse.png',
       logoWhite: '/images/about-us/our-partner-logo-white/SPecac.png',
       logoAlt: 'Specac logo',
@@ -64,7 +64,7 @@ export const aboutPartnersContent = {
       id: 'mettler-toledo',
       name: 'Mettler Toledo',
       description:
-        'Precision balances and analytical measurement for dependable results.',
+        'Precision instruments for weighing, analytical measurement, process control, and quality assurance.',
       logo: '/images/about-us/our-partner-logo/Mettler-Toledo.png',
       logoWhite: '/images/about-us/our-partner-logo-white/Mettler-toledo.png',
       logoAlt: 'Mettler Toledo logo',
@@ -77,7 +77,7 @@ export const aboutPartnersContent = {
       id: 'king-yosion',
       name: 'King Yosion',
       description:
-        'Laboratory instruments supporting routine analytical workflows.',
+        'Laboratory instruments for sample preparation, testing, and routine analytical workflows.',
       logo: '/images/about-us/our-partner-logo/King-YOSION.png',
       logoWhite: '/images/about-us/our-partner-logo-white/Kingyosion.png',
       logoAlt: 'King Yosion logo',
@@ -90,7 +90,7 @@ export const aboutPartnersContent = {
       id: 'brammer',
       name: 'Brammer Standard',
       description:
-        'Certified reference standards for metals and materials analysis.',
+        'Certified reference materials for calibration, quality control, and method validation in spectrometric analysis.',
       logo: '/images/about-us/our-partner-logo/Brammer-standard.png',
       logoWhite: '/images/about-us/our-partner-logo-white/Brammer-standard.png',
       logoAlt: 'Brammer Standard logo',

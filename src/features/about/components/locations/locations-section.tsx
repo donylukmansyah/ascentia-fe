@@ -8,6 +8,7 @@ import {
   OfficeMarker,
 } from '#/components/ui/map'
 import { Reveal } from '#/components/ui/reveal'
+import { cn } from '#/lib/utils'
 
 import { aboutLocationsContent } from '../../constants/locations'
 import { OfficePopupCard } from './office-popup-card'
@@ -16,6 +17,7 @@ interface AboutLocationsSectionProps {
   eyebrow?: string
   title?: string
   description?: string
+  contained?: boolean
 }
 
 // Top fade keeps header legible over map.
@@ -26,6 +28,7 @@ export function AboutLocationsSection({
   eyebrow = aboutLocationsContent.eyebrow,
   title = aboutLocationsContent.title,
   description = aboutLocationsContent.description,
+  contained = false,
 }: AboutLocationsSectionProps) {
   // Small screens get a wider framing so both pins stay visible.
   const [isMobile, setIsMobile] = useState(false)
@@ -43,13 +46,25 @@ export function AboutLocationsSection({
       aria-labelledby="about-locations-heading"
       className="relative isolate overflow-hidden bg-background"
     >
-      <div className="relative h-[640px] sm:h-[600px] lg:h-[625px]">
+      <div
+        className={cn(
+          'relative',
+          contained
+            ? 'h-[560px] sm:h-[500px] lg:h-[520px]'
+            : 'h-[640px] sm:h-[600px] lg:h-[625px]',
+        )}
+      >
         <div className="absolute inset-0">
           <OfficeMap
             key={isMobile ? 'mobile' : 'desktop'}
             viewport={
               isMobile
-                ? aboutLocationsContent.mobileViewport
+                ? {
+                    ...aboutLocationsContent.mobileViewport,
+                    zoom: contained
+                      ? 3.1
+                      : aboutLocationsContent.mobileViewport.zoom,
+                  }
                 : aboutLocationsContent.viewport
             }
           >
@@ -87,7 +102,14 @@ export function AboutLocationsSection({
         </div>
         <div aria-hidden="true" className={topFadeClassName} />
         <div className="pointer-events-none absolute inset-x-0 top-0">
-          <div className="mx-auto w-full max-w-7xl px-5 pt-14 sm:px-8 sm:pt-16 lg:px-12 lg:pt-20">
+          <div
+            className={cn(
+              'mx-auto w-full max-w-7xl',
+              contained
+                ? 'px-5 pt-8 sm:px-8 sm:pt-10 lg:px-9 lg:pt-12'
+                : 'px-5 pt-14 sm:px-8 sm:pt-16 lg:px-12 lg:pt-20',
+            )}
+          >
             <Reveal
               variant="up"
               className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
@@ -98,7 +120,7 @@ export function AboutLocationsSection({
                 </p>
                 <h2
                   id="about-locations-heading"
-                  className="mt-2 text-[clamp(2rem,3.4vw,3rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
+                  className="mt-2 text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
                 >
                   {title}
                 </h2>

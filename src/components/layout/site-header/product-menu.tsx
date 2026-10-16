@@ -49,7 +49,9 @@ export function ProductMenu({ className, onOpenChange }: ProductMenuProps) {
                 className={label === 'Applications' ? 'col-span-2' : ''}
               >
                 <DropdownMenuItem
-                  render={<Link to={href} />}
+                  render={
+                    <Link to={href} search={{ category: '', q: '', page: 1 }} />
+                  }
                   className="group flex cursor-pointer items-start gap-2.5 rounded-lg px-2 py-2 hover:bg-muted focus:bg-muted"
                 >
                   <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-primary transition-colors group-hover:border-primary/25 group-focus:border-primary/25">

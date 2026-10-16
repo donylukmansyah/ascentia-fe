@@ -16,9 +16,9 @@ export type OfficeLocation = {
 
 export const aboutLocationsContent = {
   eyebrow: 'Our Locations',
-  title: 'Closer to where the work happens.',
+  title: 'Support, within reach',
   description:
-    'We represent specialist brands across analytical instrumentation, sample preparation, reference materials, and precision measurement.',
+    'Strategic facilities in Jakarta and Kendari provide direct application consulting, rapid consumable dispatch, and on-site engineering across Indonesia.',
   viewport: {
     center: [117.5, -2.5] as [number, number],
     zoom: 4.2,
@@ -32,8 +32,8 @@ export const aboutLocationsContent = {
       id: 'jakarta',
       name: 'Jakarta Head Office',
       label: 'Jakarta',
-      longitude: 106.753,
-      latitude: -6.1657,
+      longitude: 106.7614046,
+      latitude: -6.1972135,
       photo: '/images/about-us/foto-1.webp',
       address:
         'Business Park Kebon Jeruk D2-12 Jl. Meruya Ilir No. 88 Meruya, Jakarta Barat 11620',

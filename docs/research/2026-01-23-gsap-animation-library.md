@@ -29,10 +29,10 @@ member-only ("Club GreenSock") benefits. **All plugins are now free on npm as of
 
 **Packages** (both free, public npm):
 
-| Package | Install |
-|---|---|
-| Core + all plugins | `npm install gsap` |
-| React hook | `npm install @gsap/react` |
+| Package            | Install                   |
+| ------------------ | ------------------------- |
+| Core + all plugins | `npm install gsap`        |
+| React hook         | `npm install @gsap/react` |
 
 ---
 
@@ -42,10 +42,10 @@ Plugins are separate JS files bundled inside the `gsap` npm package under named 
 They must be **registered** before use so build-tool tree-shaking does not drop them.
 
 ```ts
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger)
 ```
 
 Registration is idempotent — calling it multiple times is harmless.
@@ -55,11 +55,11 @@ a pre-registered instance, then import from there everywhere else.
 
 ```ts
 // src/lib/gsap.ts
-export { gsap } from 'gsap';
-export { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-gsap.registerPlugin(ScrollTrigger);
+export { gsap } from 'gsap'
+export { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+gsap.registerPlugin(ScrollTrigger)
 ```
 
 ---
@@ -80,15 +80,15 @@ all animations automatically on unmount**.
 ### Minimal usage
 
 ```tsx
-import { useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
+import { useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 export function AnimatedSection() {
-  const container = useRef<HTMLDivElement>(null);
+  const container = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
@@ -103,39 +103,39 @@ export function AnimatedSection() {
           start: 'top 85%',
           once: true,
         },
-      });
+      })
     },
     { scope: container },
-  );
+  )
 
   return (
     <div ref={container}>
       <div className="section-card">…</div>
       <div className="section-card">…</div>
     </div>
-  );
+  )
 }
 ```
 
 ### `useGSAP` config options
 
-| Option | Type | Default | Purpose |
-|---|---|---|---|
-| `scope` | React ref | — | Scopes all selector text to ref's subtree |
-| `dependencies` | array | `[]` | Re-runs hook when deps change |
-| `revertOnUpdate` | boolean | `false` | Reverts animations on each dep change (not only unmount) |
+| Option           | Type      | Default | Purpose                                                  |
+| ---------------- | --------- | ------- | -------------------------------------------------------- |
+| `scope`          | React ref | —       | Scopes all selector text to ref's subtree                |
+| `dependencies`   | array     | `[]`    | Re-runs hook when deps change                            |
+| `revertOnUpdate` | boolean   | `false` | Reverts animations on each dep change (not only unmount) |
 
 ### Interaction handlers — `contextSafe`
 
-Animations created *after* the hook executes (click handlers, timeouts) are not collected in
+Animations created _after_ the hook executes (click handlers, timeouts) are not collected in
 the cleanup context by default. Wrap them with `contextSafe`:
 
 ```tsx
-const { contextSafe } = useGSAP({ scope: container });
+const { contextSafe } = useGSAP({ scope: container })
 
 const handleClick = contextSafe(() => {
-  gsap.to('.item', { scale: 1.05, duration: 0.2, yoyo: true, repeat: 1 });
-});
+  gsap.to('.item', { scale: 1.05, duration: 0.2, yoyo: true, repeat: 1 })
+})
 ```
 
 ---
@@ -159,7 +159,7 @@ registration:
 
 ```ts
 if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger)
 }
 ```
 
@@ -172,7 +172,7 @@ GSAP's `gsap.matchMedia()` (added in v3.11) is the canonical way to respect
 function are **reverted automatically** when the media query stops matching.
 
 ```ts
-const mm = gsap.matchMedia();
+const mm = gsap.matchMedia()
 
 mm.add(
   {
@@ -180,16 +180,16 @@ mm.add(
     noReduceMotion: '(prefers-reduced-motion: no-preference)',
   },
   (context) => {
-    const { reduceMotion } = context.conditions!;
+    const { reduceMotion } = context.conditions!
 
     gsap.from('.section-card', {
       y: reduceMotion ? 0 : 40,
       opacity: reduceMotion ? 1 : 0,
       duration: reduceMotion ? 0 : 0.6,
       scrollTrigger: { trigger: '.section', start: 'top 85%', once: true },
-    });
+    })
   },
-);
+)
 ```
 
 > "Responsive, accessible animations and ScrollTriggers, here you come! `gsap.matchMedia()`
@@ -207,13 +207,13 @@ where CSS transitions are insufficient.
 
 **Yes, with caveats.**
 
-| Factor | Assessment |
-|---|---|
-| Expressiveness | ScrollTrigger `once: true` + `stagger` is ideal for fade-in/slide-in on scroll |
-| Bundle cost | `gsap` core ~30 kB gzipped; `ScrollTrigger` ~15 kB gzipped. Total ~45 kB. Justifiable if used across multiple sections |
-| Alternative | Tailwind + CSS `@keyframes` + `IntersectionObserver` covers simple fade-ins with zero JS cost |
-| When GSAP wins | Staggered children, timeline sequencing, scrub effects, complex easing |
-| When CSS wins | Single-element fade/slide, hover state, CTA arrow rotation (already done with Tailwind) |
+| Factor         | Assessment                                                                                                             |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Expressiveness | ScrollTrigger `once: true` + `stagger` is ideal for fade-in/slide-in on scroll                                         |
+| Bundle cost    | `gsap` core ~30 kB gzipped; `ScrollTrigger` ~15 kB gzipped. Total ~45 kB. Justifiable if used across multiple sections |
+| Alternative    | Tailwind + CSS `@keyframes` + `IntersectionObserver` covers simple fade-ins with zero JS cost                          |
+| When GSAP wins | Staggered children, timeline sequencing, scrub effects, complex easing                                                 |
+| When CSS wins  | Single-element fade/slide, hover state, CTA arrow rotation (already done with Tailwind)                                |
 
 Recommendation: use GSAP if three or more sections need coordinated scroll animations.
 For isolated single-element transitions, keep Tailwind `motion-reduce` patterns already in use.
@@ -237,4 +237,4 @@ For isolated single-element transitions, keep Tailwind `motion-reduce` patterns 
 - [gsap.com/docs/v3/Installation](https://gsap.com/docs/v3/Installation/) — package names, npm migration note
 - [gsap.com/resources/React](https://gsap.com/resources/React/) — `useGSAP`, SSR, cleanup, `contextSafe`
 - [gsap.com/docs/v3/Plugins/ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/) — ScrollTrigger API
-- [gsap.com/docs/v3/GSAP/gsap.matchMedia](https://gsap.com/docs/v3/GSAP/gsap.matchMedia()/) — prefers-reduced-motion pattern
+- [gsap.com/docs/v3/GSAP/gsap.matchMedia](<https://gsap.com/docs/v3/GSAP/gsap.matchMedia()/>) — prefers-reduced-motion pattern
