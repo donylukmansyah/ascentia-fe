@@ -73,9 +73,7 @@ export function SiteFooter() {
           </div>
 
           <nav aria-label="Footer navigation">
-            <h2 className="mb-4 text-base leading-tight font-bold">
-              Explore
-            </h2>
+            <h2 className="mb-4 text-base leading-tight font-bold">Explore</h2>
             <ul className="grid justify-items-start gap-0">
               {footerLinks.map((link) => (
                 <li key={link.to}>

@@ -1,4 +1,5 @@
 import { LogoLoader } from '#/components/ui/logo-loader'
+import logoMark from '../../../public/brand/logo-mark.png?inline'
 
 export function RouteLoading() {
   return (
@@ -6,7 +7,7 @@ export function RouteLoading() {
       aria-busy="true"
       className="fixed inset-0 z-[100] flex items-center justify-center bg-background p-5"
     >
-      <LogoLoader src="/brand/logo-mark.png" label="Loading page…" />
+      <LogoLoader src={logoMark} label="Loading page…" />
     </div>
   )
 }

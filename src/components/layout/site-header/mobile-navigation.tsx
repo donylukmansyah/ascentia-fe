@@ -34,7 +34,9 @@ export function MobileNavigation({
             <li
               key={item.href}
               className="border-b border-foreground/10"
-              style={{ transitionDelay: isOpen ? `${100 + index * 45}ms` : '0ms' }}
+              style={{
+                transitionDelay: isOpen ? `${100 + index * 45}ms` : '0ms',
+              }}
             >
               {isProducts ? (
                 <>
@@ -46,7 +48,9 @@ export function MobileNavigation({
                     onClick={onProductsOpenChange}
                     className={cn(
                       'flex min-h-14 w-full cursor-pointer items-center justify-between py-1 text-left text-base font-semibold transition-[transform,opacity,color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 motion-reduce:transition-none',
-                      isOpen ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0',
+                      isOpen
+                        ? 'translate-y-0 opacity-100'
+                        : 'translate-y-2 opacity-0',
                       isProductsOpen || isActive
                         ? 'text-primary'
                         : 'text-foreground/75 hover:text-primary',
@@ -76,24 +80,31 @@ export function MobileNavigation({
                         isProductsOpen ? 'pt-1 pb-3' : 'p-0',
                       )}
                     >
-                      {productBrowseItems.map(({ label, description, href, icon: Icon }) => (
-                        <Link
-                          key={href}
-                          to={href}
-                          search={{ category: '', q: '', page: 1 }}
-                          tabIndex={isOpen && isProductsOpen ? 0 : -1}
-                          onClick={onNavigate}
-                          className="flex items-center gap-3 rounded-lg px-2 py-2 text-foreground/75 transition-colors hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                        >
-                          <Icon className="size-5 shrink-0 text-primary" aria-hidden="true" />
-                          <span>
-                            <span className="block text-sm font-semibold">{label}</span>
-                            <span className="block text-xs text-muted-foreground">
-                              {description}
+                      {productBrowseItems.map(
+                        ({ label, description, href, icon: Icon }) => (
+                          <Link
+                            key={href}
+                            to={href}
+                            search={{ category: '', q: '', page: 1 }}
+                            tabIndex={isOpen && isProductsOpen ? 0 : -1}
+                            onClick={onNavigate}
+                            className="flex items-center gap-3 rounded-lg px-2 py-2 text-foreground/75 transition-colors hover:bg-muted hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                          >
+                            <Icon
+                              className="size-5 shrink-0 text-primary"
+                              aria-hidden="true"
+                            />
+                            <span>
+                              <span className="block text-sm font-semibold">
+                                {label}
+                              </span>
+                              <span className="block text-xs text-muted-foreground">
+                                {description}
+                              </span>
                             </span>
-                          </span>
-                        </Link>
-                      ))}
+                          </Link>
+                        ),
+                      )}
                     </li>
                   </ul>
                 </>
@@ -105,8 +116,12 @@ export function MobileNavigation({
                   onClick={onNavigate}
                   className={cn(
                     'flex min-h-14 items-center justify-between py-1 text-base font-semibold transition-[transform,opacity,color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 motion-reduce:transition-none',
-                    isOpen ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0',
-                    isActive ? 'text-primary' : 'text-foreground/75 hover:text-primary',
+                    isOpen
+                      ? 'translate-y-0 opacity-100'
+                      : 'translate-y-2 opacity-0',
+                    isActive
+                      ? 'text-primary'
+                      : 'text-foreground/75 hover:text-primary',
                   )}
                 >
                   {item.label}

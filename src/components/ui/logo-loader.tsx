@@ -36,6 +36,9 @@ export function LogoLoader({
           alt=""
           width={size}
           height={size}
+          loading="eager"
+          decoding="sync"
+          fetchPriority="high"
           className="size-full object-contain"
         />
         <span

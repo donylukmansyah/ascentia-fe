@@ -16,11 +16,7 @@ type UseStickyHeaderOptions = {
 export function useStickyHeader(
   options: UseStickyHeaderOptions = {},
 ): HeaderVisibility {
-  const {
-    topOffset = 12,
-    tolerance = 8,
-    paused = false,
-  } = options
+  const { topOffset = 12, tolerance = 8, paused = false } = options
   const [visibility, setVisibility] = useState<HeaderVisibility>('transparent')
 
   useEffect(() => {

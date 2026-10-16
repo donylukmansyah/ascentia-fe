@@ -11,9 +11,15 @@ interface BreadcrumbItem {
 interface BreadcrumbProps {
   items: BreadcrumbItem[]
   className?: string
+  variant?: 'light' | 'dark'
 }
 
-export function Breadcrumb({ items, className }: BreadcrumbProps) {
+export function Breadcrumb({
+  items,
+  className,
+  variant = 'dark',
+}: BreadcrumbProps) {
+  const isLight = variant === 'light'
   return (
     <nav aria-label="Breadcrumb" className={className}>
       <ol className="flex min-w-0 items-center gap-2 text-xs font-semibold sm:text-sm">
@@ -23,14 +29,20 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
             <Fragment key={item.label}>
               {index > 0 && (
                 <li aria-hidden="true">
-                  <ChevronsRight className="size-3.5 text-white/70" />
+                  <ChevronsRight
+                    className={`size-3.5 ${isLight ? 'text-muted-foreground/60' : 'text-white/70'}`}
+                  />
                 </li>
               )}
               {item.to && !last ? (
                 <li className="shrink-0">
                   <Link
                     to={item.to}
-                    className="inline-flex cursor-pointer items-center gap-1.5 text-white/70 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+                    className={`inline-flex cursor-pointer items-center gap-1.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary ${
+                      isLight
+                        ? 'text-muted-foreground hover:text-foreground'
+                        : 'text-white/70 hover:text-white'
+                    }`}
                   >
                     {index === 0 && (
                       <House className="size-3.5" aria-hidden="true" />
@@ -42,7 +54,7 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
                 <li
                   aria-current="page"
                   title={item.label}
-                  className="min-w-0 truncate text-accent"
+                  className={`min-w-0 truncate ${isLight ? 'text-primary' : 'text-accent'}`}
                 >
                   <span className="sr-only">{item.label}</span>
                   <span aria-hidden="true">{item.label}</span>
