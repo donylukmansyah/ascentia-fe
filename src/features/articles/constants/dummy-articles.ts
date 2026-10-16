@@ -146,22 +146,6 @@ export const dummyArticles: Array<Article> = [
   },
 ]
 
-export const dummyBlogs: Array<Article> = Array.from(
-  { length: 48 },
-  (_, index) => ({
-    id: `blog-sample-preparation-${index + 1}`,
-    slug: `improving-sample-preparation-with-xrfuse-6-${index + 1}`,
-    title: 'Improving Sample Preparation with xrFuse 6',
-    excerpt:
-      'A closer look at how automated fusion helps laboratories achieve consistent and reliable results.',
-    image: '/images/blogs/assets-our-blogs.webp',
-    alt: 'Hands typing on a laptop beside a notebook and coffee',
-    date: '2028-11-02',
-    readMinutes: 5,
-    author: { name: 'Mba Eva' },
-  }),
-)
-
 export const dummyNewsSelections = {
   featured: ['matrix-matching'],
   center: ['sample-preparation', 'lab-conversations', 'technical-exchange'],

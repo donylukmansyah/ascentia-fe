@@ -1,36 +1,24 @@
-import { createFileRoute, notFound } from '@tanstack/react-router'
+import { createFileRoute, isRedirect, redirect } from '@tanstack/react-router'
 
-import {
-  dummyArticles,
-  dummyBlogs,
-} from '#/features/articles/constants/dummy-articles'
-import {
-  ArticleDetailPage,
-  ArticleNotFoundPage,
-} from '#/features/articles/pages/article-detail-page'
+import { getBlogDetail } from '#/features/articles/api/article-api'
 
 export const Route = createFileRoute('/articles/$slug')({
-  loader: ({ params }) => {
-    const blog = dummyBlogs.find((item) => item.slug === params.slug)
-    const article =
-      blog ?? dummyArticles.find((item) => item.slug === params.slug)
-    if (!article) throw notFound()
-    const backTo: '/blogs' | '/news' = blog ? '/blogs' : '/news'
-    return { article, backTo }
-  },
-  head: ({ loaderData }) => {
-    const article = loaderData?.article
-    const title = `${article?.title.replace(/\.$/, '') ?? 'Article'} | Ascentia Arsya Analitika`
-    return {
-      meta: article
-        ? [{ title }, { name: 'description', content: article.excerpt }]
-        : [{ title }],
+  beforeLoad: async ({ params }) => {
+    try {
+      const blog = await getBlogDetail({ data: params.slug })
+      if (blog && blog.categories?.some((cat) => cat.slug === 'blogs')) {
+        throw redirect({
+          to: '/blogs/$slug',
+          params: { slug: params.slug },
+        })
+      }
+    } catch (error) {
+      if (isRedirect(error)) throw error
     }
-  },
-  component: ArticleDetailRoute,
-  notFoundComponent: ArticleNotFoundPage,
-})
 
-function ArticleDetailRoute() {
-  return <ArticleDetailPage {...Route.useLoaderData()} />
-}
+    throw redirect({
+      to: '/news/$slug',
+      params: { slug: params.slug },
+    })
+  },
+})

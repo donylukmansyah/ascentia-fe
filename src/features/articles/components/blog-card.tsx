@@ -10,7 +10,7 @@ export function BlogCard({ article }: { article: Article }) {
   return (
     <article className="group/blog-card relative flex h-full min-w-0 flex-col overflow-hidden rounded-[4px] border border-border bg-white transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-md motion-reduce:hover:translate-none">
       <Link
-        to="/articles/$slug"
+        to="/blogs/$slug"
         params={{ slug: article.slug }}
         className="flex h-full cursor-pointer flex-col focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary"
       >

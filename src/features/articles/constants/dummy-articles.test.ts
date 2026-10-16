@@ -3,24 +3,19 @@ import { existsSync } from 'node:fs'
 
 import {
   dummyArticles,
-  dummyBlogs,
   dummyNewsSelections,
   getLatestPool,
   latestPageSize,
   selectDummyArticles,
 } from './dummy-articles.ts'
 
-const allArticles = [...dummyArticles, ...dummyBlogs]
-
-assert.equal(dummyBlogs.length, 48)
-assert.ok(dummyBlogs.every((article) => article.author?.name === 'Mba Eva'))
 assert.equal(
-  new Set(allArticles.map((article) => article.id)).size,
-  allArticles.length,
+  new Set(dummyArticles.map((article) => article.id)).size,
+  dummyArticles.length,
 )
 assert.equal(
-  new Set(allArticles.map((article) => article.slug)).size,
-  allArticles.length,
+  new Set(dummyArticles.map((article) => article.slug)).size,
+  dummyArticles.length,
 )
 
 const topIds = [
@@ -40,7 +35,7 @@ for (const ids of Object.values(dummyNewsSelections)) {
   )
 }
 
-for (const article of allArticles) {
+for (const article of dummyArticles) {
   assert.ok(article.title && article.excerpt && article.alt && article.slug)
   assert.ok(Number.isFinite(Date.parse(article.date)))
   assert.ok(Number.isInteger(article.readMinutes) && article.readMinutes > 0)
