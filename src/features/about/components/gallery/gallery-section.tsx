@@ -42,7 +42,7 @@ export function AboutGallerySection({
 
         <div className="mt-10">
           <Reveal variant="up" delay={0.1}>
-            <Gallery>
+            <Gallery photos={aboutGalleryContent.photos}>
               <GalleryGrid>
                 {aboutGalleryContent.photos.map((photo) => (
                   <GalleryImage key={photo.id} photo={photo} />

@@ -40,6 +40,5 @@ export const aboutGalleryContent = {
       src: '/images/about-us/Technical-briefing.webp',
       alt: 'Grand opening ribbon cutting of Dynatech International Kendari branch',
     },
-
   ] as GalleryPhoto[],
 } as const

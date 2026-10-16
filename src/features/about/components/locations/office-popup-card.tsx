@@ -32,7 +32,7 @@ export function OfficePopupCard({ office }: { office: OfficeLocation }) {
       transition={
         reduceMotion
           ? { duration: 0 }
-          : { type: 'spring', stiffness: 500, damping: 26 }
+          : { type: 'tween', duration: 0.2, ease: 'easeOut' }
       }
     >
       <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-2xl">

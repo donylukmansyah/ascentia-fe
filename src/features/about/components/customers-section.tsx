@@ -18,13 +18,18 @@ export function AboutCustomersSection({
             {title}
           </h2>
         </Reveal>
-        <div className="mt-8 sm:mt-10">
+        <Reveal
+          variant="up"
+          distance={20}
+          delay={0.12}
+          className="mt-8 sm:mt-10"
+        >
           <LogoMarquee
             label={title}
             items={aboutCustomersContent.logos}
             durationSec={126}
           />
-        </div>
+        </Reveal>
       </div>
     </section>
   )
