@@ -8,6 +8,7 @@ import {
   OfficeMarker,
 } from '#/components/ui/map'
 import { PageHero } from '#/components/ui/page-hero'
+import { Reveal } from '#/components/ui/reveal'
 import { AboutLocationsSection } from '#/features/about/components/locations/locations-section'
 import { aboutLocationsContent } from '#/features/about/constants/locations'
 
@@ -48,33 +49,41 @@ export function ContactPage() {
         className="relative isolate scroll-mt-28 bg-[#F7F9FC] outline-none"
       >
         <div className="pointer-events-none relative z-10 mx-auto w-full max-w-7xl px-5 py-8 sm:px-8 sm:py-10 lg:absolute lg:inset-x-0 lg:top-12 lg:px-12 lg:py-0">
-          <div
-            aria-labelledby="jakarta-map-heading"
+          <Reveal
+            variant="up"
+            distance={28}
+            delay={0.1}
+            duration={0.55}
             className="pointer-events-auto flex flex-col gap-5 lg:w-[360px] lg:rounded-xl lg:bg-background lg:p-6 lg:shadow-md"
           >
-            <div>
-              <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
-                Jakarta · Head Office
-              </p>
-              <h2
-                id="jakarta-map-heading"
-                className="mt-2 text-xl leading-snug font-bold tracking-[-0.03em] text-foreground sm:text-2xl"
-              >
-                PT Ascentia Arsya Analitika
-              </h2>
-              <address className="mt-3 max-w-xl text-sm leading-relaxed text-description-text not-italic sm:text-base">
-                {jakartaOffice.address}
-              </address>
-            </div>
-            <CtaLink
-              to={jakartaDirectionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-fit lg:w-full"
+            <div
+              aria-labelledby="jakarta-map-heading"
+              className="flex flex-col gap-5"
             >
-              Get directions
-            </CtaLink>
-          </div>
+              <div>
+                <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
+                  Jakarta · Head Office
+                </p>
+                <h2
+                  id="jakarta-map-heading"
+                  className="mt-2 text-xl leading-snug font-bold tracking-[-0.03em] text-foreground sm:text-2xl"
+                >
+                  PT Ascentia Arsya Analitika
+                </h2>
+                <address className="mt-3 max-w-xl text-sm leading-relaxed text-description-text not-italic sm:text-base">
+                  {jakartaOffice.address}
+                </address>
+              </div>
+              <CtaLink
+                to={jakartaDirectionsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-fit lg:w-full"
+              >
+                Get directions
+              </CtaLink>
+            </div>
+          </Reveal>
         </div>
         <div className="relative h-[380px] w-full sm:h-[480px] lg:h-[540px]">
           <OfficeMap
