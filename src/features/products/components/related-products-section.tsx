@@ -54,26 +54,31 @@ export function RelatedProductsSection({
       className="scroll-mt-16 border-t border-border bg-background py-14 sm:py-18 lg:py-20"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        <div className="flex items-end justify-between gap-5">
-          <h2
-            id="related-products-heading"
-            className="text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
-          >
-            Related Products
-          </h2>
-          <Link
-            to="/products"
-            className="cursor-pointer text-xs font-bold text-foreground transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary flex gap-2 items-center"
-          >
-            View all
-            <ArrowUpRight size={10} />
-          </Link>
-        </div>
+        <Reveal variant="up" distance={20} margin="0px 0px -40px 0px">
+          <div className="flex items-end justify-between gap-5">
+            <h2
+              id="related-products-heading"
+              className="text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
+            >
+              Related Products
+            </h2>
+            <Link
+              to="/products"
+              className="cursor-pointer text-xs font-bold text-foreground transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary flex gap-2 items-center"
+            >
+              View all
+              <ArrowUpRight size={10} />
+            </Link>
+          </div>
+        </Reveal>
         <ul className="mt-8 grid grid-cols-1 gap-4 min-[520px]:grid-cols-2 lg:grid-cols-4">
           {related.map((relatedProduct, index) => (
             <li key={relatedProduct.id} className="min-w-0">
               <Reveal
                 variant="up"
+                distance={24}
+                duration={0.45}
+                margin="0px 0px -40px 0px"
                 delay={(index % 4) * 0.08}
                 className="h-full"
               >

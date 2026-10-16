@@ -3,6 +3,7 @@ import { createKeyedCache, createTaxonomyCache } from './product-taxonomy-cache'
 import {
   array,
   mapProduct,
+  mapProductImages,
   mapTaxonomies,
   paginationTotals,
   positiveId,
@@ -232,11 +233,13 @@ async function fetchProductDetail(
   return {
     ...product,
     slug,
+    images: mapProductImages(raw.images),
     brandLogo: taxonomy.brands.find((term) => term.id === product.brandId)
       ?.logo,
     descriptionHtml: sanitizeProductHtml(raw.description, taxonomy),
     summaryHtml: sanitizeProductHtml(raw.short_description, taxonomy),
     specificationsHtml: sanitizeProductHtml(acf.specifications, taxonomy),
+    applicationsHtml: sanitizeProductHtml(acf.applications, taxonomy),
     tags: [
       ...new Set(
         [...taxonomy.types, ...taxonomy.applications]

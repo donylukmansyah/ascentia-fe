@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Link } from '@tanstack/react-router'
+import { Link, useHydrated } from '@tanstack/react-router'
 
 import { RouteLoading } from '#/components/layout/route-loading'
 import { Button } from '#/components/ui/button'
@@ -11,12 +11,15 @@ import {
 import { ProductDetailContent } from '../components/product-detail-content'
 import { ProductDetailHero } from '../components/product-detail-hero'
 import { ProductDetailNav } from '../components/product-detail-nav'
-import type { ProductDetailTab } from '../components/product-detail-nav'
 import {
   RelatedProductsLoading,
   RelatedProductsSection,
 } from '../components/related-products-section'
-import type { ProductDetailData } from '../types/product'
+import type {
+  ProductDetailData,
+  ProductDetailSection,
+  ProductDetailTab,
+} from '../types/product'
 
 export function ProductDetailPage({ slug }: { slug: string }) {
   const query = useQuery(productDetailQueryOptions(slug))
@@ -28,37 +31,70 @@ export function ProductDetailPage({ slug }: { slug: string }) {
 }
 
 function ProductDetailView({ product }: { product: ProductDetailData }) {
-  const [activeTab, setActiveTab] = useState<ProductDetailTab>('description')
+  const hydrated = useHydrated()
+  const [selectedTab, setSelectedTab] =
+    useState<ProductDetailTab>('description')
+  const tabs: ProductDetailSection[] = [
+    { id: 'description', label: 'Description' },
+    ...(product.specificationsHtml
+      ? [{ id: 'specifications' as const, label: 'Specifications' }]
+      : []),
+    ...(product.applicationsHtml
+      ? [{ id: 'applications' as const, label: 'Applications' }]
+      : []),
+  ]
+  const activeTab = tabs.some((tab) => tab.id === selectedTab)
+    ? selectedTab
+    : 'description'
   const related = useQuery({
     ...relatedProductsQueryOptions(product.id, product.brandId),
     enabled: product.brandId !== '',
   })
   useEffect(() => {
-    if (
-      window.location.hash === '#specifications' &&
-      product.specificationsHtml
-    )
-      setActiveTab('specifications')
-  }, [product.specificationsHtml])
-  useEffect(() => {
-    if (!product.specificationsHtml && activeTab === 'specifications')
-      setActiveTab('description')
-  }, [product.specificationsHtml, activeTab])
+    let frame = 0
+    const selectHash = () => {
+      const hash = window.location.hash.slice(1)
+      if (
+        hash !== 'description' &&
+        hash !== 'specifications' &&
+        hash !== 'applications'
+      )
+        return
+      const available =
+        hash === 'description' ||
+        (hash === 'specifications' && product.specificationsHtml) ||
+        (hash === 'applications' && product.applicationsHtml)
+      const tab = available ? hash : 'description'
+      setSelectedTab(tab)
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        document.getElementById(tab)?.scrollIntoView({ block: 'start' })
+      })
+    }
+    selectHash()
+    window.addEventListener('hashchange', selectHash)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('hashchange', selectHash)
+    }
+  }, [product.specificationsHtml, product.applicationsHtml])
   return (
     <>
       <ProductDetailHero product={product} />
       <ProductDetailNav
-        onTabChange={setActiveTab}
-        hasSpecifications={Boolean(product.specificationsHtml)}
-        hasRelated={Boolean(related.data?.length)}
+        onTabChange={setSelectedTab}
+        tabs={tabs}
+        hasRelated={hydrated && Boolean(related.data?.length)}
       />
       <ProductDetailContent
         product={product}
+        tabs={tabs}
         activeTab={activeTab}
-        onTabChange={setActiveTab}
+        onTabChange={setSelectedTab}
       />
-      {related.isPending && <RelatedProductsLoading />}
-      {related.isError ? (
+      {!hydrated || related.isPending ? (
+        <RelatedProductsLoading />
+      ) : related.isError ? (
         <div role="alert" className="mx-auto max-w-7xl px-5 py-8">
           <p>Unable to load related products.</p>
           <Button
@@ -70,7 +106,7 @@ function ProductDetailView({ product }: { product: ProductDetailData }) {
           </Button>
         </div>
       ) : (
-        <RelatedProductsSection products={related.data ?? []} />
+        <RelatedProductsSection products={related.data} />
       )}
     </>
   )

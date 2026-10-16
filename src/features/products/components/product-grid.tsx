@@ -2,6 +2,7 @@ import { useRef } from 'react'
 
 import { Button } from '#/components/ui/button'
 import { PagePagination } from '#/components/ui/pagination'
+import { Reveal } from '#/components/ui/reveal'
 
 import { ProductCard } from './product-card'
 import type { ProductCardData } from '../types/product'
@@ -14,6 +15,7 @@ interface ProductGridProps {
   title?: string
   filterLabel?: string
   page: number
+  searchQuery?: string
   pending?: boolean
   fetching?: boolean
   error?: boolean
@@ -21,6 +23,28 @@ interface ProductGridProps {
   onRetry: () => void
   onPageChange: (page: number) => void
   onReset: () => void
+}
+
+function ProductCardSkeleton() {
+  return (
+    <li
+      className="flex h-full flex-col overflow-hidden rounded-[4px] border border-border bg-white animate-pulse motion-reduce:animate-none"
+      aria-hidden="true"
+    >
+      <div className="aspect-[4/3] w-full bg-[color-mix(in_srgb,var(--primary)_8%,var(--muted))]" />
+      <div className="flex flex-1 flex-col justify-between p-4">
+        <div>
+          <div className="h-2.5 w-14 rounded bg-muted" />
+          <div className="mt-2.5 h-4 w-4/5 rounded bg-muted" />
+          <div className="mt-1.5 h-4 w-3/5 rounded bg-muted" />
+        </div>
+        <div className="mt-4 flex items-center gap-1.5">
+          <div className="h-3 w-16 rounded bg-muted" />
+          <div className="size-3 rounded-full bg-muted" />
+        </div>
+      </div>
+    </li>
+  )
 }
 
 export function ProductGrid({
@@ -31,6 +55,7 @@ export function ProductGrid({
   title = 'Browse by brand',
   filterLabel = 'brand',
   page,
+  searchQuery,
   pending = false,
   fetching = false,
   error = false,
@@ -54,27 +79,29 @@ export function ProductGrid({
 
   return (
     <div ref={topRef} aria-busy={fetching} className="min-w-0 scroll-mt-28">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-[11px] font-bold tracking-[0.08em] text-primary uppercase sm:text-xs">
-            {kicker}
+      <Reveal variant="up" distance={20} margin="0px 0px -40px 0px">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-[11px] font-bold tracking-[0.08em] text-primary uppercase sm:text-xs">
+              {kicker}
+            </p>
+            <h2 className="mt-1 text-[clamp(1.75rem,3vw,2.5rem)] leading-tight font-bold tracking-[-0.03em] text-foreground">
+              {title}
+            </h2>
+          </div>
+          <p
+            role="status"
+            aria-live="polite"
+            className="pt-1 text-xs whitespace-nowrap text-muted-foreground sm:text-sm"
+          >
+            {pending ? (
+              <span className="sr-only">Loading products…</span>
+            ) : (
+              `${total} products`
+            )}
           </p>
-          <h2 className="mt-1 text-[clamp(1.75rem,3vw,2.5rem)] leading-tight font-bold tracking-[-0.03em] text-foreground">
-            {title}
-          </h2>
         </div>
-        <p
-          role="status"
-          aria-live="polite"
-          className="pt-1 text-xs whitespace-nowrap text-muted-foreground sm:text-sm"
-        >
-          {pending
-            ? `Loading page ${page}…`
-            : fetching
-              ? 'Updating products…'
-              : `${total} products`}
-        </p>
-      </div>
+      </Reveal>
       {pending ? (
         <div role="status">
           <span className="sr-only">Loading products…</span>
@@ -83,10 +110,7 @@ export function ProductGrid({
             className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4"
           >
             {Array.from({ length: 8 }, (_, index) => (
-              <li
-                key={index}
-                className="h-72 animate-pulse rounded bg-muted motion-reduce:animate-none"
-              />
+              <ProductCardSkeleton key={index} />
             ))}
           </ul>
         </div>
@@ -124,9 +148,17 @@ export function ProductGrid({
               ? 'This filter is no longer available'
               : 'No products found'}
           </p>
-          <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-            Try a different {filterLabel} or search keyword.
-          </p>
+          {searchQuery ? (
+            <p className="mt-2 max-w-md text-sm text-muted-foreground">
+              No results found matching &ldquo;
+              <span className="font-medium text-foreground">{searchQuery}</span>
+              &rdquo;.
+            </p>
+          ) : (
+            <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+              Try a different {filterLabel} or search keyword.
+            </p>
+          )}
           <Button
             type="button"
             variant="outline"
@@ -138,9 +170,18 @@ export function ProductGrid({
         </div>
       ) : (
         <ul className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
-          {products.map((product) => (
+          {products.map((product, index) => (
             <li key={product.id} className="min-w-0">
-              <ProductCard product={product} className="h-full" />
+              <Reveal
+                variant="up"
+                distance={24}
+                duration={0.45}
+                margin="0px 0px -40px 0px"
+                delay={(index % 4) * 0.05}
+                className="h-full"
+              >
+                <ProductCard product={product} className="h-full" />
+              </Reveal>
             </li>
           ))}
         </ul>

@@ -4,11 +4,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { ProductListingPage } from '#/features/products/pages/product-listing-page'
 import type { ProductSearch } from '#/features/products/types/product'
 
-import {
-  listingMeta,
-  listingSearchConfig,
-  prefetchListing,
-} from './-listing'
+import { listingMeta, listingSearchConfig, prefetchListing } from './-listing'
 
 export const Route = createFileRoute('/products/brands')({
   ...listingSearchConfig,
@@ -17,6 +13,7 @@ export const Route = createFileRoute('/products/brands')({
   ...listingMeta(
     'All Brands | Ascentia Arsya Analitika',
     'Browse analytical instruments, sample preparation equipment, and certified reference materials by brand.',
+    '/products/brands',
   ),
   component: ProductListingRoute,
 })

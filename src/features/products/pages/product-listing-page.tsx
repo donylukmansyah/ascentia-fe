@@ -1,8 +1,15 @@
-import { useEffect, useState, useSyncExternalStore } from 'react'
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 import { Button } from '#/components/ui/button'
 import { useStickyHeader } from '#/hooks/use-sticky-header'
+import { getFuzzySuggestion } from '#/lib/fuzzy-search'
 import { cn } from '#/lib/utils'
 
 import {
@@ -87,6 +94,93 @@ export function ProductListingPage({
     return () => clearTimeout(timeout)
   }, [draft, search, onSearchChange])
 
+  const handleClearSearch = () => {
+    setDraft('')
+    onSearchChange({ ...search, q: '', page: 1 }, true)
+  }
+
+  const knownItemsRef = useRef<Set<string>>(new Set())
+
+  const candidates = useMemo(() => {
+    const set = new Set<string>()
+    const addTokens = (itemTitle: string) => {
+      set.add(itemTitle)
+      const words = itemTitle.split(/[\s–—\-–/,]+/).filter((w) => w.length >= 3)
+      for (const word of words) {
+        set.add(word)
+      }
+    }
+    if (taxonomy.data) {
+      for (const groupTerms of Object.values(taxonomy.data)) {
+        for (const term of groupTerms) {
+          addTokens(term.name)
+        }
+      }
+    }
+    if (products.data?.items) {
+      for (const item of products.data.items) {
+        knownItemsRef.current.add(item.name)
+      }
+    }
+    if (featured.data?.items) {
+      for (const item of featured.data.items) {
+        knownItemsRef.current.add(item.name)
+      }
+    }
+    for (const itemTitle of knownItemsRef.current) {
+      addTokens(itemTitle)
+    }
+    return Array.from(set)
+  }, [taxonomy.data, products.data?.items, featured.data?.items])
+
+  const isDirectEmpty = Boolean(
+    search.q && products.data && products.data.total === 0,
+  )
+
+  const suggestion = useMemo(() => {
+    if (!isDirectEmpty) return null
+    return getFuzzySuggestion(candidates, search.q)
+  }, [candidates, search.q, isDirectEmpty])
+
+  const fallbackProducts = useQuery({
+    ...productsQueryOptions({
+      group,
+      category: search.category,
+      search: suggestion ?? '',
+      page: search.page,
+      perPage: PRODUCT_LIST_PAGE_SIZE,
+    }),
+    enabled: Boolean(suggestion && isDirectEmpty),
+  })
+
+  const hasFallback = Boolean(
+    suggestion && fallbackProducts.data && fallbackProducts.data.total > 0,
+  )
+
+  const activeProducts =
+    hasFallback && fallbackProducts.data
+      ? fallbackProducts.data.items
+      : (products.data?.items ?? [])
+
+  const activeTotal =
+    hasFallback && fallbackProducts.data
+      ? fallbackProducts.data.total
+      : (products.data?.total ?? 0)
+
+  const activeTotalPages =
+    hasFallback && fallbackProducts.data
+      ? fallbackProducts.data.totalPages
+      : (products.data?.totalPages ?? 0)
+
+  const activeError = hasFallback ? fallbackProducts.isError : products.isError
+
+  const isPending =
+    products.isPending ||
+    products.isPlaceholderData ||
+    (Boolean(suggestion && isDirectEmpty) && fallbackProducts.isPending)
+
+  const isFetching = products.isFetching || fallbackProducts.isFetching
+
   const reset = () => onSearchChange({ category: '', q: '', page: 1 })
 
   return (
@@ -100,6 +194,7 @@ export function ProductListingPage({
       <ProductSearchPanel
         value={draft}
         onQueryChange={(value) => setDraft(value.slice(0, 200))}
+        onClear={handleClearSearch}
         placeholder="Search products..."
       />
       <section
@@ -147,9 +242,9 @@ export function ProductListingPage({
             )}
           </div>
           <ProductGrid
-            products={products.data?.items ?? []}
-            total={products.data?.total ?? 0}
-            totalPages={products.data?.totalPages ?? 0}
+            products={activeProducts}
+            total={activeTotal}
+            totalPages={activeTotalPages}
             title={`Browse by ${label}`}
             filterLabel={label}
             kicker={
@@ -158,11 +253,15 @@ export function ProductListingPage({
                 : (active?.name ?? 'All products')
             }
             page={search.page}
-            pending={products.isPending || products.isPlaceholderData}
-            fetching={products.isFetching}
-            error={products.isError}
+            searchQuery={search.q}
+            pending={isPending}
+            fetching={isFetching}
+            error={activeError}
             invalidCategory={products.data?.invalidCategory}
-            onRetry={() => void products.refetch()}
+            onRetry={() => {
+              void products.refetch()
+              if (hasFallback) void fallbackProducts.refetch()
+            }}
             onPageChange={(page) => onSearchChange({ ...search, page })}
             onReset={reset}
           />

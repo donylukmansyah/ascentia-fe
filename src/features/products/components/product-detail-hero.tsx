@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
+import { useHydrated } from '@tanstack/react-router'
 
 import { Breadcrumb } from '#/components/ui/breadcrumb'
 import type { ProductDetailData } from '../types/product'
@@ -10,6 +11,7 @@ interface ProductDetailHeroProps {
 
 export function ProductDetailHero({ product }: ProductDetailHeroProps) {
   const sectionRef = useRef<HTMLElement>(null)
+  const hydrated = useHydrated()
   const reduceMotion = useReducedMotion() ?? false
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -31,7 +33,7 @@ export function ProductDetailHero({ product }: ProductDetailHeroProps) {
           aria-hidden="true"
           decoding="async"
           draggable={false}
-          style={{ y: reduceMotion ? 0 : imageY }}
+          style={{ y: hydrated && reduceMotion ? 0 : imageY }}
           className="pointer-events-none absolute -right-[8%] bottom-[-4%] -z-20 h-[88%] w-[72%] object-contain object-right opacity-30 sm:right-[2%] sm:w-[58%] lg:right-[7%] lg:h-[108%] lg:w-[51%] lg:opacity-35"
         />
       ) : null}

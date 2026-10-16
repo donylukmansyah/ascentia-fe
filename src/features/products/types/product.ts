@@ -25,11 +25,28 @@ export interface ProductCardData {
   application?: string
 }
 
+export interface ProductImage {
+  id: string
+  src: string
+  thumbnail: string
+  srcSet?: string
+  alt: string
+}
+
+export type ProductDetailTab = 'description' | 'specifications' | 'applications'
+
+export interface ProductDetailSection {
+  id: ProductDetailTab
+  label: string
+}
+
 export interface ProductDetailData extends ProductCardData {
+  images: ProductImage[]
   brandLogo?: string
   descriptionHtml: string
   summaryHtml: string
   specificationsHtml: string
+  applicationsHtml: string
   tags: string[]
   publishedAt: string
   modifiedAt: string

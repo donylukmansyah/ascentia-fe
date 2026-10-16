@@ -1,12 +1,18 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getRequest } from '@tanstack/react-start/server'
 
-import { validateListInput, validateProductSlug, validateRelatedInput } from './product-input'
+import {
+  validateListInput,
+  validateProductSlug,
+  validateRelatedInput,
+} from './product-input'
 
-export const getProductTaxonomies = createServerFn({ method: 'GET' }).handler(async () => {
-  const { readTaxonomies } = await import('./product-source.server')
-  return readTaxonomies(getRequest().signal)
-})
+export const getProductTaxonomies = createServerFn({ method: 'GET' }).handler(
+  async () => {
+    const { readTaxonomies } = await import('./product-source.server')
+    return readTaxonomies(getRequest().signal)
+  },
+)
 
 export const getProducts = createServerFn({ method: 'GET' })
   .validator(validateListInput)

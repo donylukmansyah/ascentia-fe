@@ -11,6 +11,7 @@ import {
   ProductDetailError,
   ProductNotFound,
 } from '#/features/products/pages/product-detail-page'
+import { createSeoMeta } from '#/lib/seo'
 
 export const Route = createFileRoute('/products/$slug')({
   loader: async ({ context, params }) => {
@@ -21,13 +22,24 @@ export const Route = createFileRoute('/products/$slug')({
     void context.queryClient
       .ensureQueryData(relatedProductsQueryOptions(product.id, product.brandId))
       .catch(() => undefined)
-    return { title: product.name }
+    return {
+      title: product.name,
+      description: product.summaryHtml
+        ? product.summaryHtml.replace(/<[^>]*>/g, '').trim()
+        : 'Analytical instrument from Ascentia Arsya Analitika.',
+      image: product.image,
+      imageAlt: product.imageAlt ?? product.name,
+      slug: params.slug,
+    }
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: `${loaderData?.title ?? 'Product'} | Ascentia Arsya Analitika` },
-    ],
-  }),
+  head: ({ loaderData }) =>
+    createSeoMeta({
+      title: `${loaderData?.title ?? 'Product'} | Ascentia Arsya Analitika`,
+      description: loaderData?.description,
+      path: `/products/${loaderData?.slug ?? ''}`,
+      image: loaderData?.image,
+      imageAlt: loaderData?.imageAlt,
+    }),
   component: ProductDetailRoute,
   pendingComponent: RouteLoading,
   errorComponent: ProductDetailErrorRoute,

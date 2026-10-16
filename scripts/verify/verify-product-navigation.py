@@ -26,7 +26,7 @@ async def main():
         grid = page.locator('#product-results [aria-busy]')
         await expect(grid).to_have_attribute('aria-busy', 'true')
         await expect(grid.locator('li.animate-pulse')).to_have_count(8)
-        await expect(grid.get_by_text('Loading page 1…', exact=True)).to_be_visible()
+        await expect(grid.locator('[role="status"]').first).to_contain_text('Loading products…')
         release.set()
         await expect(grid).to_have_attribute('aria-busy', 'false', timeout=30000)
         assert await grid.locator('article').count() > 0, 'Products did not load'

@@ -1,6 +1,7 @@
 import { stripSearchParams } from '@tanstack/react-router'
 import type { QueryClient } from '@tanstack/react-query'
 
+import { RouteLoading } from '#/components/layout/route-loading'
 import { normalizeProductSearch } from '#/features/products/api/product-input'
 import {
   PRODUCT_LIST_PAGE_SIZE,
@@ -12,6 +13,7 @@ import type {
   ProductGroup,
   ProductSearch,
 } from '#/features/products/types/product'
+import { createSeoMeta } from '#/lib/seo'
 
 export const listingSearchConfig = {
   validateSearch: normalizeProductSearch,
@@ -21,6 +23,7 @@ export const listingSearchConfig = {
     ],
   },
   loaderDeps: ({ search }: { search: ProductSearch }) => search,
+  pendingComponent: RouteLoading,
 }
 
 export function prefetchListing(
@@ -49,10 +52,8 @@ export function prefetchListing(
   if (import.meta.env.SSR || preload) return resources.then(() => undefined)
 }
 
-export function listingMeta(title: string, description: string) {
+export function listingMeta(title: string, description: string, path: string) {
   return {
-    head: () => ({
-      meta: [{ title }, { name: 'description', content: description }],
-    }),
+    head: () => createSeoMeta({ title, description, path }),
   }
 }

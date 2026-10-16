@@ -184,6 +184,9 @@ export function ProductCarouselSection({
               <Reveal
                 key={product.id}
                 variant="up"
+                distance={24}
+                duration={0.45}
+                margin="0px 0px -40px 0px"
                 delay={(index % 4) * 0.08}
                 className="min-w-0 shrink-0 snap-start basis-[88%] sm:basis-[calc(50%-12px)] lg:basis-[calc((100%-104px)/3)]"
               >

@@ -2,6 +2,7 @@ import sanitizeHtml from 'sanitize-html'
 import type {
   ProductCardData,
   ProductGroup,
+  ProductImage,
   ProductTaxonomies,
 } from '../types/product.ts'
 
@@ -35,7 +36,11 @@ function safeUrl(value: unknown): string | undefined {
   if (typeof value !== 'string') return undefined
   try {
     const url = new URL(value)
-    return ['https:', 'http:'].includes(url.protocol) ? url.href : undefined
+    return ['https:', 'http:'].includes(url.protocol) &&
+      !url.username &&
+      !url.password
+      ? url.href
+      : undefined
   } catch {
     return undefined
   }
@@ -86,9 +91,36 @@ export function mapTaxonomies(value: unknown): ProductTaxonomies {
 function srcSet(value: unknown): string | undefined {
   if (typeof value !== 'string' || !value) return undefined
   const entries = value.split(',').map((entry) => entry.trim())
-  if (!entries.every((entry) => /^https?:\/\/[^\s]+ \d+w$/.test(entry)))
+  if (
+    !entries.every((entry) => {
+      const match = entry.match(/^(https?:\/\/[^\s]+) ([1-9]\d*)w$/)
+      return match && safeUrl(match[1])
+    })
+  )
     return undefined
   return value
+}
+
+export function mapProductImages(value: unknown): ProductImage[] {
+  const images: ProductImage[] = []
+  const seen = new Set<number>()
+  for (const entry of array(value)) {
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry)) continue
+    const image = record(entry)
+    const id = Number(image.id)
+    const src = safeUrl(image.src)
+    if (!Number.isSafeInteger(image.id) || id < 1 || !src || seen.has(id))
+      continue
+    seen.add(id)
+    images.push({
+      id: String(id),
+      src,
+      thumbnail: safeUrl(image.thumbnail) ?? src,
+      srcSet: srcSet(image.srcset),
+      alt: typeof image.alt === 'string' ? image.alt.trim() : '',
+    })
+  }
+  return images
 }
 
 export function mapProduct(
@@ -106,8 +138,7 @@ export function mapProduct(
   const applications = taxonomy.applications.filter((term) =>
     categories.has(term.id),
   )
-  const images = array(product.images)
-  const image = images.length ? record(images[0]) : undefined
+  const image = mapProductImages(product.images).at(0)
   const permalink = safeUrl(product.permalink)
   if (!permalink) throw new Error('Invalid product URL')
   const slug = new URL(permalink).pathname.split('/').filter(Boolean).at(-1)
@@ -122,9 +153,9 @@ export function mapProduct(
     applicationIds: applications.map((term) => term.id),
     category: types.map((term) => term.name).join(', '),
     application: applications.map((term) => term.name).join(', '),
-    image: safeUrl(image?.src),
-    imageSrcSet: srcSet(image?.srcset),
-    imageAlt: typeof image?.alt === 'string' ? image.alt : undefined,
+    image: image?.src,
+    imageSrcSet: image?.srcSet,
+    imageAlt: image?.alt,
   }
 }
 
@@ -134,7 +165,7 @@ export function sanitizeProductHtml(
 ): string {
   if (value == null || value === false) return ''
   const html = text(value)
-  return sanitizeHtml(html, {
+  const sanitized = sanitizeHtml(html, {
     allowedTags: [
       'p',
       'br',
@@ -209,6 +240,13 @@ export function sanitizeProductHtml(
       }),
     },
   }).trim()
+  const content = sanitizeHtml(sanitized, {
+    allowedTags: [],
+    allowedAttributes: {},
+  }).replace(/&(?:nbsp|#160|#x0*a0);|[\s\u00a0\u200b\ufeff]/gi, '')
+  return content || /<img\b[^>]*\bsrc="https?:\/\/[^"\s]+"/i.test(sanitized)
+    ? sanitized
+    : ''
 }
 
 export function paginationTotals(headers: Headers): {
