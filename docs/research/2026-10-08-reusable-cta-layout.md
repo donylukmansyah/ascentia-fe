@@ -38,11 +38,11 @@ an intrinsically-sized navigation CTA.
 
 ## Comparison
 
-| Pattern | Result | Decision |
-| --- | --- | --- |
-| Absolute icon | Icon is visually pinned, but removed from flow. The label needs manual right padding equal to icon width plus gap; long labels can overlap it. | Reject. |
-| Flex: `label + fixed icon` | One horizontal dimension. `gap-2` is exact; `shrink-0` preserves orb size; natural content width works for arbitrary labels. | Use. |
-| Grid: `minmax(0, 1fr) auto` | Best when the CTA must fill an assigned width; first column absorbs remaining width, icon occupies `auto`. | Submit-only. |
+| Pattern                     | Result                                                                                                                                         | Decision     |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
+| Absolute icon               | Icon is visually pinned, but removed from flow. The label needs manual right padding equal to icon width plus gap; long labels can overlap it. | Reject.      |
+| Flex: `label + fixed icon`  | One horizontal dimension. `gap-2` is exact; `shrink-0` preserves orb size; natural content width works for arbitrary labels.                   | Use.         |
+| Grid: `minmax(0, 1fr) auto` | Best when the CTA must fill an assigned width; first column absorbs remaining width, icon occupies `auto`.                                     | Submit-only. |
 
 `position: absolute` removes the icon from normal flow, so other content does
 not reserve space for it. Flexbox is designed for one-dimensional alignment;

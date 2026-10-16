@@ -25,12 +25,14 @@ No routes, data models, fixtures, or dependencies change.
 ### Task 1: Simplify Hero And Catalog Hierarchy
 
 **Files:**
+
 - Modify: `src/features/products/components/products-hero-section.tsx`
 - Modify: `src/features/products/components/product-search-panel.tsx`
 - Modify: `src/features/products/components/product-grid.tsx`
 - Modify: `src/features/products/pages/brands-page.tsx`
 
 **Interfaces:**
+
 - Consumes: Existing `BrandsPage` query, filter, pagination state.
 - Produces: Same public page behavior with shorter vertical rhythm.
 
@@ -59,15 +61,18 @@ Remove `ArrowUpRight`, `anchorId`, and `exploreLabel` from
 - [x] **Step 2: Reduce hero and search-panel reserve space**
 
 ```tsx
-className="relative isolate flex min-h-[340px] w-full items-end overflow-hidden bg-foreground text-white sm:min-h-[400px] lg:min-h-[440px]"
+className =
+  'relative isolate flex min-h-[340px] w-full items-end overflow-hidden bg-foreground text-white sm:min-h-[400px] lg:min-h-[440px]'
 ```
 
 ```tsx
-className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pt-24 pb-16 sm:px-8 sm:pt-28 sm:pb-16 lg:px-12 lg:pt-32"
+className =
+  'mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pt-24 pb-16 sm:px-8 sm:pt-28 sm:pb-16 lg:px-12 lg:pt-32'
 ```
 
 ```tsx
-className="mx-auto w-full max-w-7xl px-5 pt-14 pb-4 sm:px-8 sm:pt-12 sm:pb-6 lg:px-12"
+className =
+  'mx-auto w-full max-w-7xl px-5 pt-14 pb-4 sm:px-8 sm:pt-12 sm:pb-6 lg:px-12'
 ```
 
 Keep the search panel floating over the hero boundary.
@@ -108,11 +113,13 @@ git commit -m "fix: tighten brands catalog hierarchy"
 ### Task 2: Match Filters, Cards, And Recommendations
 
 **Files:**
+
 - Modify: `src/features/products/components/brand-filter.tsx`
 - Modify: `src/features/products/components/product-grid.tsx`
 - Modify: `src/features/products/components/product-carousel-section.tsx`
 
 **Interfaces:**
+
 - Consumes: Existing `activeId`, `onSelect`, `products`, and carousel scroll
   state.
 - Produces: Same filter and carousel API with touch-safe controls.
@@ -138,7 +145,7 @@ Keep the desktop `w-0.5 bg-primary` marker unchanged.
 ```
 
 ```tsx
-className="size-11 cursor-pointer rounded-md"
+className = 'size-11 cursor-pointer rounded-md'
 ```
 
 Use a 12px mobile card gap; preserve 16px at tablet and desktop. Update every
@@ -183,7 +190,8 @@ rendered layout and scroll calculations.
 - [x] **Step 5: Make search touch-safe**
 
 ```tsx
-className="min-h-11 w-full rounded-full border border-border bg-white py-2.5 pr-4 pl-10 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+className =
+  'min-h-11 w-full rounded-full border border-border bg-white py-2.5 pr-4 pl-10 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
 ```
 
 Add `min-h-11` to the search input without changing search state or labels.
@@ -204,9 +212,11 @@ git commit -m "fix: refine brands mobile catalog UX"
 ### Task 3: Visual And Interaction Verification
 
 **Files:**
+
 - Modify: None.
 
 **Interfaces:**
+
 - Consumes: Completed Tasks 1 and 2.
 - Produces: Evidence that desktop and mobile behavior remain usable.
 
@@ -243,4 +253,3 @@ retain visible keyboard focus.
 Run: `pnpm exec tsc --noEmit -p tsconfig.json`
 
 Expected: exit code `0`.
-

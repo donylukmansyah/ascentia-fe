@@ -11,14 +11,14 @@
 
 Baseline environment lokal — bukan benchmark definitif, bukan load test.
 
-| Endpoint | Sample 1 | Sample 2 | Payload |
-|---|---|---|---|
-| Static image (HTTP 200) | total 0.009s | — | — |
-| `wp/v2/product` slug + ACF `_fields` | 1.621s | 1.827s | 186 B |
-| `wc/store/v1/products/1318` detail | 1.315s | 1.132s | 4 903 B |
-| `wc/store/v1/products` related + `_fields` | 1.504s | 1.121s | 6 120 B |
-| ↳ curl.exe explicit (DNS 0.005s, connect 0.005s) | TTFB **1.445s**, total **1.445s** | — | — |
-| 1 produk, ID-only (13 B JSON, unfiltered) | 1.1s | 2.25s | 13 B |
+| Endpoint                                         | Sample 1                          | Sample 2 | Payload |
+| ------------------------------------------------ | --------------------------------- | -------- | ------- |
+| Static image (HTTP 200)                          | total 0.009s                      | —        | —       |
+| `wp/v2/product` slug + ACF `_fields`             | 1.621s                            | 1.827s   | 186 B   |
+| `wc/store/v1/products/1318` detail               | 1.315s                            | 1.132s   | 4 903 B |
+| `wc/store/v1/products` related + `_fields`       | 1.504s                            | 1.121s   | 6 120 B |
+| ↳ curl.exe explicit (DNS 0.005s, connect 0.005s) | TTFB **1.445s**, total **1.445s** | —        | —       |
+| 1 produk, ID-only (13 B JSON, unfiltered)        | 1.1s                              | 2.25s    | 13 B    |
 
 **TTFB ≈ Total** di semua kasus — payload <7 KB, transfer bukan bottleneck.
 
@@ -47,10 +47,10 @@ Baseline environment lokal — bukan benchmark definitif, bukan load test.
 
 ## 3. Apa itu TTFB vs Total
 
-| Istilah | Definisi |
-|---|---|
-| **TTFB** | Waktu dari request dikirim sampai byte pertama diterima — mencerminkan PHP + DB |
-| **Total** | TTFB + waktu download body |
+| Istilah   | Definisi                                                                        |
+| --------- | ------------------------------------------------------------------------------- |
+| **TTFB**  | Waktu dari request dikirim sampai byte pertama diterima — mencerminkan PHP + DB |
+| **Total** | TTFB + waktu download body                                                      |
 
 Gap TTFB→Total diabaikan karena payload <7 KB. Variasi waktu seluruhnya di sisi server.
 
@@ -58,11 +58,11 @@ Gap TTFB→Total diabaikan karena payload <7 KB. Variasi waktu seluruhnya di sis
 
 ## 4. Tiga Lapisan Cache — Perbedaannya
 
-| Lapisan | Cara Kerja | Status di Proyek Ini |
-|---|---|---|
-| **HTTP Cache** (`Cache-Control`, ETag) | Browser/CDN simpan response; request berikutnya bypass PHP | Store API tidak mengirim header caching — tidak aktif |
-| **WP Persistent Object Cache** | Hasil query DB bertahan lintas request PHP; skip MySQL per request | Tidak dikonfirmasi — absensi header tidak membuktikan ketiadaan |
-| **Frontend `staleTime`** (TanStack Query) | Data di memori browser; skip request dalam window stale | **Aktif:** taxonomy 5 menit, `staleTime` 60s — lindungi setelah response pertama |
+| Lapisan                                   | Cara Kerja                                                         | Status di Proyek Ini                                                             |
+| ----------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
+| **HTTP Cache** (`Cache-Control`, ETag)    | Browser/CDN simpan response; request berikutnya bypass PHP         | Store API tidak mengirim header caching — tidak aktif                            |
+| **WP Persistent Object Cache**            | Hasil query DB bertahan lintas request PHP; skip MySQL per request | Tidak dikonfirmasi — absensi header tidak membuktikan ketiadaan                  |
+| **Frontend `staleTime`** (TanStack Query) | Data di memori browser; skip request dalam window stale            | **Aktif:** taxonomy 5 menit, `staleTime` 60s — lindungi setelah response pertama |
 
 Frontend sudah memiliki perlindungan memadai di lapisan client. Penambahan dependency server-side tidak direkomendasikan sebelum profiling via Query Monitor.
 
@@ -83,6 +83,7 @@ curl.exe -w "DNS: %{time_namelookup}s\nConnect: %{time_connect}s\nTTFB: %{time_s
 ```
 
 Untuk bypass DNS sepenuhnya:
+
 ```
 curl.exe --resolve ascentia-local.local:80:127.0.0.1 -w "..." -o NUL -s "http://..."
 ```
@@ -116,11 +117,11 @@ http://ascentia-local.local/wp-json/wc/store/v1/products/1318?_envelope&_wpnonce
 
 Response JSON berisi objek `qm`:
 
-| Field | Isi |
-|---|---|
+| Field           | Isi                                                               |
+| --------------- | ----------------------------------------------------------------- |
 | `qm.db_queries` | Semua SQL + timing individual — identifikasi N+1 atau query mahal |
-| `qm.cache` | Hit/miss object cache per request |
-| `qm.http` | Outbound HTTP dari plugin — sumber latensi tak terduga |
+| `qm.cache`      | Hit/miss object cache per request                                 |
+| `qm.http`       | Outbound HTTP dari plugin — sumber latensi tak terduga            |
 
 Header `x-qm-overview-time-taken` = total waktu PHP dalam detik. Bandingkan dengan `time_starttransfer` dari curl — selisihnya adalah overhead jaringan lokal (seharusnya <5ms).  
 Sumber: [Query Monitor – REST API requests](https://querymonitor.com/wordpress-debugging/rest-api-requests/)

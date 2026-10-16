@@ -63,12 +63,18 @@ API** in that field group's settings.
 | `product_description` | WYSIWYG             | No       | Description tab/body              |
 | `key_benefits`        | WYSIWYG             | No       | Benefit list in description       |
 | `specifications`      | WYSIWYG             | No       | Specifications tab                |
+| `applications`        | WYSIWYG             | No       | Product-use detail tab            |
 | `video_url`           | URL or oEmbed       | No       | Embed only when present           |
 | `brochure_file`       | File                | No       | Download button only when present |
 | `hero_image`          | Image               | No       | Detail-page hero override         |
 
 The existing WooCommerce gallery remains the product image gallery. It does
-not need ACF Pro.
+not need ACF Pro. Preserve its image order; cards use the first image while
+detail pages expose the full collection.
+
+The `applications` rich-text field describes product usage. It is separate
+from Application category assignments used for catalog filters. Sanitize it
+before rendering; omit its detail tab when the sanitized content is empty.
 
 ### ACF Free limitation
 

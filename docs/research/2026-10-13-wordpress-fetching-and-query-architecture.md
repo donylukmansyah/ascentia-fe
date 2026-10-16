@@ -77,10 +77,10 @@ Jika queryOptions perlu dipisahkan dari server handler untuk boundary/import yan
 
 ## Dua alternatif
 
-| Alternatif | Manfaat | Batas |
-| --- | --- | --- |
-| Native fetch + loader Router, tanpa Query | Paling sedikit integrasi; loader SSR/hidrasi Router sudah tersedia | Cocok data route sederhana; harus memilih ownership cache sendiri, reuse/background refresh lintas komponen kurang nyaman. Jangan tulis ulang Query untuk menggantinya. [S5] |
-| Browser direct Store fetch + Query/loader | Mengurangi hop server Start; tetap cache/pagination Query | CORS deploy wajib, hanya public reads, header expose wajib; SSR dan browser perlu kontrak seragam, tidak boleh membawa secret. Rekomendasi utama server function menghindari ketergantungan browser CORS, bukan menghapus kebutuhan validasi upstream. [S7, S8, S10] |
+| Alternatif                                | Manfaat                                                            | Batas                                                                                                                                                                                                                                                                |
+| ----------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Native fetch + loader Router, tanpa Query | Paling sedikit integrasi; loader SSR/hidrasi Router sudah tersedia | Cocok data route sederhana; harus memilih ownership cache sendiri, reuse/background refresh lintas komponen kurang nyaman. Jangan tulis ulang Query untuk menggantinya. [S5]                                                                                         |
+| Browser direct Store fetch + Query/loader | Mengurangi hop server Start; tetap cache/pagination Query          | CORS deploy wajib, hanya public reads, header expose wajib; SSR dan browser perlu kontrak seragam, tidak boleh membawa secret. Rekomendasi utama server function menghindari ketergantungan browser CORS, bukan menghapus kebutuhan validasi upstream. [S7, S8, S10] |
 
 ## Verifikasi tersisa
 

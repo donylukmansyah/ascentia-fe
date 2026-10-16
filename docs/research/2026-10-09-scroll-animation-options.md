@@ -14,9 +14,9 @@ Context: React 19 + Vite (TanStack Router). Need in-view reveal only — no scro
 **Simplest in-view reveal:**
 
 ```tsx
-import { motion } from "motion/react";
+import { motion } from 'motion/react'
 
-<motion.section
+;<motion.section
   initial={{ opacity: 0, y: 24 }}
   whileInView={{ opacity: 1, y: 0 }}
   viewport={{ once: true, amount: 0.2 }}
@@ -45,27 +45,34 @@ Source: [motion.dev/docs/react-accessibility](https://motion.dev/docs/react-acce
 **Simplest in-view reveal:**
 
 ```tsx
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 export function AnimatedSection() {
-  const container = useRef<HTMLDivElement>(null);
+  const container = useRef<HTMLDivElement>(null)
 
   useGSAP(
     () => {
-      gsap.from(".card", {
-        y: 40, opacity: 0, duration: 0.6, stagger: 0.1,
-        scrollTrigger: { trigger: container.current, start: "top 85%", once: true },
-      });
+      gsap.from('.card', {
+        y: 40,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: container.current,
+          start: 'top 85%',
+          once: true,
+        },
+      })
     },
-    { scope: container }
-  );
+    { scope: container },
+  )
 
-  return <div ref={container}>{/* ... */}</div>;
+  return <div ref={container}>{/* ... */}</div>
 }
 ```
 
@@ -88,11 +95,11 @@ Source: [prior research note](./2026-01-23-gsap-animation-library.md), [gsap.com
 
 ```tsx
 useEffect(() => {
-  AOS.init({ once: true, duration: 600 });
-  return () => AOS.refresh(); // no true cleanup/destroy
-}, []);
+  AOS.init({ once: true, duration: 600 })
+  return () => AOS.refresh() // no true cleanup/destroy
+}, [])
 
-<div data-aos="fade-up">...</div>
+;<div data-aos="fade-up">...</div>
 ```
 
 **Bundle:** ~6 kB JS + separate CSS file required. Last published to npm 8 years ago (v2.3.4). Last commit Mar 2024 (stale). 371 open issues on GitHub.  
@@ -110,14 +117,14 @@ Source: [npmjs.com/package/aos](https://www.npmjs.com/package/aos), [github.com/
 
 **Use Motion (`motion` package).** Reasons:
 
-| Criterion | Motion | GSAP + ScrollTrigger | AOS |
-|---|---|---|---|
-| React integration | Declarative, native | Imperative, 2 packages | DOM attributes, global init |
-| In-view API | `whileInView` prop | `scrollTrigger` in `useGSAP` | `data-aos` attribute |
-| Reduced-motion | Automatic via `MotionConfig` | Manual `matchMedia` | Manual CSS only |
-| Bundle (reveal-only) | ~34 kB (or 4.6+15 kB lazy) | ~45 kB | ~6 kB + CSS |
-| Maintenance | Active (Oct 2026) | Active | Stale (last release 8 yrs ago) |
-| Cleanup | Internal | `useGSAP` handles | No true cleanup |
+| Criterion            | Motion                       | GSAP + ScrollTrigger         | AOS                            |
+| -------------------- | ---------------------------- | ---------------------------- | ------------------------------ |
+| React integration    | Declarative, native          | Imperative, 2 packages       | DOM attributes, global init    |
+| In-view API          | `whileInView` prop           | `scrollTrigger` in `useGSAP` | `data-aos` attribute           |
+| Reduced-motion       | Automatic via `MotionConfig` | Manual `matchMedia`          | Manual CSS only                |
+| Bundle (reveal-only) | ~34 kB (or 4.6+15 kB lazy)   | ~45 kB                       | ~6 kB + CSS                    |
+| Maintenance          | Active (Oct 2026)            | Active                       | Stale (last release 8 yrs ago) |
+| Cleanup              | Internal                     | `useGSAP` handles            | No true cleanup                |
 
 For an About Us page needing only in-view reveals:
 
@@ -127,12 +134,12 @@ pnpm add motion
 
 ```tsx
 // Wrap app root (or layout) once:
-import { MotionConfig } from "motion/react";
-<MotionConfig reducedMotion="user">{children}</MotionConfig>
+import { MotionConfig } from 'motion/react'
+;<MotionConfig reducedMotion="user">{children}</MotionConfig>
 
 // Per section:
-import { motion } from "motion/react";
-<motion.section
+import { motion } from 'motion/react'
+;<motion.section
   initial={{ opacity: 0, y: 24 }}
   whileInView={{ opacity: 1, y: 0 }}
   viewport={{ once: true, amount: 0.2 }}
