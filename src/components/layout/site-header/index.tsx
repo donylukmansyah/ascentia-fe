@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Menu, Search, X } from 'lucide-react'
+import { Command, Menu, Search, X } from 'lucide-react'
 import { Link, useRouterState } from '@tanstack/react-router'
 
 import { useStickyHeader } from '#/hooks/use-sticky-header'
@@ -11,7 +11,15 @@ import { MobileNavigation } from './mobile-navigation'
 import { navigationItems } from './navigation-data'
 import { ProductMenu } from './product-menu'
 
-export function SiteHeader() {
+export function SiteHeader({
+  onSearchOpen,
+  searchOpen = false,
+  searchShortcut = '⌘ K',
+}: {
+  onSearchOpen: () => void
+  searchOpen?: boolean
+  searchShortcut?: string
+}) {
   const pathname = useRouterState({
     select: (state) => state.location.pathname,
   })
@@ -29,12 +37,14 @@ export function SiteHeader() {
   const [language, setLanguage] = useState<LanguageCode>('en')
   // Pin header while dropdown open.
   const mode = useStickyHeader({
-    paused: isDesktopDropdownOpen,
+    paused: isDesktopDropdownOpen || searchOpen,
   })
   const isSolid = mode !== 'transparent'
   const isHidden = mode === 'hidden' || mode === 'hidden-initial'
-  const isHeaderSolid = isSolid || isMenuOpen
-  // Dark nav over light not-found pages.
+  // Editorial detail and 404 pages have white backgrounds.
+  const isLightPage =
+    isRouteNotFound || /^\/(news|blogs|articles)\/.+/.test(pathname)
+  const isHeaderSolid = isSolid || isMenuOpen || isLightPage
   const isDarkContent = isHeaderSolid || isRouteNotFound
 
   useEffect(() => {
@@ -42,6 +52,20 @@ export function SiteHeader() {
     setIsProductsMenuOpen(false)
     setIsDesktopDropdownOpen(false)
   }, [pathname])
+
+  useEffect(() => {
+    if (!searchOpen) return
+    setIsMenuOpen(false)
+    setIsProductsMenuOpen(false)
+    setIsDesktopDropdownOpen(false)
+  }, [searchOpen])
+
+  const openSearch = () => {
+    setIsMenuOpen(false)
+    setIsProductsMenuOpen(false)
+    setIsDesktopDropdownOpen(false)
+    onSearchOpen()
+  }
 
   useEffect(() => {
     if (!isMenuOpen) {
@@ -67,12 +91,11 @@ export function SiteHeader() {
 
   return (
     <header
+      data-header-state={isMenuOpen ? 'visible' : mode}
       className={cn(
         'top-0 inset-x-0 z-50 border-t-[3px] border-primary transform-gpu transition-[background-color,box-shadow,color,translate] motion-reduce:transition-none',
         mode === 'transparent' && !isMenuOpen ? 'absolute' : 'fixed',
-        isHeaderSolid
-          ? 'bg-background shadow-[0_1px_0_rgb(37_37_37/8%),0_12px_32px_-16px_rgb(0_0_0/0.12)]'
-          : 'bg-transparent',
+        isHeaderSolid ? 'bg-background' : 'bg-transparent',
         isDarkContent ? 'text-foreground' : 'text-white',
         isHidden && !isMenuOpen
           ? cn(
@@ -164,22 +187,49 @@ export function SiteHeader() {
           <span aria-hidden="true" className="h-5 w-px bg-current opacity-25" />
           <button
             type="button"
-            aria-label="Search"
+            aria-label="Search Ascentia"
+            aria-haspopup="dialog"
+            aria-expanded={searchOpen}
+            aria-keyshortcuts={
+              searchShortcut.startsWith('⌘') ? 'Meta+k' : 'Control+k'
+            }
+            data-site-search-trigger
+            onClick={openSearch}
             className={cn(
-              'inline-flex cursor-pointer items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4',
-              isDarkContent ? 'hover:text-foreground' : 'hover:text-white',
+              'inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 xl:border xl:px-2.5',
+              isDarkContent
+                ? 'border-border/80 hover:bg-muted hover:text-foreground'
+                : 'border-white/30 hover:bg-white/10 hover:text-white',
             )}
           >
-            <Search className="size-[18px]" aria-hidden="true" />
+            <Search className="size-3.5" aria-hidden="true" />
+            <span className="hidden text-[11px] font-medium tracking-normal xl:inline">
+              Search
+            </span>
+            <kbd
+              className={cn(
+                'ml-1 hidden items-center gap-0.5 rounded px-1.5 py-0.5 text-[9px] font-medium leading-none xl:inline-flex',
+                isDarkContent
+                  ? 'bg-muted text-muted-foreground'
+                  : 'bg-white/15 text-white',
+              )}
+            >
+              <Command className="size-2.5" aria-hidden="true" />
+              <span>K</span>
+            </kbd>
           </button>
         </div>
 
         <div className="relative z-10 flex items-center gap-1 lg:hidden">
           <button
             type="button"
-            aria-label="Search"
+            aria-label="Search Ascentia"
+            aria-haspopup="dialog"
+            aria-expanded={searchOpen}
+            data-site-search-trigger
+            onClick={openSearch}
             className={cn(
-              'inline-flex size-10 cursor-pointer items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4',
+              'inline-flex size-11 cursor-pointer items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4',
               isDarkContent
                 ? 'text-foreground hover:text-primary'
                 : 'text-white hover:text-white/70',

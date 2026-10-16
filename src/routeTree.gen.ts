@@ -17,6 +17,10 @@ import { Route as ContactUsRouteImport } from './routes/contact-us'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
+import { Route as BlogsIndexRouteImport } from './routes/blogs/index'
+import { Route as BlogsSlugRouteImport } from './routes/blogs/$slug'
+import { Route as NewsIndexRouteImport } from './routes/news/index'
+import { Route as NewsSlugRouteImport } from './routes/news/$slug'
 import { Route as ProductsIndexRouteImport } from './routes/products/index'
 import { Route as ProductsSlugRouteImport } from './routes/products/$slug'
 import { Route as ProductsApplicationsRouteImport } from './routes/products/applications'
@@ -63,6 +67,26 @@ const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
   path: '/articles/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogsIndexRoute = BlogsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BlogsRoute,
+} as any)
+const BlogsSlugRoute = BlogsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogsRoute,
+} as any)
+const NewsIndexRoute = NewsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => NewsRoute,
+} as any)
+const NewsSlugRoute = NewsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => NewsRoute,
+} as any)
 const ProductsIndexRoute = ProductsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -93,29 +117,35 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about-us': typeof AboutUsRoute
-  '/blogs': typeof BlogsRoute
+  '/blogs': typeof BlogsRouteWithChildren
   '/contact-us': typeof ContactUsRoute
-  '/news': typeof NewsRoute
+  '/news': typeof NewsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
   '/articles/$slug': typeof ArticlesSlugRoute
+  '/blogs/$slug': typeof BlogsSlugRoute
+  '/news/$slug': typeof NewsSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/products/applications': typeof ProductsApplicationsRoute
   '/products/brands': typeof ProductsBrandsRoute
   '/products/types': typeof ProductsTypesRoute
+  '/blogs/': typeof BlogsIndexRoute
+  '/news/': typeof NewsIndexRoute
   '/products/': typeof ProductsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about-us': typeof AboutUsRoute
-  '/blogs': typeof BlogsRoute
   '/contact-us': typeof ContactUsRoute
-  '/news': typeof NewsRoute
   '/articles/$slug': typeof ArticlesSlugRoute
+  '/blogs/$slug': typeof BlogsSlugRoute
+  '/news/$slug': typeof NewsSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/products/applications': typeof ProductsApplicationsRoute
   '/products/brands': typeof ProductsBrandsRoute
   '/products/types': typeof ProductsTypesRoute
+  '/blogs': typeof BlogsIndexRoute
+  '/news': typeof NewsIndexRoute
   '/products': typeof ProductsIndexRoute
 }
 export interface FileRoutesById {
@@ -123,15 +153,19 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about-us': typeof AboutUsRoute
-  '/blogs': typeof BlogsRoute
+  '/blogs': typeof BlogsRouteWithChildren
   '/contact-us': typeof ContactUsRoute
-  '/news': typeof NewsRoute
+  '/news': typeof NewsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
   '/articles/$slug': typeof ArticlesSlugRoute
+  '/blogs/$slug': typeof BlogsSlugRoute
+  '/news/$slug': typeof NewsSlugRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/products/applications': typeof ProductsApplicationsRoute
   '/products/brands': typeof ProductsBrandsRoute
   '/products/types': typeof ProductsTypesRoute
+  '/blogs/': typeof BlogsIndexRoute
+  '/news/': typeof NewsIndexRoute
   '/products/': typeof ProductsIndexRoute
 }
 export interface FileRouteTypes {
@@ -145,24 +179,30 @@ export interface FileRouteTypes {
     | '/news'
     | '/products'
     | '/articles/$slug'
+    | '/blogs/$slug'
+    | '/news/$slug'
     | '/products/$slug'
     | '/products/applications'
     | '/products/brands'
     | '/products/types'
+    | '/blogs/'
+    | '/news/'
     | '/products/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/$'
     | '/about-us'
-    | '/blogs'
     | '/contact-us'
-    | '/news'
     | '/articles/$slug'
+    | '/blogs/$slug'
+    | '/news/$slug'
     | '/products/$slug'
     | '/products/applications'
     | '/products/brands'
     | '/products/types'
+    | '/blogs'
+    | '/news'
     | '/products'
   id:
     | '__root__'
@@ -174,10 +214,14 @@ export interface FileRouteTypes {
     | '/news'
     | '/products'
     | '/articles/$slug'
+    | '/blogs/$slug'
+    | '/news/$slug'
     | '/products/$slug'
     | '/products/applications'
     | '/products/brands'
     | '/products/types'
+    | '/blogs/'
+    | '/news/'
     | '/products/'
   fileRoutesById: FileRoutesById
 }
@@ -185,9 +229,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
   AboutUsRoute: typeof AboutUsRoute
-  BlogsRoute: typeof BlogsRoute
+  BlogsRoute: typeof BlogsRouteWithChildren
   ContactUsRoute: typeof ContactUsRoute
-  NewsRoute: typeof NewsRoute
+  NewsRoute: typeof NewsRouteWithChildren
   ProductsRoute: typeof ProductsRouteWithChildren
   ArticlesSlugRoute: typeof ArticlesSlugRoute
 }
@@ -250,6 +294,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArticlesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blogs/': {
+      id: '/blogs/'
+      path: '/'
+      fullPath: '/blogs/'
+      preLoaderRoute: typeof BlogsIndexRouteImport
+      parentRoute: typeof BlogsRoute
+    }
+    '/blogs/$slug': {
+      id: '/blogs/$slug'
+      path: '/$slug'
+      fullPath: '/blogs/$slug'
+      preLoaderRoute: typeof BlogsSlugRouteImport
+      parentRoute: typeof BlogsRoute
+    }
+    '/news/': {
+      id: '/news/'
+      path: '/'
+      fullPath: '/news/'
+      preLoaderRoute: typeof NewsIndexRouteImport
+      parentRoute: typeof NewsRoute
+    }
+    '/news/$slug': {
+      id: '/news/$slug'
+      path: '/$slug'
+      fullPath: '/news/$slug'
+      preLoaderRoute: typeof NewsSlugRouteImport
+      parentRoute: typeof NewsRoute
+    }
     '/products/': {
       id: '/products/'
       path: '/'
@@ -288,6 +360,30 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface BlogsRouteChildren {
+  BlogsSlugRoute: typeof BlogsSlugRoute
+  BlogsIndexRoute: typeof BlogsIndexRoute
+}
+
+const BlogsRouteChildren: BlogsRouteChildren = {
+  BlogsSlugRoute: BlogsSlugRoute,
+  BlogsIndexRoute: BlogsIndexRoute,
+}
+
+const BlogsRouteWithChildren = BlogsRoute._addFileChildren(BlogsRouteChildren)
+
+interface NewsRouteChildren {
+  NewsSlugRoute: typeof NewsSlugRoute
+  NewsIndexRoute: typeof NewsIndexRoute
+}
+
+const NewsRouteChildren: NewsRouteChildren = {
+  NewsSlugRoute: NewsSlugRoute,
+  NewsIndexRoute: NewsIndexRoute,
+}
+
+const NewsRouteWithChildren = NewsRoute._addFileChildren(NewsRouteChildren)
+
 interface ProductsRouteChildren {
   ProductsSlugRoute: typeof ProductsSlugRoute
   ProductsApplicationsRoute: typeof ProductsApplicationsRoute
@@ -312,9 +408,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   AboutUsRoute: AboutUsRoute,
-  BlogsRoute: BlogsRoute,
+  BlogsRoute: BlogsRouteWithChildren,
   ContactUsRoute: ContactUsRoute,
-  NewsRoute: NewsRoute,
+  NewsRoute: NewsRouteWithChildren,
   ProductsRoute: ProductsRouteWithChildren,
   ArticlesSlugRoute: ArticlesSlugRoute,
 }

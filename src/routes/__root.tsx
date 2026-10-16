@@ -12,8 +12,12 @@ import { NotFoundPage } from '#/components/layout/not-found-page'
 import { SiteFooter } from '#/components/layout/site-footer'
 import { SiteHeader } from '#/components/layout/site-header'
 import { SocialDock } from '#/components/layout/social-dock/social-dock'
+import { createSeoMeta } from '#/lib/seo'
+import { GlobalSearch } from '#/features/search/components/global-search'
 
 import appCss from '../styles.css?url'
+
+const defaultSeo = createSeoMeta()
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
@@ -26,9 +30,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           name: 'viewport',
           content: 'width=device-width, initial-scale=1',
         },
-        {
-          title: 'Ascentia | Scientific Solutions',
-        },
+        ...defaultSeo.meta,
       ],
       links: [
         {
@@ -39,6 +41,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           rel: 'icon',
           href: '/favicon/favicon.ico',
         },
+        ...defaultSeo.links,
       ],
     }),
     notFoundComponent: NotFoundPage,
@@ -50,7 +53,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootLayout() {
   return (
     <>
-      <SiteHeader />
+      <GlobalSearch>
+        {({ open, shortcut, onOpen }) => (
+          <SiteHeader
+            searchOpen={open}
+            searchShortcut={shortcut}
+            onSearchOpen={onOpen}
+          />
+        )}
+      </GlobalSearch>
       <main>
         <Outlet />
       </main>
