@@ -53,6 +53,8 @@ export function HomePage() {
         kicker="Products"
         title="Featured products"
         description="A focused selection of analytical instruments for sample preparation and reliable laboratory results."
+        ctaTo="/products"
+        ctaLabel="View all products"
       />
       <ContactPanel className="bg-[#F7F9FC] py-16 sm:py-20 lg:py-24" />
     </>

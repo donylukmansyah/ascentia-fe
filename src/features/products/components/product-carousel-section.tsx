@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import type { ComponentProps } from 'react'
+import type { Link } from '@tanstack/react-router'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
+import { CtaLink } from '#/components/ui/cta-link'
 import { Reveal } from '#/components/ui/reveal'
 import type { ProductCardData } from '#/features/products/types/product'
 
@@ -15,6 +18,8 @@ interface ProductCarouselSectionProps {
   pending?: boolean
   error?: boolean
   retry?: () => void
+  ctaTo?: ComponentProps<typeof Link>['to']
+  ctaLabel?: string
 }
 
 export function ProductCarouselSection({
@@ -25,6 +30,8 @@ export function ProductCarouselSection({
   pending = false,
   error = false,
   retry,
+  ctaTo,
+  ctaLabel = 'View all products',
 }: ProductCarouselSectionProps) {
   const headingId = useId()
   const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -193,6 +200,16 @@ export function ProductCarouselSection({
                 <ProductCard product={product} className="h-full" />
               </Reveal>
             ))}
+          </div>
+        )}
+
+        {ctaTo && !error && (
+          <div className="mt-10 flex justify-center sm:mt-12">
+            <Reveal variant="up" distance={16} margin="0px 0px -40px 0px">
+              <CtaLink to={ctaTo} size="default">
+                {ctaLabel}
+              </CtaLink>
+            </Reveal>
           </div>
         )}
       </div>

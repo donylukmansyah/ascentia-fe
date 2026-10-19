@@ -26,7 +26,7 @@ export function WhoWeAreSection({
   eyebrow = 'About Us',
   heading = DEFAULT_HEADING,
   description = DEFAULT_DESCRIPTION,
-  ctaLabel = 'Read More',
+  ctaLabel = 'About Ascentia',
   ctaTo = '/about-us',
   showCategoryTicker = true,
 }: WhoWeAreSectionProps) {
@@ -54,6 +54,8 @@ export function WhoWeAreSection({
         >
           <motion.img
             src={image}
+            width={1034}
+            height={582}
             alt=""
             loading="lazy"
             style={{ scale: reduceMotion ? 1 : imageScale }}
@@ -94,7 +96,7 @@ export function WhoWeAreSection({
             <p className="text-sm leading-relaxed font-normal text-white/95 sm:text-base">
               {description}
             </p>
-            <CtaLink to={ctaTo} size="default" textTone="light">
+            <CtaLink to={ctaTo} size="default">
               {ctaLabel}
             </CtaLink>
           </Reveal>

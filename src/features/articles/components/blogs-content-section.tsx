@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 
 import { PagePagination } from '#/components/ui/pagination'
+import { QueryErrorState } from '#/components/ui/query-error-state'
 import { Reveal } from '#/components/ui/reveal'
 
 import { BlogCard } from './blog-card'
@@ -11,15 +12,41 @@ import {
   blogArticlesQueryOptions,
 } from '../api/article-queries'
 
+// Skeleton placeholder matching blog card aspect ratio
+function BlogCardSkeleton() {
+  return (
+    <div
+      aria-hidden="true"
+      className="flex h-full flex-col overflow-hidden rounded-[4px] border border-border bg-white animate-pulse motion-reduce:animate-none"
+    >
+      <div className="aspect-[16/10] w-full bg-[color-mix(in_srgb,var(--primary)_8%,var(--muted))]" />
+      <div className="flex flex-1 flex-col justify-between p-4">
+        <div className="space-y-2">
+          <div className="h-4 w-4/5 rounded bg-muted" />
+          <div className="h-3.5 w-3/5 rounded bg-muted" />
+        </div>
+        <div className="mt-4 flex items-center justify-between">
+          <div className="h-3 w-20 rounded bg-muted" />
+          <div className="h-3 w-16 rounded bg-muted" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function BlogsContentSection() {
   const search: { page?: number } = useSearch({ from: '/blogs/' })
   const page = search.page || 1
   const navigate = useNavigate()
   const sectionRef = useRef<HTMLElement>(null)
 
-  const { data: blogData } = useQuery(
-    blogArticlesQueryOptions(page, BLOG_LIST_PAGE_SIZE),
-  )
+  const {
+    data: blogData,
+    isPending,
+    isError,
+    refetch,
+    isFetching,
+  } = useQuery(blogArticlesQueryOptions(page, BLOG_LIST_PAGE_SIZE))
 
   const items = blogData?.items || []
   const totalPages = Math.max(1, blogData?.totalPages || 1)
@@ -54,7 +81,23 @@ export function BlogsContentSection() {
         </h2>
       </Reveal>
 
-      {items.length === 0 ? (
+      {isPending ? (
+        <div role="status">
+          <span className="sr-only">Loading blog articles…</span>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {Array.from({ length: 4 }, (_, index) => (
+              <BlogCardSkeleton key={index} />
+            ))}
+          </div>
+        </div>
+      ) : isError ? (
+        <QueryErrorState
+          title="Unable to load blog articles"
+          message="We are having trouble reaching the server. Please check your connection and try again."
+          onRetry={() => void refetch()}
+          isRetrying={isFetching}
+        />
+      ) : items.length === 0 ? (
         <div className="rounded-lg border border-border bg-muted/30 p-12 text-center">
           <p className="text-base text-muted-foreground">
             No blog articles found at this time. Please check back soon!
@@ -79,9 +122,10 @@ export function BlogsContentSection() {
         </ul>
       )}
 
-      {totalPages > 1 && (
+      {!isError && totalPages > 1 && (
         <PagePagination
           page={page}
+          pageHref={(next) => (next > 1 ? `/blogs?page=${next}` : '/blogs')}
           totalPages={totalPages}
           className="mt-10"
           onPageChange={handlePageChange}

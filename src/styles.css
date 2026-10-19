@@ -113,7 +113,7 @@ body {
   --muted: oklch(0.97 0.01 100); /* #F7F7F5 — alternate sections */
   --muted-foreground: oklch(0.45 0 0);
   --accent: oklch(0.7 0.17 55); /* #F28B3B — CTA */
-  --accent-foreground: oklch(0.2 0 0);
+  --accent-foreground: oklch(1 0 0); /* #FFFFFF — text on CTA */
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
@@ -447,6 +447,7 @@ header[data-header-state='hidden-initial'] ~ main .product-detail-nav {
 }
 
 .hero-carousel__progress {
+  width: 100%;
   transform-origin: left;
   animation: hero-progress linear both;
 }
@@ -573,10 +574,10 @@ header[data-header-state='hidden-initial'] ~ main .product-detail-nav {
 
 @keyframes hero-progress {
   from {
-    width: 0;
+    transform: scaleX(0);
   }
   to {
-    width: 100%;
+    transform: scaleX(1);
   }
 }
 

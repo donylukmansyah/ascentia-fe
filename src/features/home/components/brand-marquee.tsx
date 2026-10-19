@@ -12,7 +12,9 @@ export function BrandMarquee({
   title = 'Brands we represent',
 }: BrandMarqueeProps) {
   const logos = brands.flatMap((brand) =>
-    brand.logo?.trim() ? [{ src: brand.logo, alt: brand.name }] : [],
+    brand.logo?.trim()
+      ? [{ src: brand.logo, srcSet: brand.logoSrcSet, alt: brand.name }]
+      : [],
   )
   if (!logos.length) return null
 

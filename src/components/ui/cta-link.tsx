@@ -2,45 +2,41 @@ import type { ComponentProps, ReactNode } from 'react'
 import { Link } from '@tanstack/react-router'
 import { ArrowUpRight } from 'lucide-react'
 
-import { cn } from 'cn'
+import { cn } from '#/lib/utils'
 
 type CtaLinkProps = {
   children: ReactNode
   className?: string
   size?: 'default' | 'compact'
-  textTone?: 'dark' | 'light'
-  to: ComponentProps<typeof Link>['to']
+  to?: ComponentProps<typeof Link>['to']
+  href?: string
   target?: ComponentProps<'a'>['target']
   rel?: string
 }
 
-export function CtaLink({
+const ctaBaseClass = (size: 'default' | 'compact', className?: string) =>
+  cn(
+    'group/cta relative inline-flex min-h-9 sm:min-h-11 shrink-0 cursor-pointer items-center overflow-hidden rounded-full bg-accent py-1 pr-1 pl-3.5 sm:pl-4 text-xs sm:text-[13px] leading-none font-medium tracking-normal transition-[background-color,color,translate] duration-200 ease hover:-translate-y-0.5 hover:bg-[var(--brand-dark)] hover:text-white focus-visible:bg-[var(--brand-dark)] focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-70 motion-reduce:transition-none text-white',
+    size === 'compact' &&
+      'min-h-8 sm:min-h-9 py-0.5 pr-1 pl-3 sm:pl-3.5 text-xs',
+    className,
+  )
+
+function CtaContent({
   children,
-  className,
-  size = 'default',
-  textTone = 'light',
-  to,
-  target,
-  rel,
-}: CtaLinkProps) {
+  size,
+}: {
+  children: ReactNode
+  size: 'default' | 'compact'
+}) {
   return (
-    <Link
-      to={to}
-      target={target}
-      rel={rel}
-      className={cn(
-        'group/cta relative inline-flex min-h-10 shrink-0 cursor-pointer items-center overflow-hidden rounded-full bg-accent py-1 pr-1 pl-3.5 text-xs leading-none font-medium tracking-normal transition-[background-color,color,translate] duration-200 ease hover:-translate-y-0.5 hover:bg-[var(--brand-dark)] hover:text-white focus-visible:bg-[var(--brand-dark)] focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none sm:min-h-[52px] sm:pl-[1.35rem] sm:text-[13px]',
-        size === 'compact' && 'min-h-9 py-0 pr-1 pl-3 sm:min-h-11 sm:pl-3.5',
-        textTone === 'light' ? 'text-white' : 'text-accent-foreground',
-        className,
-      )}
-    >
+    <>
       <span
         className={cn(
           'relative z-10 whitespace-nowrap transition-[translate,color] duration-300 ease-out group-hover/cta:text-white group-focus-visible/cta:text-white motion-reduce:transition-none',
           size === 'compact'
-            ? 'pr-[38px] group-hover/cta:translate-x-6 group-focus-visible/cta:translate-x-6 sm:pr-[46px] sm:group-hover/cta:translate-x-8 sm:group-focus-visible/cta:translate-x-8'
-            : 'pr-[38px] group-hover/cta:translate-x-7 group-focus-visible/cta:translate-x-7 sm:pr-[54px] sm:group-hover/cta:translate-x-9 sm:group-focus-visible/cta:translate-x-9',
+            ? 'pr-[32px] sm:pr-[36px] group-hover/cta:translate-x-5 sm:group-hover/cta:translate-x-6 group-focus-visible/cta:translate-x-5 sm:group-focus-visible/cta:translate-x-6'
+            : 'pr-[36px] sm:pr-[46px] group-hover/cta:translate-x-6 sm:group-hover/cta:translate-x-7 group-focus-visible/cta:translate-x-6 sm:group-focus-visible/cta:translate-x-7',
         )}
       >
         {children}
@@ -48,13 +44,79 @@ export function CtaLink({
       <span
         aria-hidden="true"
         className={cn(
-          'absolute top-1/2 left-[calc(100%-2.25rem)] z-0 grid size-8 -translate-y-1/2 place-items-center rounded-full bg-white text-foreground transition-[left] duration-400 ease-out group-hover/cta:left-1 group-focus-visible/cta:left-1 motion-reduce:transition-none sm:left-[calc(100%-3rem)] sm:size-11',
+          'absolute top-1/2 left-[calc(100%-2rem)] sm:left-[calc(100%-2.5rem)] z-0 grid size-7 sm:size-9 -translate-y-1/2 place-items-center rounded-full bg-white text-foreground transition-[left] duration-400 ease-out group-hover/cta:left-1 group-focus-visible/cta:left-1 motion-reduce:transition-none',
           size === 'compact' &&
-            'left-[calc(100%-2rem)] size-7 sm:left-[calc(100%-2.25rem)] sm:size-8',
+            'left-[calc(100%-1.75rem)] size-6 sm:left-[calc(100%-2rem)] sm:size-7',
         )}
       >
-        <ArrowUpRight className="size-3.5 transition-transform duration-200 ease-out group-hover/cta:rotate-45 group-focus-visible/cta:rotate-45 motion-reduce:transition-none sm:size-4" />
+        <ArrowUpRight
+          className={cn(
+            'size-3.5 transition-transform duration-200 ease-out group-hover/cta:rotate-45 group-focus-visible/cta:rotate-45 motion-reduce:transition-none',
+            size === 'compact' && 'size-3',
+          )}
+        />
       </span>
+    </>
+  )
+}
+
+export function CtaLink({
+  children,
+  className,
+  size = 'default',
+  to = '/',
+  href,
+  target,
+  rel,
+}: CtaLinkProps) {
+  if (href) {
+    return (
+      <a
+        href={href}
+        target={target}
+        rel={rel}
+        className={ctaBaseClass(size, className)}
+      >
+        <CtaContent size={size}>{children}</CtaContent>
+      </a>
+    )
+  }
+
+  return (
+    <Link
+      to={to}
+      target={target}
+      rel={rel}
+      className={ctaBaseClass(size, className)}
+    >
+      <CtaContent size={size}>{children}</CtaContent>
     </Link>
+  )
+}
+
+export function CtaButton({
+  children,
+  className,
+  size = 'default',
+  onClick,
+  type = 'button',
+  disabled,
+}: {
+  children: ReactNode
+  className?: string
+  size?: 'default' | 'compact'
+  onClick?: () => void
+  type?: 'button' | 'submit' | 'reset'
+  disabled?: boolean
+}) {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={ctaBaseClass(size, className)}
+    >
+      <CtaContent size={size}>{children}</CtaContent>
+    </button>
   )
 }

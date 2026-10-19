@@ -114,9 +114,13 @@ export function SiteHeader({
         >
           <img
             src={
-              isDarkContent ? '/brand/logo-color.png' : '/brand/logo-white.png'
+              isDarkContent
+                ? '/brand/logo-color.webp'
+                : '/brand/logo-white.webp'
             }
             alt="Ascentia Arsya Analitika"
+            width={440}
+            height={93}
             className="h-7 w-auto lg:h-7"
             fetchPriority="high"
           />

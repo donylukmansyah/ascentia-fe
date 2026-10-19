@@ -42,9 +42,9 @@ export function SiteFooter() {
               <img
                 alt="Ascentia Arsya Analitika"
                 className="h-auto w-[200px] max-w-full"
-                height="50"
-                src="/brand/logo-color.png"
-                width="220"
+                height="93"
+                src="/brand/logo-color.webp"
+                width="440"
               />
             </Link>
             <p className="mt-5 max-w-[20rem] text-sm leading-relaxed font-normal text-description-text sm:mt-[1.3rem]">
