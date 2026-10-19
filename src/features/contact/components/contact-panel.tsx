@@ -1,10 +1,23 @@
-import { ArrowUpRight, Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
+import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 
 import { Reveal } from '#/components/ui/reveal'
 import { cn } from '#/lib/utils'
 
 import { ContactForm } from './contact-form'
+
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.149-.198.297-.767.967-.94 1.164-.173.198-.347.223-.644.074-.297-.148-1.255-.463-2.39-1.477-.883-.787-1.478-1.76-1.65-2.057-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.496.099-.198.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.298-1.04 1.016-1.04 2.479 0 1.462 1.065 2.876 1.213 3.074.148.198 2.095 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.414.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.868 9.868 0 0 1-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.375a9.868 9.868 0 0 1-1.509-5.26c.001-5.447 4.428-9.876 9.878-9.876a9.844 9.844 0 0 1 6.987 2.897 9.843 9.843 0 0 1 2.896 6.988c-.002 5.447-4.429 9.876-9.88 9.876m8.392-18.263A11.79 11.79 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892a11.84 11.84 0 0 0 1.582 5.96L0 24l6.335-1.662a11.868 11.868 0 0 0 5.709 1.454h.005c6.554 0 11.89-5.336 11.893-11.893a11.82 11.82 0 0 0-3.499-8.377Z" />
+    </svg>
+  )
+}
 
 interface ContactPanelProps {
   className?: string
@@ -105,7 +118,7 @@ export function ContactPanel({
                 className="group flex min-h-11 items-center gap-3 text-sm text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
               >
                 <span className="grid size-10 shrink-0 place-items-center bg-primary/10 text-primary">
-                  <MessageCircle className="size-4" aria-hidden="true" />
+                  <WhatsAppIcon className="size-4" />
                 </span>
                 <span>
                   <span className="block text-xs font-semibold">WhatsApp</span>

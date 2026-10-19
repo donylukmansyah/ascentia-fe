@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 
+import { CtaButton } from '#/components/ui/cta-link'
 import { Reveal } from '#/components/ui/reveal'
 import { cn } from '#/lib/utils'
 import type {
@@ -9,6 +10,24 @@ import type {
   ProductDetailTab,
 } from '../types/product'
 import { ProductImageGallery } from './product-image-gallery'
+import { ProductQuoteDialog } from './product-quote-dialog'
+
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.67.149-.198.297-.767.967-.94 1.164-.173.198-.347.223-.644.074-.297-.148-1.255-.463-2.39-1.477-.883-.787-1.478-1.76-1.65-2.057-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.496.099-.198.05-.372-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.298-1.04 1.016-1.04 2.479 0 1.462 1.065 2.876 1.213 3.074.148.198 2.095 3.2 5.077 4.487.71.306 1.263.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.414.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.868 9.868 0 0 1-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.375a9.868 9.868 0 0 1-1.509-5.26c.001-5.447 4.428-9.876 9.878-9.876a9.844 9.844 0 0 1 6.987 2.897 9.843 9.843 0 0 1 2.896 6.988c-.002 5.447-4.429 9.876-9.88 9.876m8.392-18.263A11.79 11.79 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892a11.84 11.84 0 0 0 1.582 5.96L0 24l6.335-1.662a11.868 11.868 0 0 0 5.709 1.454h.005c6.554 0 11.89-5.336 11.893-11.893a11.82 11.82 0 0 0-3.499-8.377Z" />
+    </svg>
+  )
+}
+
+function getProductWhatsAppUrl(name: string, brand: string): string {
+  const pageUrl =
+    typeof window !== 'undefined'
+      ? window.location.href
+      : 'https://ascentia.co.id/products'
+  const message = `Halo Tim Sales PT Ascentia Arsya Analitika, saya ingin konsultasi dan menanyakan penawaran harga untuk produk:\n\n*${name}* (${brand})\nLink: ${pageUrl}\n\nMohon informasinya, terima kasih.`
+  return `https://wa.me/6285186061000?text=${encodeURIComponent(message)}`
+}
 
 interface ProductDetailContentProps {
   product: ProductDetailData
@@ -65,6 +84,7 @@ export function ProductDetailContent({
   activeTab,
   onTabChange,
 }: ProductDetailContentProps) {
+  const [quoteOpen, setQuoteOpen] = useState(false)
   const keyDown = (
     event: React.KeyboardEvent<HTMLButtonElement>,
     index: number,
@@ -142,11 +162,31 @@ export function ProductDetailContent({
             <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.1] font-bold tracking-[-0.03em] text-foreground break-words">
               {product.name}
             </h2>
+            <div className="mt-5 flex items-center gap-2.5 sm:gap-3">
+              <CtaButton onClick={() => setQuoteOpen(true)}>
+                Get in touch
+              </CtaButton>
+              <a
+                href={getProductWhatsAppUrl(product.name, product.brand)}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Inquire via WhatsApp"
+                title="Inquire via WhatsApp"
+                className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-[10px] bg-[#25D366] text-white shadow-xs transition-all duration-200 hover:scale-105 hover:bg-[#20ba5a] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-600 motion-reduce:transition-none sm:size-11 sm:rounded-[12px]"
+              >
+                <WhatsAppIcon className="size-4.5 fill-white sm:size-6" />
+              </a>
+            </div>
+            <ProductQuoteDialog
+              product={product}
+              open={quoteOpen}
+              onOpenChange={setQuoteOpen}
+            />
             <div
               id="description"
               role="tablist"
               aria-label="Product information"
-              className="mt-7 flex scroll-mt-36 overflow-x-auto border border-border"
+              className="mt-7 flex scroll-mt-36 overflow-x-auto border border-border [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               {tabs.map((tab, index) => (
                 <button
