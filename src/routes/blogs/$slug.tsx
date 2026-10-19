@@ -1,5 +1,5 @@
 import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
-import { createFileRoute, notFound } from '@tanstack/react-router'
+import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
 
 import { RouteLoading } from '#/components/layout/route-loading'
 import {
@@ -12,7 +12,7 @@ import {
   ArticleNotFoundPage,
 } from '#/features/articles/pages/article-detail-page'
 import type { ArticleDetailData } from '#/features/articles/types/article'
-import { createSeoMeta } from '#/lib/seo'
+import { breadcrumbSchema, createSeoMeta, toAbsoluteUrl } from '#/lib/seo'
 
 export const Route = createFileRoute('/blogs/$slug')({
   loader: async ({ context, params }) => {
@@ -20,6 +20,9 @@ export const Route = createFileRoute('/blogs/$slug')({
       blogDetailQueryOptions(params.slug),
     )
     if (!article) throw notFound()
+    if (!article.categories?.some((category) => category.id === 20)) {
+      throw redirect({ to: '/news/$slug', params, statusCode: 301 })
+    }
     void context.queryClient
       .ensureQueryData(relatedBlogsQueryOptions(article.id))
       .catch(() => undefined)
@@ -29,16 +32,36 @@ export const Route = createFileRoute('/blogs/$slug')({
       image: article.image,
       alt: article.alt,
       slug: params.slug,
+      seo: article.seo,
+      date: article.date,
     }
   },
   head: ({ loaderData }) =>
     createSeoMeta({
       title: `${loaderData?.title ?? 'Blog'} | Ascentia Arsya Analitika`,
+      seo: loaderData?.seo,
+      robots: loaderData ? undefined : 'noindex, follow',
       description: loaderData?.excerpt,
-      path: `/blogs/${loaderData?.slug ?? ''}`,
+      path: loaderData ? `/blogs/${loaderData.slug}` : undefined,
       image: loaderData?.image,
       imageAlt: loaderData?.alt ?? loaderData?.title,
       type: 'article',
+      schema: loaderData
+        ? [
+            breadcrumbSchema([
+              { name: 'Home', path: '/' },
+              { name: 'Blogs', path: '/blogs' },
+              { name: loaderData.title, path: `/blogs/${loaderData.slug}` },
+            ]),
+            {
+              '@type': 'Article',
+              headline: loaderData.title,
+              datePublished: loaderData.date,
+              mainEntityOfPage: toAbsoluteUrl(`/blogs/${loaderData.slug}`),
+              image: toAbsoluteUrl(loaderData.image),
+            },
+          ]
+        : [],
     }),
   component: BlogDetailRoute,
   pendingComponent: RouteLoading,

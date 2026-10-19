@@ -8,8 +8,8 @@ import { listingMeta, listingSearchConfig, prefetchListing } from './-listing'
 
 export const Route = createFileRoute('/products/applications')({
   ...listingSearchConfig,
-  loader: ({ context, deps, preload }) =>
-    prefetchListing(context.queryClient, 'applications', deps, preload),
+  loader: ({ context, deps, cause }) =>
+    prefetchListing(context.queryClient, 'applications', deps, cause),
   ...listingMeta(
     'All Applications | Ascentia Arsya Analitika',
     'Browse analytical solutions by application, from mining to laboratory research.',

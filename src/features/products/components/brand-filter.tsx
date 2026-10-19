@@ -10,6 +10,7 @@ interface BrandFilterProps {
   brands: ProductTaxonomy[]
   activeSlug: string
   onSelect: (id: string) => void
+  categoryHref: (slug: string) => string
   className?: string
   title?: string
   label?: string
@@ -21,6 +22,7 @@ export function BrandFilter({
   brands,
   activeSlug,
   onSelect,
+  categoryHref,
   className,
   title = 'Brands',
   label = 'Filter by brand',
@@ -31,7 +33,7 @@ export function BrandFilter({
   ]
   const reduceMotion = useReducedMotion() ?? false
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const activeTabRef = useRef<HTMLButtonElement>(null)
+  const activeTabRef = useRef<HTMLAnchorElement>(null)
 
   const centerTab = (tab: HTMLElement, smooth = true) => {
     const container = scrollContainerRef.current
@@ -58,8 +60,17 @@ export function BrandFilter({
 
   const handleClick = (
     slug: string,
-    event: React.MouseEvent<HTMLButtonElement>,
+    event: React.MouseEvent<HTMLAnchorElement>,
   ) => {
+    if (
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      event.button !== 0
+    )
+      return
+    event.preventDefault()
     centerTab(event.currentTarget, true)
     onSelect(slug)
   }
@@ -73,12 +84,12 @@ export function BrandFilter({
         className="flex gap-1 overflow-x-auto border-b border-border scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:hidden [-webkit-overflow-scrolling:touch]"
       >
         {entries.map((brand) => (
-          <button
+          <a
             key={brand.id}
             ref={brand.slug === activeSlug ? activeTabRef : undefined}
-            type="button"
+            href={categoryHref(brand.slug)}
             onClick={(event) => handleClick(brand.slug, event)}
-            aria-pressed={brand.slug === activeSlug}
+            aria-current={brand.slug === activeSlug ? 'page' : undefined}
             className={cn(
               'flex min-h-11 shrink-0 cursor-pointer items-center border-b-2 px-4 text-sm font-semibold whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
               brand.slug === activeSlug
@@ -87,7 +98,7 @@ export function BrandFilter({
             )}
           >
             {brand.name}
-          </button>
+          </a>
         ))}
       </div>
 
@@ -107,10 +118,10 @@ export function BrandFilter({
               const isAll = brand.id === ALL_BRAND_ID
               return (
                 <li key={brand.id} className="border-b border-border">
-                  <button
-                    type="button"
-                    onClick={() => onSelect(brand.slug)}
-                    aria-pressed={active}
+                  <a
+                    href={categoryHref(brand.slug)}
+                    onClick={(event) => handleClick(brand.slug, event)}
+                    aria-current={active ? 'page' : undefined}
                     className={cn(
                       'relative flex w-full cursor-pointer items-center gap-2.5 px-4 text-left text-[13px] font-semibold transition-colors',
                       isAll ? 'py-4 text-sm' : 'py-2.5',
@@ -145,7 +156,7 @@ export function BrandFilter({
                       />
                     )}
                     {brand.name}
-                  </button>
+                  </a>
                 </li>
               )
             })}

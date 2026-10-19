@@ -1,3 +1,5 @@
+import type { SeoMetadata } from '#/lib/seo'
+
 export interface ArticleCategory {
   id: number
   name: string
@@ -21,6 +23,7 @@ export interface Article {
 }
 
 export interface ArticleDetailData extends Article {
+  seo?: SeoMetadata
   content: string
 }
 

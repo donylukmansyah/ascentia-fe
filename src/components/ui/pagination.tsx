@@ -104,12 +104,14 @@ function PagePagination({
   page,
   totalPages,
   onPageChange,
+  pageHref,
   className,
   disabled = false,
 }: {
   page: number
   totalPages: number
   disabled?: boolean
+  pageHref?: (page: number) => string
   onPageChange: (page: number) => void
   className?: string
 }) {
@@ -125,11 +127,29 @@ function PagePagination({
       <PaginationContent className="gap-2 sm:gap-3">
         <PaginationItem>
           <Button
-            type="button"
+            nativeButton={!pageHref}
+            role={pageHref ? 'link' : undefined}
+            render={
+              pageHref ? (
+                <a href={current > 1 ? pageHref(current - 1) : undefined} />
+              ) : undefined
+            }
             variant="outline"
             size="icon"
             disabled={disabled || current === 1}
-            onClick={() => onPageChange(current - 1)}
+            onClick={(event) => {
+              if (
+                pageHref &&
+                (event.metaKey ||
+                  event.ctrlKey ||
+                  event.shiftKey ||
+                  event.altKey ||
+                  event.button !== 0)
+              )
+                return
+              if (pageHref) event.preventDefault()
+              onPageChange(current - 1)
+            }}
             aria-label="Previous page"
             className="size-10 cursor-pointer rounded-[4px] text-primary sm:size-11"
           >
@@ -142,11 +162,25 @@ function PagePagination({
               <PaginationEllipsis />
             )}
             <Button
-              type="button"
+              nativeButton={!pageHref}
+              role={pageHref ? 'link' : undefined}
+              render={pageHref ? <a href={pageHref(pageNumber)} /> : undefined}
               variant={pageNumber === current ? 'default' : 'outline'}
               size="icon"
               disabled={disabled}
-              onClick={() => onPageChange(pageNumber)}
+              onClick={(event) => {
+                if (
+                  pageHref &&
+                  (event.metaKey ||
+                    event.ctrlKey ||
+                    event.shiftKey ||
+                    event.altKey ||
+                    event.button !== 0)
+                )
+                  return
+                if (pageHref) event.preventDefault()
+                onPageChange(pageNumber)
+              }}
               aria-label={`Go to page ${pageNumber}`}
               aria-current={pageNumber === current ? 'page' : undefined}
               className={cn(
@@ -160,11 +194,33 @@ function PagePagination({
         ))}
         <PaginationItem>
           <Button
-            type="button"
+            nativeButton={!pageHref}
+            role={pageHref ? 'link' : undefined}
+            render={
+              pageHref ? (
+                <a
+                  href={
+                    current < totalPages ? pageHref(current + 1) : undefined
+                  }
+                />
+              ) : undefined
+            }
             variant="outline"
             size="icon"
             disabled={disabled || current === totalPages}
-            onClick={() => onPageChange(current + 1)}
+            onClick={(event) => {
+              if (
+                pageHref &&
+                (event.metaKey ||
+                  event.ctrlKey ||
+                  event.shiftKey ||
+                  event.altKey ||
+                  event.button !== 0)
+              )
+                return
+              if (pageHref) event.preventDefault()
+              onPageChange(current + 1)
+            }}
             aria-label="Next page"
             className="size-10 cursor-pointer rounded-[4px] text-primary sm:size-11"
           >
