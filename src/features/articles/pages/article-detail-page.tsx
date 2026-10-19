@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { Bookmark, Check, RotateCcw, Share2, Star } from 'lucide-react'
+import { Check, Printer, RotateCcw, Share2, Star } from 'lucide-react'
 
 import { Breadcrumb } from '#/components/ui/breadcrumb'
 import { Button } from '#/components/ui/button'
 import { Reveal } from '#/components/ui/reveal'
+import SocialButton from '#/components/ui/social-button'
 
-import { useArticleBookmark } from '../components/article-bookmarks'
 import { ArticleCard } from '../components/article-card'
 import { BlogCard } from '../components/blog-card'
 import type { Article, ArticleDetailData } from '../types/article'
@@ -20,7 +20,6 @@ export function ArticleDetailPage({
   relatedArticles?: Article[]
   backTo?: '/news' | '/blogs'
 }) {
-  const { bookmarked, toggle } = useArticleBookmark(article.id)
   const [copied, setCopied] = useState(false)
   const isBlogs = backTo === '/blogs'
   const parentLabel = isBlogs ? 'Blogs' : 'News'
@@ -105,23 +104,27 @@ export function ArticleDetailPage({
                     aria-hidden="true"
                     className="size-3 shrink-0 fill-[#f28b3b] text-[#f28b3b]"
                   />
+                  <span>·</span>
+                  <span>{article.readMinutes} min read</span>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            {/* Mobile expanding share pill */}
+            <div className="sm:hidden">
+              <SocialButton shareUrl={shareUrl} shareTitle={shareTitle} />
+            </div>
+
+            {/* Desktop share buttons */}
+            <div className="hidden items-center gap-2 sm:flex">
               <button
                 type="button"
-                onClick={toggle}
-                aria-label={
-                  bookmarked ? 'Remove bookmark' : 'Bookmark this article'
-                }
+                onClick={() => window.print()}
+                title="Print article"
+                aria-label="Print article"
                 className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md border border-border text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
               >
-                <Bookmark
-                  className={`size-4 ${bookmarked ? 'fill-current text-[#1b1b36]' : ''}`}
-                  aria-hidden="true"
-                />
+                <Printer className="size-4" aria-hidden="true" />
               </button>
               <button
                 type="button"

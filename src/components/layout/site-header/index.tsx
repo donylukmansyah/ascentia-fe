@@ -93,9 +93,11 @@ export function SiteHeader({
     <header
       data-header-state={isMenuOpen ? 'visible' : mode}
       className={cn(
-        'top-0 inset-x-0 z-50 border-t-[3px] border-primary transform-gpu transition-[background-color,box-shadow,color,translate] motion-reduce:transition-none',
+        'top-0 inset-x-0 z-50 border-t-[3px] border-primary transform-gpu transition-[background-color,border-color,box-shadow,color,translate] motion-reduce:transition-none',
         mode === 'transparent' && !isMenuOpen ? 'absolute' : 'fixed',
-        isHeaderSolid ? 'bg-background' : 'bg-transparent',
+        isHeaderSolid
+          ? 'bg-background border-b border-border/80'
+          : 'bg-transparent border-b border-transparent',
         isDarkContent ? 'text-foreground' : 'text-white',
         isHidden && !isMenuOpen
           ? cn(

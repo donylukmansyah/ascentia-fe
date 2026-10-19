@@ -162,10 +162,7 @@ export function ContactPanel({
           <Reveal
             variant="left"
             delay={0.15}
-            className={cn(
-              'border-t border-border p-7 sm:p-10 lg:border-t-0 lg:border-l lg:px-12 lg:py-11',
-              showPageLink ? 'bg-background' : 'bg-[#F7F9FC]',
-            )}
+            className="border-t border-border bg-[#F7F9FC] p-7 sm:p-10 lg:border-t-0 lg:border-l lg:px-12 lg:py-11"
           >
             <ContactForm className="w-full" />
           </Reveal>

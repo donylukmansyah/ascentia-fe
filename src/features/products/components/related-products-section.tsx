@@ -4,7 +4,6 @@ import { Reveal } from '#/components/ui/reveal'
 
 import type { ProductCardData } from '../types/product'
 import { ProductCard } from './product-card'
-import { ArrowUpRight } from 'lucide-react'
 
 interface RelatedProductsSectionProps {
   products: ProductCardData[]
@@ -55,19 +54,23 @@ export function RelatedProductsSection({
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         <Reveal variant="up" distance={20} margin="0px 0px -40px 0px">
-          <div className="flex items-end justify-between gap-5">
-            <h2
-              id="related-products-heading"
-              className="text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
-            >
-              Related Products
-            </h2>
+          <div className="mb-8 flex items-end justify-between">
+            <div>
+              <h2
+                id="related-products-heading"
+                className="text-2xl font-bold tracking-tight text-[#1b1b36] sm:text-3xl"
+              >
+                Related Products
+              </h2>
+              <p className="mt-1 text-sm text-muted-foreground">
+                More instruments, equipment, and solutions from Ascentia
+              </p>
+            </div>
             <Link
               to="/products"
-              className="cursor-pointer text-xs font-bold text-foreground transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary flex gap-2 items-center"
+              className="cursor-pointer text-sm font-semibold text-primary hover:underline"
             >
-              View all
-              <ArrowUpRight size={10} />
+              View all products →
             </Link>
           </div>
         </Reveal>

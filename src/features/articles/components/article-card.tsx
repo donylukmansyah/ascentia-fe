@@ -1,15 +1,11 @@
 import { Link } from '@tanstack/react-router'
-import { Bookmark, Star } from 'lucide-react'
+import { Clock3, Star } from 'lucide-react'
 
-import { useArticleBookmark } from './article-bookmarks'
 import type { Article } from '../types/article'
 
 export function ArticleMetadata({ article }: { article: Article }) {
-  const { bookmarked, toggle } = useArticleBookmark(article.id)
-  const label = `${bookmarked ? 'Remove bookmark for' : 'Bookmark'} ${article.title}`
-
   return (
-    <div className="flex items-start justify-between gap-2 text-xs leading-relaxed text-[#7a8395] sm:text-[13px]">
+    <div className="flex items-center justify-between gap-2 text-xs leading-relaxed text-[#7a8395] sm:text-[13px]">
       <div className="flex min-w-0 flex-wrap items-center gap-x-1.5 gap-y-1">
         <time dateTime={article.date}>
           {new Date(`${article.date}T00:00:00Z`).toLocaleDateString('en-US', {
@@ -24,19 +20,13 @@ export function ArticleMetadata({ article }: { article: Article }) {
           className="size-3 shrink-0 fill-[#f28b3b] text-[#f28b3b]"
         />
       </div>
-      <button
-        type="button"
-        onClick={toggle}
-        aria-label={label}
-        aria-pressed={bookmarked}
-        title={label}
-        className="relative z-10 -my-1 -mr-1 flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-sm hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-      >
-        <Bookmark
+      <span className="inline-flex shrink-0 items-center gap-1 text-[11px] font-medium text-muted-foreground sm:text-xs">
+        <Clock3
+          className="size-3 text-muted-foreground/75"
           aria-hidden="true"
-          className={`size-4 ${bookmarked ? 'fill-current text-[#1b1b36]' : ''}`}
         />
-      </button>
+        {article.readMinutes} min read
+      </span>
     </div>
   )
 }
