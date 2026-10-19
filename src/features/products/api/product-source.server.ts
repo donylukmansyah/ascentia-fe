@@ -1,3 +1,5 @@
+import { mapYoastSeo, plainText } from '#/lib/seo-content'
+
 import { createKeyedCache, createTaxonomyCache } from './product-taxonomy-cache'
 
 import {
@@ -135,6 +137,34 @@ async function fetchTaxonomies(): Promise<ProductTaxonomies> {
     if (!entries.length) break
     page++
   }
+  const logoTerms = terms.filter((entry) => {
+    const image = record(entry).image
+    return (
+      image && Number.isSafeInteger(record(image).id) && !record(image).srcset
+    )
+  })
+  await Promise.allSettled(
+    logoTerms.map(async (entry) => {
+      const image = record(record(entry).image)
+      const id = positiveId(image.id)
+      const result = await request(
+        `wp/v2/media/${id}`,
+        { _fields: 'media_details' },
+        signal,
+      )
+      const sizes = record(record(record(result.data).media_details).sizes)
+      const candidates = Object.values(sizes).filter((value) => {
+        const size = record(value)
+        return (
+          Number(size.width) > Number(size.height) && Number(size.width) >= 100
+        )
+      })
+      const selected = candidates.sort(
+        (a, b) => Number(record(a).width) - Number(record(b).width),
+      )[0]
+      if (selected) image.src = record(selected).source_url
+    }),
+  )
   return mapTaxonomies(terms)
 }
 
@@ -208,7 +238,7 @@ async function fetchProductDetail(
       {
         slug,
         per_page: '2',
-        _fields: 'id,slug,status,date,modified,acf',
+        _fields: 'id,slug,status,date,modified,acf,yoast_head_json',
         acf_format: 'standard',
       },
       signal,
@@ -230,14 +260,24 @@ async function fetchProductDetail(
   if (positiveId(raw.id) !== id) throw new Error('Product ID mismatch')
   const product = mapProduct(raw, taxonomy)
   const acf = wp.acf && !Array.isArray(wp.acf) ? record(wp.acf) : {}
+  const descriptionHtml = sanitizeProductHtml(raw.description, taxonomy)
+  const summaryHtml = sanitizeProductHtml(raw.short_description, taxonomy)
+  const seo = mapYoastSeo(wp.yoast_head_json)
   return {
     ...product,
     slug,
+    seo: {
+      ...seo,
+      description:
+        seo.description ||
+        plainText(summaryHtml || descriptionHtml).slice(0, 300) ||
+        undefined,
+    },
     images: mapProductImages(raw.images),
     brandLogo: taxonomy.brands.find((term) => term.id === product.brandId)
       ?.logo,
-    descriptionHtml: sanitizeProductHtml(raw.description, taxonomy),
-    summaryHtml: sanitizeProductHtml(raw.short_description, taxonomy),
+    descriptionHtml,
+    summaryHtml,
     specificationsHtml: sanitizeProductHtml(acf.specifications, taxonomy),
     applicationsHtml: sanitizeProductHtml(acf.applications, taxonomy),
     tags: [
@@ -252,6 +292,54 @@ async function fetchProductDetail(
     publishedAt: text(wp.date),
     modifiedAt: text(wp.modified),
   }
+}
+
+export async function readProductSitemap(signal?: AbortSignal) {
+  const entries: { path: string; modified: string }[] = []
+  const seen = new Set<string>()
+  for (let page = 1; ; page++) {
+    const { data, headers } = await request(
+      'wp/v2/product',
+      {
+        page: String(page),
+        per_page: '100',
+        status: 'publish',
+        orderby: 'id',
+        order: 'asc',
+        _fields: 'id,slug,modified_gmt,yoast_head_json.robots',
+      },
+      signal,
+    )
+    const products = array(data)
+    for (const value of products) {
+      const item = record(value)
+      const id = String(positiveId(item.id))
+      if (seen.has(id)) throw new Error('Invalid product sitemap pagination')
+      seen.add(id)
+      if (seen.size > 50_000) throw new Error('Product sitemap limit exceeded')
+      if (mapYoastSeo(item.yoast_head_json).robots?.startsWith('noindex'))
+        continue
+      const slug = text(item.slug)
+      if (!slug || /[\s/\\]/.test(slug))
+        throw new Error('Invalid product sitemap slug')
+      entries.push({
+        path: `/products/${encodeURIComponent(slug)}`,
+        modified: text(item.modified_gmt),
+      })
+    }
+    const pageCount = headers.get('X-WP-TotalPages')
+    if (
+      pageCount !== null &&
+      (!/^\d+$/.test(pageCount) || !Number.isSafeInteger(Number(pageCount)))
+    ) {
+      throw new Error('Invalid product sitemap totals')
+    }
+    const totalPages = pageCount === null ? undefined : Number(pageCount)
+    if (totalPages !== undefined ? page >= totalPages : products.length < 100)
+      break
+    if (!products.length) throw new Error('Invalid product sitemap pagination')
+  }
+  return entries
 }
 
 const cachedProductDetail = createKeyedCache(

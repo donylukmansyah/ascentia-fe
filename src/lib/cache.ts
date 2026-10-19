@@ -23,6 +23,11 @@ export function createKeyedCache<T>(
           cached.set(key, { data, expiresAt: Date.now() + ttlMs })
           return data
         })
+        .catch((error: unknown) => {
+          // Serve stale cache when backend fetch fails.
+          if (existing) return existing.data
+          throw error
+        })
         .finally(() => {
           pending.delete(key)
         })

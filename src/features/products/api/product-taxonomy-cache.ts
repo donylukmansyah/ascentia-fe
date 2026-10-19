@@ -14,6 +14,11 @@ export function createTaxonomyCache(load: () => Promise<ProductTaxonomies>) {
           cached = { data, expiresAt: Date.now() + 5 * 60_000 }
           return data
         })
+        .catch((error: unknown) => {
+          // Serve stale taxonomy when backend fetch fails.
+          if (cached) return cached.data
+          throw error
+        })
         .finally(() => {
           pending = undefined
         })
@@ -29,4 +34,4 @@ export function createTaxonomyCache(load: () => Promise<ProductTaxonomies>) {
   }
 }
 
-export { createKeyedCache } from '#/lib/cache'
+export { createKeyedCache } from '#/lib/cache.ts'

@@ -1,4 +1,5 @@
 import sanitizeHtml from 'sanitize-html'
+import { mapYoastSeo } from '#/lib/seo-content.ts'
 
 import type {
   Article,
@@ -176,6 +177,7 @@ export function mapArticleDetail(value: unknown): ArticleDetailData {
   return {
     ...base,
     content,
+    seo: mapYoastSeo(post.yoast_head_json),
   }
 }
 

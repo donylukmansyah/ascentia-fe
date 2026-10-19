@@ -7,10 +7,11 @@ import {
 } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
-import { Button } from '#/components/ui/button'
+import { QueryErrorState } from '#/components/ui/query-error-state'
 import { useStickyHeader } from '#/hooks/use-sticky-header'
 import { getFuzzySuggestion } from '#/lib/fuzzy-search'
 import { cn } from '#/lib/utils'
+import { listingPath } from '#/lib/seo'
 
 import {
   PRODUCT_LIST_PAGE_SIZE,
@@ -214,6 +215,13 @@ export function ProductListingPage({
               title={title}
               label={`Filter by ${label}`}
               activeSlug={search.category || 'all'}
+              categoryHref={(slug) =>
+                listingPath(`/products/${group}`, {
+                  ...search,
+                  category: slug === 'all' ? '' : slug,
+                  page: 1,
+                })
+              }
               onSelect={(slug) =>
                 onSearchChange({
                   ...search,
@@ -228,17 +236,13 @@ export function ProductListingPage({
               </p>
             )}
             {taxonomy.isError && (
-              <div role="alert" className="py-4">
-                <p className="text-sm">Unable to load filters.</p>
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="mt-3 cursor-pointer"
-                  onClick={() => void taxonomy.refetch()}
-                >
-                  Try again
-                </Button>
-              </div>
+              <QueryErrorState
+                variant="compact"
+                message="Unable to load filters."
+                onRetry={() => void taxonomy.refetch()}
+                isRetrying={taxonomy.isFetching}
+                className="mt-4"
+              />
             )}
           </div>
           <ProductGrid
@@ -253,6 +257,9 @@ export function ProductListingPage({
                 : (active?.name ?? 'All products')
             }
             page={search.page}
+            pageHref={(page) =>
+              listingPath(`/products/${group}`, { ...search, page })
+            }
             searchQuery={search.q}
             pending={isPending}
             fetching={isFetching}
