@@ -1,3 +1,5 @@
+import type { SeoMetadata } from '#/lib/seo'
+
 export type ProductGroup = 'brands' | 'types' | 'applications'
 
 export interface ProductTaxonomy {
@@ -5,6 +7,7 @@ export interface ProductTaxonomy {
   slug: string
   name: string
   logo?: string
+  logoSrcSet?: string
   count: number
 }
 
@@ -41,6 +44,7 @@ export interface ProductDetailSection {
 }
 
 export interface ProductDetailData extends ProductCardData {
+  seo?: SeoMetadata
   images: ProductImage[]
   brandLogo?: string
   descriptionHtml: string

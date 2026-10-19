@@ -2,6 +2,7 @@ import { useRef } from 'react'
 
 import { Button } from '#/components/ui/button'
 import { PagePagination } from '#/components/ui/pagination'
+import { QueryErrorState } from '#/components/ui/query-error-state'
 import { Reveal } from '#/components/ui/reveal'
 
 import { ProductCard } from './product-card'
@@ -21,6 +22,7 @@ interface ProductGridProps {
   error?: boolean
   invalidCategory?: boolean
   onRetry: () => void
+  pageHref: (page: number) => string
   onPageChange: (page: number) => void
   onReset: () => void
 }
@@ -62,6 +64,7 @@ export function ProductGrid({
   invalidCategory = false,
   onRetry,
   onPageChange,
+  pageHref,
   onReset,
 }: ProductGridProps) {
   const topRef = useRef<HTMLDivElement>(null)
@@ -115,17 +118,13 @@ export function ProductGrid({
           </ul>
         </div>
       ) : error ? (
-        <div role="alert" className="mt-8 border border-border p-8">
-          <p>Unable to load products. Please try again.</p>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={onRetry}
-            className="mt-4 cursor-pointer"
-          >
-            Try again
-          </Button>
-        </div>
+        <QueryErrorState
+          title="Unable to load products"
+          message="We are having trouble reaching the server. Please try again."
+          onRetry={onRetry}
+          isRetrying={fetching}
+          className="mt-8"
+        />
       ) : !invalidCategory && page > Math.max(1, totalPages) ? (
         <div
           role="status"
@@ -192,6 +191,7 @@ export function ProductGrid({
           totalPages={totalPages}
           disabled={fetching}
           onPageChange={goTo}
+          pageHref={pageHref}
           className="mt-10"
         />
       )}

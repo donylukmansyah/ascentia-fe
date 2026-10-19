@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useHydrated } from '@tanstack/react-router'
 
 import { CtaLink } from '#/components/ui/cta-link'
 import { cn } from '#/lib/utils'
@@ -9,6 +10,7 @@ const AUTOPLAY_DELAY = 6500
 
 export function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const hydrated = useHydrated()
   const activeSlide = heroSlides[activeIndex]
 
   useEffect(() => {
@@ -32,20 +34,24 @@ export function HeroSection() {
       className="hero-carousel relative isolate flex min-h-svh items-stretch overflow-hidden bg-foreground text-white"
     >
       <div className="absolute inset-0 z-0" aria-hidden="true">
-        {heroSlides.map((slide, index) => (
-          <img
-            key={slide.id}
-            src={slide.image}
-            alt=""
-            aria-hidden="true"
-            fetchPriority={index === 0 ? 'high' : undefined}
-            loading={index === 0 ? 'eager' : 'lazy'}
-            decoding="async"
-            draggable={false}
-            className={`hero-carousel__image pointer-events-none absolute inset-0 size-full select-none object-cover ${index === activeIndex ? 'is-active' : ''}`}
-            style={{ objectPosition: slide.imagePosition }}
-          />
-        ))}
+        {heroSlides
+          .filter((_, index) => hydrated || index === 0)
+          .map((slide, index) => (
+            <img
+              key={slide.id}
+              src={slide.image}
+              width={1034}
+              height={582}
+              alt=""
+              aria-hidden="true"
+              fetchPriority={index === 0 ? 'high' : undefined}
+              loading={index === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              draggable={false}
+              className={`hero-carousel__image pointer-events-none absolute inset-0 size-full select-none object-cover ${index === activeIndex ? 'is-active' : ''}`}
+              style={{ objectPosition: slide.imagePosition }}
+            />
+          ))}
       </div>
 
       <div
@@ -60,7 +66,7 @@ export function HeroSection() {
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-5 pb-7 pt-32 sm:px-8 sm:pb-9 sm:pt-36 lg:px-12 lg:pb-12 lg:pt-40">
         <div
           key={activeSlide.id}
-          className="hero-carousel__copy mt-auto mb-[18vh] flex max-w-[min(100%,42rem)] flex-col items-start gap-5 sm:my-auto"
+          className="mt-auto mb-[18vh] flex max-w-[min(100%,42rem)] flex-col items-start gap-5 sm:my-auto"
         >
           <p className="text-[10px] font-bold tracking-[0.12em] text-white/85 uppercase sm:text-[11px]">
             {activeSlide.eyebrow}
@@ -75,7 +81,7 @@ export function HeroSection() {
           <p className="max-w-[34rem] text-sm leading-relaxed font-normal text-white/85 sm:text-base">
             {activeSlide.description}
           </p>
-          <CtaLink to={activeSlide.ctaTo} size="default" textTone="light">
+          <CtaLink to={activeSlide.ctaTo} size="default">
             {activeSlide.ctaLabel}
           </CtaLink>
         </div>

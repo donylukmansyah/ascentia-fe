@@ -63,6 +63,7 @@ export function mapTaxonomies(value: unknown): ProductTaxonomies {
       parent: String(term.parent),
       count: Number(term.count),
       logo: safeUrl(image?.src),
+      logoSrcSet: srcSet(image?.srcset),
     }
   })
   const result: ProductTaxonomies = { brands: [], types: [], applications: [] }

@@ -1,3 +1,4 @@
+import os
 import re
 
 from playwright.sync_api import expect, sync_playwright
@@ -6,7 +7,7 @@ from playwright.sync_api import expect, sync_playwright
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=True)
     page = browser.new_page(viewport={"width": 1440, "height": 900})
-    page.goto("http://localhost:3000", wait_until="load")
+    page.goto(os.environ.get("SITE_URL", "http://localhost:3000"), wait_until="load")
 
     header = page.locator("header").filter(
         has=page.locator('button[aria-controls="mobile-navigation"]')
@@ -15,7 +16,7 @@ with sync_playwright() as playwright:
 
     expect(header).to_be_visible()
     expect(header).to_have_class(re.compile(r"translate-y-0"))
-    expect(logo).to_have_attribute("src", "/brand/logo-white.png")
+    expect(logo).to_have_attribute("src", "/brand/logo-white.webp")
     expect(logo).to_have_class(re.compile(r"\bh-7\b"))
     expect(header.get_by_role("link", name="Home", exact=True)).to_be_visible()
 
@@ -83,7 +84,7 @@ with sync_playwright() as playwright:
     page.wait_for_timeout(100)
     expect(header).not_to_have_class(re.compile(r"-translate-y-full"))
     expect(header).to_have_class(re.compile(r"\bduration-500\b"))
-    expect(logo).to_have_attribute("src", "/brand/logo-color.png")
+    expect(logo).to_have_attribute("src", "/brand/logo-color.webp")
     expect(header).to_have_class(re.compile(r"\bbg-background\b"))
     page.evaluate("window.scrollTo(0, 0)")
     page.wait_for_function(
@@ -93,6 +94,6 @@ with sync_playwright() as playwright:
         "(element) => { const rect = element.getBoundingClientRect(); return { scrollY: window.scrollY, top: rect.top, bottom: rect.bottom, className: element.className, scrollBehavior: getComputedStyle(document.documentElement).scrollBehavior } }"
     )
     assert top_state["top"] == 0 and top_state["bottom"] > 0, top_state
-    expect(logo).to_have_attribute("src", "/brand/logo-white.png")
+    expect(logo).to_have_attribute("src", "/brand/logo-white.webp")
 
     browser.close()

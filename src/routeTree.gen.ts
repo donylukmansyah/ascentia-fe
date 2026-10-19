@@ -16,6 +16,7 @@ import { Route as BlogsRouteImport } from './routes/blogs'
 import { Route as ContactUsRouteImport } from './routes/contact-us'
 import { Route as NewsRouteImport } from './routes/news'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
 import { Route as BlogsIndexRouteImport } from './routes/blogs/index'
 import { Route as BlogsSlugRouteImport } from './routes/blogs/$slug'
@@ -60,6 +61,11 @@ const NewsRoute = NewsRouteImport.update({
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/contact-us': typeof ContactUsRoute
   '/news': typeof NewsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/blogs/$slug': typeof BlogsSlugRoute
   '/news/$slug': typeof NewsSlugRoute
@@ -137,6 +144,7 @@ export interface FileRoutesByTo {
   '/$': typeof SplatRoute
   '/about-us': typeof AboutUsRoute
   '/contact-us': typeof ContactUsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/blogs/$slug': typeof BlogsSlugRoute
   '/news/$slug': typeof NewsSlugRoute
@@ -157,6 +165,7 @@ export interface FileRoutesById {
   '/contact-us': typeof ContactUsRoute
   '/news': typeof NewsRouteWithChildren
   '/products': typeof ProductsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/articles/$slug': typeof ArticlesSlugRoute
   '/blogs/$slug': typeof BlogsSlugRoute
   '/news/$slug': typeof NewsSlugRoute
@@ -178,6 +187,7 @@ export interface FileRouteTypes {
     | '/contact-us'
     | '/news'
     | '/products'
+    | '/sitemap.xml'
     | '/articles/$slug'
     | '/blogs/$slug'
     | '/news/$slug'
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/$'
     | '/about-us'
     | '/contact-us'
+    | '/sitemap.xml'
     | '/articles/$slug'
     | '/blogs/$slug'
     | '/news/$slug'
@@ -213,6 +224,7 @@ export interface FileRouteTypes {
     | '/contact-us'
     | '/news'
     | '/products'
+    | '/sitemap.xml'
     | '/articles/$slug'
     | '/blogs/$slug'
     | '/news/$slug'
@@ -233,6 +245,7 @@ export interface RootRouteChildren {
   ContactUsRoute: typeof ContactUsRoute
   NewsRoute: typeof NewsRouteWithChildren
   ProductsRoute: typeof ProductsRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ArticlesSlugRoute: typeof ArticlesSlugRoute
 }
 
@@ -285,6 +298,13 @@ declare module '@tanstack/react-router' {
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/articles/$slug': {
@@ -412,6 +432,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactUsRoute: ContactUsRoute,
   NewsRoute: NewsRouteWithChildren,
   ProductsRoute: ProductsRouteWithChildren,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ArticlesSlugRoute: ArticlesSlugRoute,
 }
 export const routeTree = rootRouteImport

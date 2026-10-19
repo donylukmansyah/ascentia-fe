@@ -11,7 +11,7 @@ import {
   ProductDetailError,
   ProductNotFound,
 } from '#/features/products/pages/product-detail-page'
-import { createSeoMeta } from '#/lib/seo'
+import { breadcrumbSchema, createSeoMeta, toAbsoluteUrl } from '#/lib/seo'
 
 export const Route = createFileRoute('/products/$slug')({
   loader: async ({ context, params }) => {
@@ -24,9 +24,11 @@ export const Route = createFileRoute('/products/$slug')({
       .catch(() => undefined)
     return {
       title: product.name,
-      description: product.summaryHtml
-        ? product.summaryHtml.replace(/<[^>]*>/g, '').trim()
-        : 'Analytical instrument from Ascentia Arsya Analitika.',
+      description:
+        product.seo?.description ||
+        'Analytical instrument from Ascentia Arsya Analitika.',
+      seo: product.seo,
+      brand: product.brand,
       image: product.image,
       imageAlt: product.imageAlt ?? product.name,
       slug: params.slug,
@@ -35,10 +37,34 @@ export const Route = createFileRoute('/products/$slug')({
   head: ({ loaderData }) =>
     createSeoMeta({
       title: `${loaderData?.title ?? 'Product'} | Ascentia Arsya Analitika`,
+      seo: loaderData?.seo,
+      robots: loaderData ? undefined : 'noindex, follow',
       description: loaderData?.description,
-      path: `/products/${loaderData?.slug ?? ''}`,
+      path: loaderData ? `/products/${loaderData.slug}` : undefined,
       image: loaderData?.image,
       imageAlt: loaderData?.imageAlt,
+      schema: loaderData
+        ? [
+            breadcrumbSchema([
+              { name: 'Home', path: '/' },
+              { name: 'Products', path: '/products/brands' },
+              { name: loaderData.title, path: `/products/${loaderData.slug}` },
+            ]),
+            {
+              '@type': 'Product',
+              name: loaderData.title,
+              description:
+                loaderData.seo?.description || loaderData.description,
+              url: toAbsoluteUrl(`/products/${loaderData.slug}`),
+              ...(loaderData.image
+                ? { image: toAbsoluteUrl(loaderData.image) }
+                : {}),
+              ...(loaderData.brand !== 'Product'
+                ? { brand: { '@type': 'Brand', name: loaderData.brand } }
+                : {}),
+            },
+          ]
+        : [],
     }),
   component: ProductDetailRoute,
   pendingComponent: RouteLoading,

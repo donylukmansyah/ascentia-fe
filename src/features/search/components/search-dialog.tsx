@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { RefObject } from 'react'
 import { Autocomplete } from '@base-ui/react/autocomplete'
 import { useQueries } from '@tanstack/react-query'
@@ -12,10 +12,37 @@ import {
   DialogDescription,
   DialogTitle,
 } from '#/components/ui/dialog'
+import { QueryErrorState } from '#/components/ui/query-error-state'
+import { getFuzzySuggestion } from '#/lib/fuzzy-search'
 import { cn } from '#/lib/utils'
 
 import { getSearch } from '../api/search-api'
 import type { SearchGroup, SearchItem } from '../types/search'
+
+const DEFAULT_CANDIDATES = [
+  'XRF Scientific',
+  'XRF',
+  'XRD',
+  'Spectroscopy',
+  'Phoenix',
+  'OREAS',
+  'Specac',
+  'Mettler Toledo',
+  'King Yosion',
+  'Brammer Standard',
+  'Sample Preparation',
+  'Analytical Instruments',
+  'Mineral Analysis',
+  'Laboratory Equipment',
+  'Fusion Machines',
+  'Flux',
+  'Chemicals',
+  'Platinum Labware',
+  'Certified Reference Materials',
+  'Crusher',
+  'Pulveriser',
+  'Calibration',
+]
 
 const groups: { key: SearchGroup; label: string }[] = [
   { key: 'products', label: 'Products' },
@@ -135,6 +162,30 @@ export function SearchDialog({
   const refreshing =
     ready && queries.some((result) => result.isFetching && result.data)
   const failures = ready ? queries.filter((result) => result.isError).length : 0
+
+  const knownSearchTitlesRef = useRef<Set<string>>(new Set())
+
+  useEffect(() => {
+    for (const item of items) {
+      knownSearchTitlesRef.current.add(item.title)
+    }
+  }, [items])
+
+  const candidates = useMemo(() => {
+    const set = new Set<string>(DEFAULT_CANDIDATES)
+    for (const title of knownSearchTitlesRef.current) {
+      set.add(title)
+      const words = title.split(/[\s–—\-–/,]+/).filter((w) => w.length >= 3)
+      for (const w of words) set.add(w)
+    }
+    return Array.from(set)
+  }, [items])
+
+  const suggestion = useMemo(() => {
+    if (items.length > 0 || !allDone || failures > 0) return null
+    return getFuzzySuggestion(candidates, trimmed)
+  }, [candidates, items.length, allDone, failures, trimmed])
+
   const status =
     trimmed.length < 2
       ? 'Type at least 2 characters to search.'
@@ -223,14 +274,44 @@ export function SearchDialog({
                   Type at least 2 characters to get started.
                 </p>
               </div>
+            ) : allDone && failures === groups.length ? (
+              <QueryErrorState
+                variant="inline"
+                title="Search unavailable"
+                message="We are having trouble reaching the search server. Please try again."
+                onRetry={() => {
+                  for (const q of queries) {
+                    void q.refetch()
+                  }
+                }}
+                isRetrying={queries.some((q) => q.isFetching)}
+                className="py-12"
+              />
             ) : allDone && items.length === 0 && !failures ? (
               <div className="flex h-56 flex-col items-center justify-center px-4 text-center text-sm text-muted-foreground">
                 <p className="font-medium text-foreground/80">
                   No results found for &ldquo;{trimmed}&rdquo;
                 </p>
-                <p className="mt-1 text-xs">
-                  Try searching with different keywords.
-                </p>
+                {suggestion ? (
+                  <p className="mt-2 text-xs">
+                    Did you mean{' '}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setDraft(suggestion)
+                        setQuery(suggestion)
+                      }}
+                      className="cursor-pointer font-semibold text-primary underline underline-offset-2 hover:text-primary/80"
+                    >
+                      {suggestion}
+                    </button>
+                    ?
+                  </p>
+                ) : (
+                  <p className="mt-1 text-xs">
+                    Try searching with different keywords.
+                  </p>
+                )}
               </div>
             ) : (
               <Autocomplete.List

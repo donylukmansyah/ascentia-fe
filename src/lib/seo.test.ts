@@ -5,6 +5,7 @@ import {
   DEFAULT_OG_IMAGE,
   DEFAULT_SITE_URL,
   toAbsoluteUrl,
+  listingPath,
 } from './seo.ts'
 
 // toAbsoluteUrl handling
@@ -34,7 +35,7 @@ const custom = createSeoMeta({
 })
 const customMeta = custom.meta
 const findMeta = (key: string, val: string) =>
-  customMeta.find((m: any) => m[key] === val)
+  customMeta.find((m) => key in m && m[key as keyof typeof m] === val)
 
 assert.equal(findMeta('title', 'Custom Title')?.title, 'Custom Title')
 assert.equal(findMeta('name', 'description')?.content, 'Custom Description')
@@ -52,5 +53,31 @@ assert.equal(
   `${DEFAULT_SITE_URL}/images/test.png`,
 )
 assert.equal(custom.links[0]?.href, `${DEFAULT_SITE_URL}/blogs/hello-world`)
+
+assert.equal(
+  listingPath('/products/brands', { category: 'xrf', q: '', page: 2 }),
+  '/products/brands?category=xrf&page=2',
+)
+assert.equal(
+  listingPath('/products/brands', { category: '', q: '', page: 1 }),
+  '/products/brands',
+)
+assert.ok(!customMeta.some((item) => item.property === 'og:image:width'))
+const editorial = createSeoMeta({
+  title: 'Fallback',
+  path: '/products/example',
+  seo: { title: 'Editor title', robots: 'noindex, follow' },
+  schema: [{ '@type': 'Product', name: '</script><script>alert(1)</script>' }],
+})
+assert.equal(editorial.meta[0].title, 'Editor title')
+assert.equal(
+  editorial.meta.find((item) => item.name === 'robots')?.content,
+  'noindex, follow',
+)
+assert.ok(!editorial.scripts[0].children.includes('</script>'))
+assert.equal(
+  JSON.parse(editorial.scripts[0].children).name,
+  '</script><script>alert(1)</script>',
+)
 
 console.log('PASS: seo helpers and meta generation')

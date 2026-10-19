@@ -12,7 +12,9 @@ const config = defineConfig({
   ssr: { noExternal: ['maplibre-gl'] },
   plugins: [
     devtools(),
-    nitro({ rollupConfig: { external: [/^@sentry\//] } }),
+    nitro({
+      rollupConfig: { external: [/^@sentry\//] },
+    }),
     tailwindcss(),
     tanstackStart(),
     viteReact(),

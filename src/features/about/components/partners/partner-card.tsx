@@ -34,7 +34,7 @@ export function AboutPartnerCard({
     >
       <div className="relative z-10">
         <div className="flex items-center gap-3">
-          <span className="relative block h-7 max-w-[140px] flex-1">
+          <span className="relative inline-flex h-7 shrink-0 items-center">
             <img
               src={partner.logo}
               alt={partner.logoAlt}
@@ -42,7 +42,7 @@ export function AboutPartnerCard({
               decoding="async"
               draggable={false}
               className={cn(
-                'absolute inset-0 h-7 w-auto max-w-full object-contain transition-opacity duration-200 ease-out',
+                'h-7 w-auto max-w-[140px] object-contain transition-opacity duration-200 ease-out',
                 active && 'opacity-0',
               )}
             />
@@ -54,7 +54,7 @@ export function AboutPartnerCard({
               decoding="async"
               draggable={false}
               className={cn(
-                'absolute inset-0 h-7 w-auto max-w-full object-contain opacity-0 transition-opacity duration-200 ease-out',
+                'absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity duration-200 ease-out',
                 active && 'opacity-100',
               )}
             />

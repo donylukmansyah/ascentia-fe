@@ -4,6 +4,7 @@ import { cn } from 'cn'
 
 export type LogoMarqueeItem = {
   src: string
+  srcSet?: string
   alt: string
 }
 
@@ -30,7 +31,6 @@ export function LogoMarquee({
       tabIndex={0}
       style={{ '--marquee-duration': `${durationSec}s` } as CSSProperties}
     >
-      {' '}
       <div className="brand-marquee__track">
         {[false, true].map((isDuplicate) => (
           <div
@@ -48,6 +48,8 @@ export function LogoMarquee({
               >
                 <img
                   src={item.src}
+                  srcSet={item.srcSet}
+                  sizes="160px"
                   alt={isDuplicate ? '' : item.alt}
                   loading="lazy"
                   decoding="async"

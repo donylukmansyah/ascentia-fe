@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import type { ProductDetailSection, ProductDetailTab } from '../types/product'
 
 interface ProductDetailNavProps {
@@ -11,6 +12,7 @@ export function ProductDetailNav({
   tabs,
   hasRelated,
 }: ProductDetailNavProps) {
+  const navRef = useRef<HTMLDivElement>(null)
   const sections: Array<{ id: string; label: string; tab?: ProductDetailTab }> =
     [
       { id: 'product', label: 'Product' },
@@ -19,6 +21,24 @@ export function ProductDetailNav({
         ? [{ id: 'related-products', label: 'Related products' }]
         : []),
     ]
+
+  const scrollTabIntoView = (button: HTMLElement) => {
+    const container = navRef.current
+    if (!container) return
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+    const containerRect = container.getBoundingClientRect()
+    const buttonRect = button.getBoundingClientRect()
+    const offset =
+      buttonRect.left +
+      buttonRect.width / 2 -
+      (containerRect.left + containerRect.width / 2)
+    container.scrollBy({
+      left: offset,
+      behavior: reduceMotion ? 'auto' : 'smooth',
+    })
+  }
 
   const handleNavigation = (id: string, tab?: ProductDetailTab) => {
     if (tab) onTabChange(tab)
@@ -68,13 +88,19 @@ export function ProductDetailNav({
       aria-label="Product detail sections"
       className="product-detail-nav sticky z-30 border-y border-border bg-background/95 backdrop-blur"
     >
-      <div className="mx-auto max-w-7xl overflow-x-auto px-5 sm:px-8 lg:px-12">
+      <div
+        ref={navRef}
+        className="mx-auto max-w-7xl overflow-x-auto px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-8 lg:px-12"
+      >
         <ul className="flex min-w-max items-center gap-7 sm:gap-10">
           {sections.map(({ id, label, tab }) => (
             <li key={id}>
               <button
                 type="button"
-                onClick={() => handleNavigation(id, tab)}
+                onClick={(e) => {
+                  scrollTabIntoView(e.currentTarget)
+                  handleNavigation(id, tab)
+                }}
                 className="inline-flex cursor-pointer py-4 text-[10px] font-bold tracking-[-0.01em] text-foreground/65 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-primary sm:py-5 sm:text-xs"
               >
                 {label}

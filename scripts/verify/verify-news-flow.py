@@ -38,7 +38,7 @@ async def main():
         await page.wait_for_selector('.article-rich-text', timeout=15000)
         print('Article rich text is visible!', flush=True)
 
-        header_logo = page.locator('header img[src*="logo-color.png"]')
+        header_logo = page.locator('header img[src*="logo-color.webp"]')
         await expect(header_logo).to_be_visible()
         print('Header color logo is visible!', flush=True)
 

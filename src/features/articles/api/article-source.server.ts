@@ -1,10 +1,12 @@
 import { createKeyedCache } from '#/lib/cache'
+import { mapYoastSeo } from '#/lib/seo-content'
 
 import {
   array,
   mapArticle,
   mapArticleDetail,
   mapSearchArticle,
+  record,
 } from './article-mapper'
 import type {
   Article,
@@ -225,6 +227,63 @@ export function readSearchArticles(
   signal?: AbortSignal,
 ) {
   return cachedSearchArticles(JSON.stringify([query, category]), signal)
+}
+
+export async function readArticleSitemap(signal?: AbortSignal) {
+  const entries: { path: string; modified: string }[] = []
+  const seen = new Set<string>()
+  for (let page = 1; ; page++) {
+    const { data, headers } = await request(
+      'wp/v2/posts',
+      {
+        page: String(page),
+        per_page: '100',
+        status: 'publish',
+        categories: '19,20,117',
+        orderby: 'id',
+        order: 'asc',
+        _fields: 'id,slug,categories,modified_gmt,yoast_head_json.robots',
+      },
+      signal,
+    )
+    const posts = array(data)
+    for (const value of posts) {
+      const post = record(value)
+      if (
+        !Number.isSafeInteger(post.id) ||
+        Number(post.id) <= 0 ||
+        typeof post.slug !== 'string' ||
+        !post.slug
+      ) {
+        throw new Error('Invalid article sitemap response')
+      }
+      const id = String(post.id)
+      if (seen.has(id)) throw new Error('Invalid article sitemap pagination')
+      seen.add(id)
+      if (seen.size > 50_000) throw new Error('Article sitemap limit exceeded')
+      if (mapYoastSeo(post.yoast_head_json).robots?.startsWith('noindex'))
+        continue
+      const categories = array(post.categories)
+      const group = categories.includes(20) ? 'blogs' : 'news'
+      entries.push({
+        path: `/${group}/${encodeURIComponent(post.slug)}`,
+        modified:
+          typeof post.modified_gmt === 'string' ? post.modified_gmt : '',
+      })
+    }
+    const pageCount = headers.get('X-WP-TotalPages')
+    if (
+      pageCount !== null &&
+      (!/^\d+$/.test(pageCount) || !Number.isSafeInteger(Number(pageCount)))
+    ) {
+      throw new Error('Invalid article sitemap totals')
+    }
+    const totalPages = pageCount === null ? undefined : Number(pageCount)
+    if (totalPages !== undefined ? page >= totalPages : posts.length < 100)
+      break
+    if (!posts.length) throw new Error('Invalid article sitemap pagination')
+  }
+  return entries
 }
 
 export function readFeaturedEvents(signal?: AbortSignal) {

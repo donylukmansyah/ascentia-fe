@@ -36,7 +36,7 @@ async def main():
         print(f'Landed on blog detail page: {page.url}', flush=True)
 
         # Check header in dark content mode
-        header_logo = page.locator('header img[src*="logo-color.png"]')
+        header_logo = page.locator('header img[src*="logo-color.webp"]')
         await expect(header_logo).to_be_visible()
         print('Header color logo verified!', flush=True)
 
@@ -44,7 +44,7 @@ async def main():
         breadcrumb = page.locator('nav[aria-label="Breadcrumb"]')
         await expect(breadcrumb).to_be_visible()
         await expect(breadcrumb.get_by_text('Home')).to_be_visible()
-        await expect(breadcrumb.get_by_text('Blogs')).to_be_visible()
+        await expect(breadcrumb.get_by_text('Blogs').first).to_be_visible()
         print('Breadcrumbs verified!', flush=True)
 
         # Check rich text content

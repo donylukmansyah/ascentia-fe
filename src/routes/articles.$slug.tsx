@@ -6,9 +6,10 @@ export const Route = createFileRoute('/articles/$slug')({
   beforeLoad: async ({ params }) => {
     try {
       const blog = await getBlogDetail({ data: params.slug })
-      if (blog && blog.categories?.some((cat) => cat.slug === 'blogs')) {
+      if (blog && blog.categories?.some((cat) => cat.id === 20)) {
         throw redirect({
           to: '/blogs/$slug',
+          statusCode: 301,
           params: { slug: params.slug },
         })
       }
@@ -18,6 +19,7 @@ export const Route = createFileRoute('/articles/$slug')({
 
     throw redirect({
       to: '/news/$slug',
+      statusCode: 301,
       params: { slug: params.slug },
     })
   },

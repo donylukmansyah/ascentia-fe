@@ -33,7 +33,7 @@ export function CategoryNav({
           {items.map((cat, idx) => (
             <div
               key={`cat-a-${idx}`}
-              className="flex shrink-0 items-center gap-3 pr-3 text-[11px] font-bold tracking-wider text-white uppercase sm:gap-4 sm:pr-4 sm:text-xs"
+              className="flex shrink-0 items-center gap-3 pr-3 text-[11px] font-bold tracking-wider uppercase sm:gap-4 sm:pr-4 sm:text-xs"
             >
               <span>{cat}</span>
               <span
@@ -51,7 +51,7 @@ export function CategoryNav({
           {items.map((cat, idx) => (
             <div
               key={`cat-b-${idx}`}
-              className="flex shrink-0 items-center gap-3 pr-3 text-[11px] font-bold tracking-wider text-white uppercase sm:gap-4 sm:pr-4 sm:text-xs"
+              className="flex shrink-0 items-center gap-3 pr-3 text-[11px] font-bold tracking-wider uppercase sm:gap-4 sm:pr-4 sm:text-xs"
             >
               <span>{cat}</span>
               <span

@@ -23,6 +23,20 @@ const terms = [
 const groups = mapTaxonomies(terms)
 assert.equal(groups.brands.length, 2)
 assert.equal(groups.brands[1].count, 0)
+const logoGroups = mapTaxonomies([
+  terms[0],
+  {
+    ...terms[3],
+    image: {
+      src: 'https://example.com/logo.png',
+      srcset: 'https://example.com/logo-small.png 150w',
+    },
+  },
+])
+assert.equal(
+  logoGroups.brands[0].logoSrcSet,
+  'https://example.com/logo-small.png 150w',
+)
 const product = mapProduct(
   {
     id: 1,

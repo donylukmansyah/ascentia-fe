@@ -14,23 +14,28 @@ interface BlogSearch {
 
 export const Route = createFileRoute('/blogs/')({
   validateSearch: (search: Record<string, unknown>): BlogSearch => ({
-    page: Math.max(1, Math.trunc(Number(search.page) || 1)),
+    page:
+      Number.isSafeInteger(Number(search.page)) && Number(search.page) > 0
+        ? Number(search.page)
+        : 1,
   }),
   search: {
     middlewares: [stripSearchParams({ page: 1 })],
   },
   loaderDeps: ({ search: { page } }) => ({ page }),
   loader: async ({ context, deps: { page } }) => {
-    await context.queryClient
+    const data = await context.queryClient
       .ensureQueryData(blogArticlesQueryOptions(page, BLOG_LIST_PAGE_SIZE))
       .catch(() => undefined)
+    return { page, unavailable: !data || page > Math.max(1, data.totalPages) }
   },
-  head: () =>
+  head: ({ loaderData }) =>
     createSeoMeta({
-      title: 'Our Blogs | Ascentia Arsya Analitika',
+      title: `Our Blogs | Ascentia Arsya Analitika${loaderData && loaderData.page > 1 ? ` | Page ${loaderData.page}` : ''}`,
+      robots: loaderData?.unavailable ? 'noindex, follow' : undefined,
       description:
         'Practical guides and insights on analytical instruments, sample preparation, and laboratory workflows.',
-      path: '/blogs',
+      path: `/blogs${loaderData && loaderData.page > 1 ? `?page=${loaderData.page}` : ''}`,
     }),
   component: BlogsPage,
   pendingComponent: RouteLoading,
