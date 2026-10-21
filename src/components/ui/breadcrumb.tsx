@@ -3,6 +3,8 @@ import type { ComponentProps } from 'react'
 import { Link } from '@tanstack/react-router'
 import { ChevronsRight, House } from 'lucide-react'
 
+import { useLanguage } from '#/lib/i18n'
+
 interface BreadcrumbItem {
   label: string
   to?: ComponentProps<typeof Link>['to']
@@ -19,9 +21,13 @@ export function Breadcrumb({
   className,
   variant = 'dark',
 }: BreadcrumbProps) {
+  const { t } = useLanguage()
   const isLight = variant === 'light'
   return (
-    <nav aria-label="Breadcrumb" className={className}>
+    <nav
+      aria-label={t('common.breadcrumb', 'Breadcrumb')}
+      className={className}
+    >
       <ol className="flex min-w-0 items-center gap-2 text-xs font-semibold sm:text-sm">
         {items.map((item, index) => {
           const last = index === items.length - 1

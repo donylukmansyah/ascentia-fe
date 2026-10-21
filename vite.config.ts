@@ -13,6 +13,12 @@ const config = defineConfig({
   plugins: [
     devtools(),
     nitro({
+      compressPublicAssets: { gzip: true, brotli: true },
+      routeRules: {
+        '/brand/**': { headers: { 'cache-control': 'public, max-age=86400' } },
+        '/images/**': { headers: { 'cache-control': 'public, max-age=86400' } },
+        '/icons/**': { headers: { 'cache-control': 'public, max-age=86400' } },
+      },
       rollupConfig: { external: [/^@sentry\//] },
     }),
     tailwindcss(),

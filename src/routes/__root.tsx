@@ -13,6 +13,7 @@ import { SiteFooter } from '#/components/layout/site-footer'
 import { SiteHeader } from '#/components/layout/site-header'
 import { SocialDock } from '#/components/layout/social-dock/social-dock'
 import { createSeoMeta } from '#/lib/seo'
+import { LanguageProvider } from '#/lib/i18n'
 import { GlobalSearch } from '#/features/search/components/global-search'
 
 import fontUrl from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url'
@@ -58,7 +59,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootLayout() {
   return (
-    <>
+    <LanguageProvider>
       <GlobalSearch>
         {({ open, shortcut, onOpen }) => (
           <SiteHeader
@@ -73,7 +74,7 @@ function RootLayout() {
       </main>
       <SiteFooter />
       <SocialDock />
-    </>
+    </LanguageProvider>
   )
 }
 

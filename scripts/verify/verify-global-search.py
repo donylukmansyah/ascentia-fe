@@ -31,7 +31,7 @@ async def main():
         await page.keyboard.press('Tab')
         assert await page.evaluate("document.querySelector('[role=dialog]').contains(document.activeElement)")
         await search.focus()
-        await expect(dialog.get_by_text('Type at least 2 characters to get started.')).to_be_visible()
+        await expect(dialog.get_by_text('Type at least 2 characters to get started.', exact=True)).to_be_visible()
         await search.press('Escape')
         await expect(dialog).not_to_be_visible()
         await expect(trigger).to_be_focused()

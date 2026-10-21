@@ -43,7 +43,7 @@ export function LanguagePicker({
           'inline-flex cursor-pointer items-center gap-1.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4',
           className,
         )}
-        aria-label={`Select language, current ${activeLanguage.label}`}
+        aria-label={`${activeLanguage.code.toUpperCase()}, ${activeLanguage.label}, select language`}
       >
         <img
           src={activeLanguage.flag}

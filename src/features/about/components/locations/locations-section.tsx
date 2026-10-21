@@ -9,6 +9,7 @@ import {
 } from '#/components/ui/map'
 import { Reveal } from '#/components/ui/reveal'
 import { cn } from '#/lib/utils'
+import { useLanguage } from '#/lib/i18n'
 
 import { aboutLocationsContent } from '../../constants/locations'
 import { OfficePopupCard } from './office-popup-card'
@@ -25,11 +26,20 @@ const topFadeClassName =
   'pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,var(--background)_0%,transparent_59%)]'
 
 export function AboutLocationsSection({
-  eyebrow = aboutLocationsContent.eyebrow,
-  title = aboutLocationsContent.title,
-  description = aboutLocationsContent.description,
+  eyebrow,
+  title,
+  description,
   contained = false,
 }: AboutLocationsSectionProps) {
+  const { t } = useLanguage()
+  const resolvedEyebrow =
+    eyebrow ?? t('about.locations.eyebrow', aboutLocationsContent.eyebrow)
+  const resolvedTitle =
+    title ?? t('about.locations.title', aboutLocationsContent.title)
+  const resolvedDescription =
+    description ??
+    t('about.locations.description', aboutLocationsContent.description)
+
   // Small screens get a wider framing so both pins stay visible.
   const [isMobile, setIsMobile] = useState(false)
 
@@ -116,17 +126,17 @@ export function AboutLocationsSection({
             >
               <div className="max-w-2xl">
                 <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
-                  {eyebrow}
+                  {resolvedEyebrow}
                 </p>
                 <h2
                   id="about-locations-heading"
                   className="mt-2 text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
                 >
-                  {title}
+                  {resolvedTitle}
                 </h2>
               </div>
               <p className="max-w-md text-sm leading-relaxed font-normal text-description-text sm:text-base lg:pb-2 lg:text-right">
-                {description}
+                {resolvedDescription}
               </p>
             </Reveal>
           </div>

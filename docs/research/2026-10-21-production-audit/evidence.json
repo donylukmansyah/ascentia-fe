@@ -1,0 +1,3422 @@
+{
+  "scope": "Local production build audit only; no public deployment URL supplied. No source application fixes.",
+  "git_head": "8c2b367cdeabf51ffa80d9a6d73d2ab8f54987ab",
+  "working_tree": "76 modified and 16 untracked files before audit; dirty-tree snapshot, not clean HEAD",
+  "versions": {
+    "node": "24.14.0",
+    "pnpm": "10.32.1",
+    "python": "3.12.10",
+    "lighthouse": "13.5.0"
+  },
+  "runtime": {
+    "origin": "http://127.0.0.1:3103",
+    "wordpress_origin": "http://ascentia-local.local",
+    "NODE_ENV": "production"
+  },
+  "lighthouse": {
+    "development": {
+      "label": "Development localhost:3000, CMS present",
+      "requested_url": "http://localhost:3000/",
+      "fetch_time": "2026-10-21T00:27:53.183Z",
+      "lighthouse_version": "13.5.0",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "form_factor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttling_method": "simulate",
+      "scores": {
+        "performance": 32,
+        "accessibility": 96,
+        "best-practices": 81,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 61449.63869999999,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 122196.16619999995,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 1093,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 61449.63869999999,
+          "unit": "millisecond"
+        },
+        "total-byte-weight": {
+          "value": 22327361,
+          "unit": "byte"
+        },
+        "server-response-time": {
+          "value": 122,
+          "unit": "millisecond"
+        },
+        "bootup-time": {
+          "value": 2174.367999999999,
+          "unit": "millisecond"
+        },
+        "mainthread-work-breakdown": {
+          "value": 5146.88399999992,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": [],
+      "audits": {
+        "is-on-https": {
+          "score": 0,
+          "displayValue": "8 insecure requests found",
+          "urls": [
+            "http://ascentia-local.local/wp-content/uploads/2025/03/Brammer-standard-480x344.png",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/KingYOSION-logo-480x90.png",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/mt-footer-pyramid-logo.png",
+            "http://ascentia-local.local/wp-content/uploads/2022/07/oreas.jpg",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/Spectral-Evolution-Logo-1-300x163.png",
+            "http://ascentia-local.local/wp-content/uploads/2022/07/xrf.jpg",
+            "http://ascentia-local.local/wp-content/uploads/2024/04/TGA-lid-closed-2048x1485-1-1024x743-1-480x348.png",
+            "http://ascentia-local.local/wp-content/uploads/2023/04/phoenix_go_4.png"
+          ]
+        },
+        "unused-javascript": {
+          "score": 0,
+          "displayValue": "Est savings of 1,843 KiB",
+          "numericValue": 9860,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 9850
+          },
+          "overall_savings_bytes": 1887454,
+          "items": [
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/zod.js?v=bb081f73",
+              "totalBytes": 2327094,
+              "wastedBytes": 531410,
+              "wastedPercent": 22.83577715382361
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/motion_react.js?v=bb081f73",
+              "totalBytes": 2035121,
+              "wastedBytes": 351148,
+              "wastedPercent": 17.254404037892588
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=bb081f73",
+              "totalBytes": 3132622,
+              "wastedBytes": 295114,
+              "wastedPercent": 9.420670607561334
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/DDOMPUKY-3Q8e8ggv.js?v=bb081f73",
+              "totalBytes": 1215826,
+              "wastedBytes": 185238,
+              "wastedPercent": 15.235568247430143
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.pnpm/seroval@1.6.8/node_modules/seroval/dist/dev/index.js?v=bb081f73",
+              "totalBytes": 549714,
+              "wastedBytes": 88042,
+              "wastedPercent": 16.0159646652623
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/@base-ui_react_menu.js?v=bb081f73",
+              "totalBytes": 477323,
+              "wastedBytes": 83338,
+              "wastedPercent": 17.4594561753781
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/useCompositeListItem-aCIvXC8V.js?v=bb081f73",
+              "totalBytes": 395970,
+              "wastedBytes": 82736,
+              "wastedPercent": 20.894512210521
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/useScrollLock-BFy2qja-.js?v=bb081f73",
+              "totalBytes": 537685,
+              "wastedBytes": 82661,
+              "wastedPercent": 15.373499353710814
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/modern-D2OVwjdJ.js?v=bb081f73",
+              "totalBytes": 551540,
+              "wastedBytes": 61683,
+              "wastedPercent": 11.183776335351924
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.pnpm/@tanstack+router-core@1.171.34/node_modules/@tanstack/router-core/dist/esm/load-client.js?v=bb081f73",
+              "totalBytes": 194575,
+              "wastedBytes": 36985,
+              "wastedPercent": 19.008094565077734
+            }
+          ]
+        },
+        "unminified-javascript": {
+          "score": 0,
+          "displayValue": "Est savings of 16,809 KiB",
+          "numericValue": 90380,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 90400
+          },
+          "overall_savings_bytes": 17212018,
+          "items": [
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/lucide-react.js?v=bb081f73",
+              "totalBytes": 5481670,
+              "wastedBytes": 4569721,
+              "wastedPercent": 83.3636647226119
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=bb081f73",
+              "totalBytes": 3132664,
+              "wastedBytes": 2362551,
+              "wastedPercent": 75.41666374047044
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/zod.js?v=bb081f73",
+              "totalBytes": 2355067,
+              "wastedBytes": 1853068,
+              "wastedPercent": 78.68431614709162
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/motion_react.js?v=bb081f73",
+              "totalBytes": 2035151,
+              "wastedBytes": 1706637,
+              "wastedPercent": 83.85801139096888
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/DDOMPUKY-3Q8e8ggv.js?v=bb081f73",
+              "totalBytes": 1215964,
+              "wastedBytes": 927809,
+              "wastedPercent": 76.30236563455625
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/modern-D2OVwjdJ.js?v=bb081f73",
+              "totalBytes": 551628,
+              "wastedBytes": 473010,
+              "wastedPercent": 85.74808717409435
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.pnpm/seroval@1.6.8/node_modules/seroval/dist/dev/index.js?v=bb081f73",
+              "totalBytes": 549716,
+              "wastedBytes": 461637,
+              "wastedPercent": 83.9773045620086
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/useScrollLock-BFy2qja-.js?v=bb081f73",
+              "totalBytes": 537691,
+              "wastedBytes": 433435,
+              "wastedPercent": 80.61039456187173
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/@base-ui_react_menu.js?v=bb081f73",
+              "totalBytes": 477327,
+              "wastedBytes": 376403,
+              "wastedPercent": 78.85645569142908
+            },
+            {
+              "url": "http://localhost:3000/node_modules/.vite/deps/BRS44MK7-YIli7yJo.js?v=bb081f73",
+              "totalBytes": 401503,
+              "wastedBytes": 318662,
+              "wastedPercent": 79.36717467702447
+            }
+          ]
+        },
+        "render-blocking-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 1,050 ms",
+          "metricSavings": {
+            "FCP": 1050,
+            "LCP": 0
+          }
+        },
+        "cache-insight": {
+          "score": 0.5,
+          "displayValue": "Est savings of 204 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        "image-delivery-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 244 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 200
+          }
+        },
+        "unsized-images": {
+          "score": 0.5,
+          "metricSavings": {
+            "CLS": 0
+          }
+        },
+        "color-contrast": {
+          "score": 0,
+          "nodes": [
+            {
+              "selector": "div.relative > div.hero-carousel__copy > a.group/cta > span.relative",
+              "nodeLabel": "Explore Instruments",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "ANALYTICAL INSTRUMENTS",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "SAMPLE PREPARATION",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "MINERAL ANALYSIS",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "XRF TECHNOLOGY",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        "aria-dialog-name": {
+          "score": null,
+          "nodes": []
+        },
+        "label-content-name-mismatch": {
+          "score": null,
+          "nodes": []
+        },
+        "modern-http-insight": {
+          "score": 0.5,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        "lcp-breakdown-insight": {
+          "score": 1,
+          "metricSavings": {
+            "LCP": 0
+          },
+          "details": {
+            "type": "list",
+            "items": [
+              {
+                "type": "table",
+                "headings": [
+                  {
+                    "key": "label",
+                    "valueType": "text",
+                    "label": "Subpart"
+                  },
+                  {
+                    "key": "duration",
+                    "valueType": "ms",
+                    "label": "Duration"
+                  }
+                ],
+                "items": [
+                  {
+                    "subpart": "timeToFirstByte",
+                    "label": "Time to first byte",
+                    "duration": 124.862
+                  },
+                  {
+                    "subpart": "resourceLoadDelay",
+                    "label": "Resource load delay",
+                    "duration": 9.909
+                  },
+                  {
+                    "subpart": "resourceLoadDuration",
+                    "label": "Resource load duration",
+                    "duration": 16.801
+                  },
+                  {
+                    "subpart": "elementRenderDelay",
+                    "label": "Element render delay",
+                    "duration": 2255.98
+                  }
+                ]
+              },
+              {
+                "type": "node",
+                "lhId": "page-9-IMG",
+                "path": "1,HTML,1,BODY,1,HEADER,0,DIV,0,A,0,IMG",
+                "selector": "header.top-0 > div.relative > a.shrink-0 > img.h-7",
+                "boundingRect": {
+                  "top": 29,
+                  "bottom": 57,
+                  "left": 20,
+                  "right": 152,
+                  "width": 132,
+                  "height": 28
+                },
+                "snippet": "<img src=\"/brand/logo-white.webp\" alt=\"Ascentia Arsya Analitika\" width=\"440\" height=\"93\" class=\"h-7 w-auto lg:h-7\" fetchpriority=\"high\" data-tsd-source=\"/src/components/layout/site-header/index.tsx:118:11\">",
+                "nodeLabel": "Ascentia Arsya Analitika"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "mobile-1": {
+      "label": "Invalid production baseline: missing WORDPRESS_URL",
+      "requested_url": "http://127.0.0.1:3103/",
+      "fetch_time": "2026-10-21T00:23:22.883Z",
+      "lighthouse_version": "13.5.0",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "form_factor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttling_method": "simulate",
+      "scores": {
+        "performance": 59,
+        "accessibility": 96,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 7010.650624999999,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 8613.580750000001,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 2,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 7010.650624999999,
+          "unit": "millisecond"
+        },
+        "total-byte-weight": {
+          "value": 1244528,
+          "unit": "byte"
+        },
+        "server-response-time": {
+          "value": 30,
+          "unit": "millisecond"
+        },
+        "bootup-time": {
+          "value": 455.5920000000016,
+          "unit": "millisecond"
+        },
+        "mainthread-work-breakdown": {
+          "value": 1115.7200000000032,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": []
+    },
+    "mobile-2": {
+      "label": "Invalid production baseline: missing WORDPRESS_URL repeat",
+      "requested_url": "http://127.0.0.1:3103/",
+      "fetch_time": "2026-10-21T00:24:43.938Z",
+      "lighthouse_version": "13.5.0",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "form_factor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttling_method": "simulate",
+      "scores": {
+        "performance": 59,
+        "accessibility": 96,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 7009.537,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 8611.4444,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 7009.537,
+          "unit": "millisecond"
+        },
+        "total-byte-weight": {
+          "value": 1244525,
+          "unit": "byte"
+        },
+        "server-response-time": {
+          "value": 16,
+          "unit": "millisecond"
+        },
+        "bootup-time": {
+          "value": 402.98400000000225,
+          "unit": "millisecond"
+        },
+        "mainthread-work-breakdown": {
+          "value": 1132.020000000003,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": []
+    },
+    "desktop": {
+      "label": "Invalid production baseline: missing WORDPRESS_URL desktop",
+      "requested_url": "http://127.0.0.1:3103/",
+      "fetch_time": "2026-10-21T00:24:58.258Z",
+      "lighthouse_version": "13.5.0",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "form_factor": "desktop",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "throttling_method": "simulate",
+      "scores": {
+        "performance": 90,
+        "accessibility": 96,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1315.5968749999997,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 1623.1162499999998,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 1315.5968749999997,
+          "unit": "millisecond"
+        },
+        "total-byte-weight": {
+          "value": 1244522,
+          "unit": "byte"
+        },
+        "server-response-time": {
+          "value": 13,
+          "unit": "millisecond"
+        },
+        "bootup-time": {
+          "value": 98.73500000000054,
+          "unit": "millisecond"
+        },
+        "mainthread-work-breakdown": {
+          "value": 287.87700000000063,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": []
+    },
+    "configured-mobile-1": {
+      "label": "Production homepage mobile 1, CMS configured",
+      "requested_url": "http://127.0.0.1:3103/",
+      "fetch_time": "2026-10-21T00:30:04.893Z",
+      "lighthouse_version": "13.5.0",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "form_factor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttling_method": "simulate",
+      "scores": {
+        "performance": 57,
+        "accessibility": 96,
+        "best-practices": 81,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 7167.178125,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 9072.61375,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 2.5,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 9002.606061999875,
+          "unit": "millisecond"
+        },
+        "total-byte-weight": {
+          "value": 1464364,
+          "unit": "byte"
+        },
+        "server-response-time": {
+          "value": 3786,
+          "unit": "millisecond"
+        },
+        "bootup-time": {
+          "value": 457.26800000000117,
+          "unit": "millisecond"
+        },
+        "mainthread-work-breakdown": {
+          "value": 1374.452000000006,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": []
+    },
+    "configured-mobile-2": {
+      "label": "Production homepage mobile 2, CMS configured",
+      "requested_url": "http://127.0.0.1:3103/",
+      "fetch_time": "2026-10-21T00:32:37.748Z",
+      "lighthouse_version": "13.5.0",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "form_factor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttling_method": "simulate",
+      "scores": {
+        "performance": 58,
+        "accessibility": 96,
+        "best-practices": 81,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 7059.803249999999,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 9017.324550000001,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 1.5,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 7177.737281999911,
+          "unit": "millisecond"
+        },
+        "total-byte-weight": {
+          "value": 1464373,
+          "unit": "byte"
+        },
+        "server-response-time": {
+          "value": 2544,
+          "unit": "millisecond"
+        },
+        "bootup-time": {
+          "value": 424.53600000000046,
+          "unit": "millisecond"
+        },
+        "mainthread-work-breakdown": {
+          "value": 1334.7960000000023,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": []
+    },
+    "configured-mobile-3": {
+      "label": "Production homepage mobile 3, CMS configured",
+      "requested_url": "http://127.0.0.1:3103/",
+      "fetch_time": "2026-10-21T00:33:02.077Z",
+      "lighthouse_version": "13.5.0",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "form_factor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttling_method": "simulate",
+      "scores": {
+        "performance": 58,
+        "accessibility": 96,
+        "best-practices": 81,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 7084.834125,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 9030.367775,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 5,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 7084.834125,
+          "unit": "millisecond"
+        },
+        "total-byte-weight": {
+          "value": 1464356,
+          "unit": "byte"
+        },
+        "server-response-time": {
+          "value": 22,
+          "unit": "millisecond"
+        },
+        "bootup-time": {
+          "value": 483.5440000000008,
+          "unit": "millisecond"
+        },
+        "mainthread-work-breakdown": {
+          "value": 1547.352000000003,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": [],
+      "audits": {
+        "is-on-https": {
+          "score": 0,
+          "displayValue": "8 insecure requests found",
+          "urls": [
+            "http://ascentia-local.local/wp-content/uploads/2025/03/Brammer-standard-480x344.png",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/KingYOSION-logo-480x90.png",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/mt-footer-pyramid-logo.png",
+            "http://ascentia-local.local/wp-content/uploads/2022/07/oreas.jpg",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/Spectral-Evolution-Logo-1-300x163.png",
+            "http://ascentia-local.local/wp-content/uploads/2022/07/xrf.jpg",
+            "http://ascentia-local.local/wp-content/uploads/2024/04/TGA-lid-closed-2048x1485-1-1024x743-1-480x348.png",
+            "http://ascentia-local.local/wp-content/uploads/2023/04/phoenix_go_4.png"
+          ]
+        },
+        "unused-javascript": {
+          "score": 0,
+          "displayValue": "Est savings of 409 KiB",
+          "numericValue": 2250,
+          "metricSavings": {
+            "FCP": 1950,
+            "LCP": 2250
+          },
+          "overall_savings_bytes": 419029,
+          "items": [
+            {
+              "url": "http://127.0.0.1:3103/assets/index-scpcWjCm.js",
+              "totalBytes": 443515,
+              "wastedBytes": 207896,
+              "wastedPercent": 46.874626562799456
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/honeypot-field-BfC1Zn3s.js",
+              "totalBytes": 83187,
+              "wastedBytes": 64411,
+              "wastedPercent": 77.42916561481962
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/reveal-Z0wh4ths.js",
+              "totalBytes": 78103,
+              "wastedBytes": 53588,
+              "wastedPercent": 68.61196112825371
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/single-value-DC8RB_rS.js",
+              "totalBytes": 45949,
+              "wastedBytes": 34130,
+              "wastedPercent": 74.27800387386016
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/useScrollLock-JhD86oOr.js",
+              "totalBytes": 48874,
+              "wastedBytes": 32740,
+              "wastedPercent": 66.98858288660638
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/createServerFn-DgFS6lPn.js",
+              "totalBytes": 38023,
+              "wastedBytes": 26264,
+              "wastedPercent": 69.07398153749047
+            }
+          ]
+        },
+        "unminified-javascript": {
+          "score": 1,
+          "displayValue": "",
+          "numericValue": 0,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          },
+          "overall_savings_bytes": 0,
+          "items": []
+        },
+        "render-blocking-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 600 ms",
+          "metricSavings": {
+            "FCP": 600,
+            "LCP": 0
+          }
+        },
+        "cache-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 336 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 450
+          }
+        },
+        "image-delivery-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 244 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 150
+          }
+        },
+        "unsized-images": {
+          "score": 0.5,
+          "metricSavings": {
+            "CLS": 0
+          }
+        },
+        "color-contrast": {
+          "score": 0,
+          "nodes": [
+            {
+              "selector": "div.relative > div.hero-carousel__copy > a.group/cta > span.relative",
+              "nodeLabel": "Explore Instruments",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "ANALYTICAL INSTRUMENTS",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "SAMPLE PREPARATION",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "MINERAL ANALYSIS",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        "aria-dialog-name": {
+          "score": null,
+          "nodes": []
+        },
+        "label-content-name-mismatch": {
+          "score": null,
+          "nodes": []
+        },
+        "modern-http-insight": {
+          "score": 0.5,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        "lcp-breakdown-insight": {
+          "score": 1,
+          "metricSavings": {
+            "LCP": 0
+          },
+          "details": {
+            "type": "list",
+            "items": [
+              {
+                "type": "table",
+                "headings": [
+                  {
+                    "key": "label",
+                    "valueType": "text",
+                    "label": "Subpart"
+                  },
+                  {
+                    "key": "duration",
+                    "valueType": "ms",
+                    "label": "Duration"
+                  }
+                ],
+                "items": [
+                  {
+                    "subpart": "timeToFirstByte",
+                    "label": "Time to first byte",
+                    "duration": 25.445
+                  },
+                  {
+                    "subpart": "resourceLoadDelay",
+                    "label": "Resource load delay",
+                    "duration": 12.355
+                  },
+                  {
+                    "subpart": "resourceLoadDuration",
+                    "label": "Resource load duration",
+                    "duration": 13.316
+                  },
+                  {
+                    "subpart": "elementRenderDelay",
+                    "label": "Element render delay",
+                    "duration": 2323.797
+                  }
+                ]
+              },
+              {
+                "type": "node",
+                "lhId": "page-9-IMG",
+                "path": "1,HTML,1,BODY,1,HEADER,0,DIV,0,A,0,IMG",
+                "selector": "header.top-0 > div.relative > a.shrink-0 > img.h-7",
+                "boundingRect": {
+                  "top": 29,
+                  "bottom": 57,
+                  "left": 20,
+                  "right": 152,
+                  "width": 132,
+                  "height": 28
+                },
+                "snippet": "<img src=\"/brand/logo-white.webp\" alt=\"Ascentia Arsya Analitika\" width=\"440\" height=\"93\" class=\"h-7 w-auto lg:h-7\" fetchpriority=\"high\">",
+                "nodeLabel": "Ascentia Arsya Analitika"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "configured-desktop": {
+      "label": "Production homepage desktop, CMS configured",
+      "requested_url": "http://127.0.0.1:3103/",
+      "fetch_time": "2026-10-21T00:30:31.484Z",
+      "lighthouse_version": "13.5.0",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "form_factor": "desktop",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "throttling_method": "simulate",
+      "scores": {
+        "performance": 88,
+        "accessibility": 96,
+        "best-practices": 81,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1370.09825,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 1782.9375499999996,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 1370.09825,
+          "unit": "millisecond"
+        },
+        "total-byte-weight": {
+          "value": 1500263,
+          "unit": "byte"
+        },
+        "server-response-time": {
+          "value": 38,
+          "unit": "millisecond"
+        },
+        "bootup-time": {
+          "value": 144.87500000000057,
+          "unit": "millisecond"
+        },
+        "mainthread-work-breakdown": {
+          "value": 476.7360000000015,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": [],
+      "audits": {
+        "is-on-https": {
+          "score": 0,
+          "displayValue": "10 insecure requests found",
+          "urls": [
+            "http://ascentia-local.local/wp-content/uploads/2025/03/Brammer-standard-480x344.png",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/KingYOSION-logo-480x90.png",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/mt-footer-pyramid-logo.png",
+            "http://ascentia-local.local/wp-content/uploads/2022/07/oreas.jpg",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/Spectral-Evolution-Logo-1-300x163.png",
+            "http://ascentia-local.local/wp-content/uploads/2022/07/xrf.jpg",
+            "http://ascentia-local.local/wp-content/uploads/2024/04/TGA-lid-closed-2048x1485-1-1024x743-1-480x348.png",
+            "http://ascentia-local.local/wp-content/uploads/2023/04/phoenix_go_4.png",
+            "http://ascentia-local.local/wp-content/uploads/2023/04/xrfuse_6.png",
+            "http://ascentia-local.local/wp-content/uploads/2023/04/xrfuse_2.png"
+          ]
+        },
+        "unused-javascript": {
+          "score": 0,
+          "displayValue": "Est savings of 409 KiB",
+          "numericValue": 360,
+          "metricSavings": {
+            "FCP": 300,
+            "LCP": 350
+          },
+          "overall_savings_bytes": 419024,
+          "items": [
+            {
+              "url": "http://127.0.0.1:3103/assets/index-scpcWjCm.js",
+              "totalBytes": 443515,
+              "wastedBytes": 207909,
+              "wastedPercent": 46.87755769252449
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/honeypot-field-BfC1Zn3s.js",
+              "totalBytes": 83187,
+              "wastedBytes": 64411,
+              "wastedPercent": 77.42916561481962
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/reveal-Z0wh4ths.js",
+              "totalBytes": 78103,
+              "wastedBytes": 53588,
+              "wastedPercent": 68.61196112825371
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/single-value-DC8RB_rS.js",
+              "totalBytes": 45949,
+              "wastedBytes": 34112,
+              "wastedPercent": 74.23883000718187
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/useScrollLock-JhD86oOr.js",
+              "totalBytes": 48874,
+              "wastedBytes": 32740,
+              "wastedPercent": 66.98858288660638
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/createServerFn-DgFS6lPn.js",
+              "totalBytes": 38023,
+              "wastedBytes": 26264,
+              "wastedPercent": 69.07398153749047
+            }
+          ]
+        },
+        "unminified-javascript": {
+          "score": 1,
+          "displayValue": "",
+          "numericValue": 0,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          },
+          "overall_savings_bytes": 0,
+          "items": []
+        },
+        "render-blocking-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 80 ms",
+          "metricSavings": {
+            "FCP": 100,
+            "LCP": 0
+          }
+        },
+        "cache-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 369 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 50
+          }
+        },
+        "image-delivery-insight": {
+          "score": 0.5,
+          "displayValue": "Est savings of 200 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        "unsized-images": {
+          "score": 0.5,
+          "metricSavings": {
+            "CLS": 0
+          }
+        },
+        "color-contrast": {
+          "score": 0,
+          "nodes": [
+            {
+              "selector": "div.relative > div.hero-carousel__copy > a.group/cta > span.relative",
+              "nodeLabel": "Explore Instruments",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.9 (foreground color: #fdf8f2, background color: #e1770f, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "SAMPLE PREPARATION",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "MINERAL ANALYSIS",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "XRF TECHNOLOGY",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "GEOCHEMICAL STANDARDS",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "LABORATORY EQUIPMENT",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "ANALYTICAL INSTRUMENTS",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "SAMPLE PREPARATION",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "MINERAL ANALYSIS",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        "aria-dialog-name": {
+          "score": null,
+          "nodes": []
+        },
+        "label-content-name-mismatch": {
+          "score": 0,
+          "nodes": [
+            {
+              "selector": "header.top-0 > div.relative > div.hidden > button#base-ui-_R_1ld9aq_",
+              "nodeLabel": "EN",
+              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "selector": "header.top-0 > div.relative > div.hidden > button.inline-flex",
+              "nodeLabel": "Search\nK",
+              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "selector": "section.hero-carousel > div.relative > div.hidden > button.group/slide",
+              "nodeLabel": "01Sample Preparation",
+              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "selector": "section.hero-carousel > div.relative > div.hidden > button.group/slide",
+              "nodeLabel": "02Particle Analysis",
+              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "selector": "section.hero-carousel > div.relative > div.hidden > button.group/slide",
+              "nodeLabel": "03Reference Materials",
+              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            },
+            {
+              "selector": "section.hero-carousel > div.relative > div.hidden > button.group/slide",
+              "nodeLabel": "04Spectroscopy",
+              "explanation": "Fix any of the following:\n  Text inside the element is not included in the accessible name"
+            }
+          ]
+        },
+        "modern-http-insight": {
+          "score": 0.5,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        "lcp-breakdown-insight": {
+          "score": 1,
+          "metricSavings": {
+            "LCP": 0
+          },
+          "details": {
+            "type": "list",
+            "items": [
+              {
+                "type": "table",
+                "headings": [
+                  {
+                    "key": "label",
+                    "valueType": "text",
+                    "label": "Subpart"
+                  },
+                  {
+                    "key": "duration",
+                    "valueType": "ms",
+                    "label": "Duration"
+                  }
+                ],
+                "items": [
+                  {
+                    "subpart": "timeToFirstByte",
+                    "label": "Time to first byte",
+                    "duration": 42.99
+                  },
+                  {
+                    "subpart": "resourceLoadDelay",
+                    "label": "Resource load delay",
+                    "duration": 8.157
+                  },
+                  {
+                    "subpart": "resourceLoadDuration",
+                    "label": "Resource load duration",
+                    "duration": 17.402
+                  },
+                  {
+                    "subpart": "elementRenderDelay",
+                    "label": "Element render delay",
+                    "duration": 469.357
+                  }
+                ]
+              },
+              {
+                "type": "node",
+                "lhId": "page-0-IMG",
+                "path": "1,HTML,1,BODY,1,HEADER,0,DIV,0,A,0,IMG",
+                "selector": "header.top-0 > div.relative > a.shrink-0 > img.h-7",
+                "boundingRect": {
+                  "top": 37,
+                  "bottom": 65,
+                  "left": 76,
+                  "right": 208,
+                  "width": 132,
+                  "height": 28
+                },
+                "snippet": "<img src=\"/brand/logo-white.webp\" alt=\"Ascentia Arsya Analitika\" width=\"440\" height=\"93\" class=\"h-7 w-auto lg:h-7\" fetchpriority=\"high\">",
+                "nodeLabel": "Ascentia Arsya Analitika"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "contact-mobile": {
+      "label": "Production contact mobile 1",
+      "requested_url": "http://127.0.0.1:3103/contact-us",
+      "fetch_time": "2026-10-21T00:45:25.823Z",
+      "lighthouse_version": "13.5.0",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "form_factor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttling_method": "simulate",
+      "scores": {
+        "performance": 32,
+        "accessibility": 93,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 12469.7119,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 16724.86275,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 1135,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 12469.7119,
+          "unit": "millisecond"
+        },
+        "total-byte-weight": {
+          "value": 3287626,
+          "unit": "byte"
+        },
+        "server-response-time": {
+          "value": 12,
+          "unit": "millisecond"
+        },
+        "bootup-time": {
+          "value": 2810.7239999999865,
+          "unit": "millisecond"
+        },
+        "mainthread-work-breakdown": {
+          "value": 4467.171999999908,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": [],
+      "audits": {
+        "is-on-https": {
+          "score": 1,
+          "urls": []
+        },
+        "unused-javascript": {
+          "score": 0,
+          "displayValue": "Est savings of 945 KiB",
+          "numericValue": 4880,
+          "metricSavings": {
+            "FCP": 4600,
+            "LCP": 4900
+          },
+          "overall_savings_bytes": 967186,
+          "items": [
+            {
+              "url": "http://127.0.0.1:3103/assets/locations-section-Bq9skE2v.js",
+              "totalBytes": 1061653,
+              "wastedBytes": 582247,
+              "wastedPercent": 54.8434375450359
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/index-scpcWjCm.js",
+              "totalBytes": 443515,
+              "wastedBytes": 211428,
+              "wastedPercent": 47.67099196194041
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/honeypot-field-BfC1Zn3s.js",
+              "totalBytes": 83187,
+              "wastedBytes": 64411,
+              "wastedPercent": 77.42916561481962
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/reveal-Z0wh4ths.js",
+              "totalBytes": 78103,
+              "wastedBytes": 50096,
+              "wastedPercent": 64.14094208929234
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/useScrollLock-JhD86oOr.js",
+              "totalBytes": 48874,
+              "wastedBytes": 32740,
+              "wastedPercent": 66.98858288660638
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/createServerFn-DgFS6lPn.js",
+              "totalBytes": 38023,
+              "wastedBytes": 26264,
+              "wastedPercent": 69.07398153749047
+            }
+          ]
+        },
+        "unminified-javascript": {
+          "score": 1,
+          "displayValue": "",
+          "numericValue": 0,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          },
+          "overall_savings_bytes": 0,
+          "items": []
+        },
+        "render-blocking-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 1,180 ms",
+          "metricSavings": {
+            "FCP": 1200,
+            "LCP": 0
+          }
+        },
+        "cache-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 147 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 750
+          }
+        },
+        "image-delivery-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 60 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 350
+          }
+        },
+        "unsized-images": {
+          "score": 1,
+          "metricSavings": {
+            "CLS": 0
+          }
+        },
+        "color-contrast": {
+          "score": 0,
+          "nodes": [
+            {
+              "selector": "div.mx-auto > div.relative > div.p-7 > p.text-[10px]",
+              "nodeLabel": "CONTACT US",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.97 (foreground color: #0087c6, background color: #ffffff, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        "aria-dialog-name": {
+          "score": 0,
+          "nodes": [
+            {
+              "selector": "div.office-map > div.maplibregl-popup > div.maplibregl-popup-content > div#_r_0_",
+              "nodeLabel": "PT Ascentia Arsya Analitika\n\nJakarta Head Office",
+              "explanation": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            }
+          ]
+        },
+        "label-content-name-mismatch": {
+          "score": 1,
+          "nodes": []
+        },
+        "modern-http-insight": {
+          "score": 1,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        "lcp-breakdown-insight": {
+          "score": 1,
+          "metricSavings": {
+            "LCP": 0
+          },
+          "details": {
+            "type": "list",
+            "items": [
+              {
+                "type": "table",
+                "headings": [
+                  {
+                    "key": "label",
+                    "valueType": "text",
+                    "label": "Subpart"
+                  },
+                  {
+                    "key": "duration",
+                    "valueType": "ms",
+                    "label": "Duration"
+                  }
+                ],
+                "items": [
+                  {
+                    "subpart": "timeToFirstByte",
+                    "label": "Time to first byte",
+                    "duration": 14.958
+                  },
+                  {
+                    "subpart": "resourceLoadDelay",
+                    "label": "Resource load delay",
+                    "duration": 18.259
+                  },
+                  {
+                    "subpart": "resourceLoadDuration",
+                    "label": "Resource load duration",
+                    "duration": 24.083
+                  },
+                  {
+                    "subpart": "elementRenderDelay",
+                    "label": "Element render delay",
+                    "duration": 2291.396
+                  }
+                ]
+              },
+              {
+                "type": "node",
+                "lhId": "page-0-IMG",
+                "path": "1,HTML,1,BODY,2,MAIN,2,SECTION,0,IMG",
+                "selector": "body > main > section.relative > img.absolute",
+                "boundingRect": {
+                  "top": -72,
+                  "bottom": 560,
+                  "left": 0,
+                  "right": 412,
+                  "width": 412,
+                  "height": 632
+                },
+                "snippet": "<img src=\"/images/contact-us/contact-us.webp\" alt=\"\" fetchpriority=\"high\" decoding=\"async\" class=\"absolute inset-x-0 -top-24 -z-20 h-[calc(100%+12rem)] w-full object-cover\" style=\"object-position: 55% 48%; transform: translateY(24.2597px);\">",
+                "nodeLabel": "body > main > section.relative > img.absolute"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "contact-mobile-2": {
+      "label": "Production contact mobile 2",
+      "requested_url": "http://127.0.0.1:3103/contact-us",
+      "fetch_time": "2026-10-21T00:50:57.860Z",
+      "lighthouse_version": "13.5.0",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "form_factor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttling_method": "simulate",
+      "scores": {
+        "performance": 42,
+        "accessibility": 93,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 12217.56525,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 14084.6522,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 549,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 12217.56525,
+          "unit": "millisecond"
+        },
+        "total-byte-weight": {
+          "value": 2696886,
+          "unit": "byte"
+        },
+        "server-response-time": {
+          "value": 10,
+          "unit": "millisecond"
+        },
+        "bootup-time": {
+          "value": 2299.063999999989,
+          "unit": "millisecond"
+        },
+        "mainthread-work-breakdown": {
+          "value": 4017.911999999928,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": [],
+      "audits": {
+        "is-on-https": {
+          "score": 1,
+          "urls": []
+        },
+        "unused-javascript": {
+          "score": 0,
+          "displayValue": "Est savings of 944 KiB",
+          "numericValue": 5050,
+          "metricSavings": {
+            "FCP": 4500,
+            "LCP": 5050
+          },
+          "overall_savings_bytes": 966936,
+          "items": [
+            {
+              "url": "http://127.0.0.1:3103/assets/locations-section-Bq9skE2v.js",
+              "totalBytes": 1061653,
+              "wastedBytes": 581997,
+              "wastedPercent": 54.81988936121313
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/index-scpcWjCm.js",
+              "totalBytes": 443515,
+              "wastedBytes": 211428,
+              "wastedPercent": 47.67099196194041
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/honeypot-field-BfC1Zn3s.js",
+              "totalBytes": 83187,
+              "wastedBytes": 64411,
+              "wastedPercent": 77.42916561481962
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/reveal-Z0wh4ths.js",
+              "totalBytes": 78103,
+              "wastedBytes": 50096,
+              "wastedPercent": 64.14094208929234
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/useScrollLock-JhD86oOr.js",
+              "totalBytes": 48874,
+              "wastedBytes": 32740,
+              "wastedPercent": 66.98858288660638
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/createServerFn-DgFS6lPn.js",
+              "totalBytes": 38023,
+              "wastedBytes": 26264,
+              "wastedPercent": 69.07398153749047
+            }
+          ]
+        },
+        "unminified-javascript": {
+          "score": 1,
+          "displayValue": "",
+          "numericValue": 0,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          },
+          "overall_savings_bytes": 0,
+          "items": []
+        },
+        "render-blocking-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 890 ms",
+          "metricSavings": {
+            "FCP": 900,
+            "LCP": 0
+          }
+        },
+        "cache-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 147 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 900
+          }
+        },
+        "image-delivery-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 60 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 300
+          }
+        },
+        "unsized-images": {
+          "score": 1,
+          "metricSavings": {
+            "CLS": 0
+          }
+        },
+        "color-contrast": {
+          "score": 0,
+          "nodes": [
+            {
+              "selector": "div.mx-auto > div.relative > div.p-7 > p.text-[10px]",
+              "nodeLabel": "CONTACT US",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.97 (foreground color: #0087c6, background color: #ffffff, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        "aria-dialog-name": {
+          "score": 0,
+          "nodes": [
+            {
+              "selector": "div.office-map > div.maplibregl-popup > div.maplibregl-popup-content > div#_r_0_",
+              "nodeLabel": "PT Ascentia Arsya Analitika\n\nJakarta Head Office",
+              "explanation": "Fix any of the following:\n  aria-label attribute does not exist or is empty\n  aria-labelledby attribute does not exist, references elements that do not exist or references elements that are empty\n  Element has no title attribute"
+            }
+          ]
+        },
+        "label-content-name-mismatch": {
+          "score": 1,
+          "nodes": []
+        },
+        "modern-http-insight": {
+          "score": 1,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        "lcp-breakdown-insight": {
+          "score": 1,
+          "metricSavings": {
+            "LCP": 0
+          },
+          "details": {
+            "type": "list",
+            "items": [
+              {
+                "type": "table",
+                "headings": [
+                  {
+                    "key": "label",
+                    "valueType": "text",
+                    "label": "Subpart"
+                  },
+                  {
+                    "key": "duration",
+                    "valueType": "ms",
+                    "label": "Duration"
+                  }
+                ],
+                "items": [
+                  {
+                    "subpart": "timeToFirstByte",
+                    "label": "Time to first byte",
+                    "duration": 12.422
+                  },
+                  {
+                    "subpart": "resourceLoadDelay",
+                    "label": "Resource load delay",
+                    "duration": 10.546
+                  },
+                  {
+                    "subpart": "resourceLoadDuration",
+                    "label": "Resource load duration",
+                    "duration": 16.742
+                  },
+                  {
+                    "subpart": "elementRenderDelay",
+                    "label": "Element render delay",
+                    "duration": 280.211
+                  }
+                ]
+              },
+              {
+                "type": "node",
+                "lhId": "page-0-IMG",
+                "path": "1,HTML,1,BODY,2,MAIN,2,SECTION,0,IMG",
+                "selector": "body > main > section.relative > img.absolute",
+                "boundingRect": {
+                  "top": -72,
+                  "bottom": 560,
+                  "left": 0,
+                  "right": 412,
+                  "width": 412,
+                  "height": 632
+                },
+                "snippet": "<img src=\"/images/contact-us/contact-us.webp\" alt=\"\" fetchpriority=\"high\" decoding=\"async\" class=\"absolute inset-x-0 -top-24 -z-20 h-[calc(100%+12rem)] w-full object-cover\" style=\"object-position: 55% 48%; transform: translateY(24.2597px);\">",
+                "nodeLabel": "body > main > section.relative > img.absolute"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "product-mobile": {
+      "label": "Production product detail mobile",
+      "requested_url": "http://127.0.0.1:3103/products/xrtga-range-thermogravimetric-analyser",
+      "fetch_time": "2026-10-21T00:45:45.536Z",
+      "lighthouse_version": "13.5.0",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "form_factor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttling_method": "simulate",
+      "scores": {
+        "performance": 56,
+        "accessibility": 97,
+        "best-practices": 81,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 6084.5779999999995,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 13380.155999999995,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 73.5,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0.001212647990098515,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 9807.685127267043,
+          "unit": "millisecond"
+        },
+        "total-byte-weight": {
+          "value": 2317169,
+          "unit": "byte"
+        },
+        "server-response-time": {
+          "value": 2758,
+          "unit": "millisecond"
+        },
+        "bootup-time": {
+          "value": 795.7160000000022,
+          "unit": "millisecond"
+        },
+        "mainthread-work-breakdown": {
+          "value": 2086.8239999999973,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": [],
+      "audits": {
+        "is-on-https": {
+          "score": 0,
+          "displayValue": "12 insecure requests found",
+          "urls": [
+            "http://ascentia-local.local/wp-content/uploads/2024/04/TGA-lid-closed-2048x1485-1-1024x743-1.png",
+            "http://ascentia-local.local/wp-content/uploads/2024/04/TGA-lid-closed-2048x1485-1-1024x743-1-980x711.png",
+            "http://ascentia-local.local/wp-content/uploads/2024/04/TGA-lid-closed-2048x1485-1-1024x743-1-300x300.png",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/IMG_0222-300x300.png",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/Spectral-Evolution-Logo-300x300.png",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/Brammer-standard-300x300.png",
+            "http://ascentia-local.local/wp-content/uploads/2026/10/WhatsApp-Image-2026-10-01-at-10.33.13-300x300.jpeg",
+            "http://ascentia-local.local/wp-content/uploads/2022/07/xrf.jpg",
+            "http://ascentia-local.local/wp-content/uploads/2023/04/phoenix_vfd.png",
+            "http://ascentia-local.local/wp-content/uploads/2023/04/phoenix_go_s_gas_fusion_machine_1_position_185072212.png",
+            "http://ascentia-local.local/wp-content/uploads/2023/04/phoenix_go_4.png",
+            "http://ascentia-local.local/wp-content/uploads/2023/04/xrfuse_6.png"
+          ]
+        },
+        "unused-javascript": {
+          "score": 0,
+          "displayValue": "Est savings of 394 KiB",
+          "numericValue": 2320,
+          "metricSavings": {
+            "FCP": 1500,
+            "LCP": 2300
+          },
+          "overall_savings_bytes": 402962,
+          "items": [
+            {
+              "url": "http://127.0.0.1:3103/assets/index-scpcWjCm.js",
+              "totalBytes": 443515,
+              "wastedBytes": 206168,
+              "wastedPercent": 46.48501178088678
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/honeypot-field-BfC1Zn3s.js",
+              "totalBytes": 83187,
+              "wastedBytes": 66304,
+              "wastedPercent": 79.70476156130164
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/reveal-Z0wh4ths.js",
+              "totalBytes": 78103,
+              "wastedBytes": 50228,
+              "wastedPercent": 64.3099496818304
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/useScrollLock-JhD86oOr.js",
+              "totalBytes": 48874,
+              "wastedBytes": 32404,
+              "wastedPercent": 66.30110078978598
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/createServerFn-DgFS6lPn.js",
+              "totalBytes": 38023,
+              "wastedBytes": 26264,
+              "wastedPercent": 69.07398153749047
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/single-value-DC8RB_rS.js",
+              "totalBytes": 45949,
+              "wastedBytes": 21594,
+              "wastedPercent": 46.99558205836906
+            }
+          ]
+        },
+        "unminified-javascript": {
+          "score": 1,
+          "displayValue": "",
+          "numericValue": 0,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          },
+          "overall_savings_bytes": 0,
+          "items": []
+        },
+        "render-blocking-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 750 ms",
+          "metricSavings": {
+            "FCP": 750,
+            "LCP": 0
+          }
+        },
+        "cache-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 1,111 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 4050
+          }
+        },
+        "image-delivery-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 1,005 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 3750
+          }
+        },
+        "unsized-images": {
+          "score": 0.5,
+          "metricSavings": {
+            "CLS": 0
+          }
+        },
+        "color-contrast": {
+          "score": 0,
+          "nodes": [
+            {
+              "selector": "div.w-full > div.mt-6 > div.flex > span.rounded-full",
+              "nodeLabel": "Analytical",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.73 (foreground color: #0087c6, background color: #f2f9fc, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.w-full > div.mt-6 > div.flex > span.rounded-full",
+              "nodeLabel": "Consumables",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.73 (foreground color: #0087c6, background color: #f2f9fc, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.w-full > div.mt-6 > div.flex > span.rounded-full",
+              "nodeLabel": "Lab Research",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.73 (foreground color: #0087c6, background color: #f2f9fc, font size: 7.5pt (10px), font weight: bold). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        "aria-dialog-name": {
+          "score": null,
+          "nodes": []
+        },
+        "label-content-name-mismatch": {
+          "score": null,
+          "nodes": []
+        },
+        "modern-http-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 1,110 ms",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 1100
+          }
+        },
+        "lcp-breakdown-insight": {
+          "score": 0,
+          "metricSavings": {
+            "LCP": 0
+          },
+          "details": {
+            "type": "list",
+            "items": [
+              {
+                "type": "table",
+                "headings": [
+                  {
+                    "key": "label",
+                    "valueType": "text",
+                    "label": "Subpart"
+                  },
+                  {
+                    "key": "duration",
+                    "valueType": "ms",
+                    "label": "Duration"
+                  }
+                ],
+                "items": [
+                  {
+                    "subpart": "timeToFirstByte",
+                    "label": "Time to first byte",
+                    "duration": 2760.501
+                  },
+                  {
+                    "subpart": "resourceLoadDelay",
+                    "label": "Resource load delay",
+                    "duration": 1493.953
+                  },
+                  {
+                    "subpart": "resourceLoadDuration",
+                    "label": "Resource load duration",
+                    "duration": 46.523
+                  },
+                  {
+                    "subpart": "elementRenderDelay",
+                    "label": "Element render delay",
+                    "duration": 985.843
+                  }
+                ]
+              },
+              {
+                "type": "node",
+                "lhId": "page-1-IMG",
+                "path": "1,HTML,1,BODY,2,MAIN,5,SECTION,0,DIV,0,ASIDE,0,DIV,0,DIV,0,BUTTON,0,DIV,0,IMG",
+                "selector": "div > button#_R_pdaaq_ > div.flex > img.h-full",
+                "boundingRect": {
+                  "top": 511,
+                  "bottom": 851,
+                  "left": 36,
+                  "right": 376,
+                  "width": 340,
+                  "height": 340
+                },
+                "snippet": "<img src=\"http://ascentia-local.local/wp-content/uploads/2024/04/TGA-lid-closed-2048…\" srcset=\"http://ascentia-local.local/wp-content/uploads/2024/04/TGA-lid-closed-2048…\" sizes=\"(min-width: 1280px) 440px, (min-width: 1024px) 36vw, (min-width: 640px) 85…\" alt=\"xrtga thermal analyser xrfscientific\" width=\"600\" height=\"600\" loading=\"eager\" decoding=\"async\" draggable=\"false\" class=\"h-full w-full object-contain select-none\">",
+                "nodeLabel": "xrtga thermal analyser xrfscientific"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "news-mobile": {
+      "label": "Production news mobile",
+      "requested_url": "http://127.0.0.1:3103/news",
+      "fetch_time": "2026-10-21T00:46:07.875Z",
+      "lighthouse_version": "13.5.0",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "form_factor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttling_method": "simulate",
+      "scores": {
+        "performance": 57,
+        "accessibility": 96,
+        "best-practices": 81,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 6606.904499999999,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 9766.566299999999,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 4.5,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 8749.249394000139,
+          "unit": "millisecond"
+        },
+        "total-byte-weight": {
+          "value": 2308105,
+          "unit": "byte"
+        },
+        "server-response-time": {
+          "value": 3913,
+          "unit": "millisecond"
+        },
+        "bootup-time": {
+          "value": 528.8440000000012,
+          "unit": "millisecond"
+        },
+        "mainthread-work-breakdown": {
+          "value": 1548.7000000000014,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": [],
+      "audits": {
+        "is-on-https": {
+          "score": 0,
+          "displayValue": "6 insecure requests found",
+          "urls": [
+            "http://ascentia-local.local/wp-content/uploads/2022/07/tea_shop_50-1024x434.jpg",
+            "http://ascentia-local.local/wp-content/uploads/2022/06/dumper-truck-tilting-ore-load-open-pit-mine-riotinto-1024x616.jpg",
+            "http://ascentia-local.local/wp-content/uploads/2023/05/3.png",
+            "http://ascentia-local.local/wp-content/uploads/2023/05/kb-jeruk-jakarta-3-1024x771.jpeg",
+            "http://ascentia-local.local/wp-content/uploads/2023/05/1.png",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/IMG_9362-1024x683.jpg"
+          ]
+        },
+        "unused-javascript": {
+          "score": 0,
+          "displayValue": "Est savings of 338 KiB",
+          "numericValue": 1800,
+          "metricSavings": {
+            "FCP": 1950,
+            "LCP": 1800
+          },
+          "overall_savings_bytes": 346298,
+          "items": [
+            {
+              "url": "http://127.0.0.1:3103/assets/index-scpcWjCm.js",
+              "totalBytes": 443515,
+              "wastedBytes": 214029,
+              "wastedPercent": 48.25744337846521
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/reveal-Z0wh4ths.js",
+              "totalBytes": 78103,
+              "wastedBytes": 51466,
+              "wastedPercent": 65.89503604214947
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/useScrollLock-JhD86oOr.js",
+              "totalBytes": 48874,
+              "wastedBytes": 32740,
+              "wastedPercent": 66.98858288660638
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/createServerFn-DgFS6lPn.js",
+              "totalBytes": 38023,
+              "wastedBytes": 26264,
+              "wastedPercent": 69.07398153749047
+            },
+            {
+              "url": "http://127.0.0.1:3103/assets/single-value-DC8RB_rS.js",
+              "totalBytes": 45949,
+              "wastedBytes": 21799,
+              "wastedPercent": 47.441728873316066
+            }
+          ]
+        },
+        "unminified-javascript": {
+          "score": 1,
+          "displayValue": "",
+          "numericValue": 0,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          },
+          "overall_savings_bytes": 0,
+          "items": []
+        },
+        "render-blocking-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 750 ms",
+          "metricSavings": {
+            "FCP": 750,
+            "LCP": 0
+          }
+        },
+        "cache-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 1,220 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 150
+          }
+        },
+        "image-delivery-insight": {
+          "score": 0.5,
+          "displayValue": "Est savings of 1,069 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        "unsized-images": {
+          "score": 1,
+          "metricSavings": {
+            "CLS": 0
+          }
+        },
+        "color-contrast": {
+          "score": 0,
+          "nodes": [
+            {
+              "selector": "div.flex > div.flex > div.flex > time",
+              "nodeLabel": "Oct 15, 2026",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.81 (foreground color: #7a8395, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "1 min read",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 3.81 (foreground color: #7a8395, background color: #ffffff, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        "aria-dialog-name": {
+          "score": null,
+          "nodes": []
+        },
+        "label-content-name-mismatch": {
+          "score": null,
+          "nodes": []
+        },
+        "modern-http-insight": {
+          "score": 0.5,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        "lcp-breakdown-insight": {
+          "score": 0,
+          "metricSavings": {
+            "LCP": 0
+          },
+          "details": {
+            "type": "list",
+            "items": [
+              {
+                "type": "table",
+                "headings": [
+                  {
+                    "key": "label",
+                    "valueType": "text",
+                    "label": "Subpart"
+                  },
+                  {
+                    "key": "duration",
+                    "valueType": "ms",
+                    "label": "Duration"
+                  }
+                ],
+                "items": [
+                  {
+                    "subpart": "timeToFirstByte",
+                    "label": "Time to first byte",
+                    "duration": 3915.151
+                  },
+                  {
+                    "subpart": "resourceLoadDelay",
+                    "label": "Resource load delay",
+                    "duration": 10.274
+                  },
+                  {
+                    "subpart": "resourceLoadDuration",
+                    "label": "Resource load duration",
+                    "duration": 13.341
+                  },
+                  {
+                    "subpart": "elementRenderDelay",
+                    "label": "Element render delay",
+                    "duration": 251.337
+                  }
+                ]
+              },
+              {
+                "type": "node",
+                "lhId": "page-0-IMG",
+                "path": "1,HTML,1,BODY,2,MAIN,3,SECTION,0,IMG",
+                "selector": "body > main > section.relative > img.absolute",
+                "boundingRect": {
+                  "top": -72,
+                  "bottom": 560,
+                  "left": 0,
+                  "right": 412,
+                  "width": 412,
+                  "height": 632
+                },
+                "snippet": "<img src=\"/images/news/assets-our-news.webp\" alt=\"\" fetchpriority=\"high\" decoding=\"async\" class=\"absolute inset-x-0 -top-24 -z-20 h-[calc(100%+12rem)] w-full object-cover\" style=\"object-position: center 20%; transform: translateY(24.2597px);\">",
+                "nodeLabel": "body > main > section.relative > img.absolute"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "compression-experiment": {
+      "label": "Temporary gzip proxy experiment; NOT deployed fix",
+      "requested_url": "http://127.0.0.1:3104/",
+      "fetch_time": "2026-10-21T00:40:36.275Z",
+      "lighthouse_version": "13.5.0",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "form_factor": "mobile",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "throttling_method": "simulate",
+      "scores": {
+        "performance": 68,
+        "accessibility": 96,
+        "best-practices": 77,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 3397.2356250000003,
+          "unit": "millisecond"
+        },
+        "largest-contentful-paint": {
+          "value": 5365.1298750000005,
+          "unit": "millisecond"
+        },
+        "total-blocking-time": {
+          "value": 23.5,
+          "unit": "millisecond"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "unit": "unitless"
+        },
+        "speed-index": {
+          "value": 6164.277367056842,
+          "unit": "millisecond"
+        },
+        "total-byte-weight": {
+          "value": 750775,
+          "unit": "byte"
+        },
+        "server-response-time": {
+          "value": 2728,
+          "unit": "millisecond"
+        },
+        "bootup-time": {
+          "value": 576.2960000000014,
+          "unit": "millisecond"
+        },
+        "mainthread-work-breakdown": {
+          "value": 1578.1000000000026,
+          "unit": "millisecond"
+        }
+      },
+      "warnings": [],
+      "audits": {
+        "is-on-https": {
+          "score": 0,
+          "displayValue": "8 insecure requests found",
+          "urls": [
+            "http://ascentia-local.local/wp-content/uploads/2025/03/Brammer-standard-480x344.png",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/KingYOSION-logo-480x90.png",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/mt-footer-pyramid-logo.png",
+            "http://ascentia-local.local/wp-content/uploads/2022/07/oreas.jpg",
+            "http://ascentia-local.local/wp-content/uploads/2025/03/Spectral-Evolution-Logo-1-300x163.png",
+            "http://ascentia-local.local/wp-content/uploads/2022/07/xrf.jpg",
+            "http://ascentia-local.local/wp-content/uploads/2024/04/TGA-lid-closed-2048x1485-1-1024x743-1-480x348.png",
+            "http://ascentia-local.local/wp-content/uploads/2023/04/phoenix_go_4.png"
+          ]
+        },
+        "unused-javascript": {
+          "score": 0,
+          "displayValue": "Est savings of 65 KiB",
+          "numericValue": 450,
+          "metricSavings": {
+            "FCP": 300,
+            "LCP": 450
+          },
+          "overall_savings_bytes": 66598,
+          "items": [
+            {
+              "url": "http://127.0.0.1:3104/assets/index-scpcWjCm.js",
+              "totalBytes": 141734,
+              "wastedBytes": 66598,
+              "wastedPercent": 46.98803873600668
+            }
+          ]
+        },
+        "unminified-javascript": {
+          "score": 1,
+          "displayValue": "",
+          "numericValue": 0,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          },
+          "overall_savings_bytes": 0,
+          "items": []
+        },
+        "render-blocking-insight": {
+          "score": 0.5,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        "cache-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 335 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 450
+          }
+        },
+        "image-delivery-insight": {
+          "score": 0,
+          "displayValue": "Est savings of 217 KiB",
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 300
+          }
+        },
+        "unsized-images": {
+          "score": 0.5,
+          "metricSavings": {
+            "CLS": 0
+          }
+        },
+        "color-contrast": {
+          "score": 0,
+          "nodes": [
+            {
+              "selector": "div.relative > div.hero-carousel__copy > a.group/cta > span.relative",
+              "nodeLabel": "Explore Instruments",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "ANALYTICAL INSTRUMENTS",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "SAMPLE PREPARATION",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+            },
+            {
+              "selector": "div.flex > div.flex > div.flex > span",
+              "nodeLabel": "MINERAL ANALYSIS",
+              "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+            }
+          ]
+        },
+        "aria-dialog-name": {
+          "score": null,
+          "nodes": []
+        },
+        "label-content-name-mismatch": {
+          "score": null,
+          "nodes": []
+        },
+        "modern-http-insight": {
+          "score": 0.5,
+          "metricSavings": {
+            "FCP": 0,
+            "LCP": 0
+          }
+        },
+        "lcp-breakdown-insight": {
+          "score": 0,
+          "metricSavings": {
+            "LCP": 0
+          },
+          "details": {
+            "type": "list",
+            "items": [
+              {
+                "type": "table",
+                "headings": [
+                  {
+                    "key": "label",
+                    "valueType": "text",
+                    "label": "Subpart"
+                  },
+                  {
+                    "key": "duration",
+                    "valueType": "ms",
+                    "label": "Duration"
+                  }
+                ],
+                "items": [
+                  {
+                    "subpart": "timeToFirstByte",
+                    "label": "Time to first byte",
+                    "duration": 2730.316
+                  },
+                  {
+                    "subpart": "resourceLoadDelay",
+                    "label": "Resource load delay",
+                    "duration": 8.672
+                  },
+                  {
+                    "subpart": "resourceLoadDuration",
+                    "label": "Resource load duration",
+                    "duration": 19.728
+                  },
+                  {
+                    "subpart": "elementRenderDelay",
+                    "label": "Element render delay",
+                    "duration": 396.248
+                  }
+                ]
+              },
+              {
+                "type": "node",
+                "lhId": "page-8-IMG",
+                "path": "1,HTML,1,BODY,1,HEADER,0,DIV,0,A,0,IMG",
+                "selector": "header.top-0 > div.relative > a.shrink-0 > img.h-7",
+                "boundingRect": {
+                  "top": 29,
+                  "bottom": 57,
+                  "left": 20,
+                  "right": 152,
+                  "width": 132,
+                  "height": 28
+                },
+                "snippet": "<img src=\"/brand/logo-white.webp\" alt=\"Ascentia Arsya Analitika\" width=\"440\" height=\"93\" class=\"h-7 w-auto lg:h-7\" fetchpriority=\"high\">",
+                "nodeLabel": "Ascentia Arsya Analitika"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "browser": [
+    {
+      "check": "360px / status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px search keyboard focus restored",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px mobile navigation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /about-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/brands status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px product tabs available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px product keyboard tabs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/types status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/applications status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /news status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /news article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /blogs status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /blogs article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /contact-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px empty contact validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px invalid email blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px failed contact preserves input",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px genuine 404",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px no uncaught exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "390px / status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px search keyboard focus restored",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px mobile navigation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /about-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/brands status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px product tabs available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px product keyboard tabs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "direct product WhatsApp contains product URL",
+      "passed": false,
+      "detail": "Halo Tim Sales PT Ascentia Arsya Analitika, saya ingin konsultasi dan menanyakan penawaran harga untuk produk:\n\n*TGA 1100 Thermogravimetric Analyser* (XRF Scientific)\nLink: https://ascentia.co.id/products\n\nMohon informasinya, terima kasih."
+    },
+    {
+      "check": "390px /products/types status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/applications status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /contact-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px empty contact validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px invalid email blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px failed contact preserves input",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px genuine 404",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px no uncaught exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "768px / status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px search keyboard focus restored",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px mobile navigation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /about-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/brands status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px product tabs available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px product keyboard tabs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/types status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/applications status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /news status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /news article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /blogs status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /blogs article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /contact-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px empty contact validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px invalid email blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px failed contact preserves input",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px genuine 404",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px no uncaught exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "1440px / status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px search keyboard focus restored",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /about-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/brands status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px product tabs available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px product keyboard tabs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/types status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/applications status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /contact-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px empty contact validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px invalid email blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px failed contact preserves input",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px genuine 404",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px no uncaught exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "search 503 exposes retry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "search recovers after retry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "slow network first search click opens dialog",
+      "passed": false,
+      "detail": {
+        "aria_expanded": "false"
+      }
+    },
+    {
+      "check": "slow network search works after hydration",
+      "passed": true,
+      "detail": {
+        "navigation_to_open_seconds": 11.23
+      }
+    }
+  ],
+  "asset_headers": [
+    {
+      "path": "/assets/styles-BeCLmAvd.css",
+      "bytes": 130324,
+      "gzip_bytes": 23564,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/index-scpcWjCm.js",
+      "bytes": 443530,
+      "gzip_bytes": 141739,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/useSelector-s7NbazMy.js",
+      "bytes": 10963,
+      "gzip_bytes": 4101,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/react-dom-BEJLrdt-.js",
+      "bytes": 3864,
+      "gzip_bytes": 1389,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/createServerFn-DgFS6lPn.js",
+      "bytes": 38023,
+      "gzip_bytes": 12139,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/not-found-i5RsCZif.js",
+      "bytes": 118,
+      "gzip_bytes": 110,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/i18n-D4_i9irF.js",
+      "bytes": 74480,
+      "gzip_bytes": 30164,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/root-DLTE-HSj.js",
+      "bytes": 32,
+      "gzip_bytes": 52,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/preload-helper-CgyRjW25.js",
+      "bytes": 6955,
+      "gzip_bytes": 2853,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/-listing-DUaVoBX_.js",
+      "bytes": 1544,
+      "gzip_bytes": 851,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/cta-link-1CwrnOD9.js",
+      "bytes": 2620,
+      "gzip_bytes": 971,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/useButton-CGIECls6.js",
+      "bytes": 9308,
+      "gzip_bytes": 3859,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/useScrollLock-JhD86oOr.js",
+      "bytes": 48874,
+      "gzip_bytes": 16828,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/single-value-DC8RB_rS.js",
+      "bytes": 45949,
+      "gzip_bytes": 16640,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/product-queries-Cwtge2Rv.js",
+      "bytes": 2599,
+      "gzip_bytes": 1147,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/article-queries-CXaaZYJe.js",
+      "bytes": 2254,
+      "gzip_bytes": 904,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/routes-CJgMA8hZ.js",
+      "bytes": 15185,
+      "gzip_bytes": 4753,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/useQuery-D-I5MEIC.js",
+      "bytes": 132,
+      "gzip_bytes": 129,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/reveal-Z0wh4ths.js",
+      "bytes": 78103,
+      "gzip_bytes": 24432,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/use-transform-ByHWJO-C.js",
+      "bytes": 7872,
+      "gzip_bytes": 3475,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/button-BcLoZquQ.js",
+      "bytes": 3980,
+      "gzip_bytes": 1540,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/logo-marquee-7J2yA1mI.js",
+      "bytes": 1060,
+      "gzip_bytes": 524,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/contact-panel-B7yOwOFm.js",
+      "bytes": 12991,
+      "gzip_bytes": 3796,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    },
+    {
+      "path": "/assets/product-carousel-section-CVNe1jAJ.js",
+      "bytes": 4506,
+      "gzip_bytes": 1826,
+      "content_encoding": null,
+      "cache_control": "public, max-age=31536000, immutable"
+    }
+  ],
+  "concurrency": {
+    "workers": 4,
+    "requests": [
+      {
+        "path": "/",
+        "status": 200,
+        "ms": 7890,
+        "bytes": 107833
+      },
+      {
+        "path": "/products/brands",
+        "status": 200,
+        "ms": 7890,
+        "bytes": 83946
+      },
+      {
+        "path": "/news",
+        "status": 200,
+        "ms": 5859,
+        "bytes": 98096
+      },
+      {
+        "path": "/contact-us",
+        "status": 200,
+        "ms": 78,
+        "bytes": 53132
+      },
+      {
+        "path": "/",
+        "status": 200,
+        "ms": 7812,
+        "bytes": 107833
+      },
+      {
+        "path": "/products/brands",
+        "status": 200,
+        "ms": 2031,
+        "bytes": 83946
+      },
+      {
+        "path": "/news",
+        "status": 200,
+        "ms": 16,
+        "bytes": 98096
+      },
+      {
+        "path": "/contact-us",
+        "status": 200,
+        "ms": 0,
+        "bytes": 53132
+      },
+      {
+        "path": "/",
+        "status": 200,
+        "ms": 31,
+        "bytes": 107833
+      },
+      {
+        "path": "/products/brands",
+        "status": 200,
+        "ms": 31,
+        "bytes": 83946
+      },
+      {
+        "path": "/news",
+        "status": 200,
+        "ms": 47,
+        "bytes": 98096
+      },
+      {
+        "path": "/contact-us",
+        "status": 200,
+        "ms": 31,
+        "bytes": 53132
+      }
+    ]
+  },
+  "commands": {
+    "pnpm build": {
+      "exit_code": 0,
+      "notes": "Dependency module-level use client warnings remain"
+    },
+    "pnpm exec tsc --noEmit -p tsconfig.json": {
+      "exit_code": 0
+    },
+    "pnpm lint": {
+      "exit_code": 0
+    },
+    "pnpm check": {
+      "exit_code": 0
+    },
+    "python scripts/verify/verify-product-upstream-errors.py": {
+      "exit_code": 0,
+      "cases": [
+        "HTTP 503: 2 attempts",
+        "malformed JSON: 1 attempt",
+        "timeout: 2 attempts",
+        "retry recovery",
+        "no uncaught page errors"
+      ]
+    },
+    "python scripts/verify/verify-production-audit.py --url http://127.0.0.1:3103 --output audit-artifacts": {
+      "exit_code": 1,
+      "passed": 110,
+      "checks": 112,
+      "failures": [
+        "direct product WhatsApp contains product URL",
+        "slow network first search click opens dialog"
+      ]
+    },
+    "node scripts/verify/verify-audit-boundaries.mjs": {
+      "exit_code": 1,
+      "failures": [
+        "Second cache caller survives first cancellation",
+        "Contact rejects HTTP 200 with success false"
+      ]
+    },
+    "selected node test files": {
+      "exit_code": 1,
+      "passed": 6,
+      "failed": 1,
+      "failure": "product-taxonomy-cache.test.ts:30 Missing expected rejection; stale-cache contract mismatch"
+    },
+    "python scripts/verify/verify-site-quality.py --url http://127.0.0.1:3103": {
+      "exit_code": 1,
+      "reason": "Stale Description selector; current English tab is Overview. Did not complete full suite"
+    }
+  },
+  "raw_report_archive": "C:\\Users\\Minguri\\AppData\\Local\\Temp\\ascentia-production-audit"
+}

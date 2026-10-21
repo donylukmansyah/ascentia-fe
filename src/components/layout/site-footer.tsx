@@ -1,5 +1,8 @@
-import { ArrowUp } from 'lucide-react'
+import { ArrowUp, Eye } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
+
+import { useVisitorCounter } from '#/features/analytics/hooks/use-visitor-counter'
+import { useLanguage } from '#/lib/i18n'
 
 const footerLinks = [
   { label: 'Home', to: '/' },
@@ -9,7 +12,10 @@ const footerLinks = [
 ] as const
 
 export function SiteFooter() {
+  const { language, t } = useLanguage()
   const year = new Date().getFullYear()
+  const views = useVisitorCounter()
+  const locale = language === 'id' ? 'id-ID' : 'en-US'
 
   function scrollToTop() {
     const prefersReducedMotion = window.matchMedia(
@@ -35,7 +41,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 gap-y-8 pb-12 sm:grid-cols-2 sm:gap-x-12 md:grid-cols-[1.3fr_1fr_0.55fr] md:gap-x-10 md:pb-12">
           <div className="sm:col-span-2 md:col-span-1">
             <Link
-              aria-label="Ascentia Arsya Analitika home"
+              aria-label="Ascentia Arsya Analitika"
               className="inline-flex cursor-pointer rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
               to="/"
             >
@@ -48,8 +54,10 @@ export function SiteFooter() {
               />
             </Link>
             <p className="mt-5 max-w-[20rem] text-sm leading-relaxed font-normal text-description-text sm:mt-[1.3rem]">
-              Analytical instruments, certified reference materials, and
-              technical support for laboratories and industry.
+              {t(
+                'footer.aboutText',
+                'Analytical instruments, sample preparation equipment, and certified reference standards in Indonesia.',
+              )}
             </p>
           </div>
 
@@ -72,31 +80,57 @@ export function SiteFooter() {
             </a>
           </div>
 
-          <nav aria-label="Footer navigation">
-            <h2 className="mb-4 text-base leading-tight font-bold">Explore</h2>
+          <nav aria-label={t('footer.navigation', 'Footer navigation')}>
+            <h2 className="mb-4 text-base leading-tight font-bold">
+              {t('footer.quickLinks', 'Quick Links')}
+            </h2>
             <ul className="grid justify-items-start gap-0">
-              {footerLinks.map((link) => (
-                <li key={link.to}>
-                  <Link
-                    className="cursor-pointer rounded-sm text-sm leading-relaxed text-foreground/70 transition-colors hover:text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-                    to={link.to}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {footerLinks.map((link) => {
+                const labels: Record<string, string> = {
+                  '/': t('nav.home', 'Home'),
+                  '/about-us': t('nav.about', 'About Us'),
+                  '/products': t('nav.products', 'Products'),
+                  '/contact-us': t('nav.contact', 'Contact Us'),
+                }
+                const label = labels[link.to] || link.label
+
+                return (
+                  <li key={link.to}>
+                    <Link
+                      className="cursor-pointer rounded-sm text-sm leading-relaxed text-foreground/70 transition-colors hover:text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                      to={link.to}
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
           </nav>
         </div>
 
         <div className="flex flex-col items-start gap-4 border-t border-border/60 py-4 text-[10px] text-foreground/70 sm:flex-row sm:items-center sm:justify-between sm:text-xs">
           <span className="w-full text-center sm:w-auto sm:text-left">
-            All Rights Reserved ©{year} Ascentia Arsya Analitika
+            {t('footer.allRightsReserved', 'All Rights Reserved')} ©{year}{' '}
+            Ascentia Arsya Analitika
           </span>
           <div className="flex w-full items-center justify-between gap-5 sm:w-auto">
+            <span
+              aria-busy={views === null}
+              className="inline-flex items-center gap-1.5 font-medium tabular-nums text-foreground/80"
+            >
+              <Eye
+                className="size-3.5 shrink-0 text-primary"
+                aria-hidden="true"
+              />
+              <span>
+                {views === null ? '—' : views.toLocaleString(locale)}{' '}
+                {t('footer.visitorLabel', 'Page views')}
+              </span>
+            </span>
             <span>Indonesia</span>
             <button
-              aria-label="Back to top"
+              aria-label={t('ui.backTop', 'Back to top')}
               className="grid size-11 cursor-pointer place-items-center rounded-full border border-primary bg-primary text-primary-foreground transition-[background-color,translate] duration-200 hover:-translate-y-0.5 hover:bg-[var(--brand-dark)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:size-12"
               onClick={scrollToTop}
               type="button"

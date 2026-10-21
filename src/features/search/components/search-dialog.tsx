@@ -14,6 +14,7 @@ import {
 } from '#/components/ui/dialog'
 import { QueryErrorState } from '#/components/ui/query-error-state'
 import { getFuzzySuggestion } from '#/lib/fuzzy-search'
+import { useLanguage } from '#/lib/i18n/language-context'
 import { cn } from '#/lib/utils'
 
 import { getSearch } from '../api/search-api'
@@ -44,10 +45,10 @@ const DEFAULT_CANDIDATES = [
   'Calibration',
 ]
 
-const groups: { key: SearchGroup; label: string }[] = [
-  { key: 'products', label: 'Products' },
-  { key: 'news', label: 'News' },
-  { key: 'blogs', label: 'Blogs' },
+const GROUPS: { key: SearchGroup; labelKey: string }[] = [
+  { key: 'products', labelKey: 'ui.products' },
+  { key: 'news', labelKey: 'ui.news' },
+  { key: 'blogs', labelKey: 'ui.blogs' },
 ]
 
 function Thumbnail({ item }: { item: SearchItem }) {
@@ -104,6 +105,7 @@ export function SearchDialog({
   onOpenChange: (open: boolean) => void
   returnFocus: RefObject<HTMLElement | null>
 }) {
+  const { t } = useLanguage()
   const [draft, setDraft] = useState('')
   const [query, setQuery] = useState('')
   const input = useRef<HTMLInputElement>(null)
@@ -113,6 +115,15 @@ export function SearchDialog({
   const previousPath = useRef(pathname)
   const trimmed = draft.trim()
   const ready = trimmed.length >= 2 && trimmed === query
+
+  const groups = useMemo(
+    () =>
+      GROUPS.map((group) => ({
+        key: group.key,
+        label: t(group.labelKey),
+      })),
+    [t],
+  )
 
   const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -188,12 +199,12 @@ export function SearchDialog({
 
   const status =
     trimmed.length < 2
-      ? 'Type at least 2 characters to search.'
+      ? t('ui.searchHint')
       : loading
-        ? 'Searching products, news and blogs.'
+        ? t('ui.searching')
         : refreshing
-          ? 'Updating search results.'
-          : `${items.length} results shown.${failures ? ` ${failures} search groups unavailable.` : ''}`
+          ? t('ui.updatingSearch')
+          : `${items.length} ${t('ui.resultsShown')}${failures ? ` ${failures} ${t('ui.groupsUnavailable')}` : ''}`
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -207,9 +218,9 @@ export function SearchDialog({
           )
         }}
       >
-        <DialogTitle className="sr-only">Search Ascentia</DialogTitle>
+        <DialogTitle className="sr-only">{t('ui.searchTitle')}</DialogTitle>
         <DialogDescription className="sr-only">
-          Find products, news and blogs across Ascentia.
+          {t('ui.searchDescription')}
         </DialogDescription>
         <Autocomplete.Root
           items={items}
@@ -232,8 +243,8 @@ export function SearchDialog({
             <Autocomplete.Input
               ref={input}
               id="global-search-input"
-              aria-label="Search products, news and blogs"
-              placeholder="Search products, news, blogs..."
+              aria-label={t('ui.globalSearchLabel')}
+              placeholder={t('ui.globalSearchPlaceholder')}
               maxLength={200}
               className="h-full min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground"
             />
@@ -245,14 +256,14 @@ export function SearchDialog({
             ) : null}
             {trimmed.length > 0 && (
               <Autocomplete.Clear
-                aria-label="Clear search"
+                aria-label={t('ui.clearSearch')}
                 className="flex size-7 cursor-pointer items-center justify-center rounded text-muted-foreground hover:bg-muted hover:text-foreground"
               >
                 <X className="size-4" aria-hidden="true" />
               </Autocomplete.Clear>
             )}
             <DialogClose
-              aria-label="Close search"
+              aria-label={t('ui.closeSearch')}
               className="inline-flex h-6 cursor-pointer items-center rounded border border-border bg-muted/60 px-1.5 text-[11px] font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
             >
               esc
@@ -268,17 +279,15 @@ export function SearchDialog({
             {trimmed.length < 2 ? (
               <div className="flex h-56 flex-col items-center justify-center px-4 text-center text-sm text-muted-foreground">
                 <p className="font-medium text-foreground/80">
-                  Search across Products, News and Blogs
+                  {t('ui.searchInitial')}
                 </p>
-                <p className="mt-1 text-xs">
-                  Type at least 2 characters to get started.
-                </p>
+                <p className="mt-1 text-xs">{t('ui.searchHint')}</p>
               </div>
             ) : allDone && failures === groups.length ? (
               <QueryErrorState
                 variant="inline"
-                title="Search unavailable"
-                message="We are having trouble reaching the search server. Please try again."
+                title={t('ui.searchUnavailable')}
+                message={t('ui.connectionError')}
                 onRetry={() => {
                   for (const q of queries) {
                     void q.refetch()
@@ -290,11 +299,11 @@ export function SearchDialog({
             ) : allDone && items.length === 0 && !failures ? (
               <div className="flex h-56 flex-col items-center justify-center px-4 text-center text-sm text-muted-foreground">
                 <p className="font-medium text-foreground/80">
-                  No results found for &ldquo;{trimmed}&rdquo;
+                  {t('ui.noSearchResults')} &ldquo;{trimmed}&rdquo;
                 </p>
                 {suggestion ? (
                   <p className="mt-2 text-xs">
-                    Did you mean{' '}
+                    {t('ui.didYouMean')}{' '}
                     <button
                       type="button"
                       onClick={() => {
@@ -308,14 +317,12 @@ export function SearchDialog({
                     ?
                   </p>
                 ) : (
-                  <p className="mt-1 text-xs">
-                    Try searching with different keywords.
-                  </p>
+                  <p className="mt-1 text-xs">{t('ui.differentKeywords')}</p>
                 )}
               </div>
             ) : (
               <Autocomplete.List
-                aria-label="Search results"
+                aria-label={t('ui.searchResults')}
                 className="space-y-2"
               >
                 {visibleGroups.map((group, index) => {
@@ -333,7 +340,7 @@ export function SearchDialog({
                         {group.label}
                         {group.items.length ? (
                           <span className="ml-2 font-normal">
-                            {group.items.length} matches
+                            {group.items.length} {t('ui.matches')}
                           </span>
                         ) : null}
                       </Autocomplete.GroupLabel>
@@ -341,13 +348,13 @@ export function SearchDialog({
                         <SearchSkeleton />
                       ) : isError ? (
                         <div className="px-3 py-3 text-sm text-muted-foreground">
-                          {group.label} search is unavailable.{' '}
+                          {t('ui.groupSearchUnavailable')} {group.label}.{' '}
                           <button
                             type="button"
                             onClick={() => void queries[index].refetch()}
                             className="cursor-pointer font-medium text-foreground underline underline-offset-4"
                           >
-                            Try again
+                            {t('common.tryAgain')}
                           </button>
                         </div>
                       ) : (
@@ -399,19 +406,19 @@ export function SearchDialog({
               <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px]">
                 ↑ ↓
               </kbd>{' '}
-              Navigate
+              {t('ui.navigate')}
             </span>
             <span className="hidden sm:inline">
               <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px]">
                 Enter
               </kbd>{' '}
-              Open
+              {t('ui.open')}
             </span>
             <span>
               <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[10px]">
                 Esc
               </kbd>{' '}
-              Close
+              {t('ui.close')}
             </span>
           </div>
           <span className="text-[11px] text-muted-foreground/75">Ascentia</span>

@@ -19,6 +19,46 @@ export function getRouter() {
     defaultPendingComponent: RouteLoading,
     defaultPendingMs: 200,
     defaultPendingMinMs: 200,
+    rewrite: {
+      input: ({ url }) => {
+        const copy = new URL(url.toString())
+        if (copy.pathname === '/id') {
+          copy.pathname = '/'
+          copy.searchParams.set('__locale', 'id')
+          return copy
+        }
+        if (copy.pathname.startsWith('/id/')) {
+          copy.pathname = copy.pathname.slice(3)
+          copy.searchParams.set('__locale', 'id')
+          return copy
+        }
+        return copy
+      },
+      output: ({ url }) => {
+        const copy = new URL(url.toString())
+        const locale = copy.searchParams.get('__locale')
+        const isId =
+          locale === 'id' ||
+          (locale === null &&
+            typeof window !== 'undefined' &&
+            (window.location.pathname === '/id' ||
+              window.location.pathname.startsWith('/id/')))
+
+        if (copy.searchParams.has('__locale')) {
+          copy.searchParams.delete('__locale')
+        }
+
+        if (isId) {
+          if (copy.pathname === '/') {
+            copy.pathname = '/id'
+          } else if (!copy.pathname.startsWith('/id')) {
+            copy.pathname = `/id${copy.pathname}`
+          }
+          return copy
+        }
+        return copy
+      },
+    },
   })
 
   setupRouterSsrQueryIntegration({ router, queryClient })

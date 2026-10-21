@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router'
 
 import { Reveal } from '#/components/ui/reveal'
 import { cn } from '#/lib/utils'
+import { useLanguage } from '#/lib/i18n'
 
 import { ContactForm } from './contact-form'
 
@@ -32,6 +33,8 @@ export function ContactPanel({
   officeHash,
   showPageLink = true,
 }: ContactPanelProps) {
+  const { t } = useLanguage()
+
   return (
     <section
       id={id}
@@ -67,19 +70,20 @@ export function ContactPanel({
           </span>
 
           <Reveal variant="right" className="p-7 sm:p-10 lg:px-12 lg:py-11">
-            <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
-              Contact Us
+            <p className="text-[10px] font-bold tracking-[0.12em] text-primary-text uppercase sm:text-[11px]">
+              {t('contact.kicker', 'Contact Us')}
             </p>
             <h2
               id="contact-panel-heading"
               className="mt-2 max-w-md text-[clamp(2rem,3.4vw,3rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
             >
-              Tell us what you need to analyse
+              {t('contact.heading', 'Tell us what you need to analyse')}
             </h2>
             <p className="mt-4 max-w-md text-sm leading-relaxed font-normal text-description-text sm:text-base">
-              Share your sample preparation, XRF analysis, or reference material
-              specifications. Our engineers in Jakarta and Kendari will
-              recommend the exact instrument and workflow.
+              {t(
+                'contact.description',
+                'Share your sample preparation, XRF analysis, or reference material specifications. Our engineers in Jakarta and Kendari will recommend the exact instrument and workflow.',
+              )}
             </p>
 
             <div className="mt-8 grid gap-4 border-t border-border pt-4 sm:grid-cols-2">
@@ -91,7 +95,9 @@ export function ContactPanel({
                   <Mail className="size-4" aria-hidden="true" />
                 </span>
                 <span className="min-w-0">
-                  <span className="block text-xs font-semibold">Email</span>
+                  <span className="block text-xs font-semibold">
+                    {t('contact.emailLabel', 'Email')}
+                  </span>
                   <span className="block truncate text-xs text-muted-foreground group-hover:text-foreground">
                     sales@ascentia.co.id
                   </span>
@@ -105,7 +111,9 @@ export function ContactPanel({
                   <Phone className="size-4" aria-hidden="true" />
                 </span>
                 <span>
-                  <span className="block text-xs font-semibold">Phone</span>
+                  <span className="block text-xs font-semibold">
+                    {t('contact.phoneLabel', 'Phone')}
+                  </span>
                   <span className="block text-xs text-muted-foreground group-hover:text-foreground">
                     (021) 2932-5739
                   </span>
@@ -121,7 +129,9 @@ export function ContactPanel({
                   <WhatsAppIcon className="size-4" />
                 </span>
                 <span>
-                  <span className="block text-xs font-semibold">WhatsApp</span>
+                  <span className="block text-xs font-semibold">
+                    {t('contact.whatsappLabel', 'WhatsApp')}
+                  </span>
                   <span className="block text-xs text-muted-foreground group-hover:text-foreground">
                     +62 851-8606-1000
                   </span>
@@ -136,7 +146,9 @@ export function ContactPanel({
                   <MapPin className="size-4" aria-hidden="true" />
                 </span>
                 <span>
-                  <span className="block text-xs font-semibold">Office</span>
+                  <span className="block text-xs font-semibold">
+                    {t('contact.officeLabel', 'Office')}
+                  </span>
                   <span className="block text-xs leading-snug text-muted-foreground group-hover:text-foreground">
                     Business Park Kebon Jeruk D2-12, Jl. Meruya Ilir No. 88,
                     Meruya, Jakarta Barat 11620
@@ -150,7 +162,7 @@ export function ContactPanel({
                 to="/contact-us"
                 className="mt-7 inline-flex cursor-pointer items-center gap-1 text-[10px] font-medium tracking-[-0.01em] text-foreground underline underline-offset-3 transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
               >
-                Open full contact page
+                {t('contact.openPage', 'Open full contact page')}
                 <ArrowUpRight
                   className="size-3 text-primary"
                   aria-hidden="true"

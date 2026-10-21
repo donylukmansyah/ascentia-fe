@@ -3,7 +3,9 @@ import { ChevronDown } from 'lucide-react'
 
 import { CtaButton } from '#/components/ui/cta-link'
 import { Reveal } from '#/components/ui/reveal'
+import { useLanguage } from '#/lib/i18n'
 import { cn } from '#/lib/utils'
+import { SITE_URL } from '#/lib/seo'
 import type {
   ProductDetailData,
   ProductDetailSection,
@@ -20,11 +22,12 @@ function WhatsAppIcon({ className }: { className?: string }) {
   )
 }
 
-function getProductWhatsAppUrl(name: string, brand: string): string {
-  const pageUrl =
-    typeof window !== 'undefined'
-      ? window.location.href
-      : 'https://ascentia.co.id/products'
+function getProductWhatsAppUrl(
+  name: string,
+  brand: string,
+  slug: string,
+): string {
+  const pageUrl = `${SITE_URL}/products/${encodeURIComponent(slug)}`
   const message = `Halo Tim Sales PT Ascentia Arsya Analitika, saya ingin konsultasi dan menanyakan penawaran harga untuk produk:\n\n*${name}* (${brand})\nLink: ${pageUrl}\n\nMohon informasinya, terima kasih.`
   return `https://wa.me/6285186061000?text=${encodeURIComponent(message)}`
 }
@@ -49,6 +52,7 @@ function ProductDescriptionToggle({
   html: string
   previewLines?: keyof typeof previewClamps
 }) {
+  const { t } = useLanguage()
   const [expanded, setExpanded] = useState(false)
   return (
     <>
@@ -65,7 +69,9 @@ function ProductDescriptionToggle({
         onClick={() => setExpanded((value) => !value)}
         className="mt-5 flex min-h-11 w-fit cursor-pointer items-center gap-2 text-sm font-bold text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
       >
-        {expanded ? 'Show less' : 'Read full description'}
+        {expanded
+          ? t('ui.showLess', 'Show less')
+          : t('ui.readDescription', 'Read full description')}
         <ChevronDown
           className={cn(
             'size-4 transition-transform motion-reduce:transition-none',
@@ -84,7 +90,30 @@ export function ProductDetailContent({
   activeTab,
   onTabChange,
 }: ProductDetailContentProps) {
+  const { pick, t } = useLanguage()
   const [quoteOpen, setQuoteOpen] = useState(false)
+
+  const displayName = pick(
+    { id: product.name, en: product.nameEn },
+    product.name,
+  )
+  const displaySummary = pick(
+    { id: product.summaryHtml, en: product.summaryHtmlEn },
+    product.summaryHtml,
+  )
+  const displayDesc = pick(
+    { id: product.descriptionHtml, en: product.descriptionHtmlEn },
+    product.descriptionHtml,
+  )
+  const displaySpecs = pick(
+    { id: product.specificationsHtml, en: product.specificationsHtmlEn },
+    product.specificationsHtml,
+  )
+  const displayApps = pick(
+    { id: product.applicationsHtml, en: product.applicationsHtmlEn },
+    product.applicationsHtml,
+  )
+
   const keyDown = (
     event: React.KeyboardEvent<HTMLButtonElement>,
     index: number,
@@ -104,7 +133,7 @@ export function ProductDetailContent({
   return (
     <section
       id="product"
-      aria-label="Product details"
+      aria-label={t('products.details', 'Product details')}
       className="scroll-mt-28 bg-background py-14 sm:py-18 lg:py-24"
     >
       <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[minmax(0,0.76fr)_minmax(0,1.24fr)] lg:gap-16 lg:px-12">
@@ -117,7 +146,7 @@ export function ProductDetailContent({
           >
             <ProductImageGallery
               images={product.images}
-              productName={product.name}
+              productName={displayName}
             />
             <div className="mt-6 flex items-center gap-4">
               <div className="shrink-0">
@@ -139,7 +168,7 @@ export function ProductDetailContent({
                 {product.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-[10px] font-bold text-primary"
+                    className="rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-[10px] font-bold text-primary-text"
                   >
                     {tag}
                   </span>
@@ -156,22 +185,32 @@ export function ProductDetailContent({
             margin="0px 0px -40px 0px"
             className="w-full"
           >
-            <p className="text-[11px] font-bold tracking-[0.1em] text-primary uppercase">
+            <p className="text-[11px] font-bold tracking-[0.1em] text-primary-text uppercase">
               {product.brand}
             </p>
             <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.1] font-bold tracking-[-0.03em] text-foreground break-words">
-              {product.name}
+              {displayName}
             </h2>
             <div className="mt-5 flex items-center gap-2.5 sm:gap-3">
               <CtaButton onClick={() => setQuoteOpen(true)}>
-                Get in touch
+                {t('common.requestQuote', 'Get in touch')}
               </CtaButton>
               <a
-                href={getProductWhatsAppUrl(product.name, product.brand)}
+                href={getProductWhatsAppUrl(
+                  displayName,
+                  product.brand,
+                  product.slug,
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Inquire via WhatsApp"
-                title="Inquire via WhatsApp"
+                aria-label={t(
+                  'common.contactWhatsapp',
+                  'Ask about this product on WhatsApp',
+                )}
+                title={t(
+                  'common.contactWhatsapp',
+                  'Ask about this product on WhatsApp',
+                )}
                 className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-[10px] bg-[#25D366] text-white shadow-xs transition-all duration-200 hover:scale-105 hover:bg-[#20ba5a] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-emerald-600 motion-reduce:transition-none sm:size-11 sm:rounded-[12px]"
               >
                 <WhatsAppIcon className="size-4.5 fill-white sm:size-6" />
@@ -185,7 +224,7 @@ export function ProductDetailContent({
             <div
               id="description"
               role="tablist"
-              aria-label="Product information"
+              aria-label={t('products.information', 'Product information')}
               className="mt-7 flex scroll-mt-36 overflow-x-auto border border-border [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             >
               {tabs.map((tab, index) => (
@@ -217,15 +256,15 @@ export function ProductDetailContent({
               hidden={activeTab !== 'description'}
               className="border-x border-b border-border p-5 focus-visible:outline-2 focus-visible:outline-primary sm:p-7"
             >
-              {product.summaryHtml && product.descriptionHtml ? (
+              {displaySummary && displayDesc ? (
                 <>
                   <div
                     className="product-rich-text"
-                    dangerouslySetInnerHTML={{ __html: product.summaryHtml }}
+                    dangerouslySetInnerHTML={{ __html: displaySummary }}
                   />
                   <details className="group mt-5">
                     <summary className="flex min-h-11 w-fit cursor-pointer list-none items-center gap-2 text-sm font-bold text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
-                      Read full description
+                      {t('common.readMore', 'Read full description')}
                       <ChevronDown
                         className="size-4 transition-transform group-open:rotate-180 motion-reduce:transition-none"
                         aria-hidden="true"
@@ -234,21 +273,21 @@ export function ProductDetailContent({
                     <div
                       className="product-rich-text mt-4"
                       dangerouslySetInnerHTML={{
-                        __html: product.descriptionHtml,
+                        __html: displayDesc,
                       }}
                     />
                   </details>
                 </>
-              ) : product.descriptionHtml ? (
-                <ProductDescriptionToggle html={product.descriptionHtml} />
-              ) : product.summaryHtml ? (
+              ) : displayDesc ? (
+                <ProductDescriptionToggle html={displayDesc} />
+              ) : displaySummary ? (
                 <div
                   className="product-rich-text"
-                  dangerouslySetInnerHTML={{ __html: product.summaryHtml }}
+                  dangerouslySetInnerHTML={{ __html: displaySummary }}
                 />
               ) : (
                 <p className="text-sm text-description-text">
-                  Description not available.
+                  {t('ui.noDescription', 'Description not available.')}
                 </p>
               )}
             </div>
@@ -273,8 +312,8 @@ export function ProductDetailContent({
                       dangerouslySetInnerHTML={{
                         __html:
                           tab.id === 'specifications'
-                            ? product.specificationsHtml
-                            : product.applicationsHtml,
+                            ? displaySpecs
+                            : displayApps,
                       }}
                     />
                   </div>

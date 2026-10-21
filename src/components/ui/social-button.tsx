@@ -3,6 +3,7 @@ import type { RefObject } from 'react'
 import { Check, Copy, Share2 } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 
+import { useLanguage } from '#/lib/i18n'
 import { cn } from '#/lib/utils'
 
 function useClickOutside(
@@ -68,6 +69,7 @@ export default function SocialButton({
   shareUrl,
   shareTitle = '',
 }: SocialButtonProps) {
+  const { t } = useLanguage()
   const [isExpanded, setIsExpanded] = useState(false)
   const [copied, setCopied] = useState(false)
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -136,7 +138,9 @@ export default function SocialButton({
               transition={{ duration: 0.18 }}
             >
               <Share2 className="size-3.5" aria-hidden="true" />
-              <span className="text-xs font-semibold">Share</span>
+              <span className="text-xs font-semibold">
+                {t('ui.share', 'Share')}
+              </span>
             </motion.div>
           ) : (
             <motion.div
@@ -153,8 +157,8 @@ export default function SocialButton({
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`Share on ${item.label}`}
-                  title={`Share on ${item.label}`}
+                  aria-label={`${t('ui.shareOn', 'Share on')} ${item.label}`}
+                  title={`${t('ui.shareOn', 'Share on')} ${item.label}`}
                   onClick={(e) => e.stopPropagation()}
                   className={cn(
                     'flex size-8 items-center justify-center rounded-full text-foreground/75 transition-colors',
@@ -167,8 +171,12 @@ export default function SocialButton({
               <div className="mx-1 h-5 w-px bg-border" />
               <button
                 type="button"
-                title={copied ? 'Copied!' : 'Copy link'}
-                aria-label="Copy link"
+                title={
+                  copied
+                    ? t('ui.copied', 'Copied!')
+                    : t('ui.copyLink', 'Copy link')
+                }
+                aria-label={t('ui.copyLink', 'Copy link')}
                 onClick={(e) => {
                   e.stopPropagation()
                   void handleCopy()

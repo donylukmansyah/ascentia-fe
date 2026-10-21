@@ -7,13 +7,16 @@ import {
 
 import { cn } from 'cn'
 
+import { useLanguage } from '#/lib/i18n'
+
 import { Button } from './button'
 
 function Pagination({ className, ...props }: ComponentProps<'nav'>) {
+  const { t } = useLanguage()
   return (
     <nav
       role="navigation"
-      aria-label="pagination"
+      aria-label={t('ui.pagination', 'pagination')}
       data-slot="pagination"
       className={cn('mx-auto flex w-full justify-center', className)}
       {...props}
@@ -66,35 +69,41 @@ function PaginationLink({
 
 function PaginationPrevious({
   className,
-  text = 'Previous',
+  text,
   ...props
 }: ComponentProps<typeof PaginationLink> & { text?: string }) {
+  const { t } = useLanguage()
   return (
     <PaginationLink
-      aria-label="Go to previous page"
+      aria-label={t('ui.previousPage', 'Previous page')}
       size="default"
       className={cn('pl-1.5!', className)}
       {...props}
     >
       <ChevronLeftIcon data-icon="inline-start" />
-      <span className="hidden sm:block">{text}</span>
+      <span className="hidden sm:block">
+        {text ?? t('ui.previousPage', 'Previous page')}
+      </span>
     </PaginationLink>
   )
 }
 
 function PaginationNext({
   className,
-  text = 'Next',
+  text,
   ...props
 }: ComponentProps<typeof PaginationLink> & { text?: string }) {
+  const { t } = useLanguage()
   return (
     <PaginationLink
-      aria-label="Go to next page"
+      aria-label={t('ui.nextPage', 'Next page')}
       size="default"
       className={cn('pr-1.5!', className)}
       {...props}
     >
-      <span className="hidden sm:block">{text}</span>
+      <span className="hidden sm:block">
+        {text ?? t('ui.nextPage', 'Next page')}
+      </span>
       <ChevronRightIcon data-icon="inline-end" />
     </PaginationLink>
   )
@@ -115,6 +124,7 @@ function PagePagination({
   onPageChange: (page: number) => void
   className?: string
 }) {
+  const { t } = useLanguage()
   if (totalPages <= 1) return null
 
   const current = Math.min(Math.max(page, 1), totalPages)
@@ -150,7 +160,7 @@ function PagePagination({
               if (pageHref) event.preventDefault()
               onPageChange(current - 1)
             }}
-            aria-label="Previous page"
+            aria-label={t('ui.previousPage', 'Previous page')}
             className="size-10 cursor-pointer rounded-[4px] text-primary sm:size-11"
           >
             <ChevronLeftIcon className="size-4" aria-hidden="true" />
@@ -181,7 +191,7 @@ function PagePagination({
                 if (pageHref) event.preventDefault()
                 onPageChange(pageNumber)
               }}
-              aria-label={`Go to page ${pageNumber}`}
+              aria-label={`${t('ui.goToPage', 'Go to page')} ${pageNumber}`}
               aria-current={pageNumber === current ? 'page' : undefined}
               className={cn(
                 'size-10 cursor-pointer rounded-[4px] border-primary sm:size-11',
@@ -221,7 +231,7 @@ function PagePagination({
               if (pageHref) event.preventDefault()
               onPageChange(current + 1)
             }}
-            aria-label="Next page"
+            aria-label={t('ui.nextPage', 'Next page')}
             className="size-10 cursor-pointer rounded-[4px] text-primary sm:size-11"
           >
             <ChevronRightIcon className="size-4" aria-hidden="true" />
@@ -233,6 +243,7 @@ function PagePagination({
 }
 
 function PaginationEllipsis({ className, ...props }: ComponentProps<'span'>) {
+  const { t } = useLanguage()
   return (
     <span
       aria-hidden
@@ -244,7 +255,7 @@ function PaginationEllipsis({ className, ...props }: ComponentProps<'span'>) {
       {...props}
     >
       <MoreHorizontalIcon />
-      <span className="sr-only">More pages</span>
+      <span className="sr-only">{t('ui.morePages', 'More pages')}</span>
     </span>
   )
 }

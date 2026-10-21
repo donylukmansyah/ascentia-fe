@@ -5,6 +5,7 @@ import { useNavigate, useSearch } from '@tanstack/react-router'
 import { PagePagination } from '#/components/ui/pagination'
 import { QueryErrorState } from '#/components/ui/query-error-state'
 import { Reveal } from '#/components/ui/reveal'
+import { useLanguage } from '#/lib/i18n'
 
 import { BlogCard } from './blog-card'
 import {
@@ -35,6 +36,7 @@ function BlogCardSkeleton() {
 }
 
 export function BlogsContentSection() {
+  const { t } = useLanguage()
   const search: { page?: number } = useSearch({ from: '/blogs/' })
   const page = search.page || 1
   const navigate = useNavigate()
@@ -77,13 +79,15 @@ export function BlogsContentSection() {
           id="blogs-list-heading"
           className="mb-7 text-[clamp(1.75rem,3vw,2.5rem)] leading-tight font-bold tracking-[-0.03em] text-foreground"
         >
-          Recent blogs post
+          {t('ui.recentBlogs', 'Recent blog posts')}
         </h2>
       </Reveal>
 
       {isPending ? (
         <div role="status">
-          <span className="sr-only">Loading blog articles…</span>
+          <span className="sr-only">
+            {t('ui.loadingBlogs', 'Loading blog articles…')}
+          </span>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {Array.from({ length: 4 }, (_, index) => (
               <BlogCardSkeleton key={index} />
@@ -92,15 +96,18 @@ export function BlogsContentSection() {
         </div>
       ) : isError ? (
         <QueryErrorState
-          title="Unable to load blog articles"
-          message="We are having trouble reaching the server. Please check your connection and try again."
+          title={t('ui.blogsError', 'Unable to load blog articles')}
+          message={t(
+            'ui.connectionError',
+            'We are having trouble reaching the server. Please try again.',
+          )}
           onRetry={() => void refetch()}
           isRetrying={isFetching}
         />
       ) : items.length === 0 ? (
         <div className="rounded-lg border border-border bg-muted/30 p-12 text-center">
           <p className="text-base text-muted-foreground">
-            No blog articles found at this time. Please check back soon!
+            {t('ui.emptyBlogs', 'No blog articles yet. Check back soon.')}
           </p>
         </div>
       ) : (

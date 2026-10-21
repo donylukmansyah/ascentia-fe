@@ -74,4 +74,12 @@ export const contactSubmissionSchema = z.object({
   company: z.string().trim().max(150).optional(),
   phone: z.string().trim().max(50).optional(),
   product: z.string().trim().max(255).optional(),
+  submission_id: z
+    .string()
+    .trim()
+    .min(8)
+    .max(64)
+    .regex(/^[A-Za-z0-9_-]+$/)
+    .optional(),
+  _hp_field: z.string().max(200).optional(),
 })

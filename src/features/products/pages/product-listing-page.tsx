@@ -12,6 +12,7 @@ import { useStickyHeader } from '#/hooks/use-sticky-header'
 import { getFuzzySuggestion } from '#/lib/fuzzy-search'
 import { cn } from '#/lib/utils'
 import { listingPath } from '#/lib/seo'
+import { useLanguage } from '#/lib/i18n'
 
 import {
   PRODUCT_LIST_PAGE_SIZE,
@@ -39,9 +40,9 @@ interface ProductListingPageProps {
 const subscribeToHydration = () => () => {}
 
 const labels = {
-  brands: ['Brands', 'brand'],
-  types: ['Types', 'type'],
-  applications: ['Applications', 'application'],
+  brands: ['brands', 'allBrands', 'byBrand'],
+  types: ['types', 'allTypes', 'byType'],
+  applications: ['applications', 'allApplications', 'byApplication'],
 } as const
 
 export function ProductListingPage({
@@ -49,7 +50,10 @@ export function ProductListingPage({
   search,
   onSearchChange,
 }: ProductListingPageProps) {
-  const [title, label] = labels[group]
+  const { t } = useLanguage()
+  const [groupKey, allKey, browseKey] = labels[group]
+  const title = t(`ui.${groupKey}`)
+  const label = title.toLowerCase()
   const [draft, setDraft] = useState(search.q)
   const taxonomy = useQuery(productTaxonomiesQueryOptions())
   const hydrated = useSyncExternalStore(
@@ -187,20 +191,20 @@ export function ProductListingPage({
   return (
     <>
       <ProductsHeroSection
-        title={`All ${title}`}
+        title={t(`ui.${allKey}`)}
         breadcrumbCurrent={title}
-        exploreLabel={`Explore products by ${label}`}
+        exploreLabel={`${t('ui.exploreProducts')} ${label}`}
         imagePositionClassName="object-[center_-120px] md:object-[center_-350px]"
       />
       <ProductSearchPanel
         value={draft}
         onQueryChange={(value) => setDraft(value.slice(0, 200))}
         onClear={handleClearSearch}
-        placeholder="Search products..."
+        placeholder={t('ui.searchProductsPlaceholder')}
       />
       <section
         id="product-results"
-        aria-label={`Browse products by ${label}`}
+        aria-label={`${t('ui.browseProductsBy')} ${label}`}
         className="scroll-mt-24 bg-background"
       >
         <div className="mx-auto grid w-full max-w-7xl gap-8 px-5 pb-16 sm:px-8 sm:pb-20 lg:grid-cols-[240px_minmax(0,1fr)] lg:px-12">
@@ -213,7 +217,7 @@ export function ProductListingPage({
             <BrandFilter
               brands={options}
               title={title}
-              label={`Filter by ${label}`}
+              label={`${t('ui.filterBy')} ${label}`}
               activeSlug={search.category || 'all'}
               categoryHref={(slug) =>
                 listingPath(`/products/${group}`, {
@@ -232,13 +236,13 @@ export function ProductListingPage({
             />
             {taxonomy.isPending && (
               <p role="status" className="py-4 text-sm text-description-text">
-                Loading filters…
+                {t('ui.loadingFilters')}
               </p>
             )}
             {taxonomy.isError && (
               <QueryErrorState
                 variant="compact"
-                message="Unable to load filters."
+                message={t('ui.filterError')}
                 onRetry={() => void taxonomy.refetch()}
                 isRetrying={taxonomy.isFetching}
                 className="mt-4"
@@ -249,12 +253,12 @@ export function ProductListingPage({
             products={activeProducts}
             total={activeTotal}
             totalPages={activeTotalPages}
-            title={`Browse by ${label}`}
+            title={t(`ui.${browseKey}`)}
             filterLabel={label}
             kicker={
               products.isPlaceholderData
-                ? 'Updating results'
-                : (active?.name ?? 'All products')
+                ? t('ui.updatingResults')
+                : (active?.name ?? t('ui.allProducts'))
             }
             page={search.page}
             pageHref={(page) =>
@@ -275,7 +279,7 @@ export function ProductListingPage({
         </div>
       </section>
       <ProductCarouselSection
-        title="Explore our recommendations"
+        title={t('ui.recommendations')}
         products={hydrated ? (featured.data?.items ?? []) : []}
         pending={!hydrated || featured.isPending}
         error={hydrated && featured.isError}

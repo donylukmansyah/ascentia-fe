@@ -1,3 +1,5 @@
+import { useLanguage } from '#/lib/i18n'
+
 export const defaultCategories = [
   'Laboratory Equipment',
   'Analytical Instruments',
@@ -12,21 +14,21 @@ interface CategoryNavProps {
   className?: string
 }
 
-export function CategoryNav({
-  categories = defaultCategories,
-  className = '',
-}: CategoryNavProps) {
-  const items = [...categories, ...categories, ...categories]
+export function CategoryNav({ categories, className = '' }: CategoryNavProps) {
+  const { t, tArray } = useLanguage()
+  const activeCategories =
+    categories ?? tArray('home.categories', defaultCategories)
+  const items = [...activeCategories, ...activeCategories, ...activeCategories]
 
   return (
     <nav
-      aria-label="Product categories ticker"
+      aria-label={t('home.categoriesTicker', 'Product categories ticker')}
       className={`group relative overflow-hidden bg-accent py-4.5 text-white sm:py-5.5 ${className}`}
     >
       <div
         tabIndex={0}
         role="region"
-        aria-label="Category marquee"
+        aria-label={t('home.categoriesMarquee', 'Category marquee')}
         className="flex w-max motion-reduce:transform-none"
       >
         <div className="flex shrink-0 items-center [animation:brand-marquee-scroll_28s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:[animation:none]">

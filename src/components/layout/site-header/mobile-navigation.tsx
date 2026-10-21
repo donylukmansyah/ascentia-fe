@@ -1,6 +1,7 @@
 import { ChevronDown } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 
+import { useLanguage } from '#/lib/i18n'
 import { cn } from '#/lib/utils'
 
 import { navigationItems, productBrowseItems } from './navigation-data'
@@ -20,15 +21,26 @@ export function MobileNavigation({
   onProductsOpenChange,
   onNavigate,
 }: MobileNavigationProps) {
+  const { t } = useLanguage()
+
   return (
     <nav
-      aria-label="Mobile navigation"
+      aria-label={t('common.mobileNav', 'Mobile navigation')}
       className="flex h-full flex-col overflow-y-auto px-5 pt-24 pb-10 sm:px-8"
     >
       <ul className="border-t border-foreground/10">
         {navigationItems.map((item, index) => {
           const isActive = pathname === item.href
           const isProducts = item.href === '/products'
+          const navLabels: Record<string, string> = {
+            '/': t('nav.home', 'Home'),
+            '/about-us': t('nav.about', 'About Us'),
+            '/products': t('nav.products', 'Products'),
+            '/news': t('nav.news', 'News'),
+            '/blogs': t('nav.blogs', 'Blogs'),
+            '/contact-us': t('nav.contact', 'Contact Us'),
+          }
+          const navLabel = navLabels[item.href] || item.label
 
           return (
             <li
@@ -56,7 +68,7 @@ export function MobileNavigation({
                         : 'text-foreground/75 hover:text-primary',
                     )}
                   >
-                    Products
+                    {t('nav.products', 'Products')}
                     <ChevronDown
                       className={cn(
                         'size-4 transition-transform duration-200',
@@ -96,10 +108,13 @@ export function MobileNavigation({
                             />
                             <span>
                               <span className="block text-sm font-semibold">
-                                {label}
+                                {t(`ui.${label.toLowerCase()}`)}
                               </span>
                               <span className="block text-xs text-muted-foreground">
-                                {description}
+                                {t(
+                                  `ui.${label === 'Brands' ? 'brandDescription' : label === 'Types' ? 'typeDescription' : 'applicationDescription'}`,
+                                  description,
+                                )}
                               </span>
                             </span>
                           </Link>
@@ -124,7 +139,7 @@ export function MobileNavigation({
                       : 'text-foreground/75 hover:text-primary',
                   )}
                 >
-                  {item.label}
+                  {navLabel}
                 </Link>
               )}
             </li>

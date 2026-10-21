@@ -8,6 +8,7 @@ import { QueryErrorState } from '#/components/ui/query-error-state'
 import { Reveal } from '#/components/ui/reveal'
 import { useStickyHeader } from '#/hooks/use-sticky-header'
 import { cn } from '#/lib/utils'
+import { useLanguage } from '#/lib/i18n'
 
 import { ArticleCard, ArticleMetadata } from './article-card'
 import {
@@ -18,6 +19,7 @@ import {
 } from '../api/article-queries'
 
 export function NewsContentSection() {
+  const { t } = useLanguage()
   const [visibleCount, setVisibleCount] = useState(NEWS_LATEST_PAGE_SIZE)
   const headerMode = useStickyHeader()
   const headerPinned =
@@ -61,8 +63,8 @@ export function NewsContentSection() {
         className="mx-auto w-full max-w-7xl scroll-mt-24 px-5 py-16 sm:px-8 lg:px-12"
       >
         <QueryErrorState
-          title="Unable to load news"
-          message="We are having trouble reaching the server. Please check your connection and try again."
+          title={t('ui.newsError')}
+          message={t('ui.connectionError')}
           onRetry={handleRetryAll}
           isRetrying={isRetrying}
           className="my-8"
@@ -83,13 +85,13 @@ export function NewsContentSection() {
             id="featured-news-heading"
             className="mb-7 text-[clamp(1.75rem,3vw,2.5rem)] leading-tight font-bold tracking-[-0.03em] text-[#1b1b36]"
           >
-            Features Events
+            {t('ui.featuredEvents')}
           </h2>
         </Reveal>
         {featuredQuery.isError ? (
           <QueryErrorState
-            title="Unable to load featured events"
-            message="We are having trouble reaching the server. Please try again."
+            title={t('ui.eventsError')}
+            message={t('ui.connectionError')}
             onRetry={() => void featuredQuery.refetch()}
             isRetrying={featuredQuery.isFetching}
           />
@@ -147,13 +149,13 @@ export function NewsContentSection() {
               id="latest-news-heading"
               className="mb-7 text-[clamp(1.75rem,3vw,2.5rem)] leading-tight font-bold tracking-[-0.03em] text-[#1b1b36]"
             >
-              Latest News
+              {t('ui.latestNews')}
             </h2>
           </Reveal>
           {latestQuery.isError ? (
             <QueryErrorState
-              title="Unable to load latest news"
-              message="We are having trouble reaching the server. Please try again."
+              title={t('ui.newsError')}
+              message={t('ui.connectionError')}
               onRetry={() => void latestQuery.refetch()}
               isRetrying={latestQuery.isFetching}
             />
@@ -187,11 +189,11 @@ export function NewsContentSection() {
                     {isFetchingLatest ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-                        <span>Loading...</span>
+                        <span>{t('common.loading')}</span>
                       </>
                     ) : (
                       <>
-                        <span>Show More</span>
+                        <span>{t('ui.showMore')}</span>
                         <ChevronDown className="h-4 w-4 text-muted-foreground" />
                       </>
                     )}
@@ -214,13 +216,13 @@ export function NewsContentSection() {
               id="popular-news-heading"
               className="mb-7 text-[clamp(1.75rem,3vw,2.5rem)] leading-tight font-bold tracking-[-0.03em] text-[#1b1b36]"
             >
-              Popular post
+              {t('ui.recommendedPosts')}
             </h2>
           </Reveal>
           {popularQuery.isError ? (
             <QueryErrorState
               variant="compact"
-              message="Unable to load popular posts."
+              message={t('ui.recommendedError')}
               onRetry={() => void popularQuery.refetch()}
               isRetrying={popularQuery.isFetching}
             />

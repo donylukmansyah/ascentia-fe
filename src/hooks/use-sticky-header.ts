@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
+import { flushSync } from 'react-dom'
 
 export type HeaderVisibility =
   'transparent' | 'visible' | 'hidden' | 'hidden-initial'
@@ -19,9 +20,16 @@ export function useStickyHeader(
   const { topOffset = 12, tolerance = 8, paused = false } = options
   const [visibility, setVisibility] = useState<HeaderVisibility>('transparent')
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (paused) return
 
+    setVisibility((current) =>
+      window.scrollY <= topOffset
+        ? 'transparent'
+        : current === 'transparent'
+          ? 'hidden-initial'
+          : current,
+    )
     let previousScrollY = window.scrollY
     let previousDirection = 0
     let directionDistance = 0
@@ -71,7 +79,13 @@ export function useStickyHeader(
     }
 
     const handleScroll = () => {
-      if (animationFrame === undefined) {
+      if (window.scrollY <= topOffset) {
+        if (animationFrame !== undefined) {
+          window.cancelAnimationFrame(animationFrame)
+        }
+        // Router scroll restoration must settle before paint.
+        flushSync(update)
+      } else if (animationFrame === undefined) {
         animationFrame = window.requestAnimationFrame(update)
       }
     }

@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { useLanguage } from '#/lib/i18n'
 import type { ProductDetailSection, ProductDetailTab } from '../types/product'
 
 interface ProductDetailNavProps {
@@ -12,13 +13,19 @@ export function ProductDetailNav({
   tabs,
   hasRelated,
 }: ProductDetailNavProps) {
+  const { t } = useLanguage()
   const navRef = useRef<HTMLDivElement>(null)
   const sections: Array<{ id: string; label: string; tab?: ProductDetailTab }> =
     [
-      { id: 'product', label: 'Product' },
+      { id: 'product', label: t('ui.product', 'Product') },
       ...tabs.map(({ id, label }) => ({ id, label, tab: id })),
       ...(hasRelated
-        ? [{ id: 'related-products', label: 'Related products' }]
+        ? [
+            {
+              id: 'related-products',
+              label: t('ui.relatedProducts', 'Related products'),
+            },
+          ]
         : []),
     ]
 
@@ -85,7 +92,7 @@ export function ProductDetailNav({
 
   return (
     <nav
-      aria-label="Product detail sections"
+      aria-label={t('products.detailSections', 'Product detail sections')}
       className="product-detail-nav sticky z-30 border-y border-border bg-background/95 backdrop-blur"
     >
       <div

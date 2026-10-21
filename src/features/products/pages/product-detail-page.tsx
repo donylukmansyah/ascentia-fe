@@ -15,6 +15,7 @@ import {
   RelatedProductsLoading,
   RelatedProductsSection,
 } from '../components/related-products-section'
+import { useLanguage } from '#/lib/i18n'
 import type {
   ProductDetailData,
   ProductDetailSection,
@@ -31,16 +32,35 @@ export function ProductDetailPage({ slug }: { slug: string }) {
 }
 
 function ProductDetailView({ product }: { product: ProductDetailData }) {
+  const { pick, t } = useLanguage()
   const hydrated = useHydrated()
   const [selectedTab, setSelectedTab] =
     useState<ProductDetailTab>('description')
+  const displaySpecs = pick(
+    { id: product.specificationsHtml, en: product.specificationsHtmlEn },
+    product.specificationsHtml,
+  )
+  const displayApps = pick(
+    { id: product.applicationsHtml, en: product.applicationsHtmlEn },
+    product.applicationsHtml,
+  )
   const tabs: ProductDetailSection[] = [
-    { id: 'description', label: 'Description' },
-    ...(product.specificationsHtml
-      ? [{ id: 'specifications' as const, label: 'Specifications' }]
+    { id: 'description', label: t('products.overview', 'Description') },
+    ...(displaySpecs
+      ? [
+          {
+            id: 'specifications' as const,
+            label: t('products.specifications', 'Specifications'),
+          },
+        ]
       : []),
-    ...(product.applicationsHtml
-      ? [{ id: 'applications' as const, label: 'Applications' }]
+    ...(displayApps
+      ? [
+          {
+            id: 'applications' as const,
+            label: t('products.applications', 'Applications'),
+          },
+        ]
       : []),
   ]
   const activeTab = tabs.some((tab) => tab.id === selectedTab)
@@ -96,13 +116,15 @@ function ProductDetailView({ product }: { product: ProductDetailData }) {
         <RelatedProductsLoading />
       ) : related.isError ? (
         <div role="alert" className="mx-auto max-w-7xl px-5 py-8">
-          <p>Unable to load related products.</p>
+          <p>
+            {t('products.relatedError', 'Unable to load related products.')}
+          </p>
           <Button
             className="mt-3 cursor-pointer"
             variant="outline"
             onClick={() => void related.refetch()}
           >
-            Try again
+            {t('common.tryAgain', 'Try again')}
           </Button>
         </div>
       ) : (
@@ -113,39 +135,51 @@ function ProductDetailView({ product }: { product: ProductDetailData }) {
 }
 
 export function ProductDetailError({ onRetry }: { onRetry: () => void }) {
+  const { t } = useLanguage()
   return (
     <section role="alert" className="mx-auto min-h-[50vh] max-w-7xl px-5 py-36">
-      <h1 className="text-3xl font-bold">Unable to load product</h1>
-      <p className="mt-4 text-description-text">Please try again.</p>
+      <h1 className="text-3xl font-bold">
+        {t('products.loadError', 'Unable to load product')}
+      </h1>
+      <p className="mt-4 text-description-text">
+        {t(
+          'ui.connectionError',
+          'We are having trouble reaching the server. Please try again.',
+        )}
+      </p>
       <Button
         type="button"
         variant="outline"
         className="mt-6 cursor-pointer"
         onClick={onRetry}
       >
-        Try again
+        {t('common.tryAgain', 'Try again')}
       </Button>
     </section>
   )
 }
 
 export function ProductNotFound() {
+  const { t } = useLanguage()
   return (
     <section className="mx-auto flex min-h-[50vh] max-w-7xl flex-col justify-center px-5 py-32 sm:px-8 lg:px-12">
       <p className="text-[11px] font-bold tracking-[0.1em] text-primary uppercase">
-        Product catalog
+        {t('products.catalog', 'Product catalog')}
       </p>
       <h1 className="mt-3 text-4xl font-bold tracking-[-0.03em]">
-        Product not found
+        {t('products.notFound', 'Product not found')}
       </h1>
       <p className="mt-4 max-w-lg text-sm leading-relaxed text-description-text">
-        This product is not available in the current catalog.
+        {t(
+          'products.notFoundDescription',
+          'This product is not available in the current catalog.',
+        )}
       </p>
       <Link
         to="/products"
         className="mt-8 w-fit cursor-pointer text-sm font-bold text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
       >
-        Browse products
+        {t('ui.browseProducts', 'Browse products')}
       </Link>
     </section>
   )

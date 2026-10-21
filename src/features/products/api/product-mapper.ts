@@ -32,7 +32,7 @@ export function array(value: unknown): unknown[] {
   return value
 }
 
-function safeUrl(value: unknown): string | undefined {
+export function safeUrl(value: unknown): string | undefined {
   if (typeof value !== 'string') return undefined
   try {
     const url = new URL(value)

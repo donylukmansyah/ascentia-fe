@@ -1,11 +1,29 @@
+import { useEffect } from 'react'
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
 
 import { cn } from '#/lib/utils'
 
-export const Dialog = DialogPrimitive.Root
+// Trap focus without Base UI inset scrollbar gutter gap.
+export function Dialog({
+  modal = 'trap-focus',
+  ...props
+}: DialogPrimitive.Root.Props) {
+  return <DialogPrimitive.Root modal={modal} {...props} />
+}
 export const DialogClose = DialogPrimitive.Close
 export const DialogTitle = DialogPrimitive.Title
 export const DialogDescription = DialogPrimitive.Description
+
+function ScrollLock() {
+  useEffect(() => {
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [])
+  return null
+}
 
 export function DialogContent({
   className,
@@ -14,6 +32,7 @@ export function DialogContent({
 }: DialogPrimitive.Popup.Props) {
   return (
     <DialogPrimitive.Portal>
+      <ScrollLock />
       <DialogPrimitive.Backdrop className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-md transition-opacity duration-200 ease-out data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 motion-reduce:transition-none" />
       <DialogPrimitive.Popup
         {...props}

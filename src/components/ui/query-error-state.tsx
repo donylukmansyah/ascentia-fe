@@ -1,6 +1,7 @@
 import { AlertCircle, Loader2, RotateCw } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
+import { useLanguage } from '#/lib/i18n'
 import { cn } from '#/lib/utils'
 
 export interface QueryErrorStateProps {
@@ -14,13 +15,22 @@ export interface QueryErrorStateProps {
 
 // Reusable error state for API and network failures
 export function QueryErrorState({
-  title = 'Unable to load data',
-  message = 'We are having trouble reaching the server. Please try again.',
+  title,
+  message,
   onRetry,
   isRetrying = false,
   variant = 'card',
   className,
 }: QueryErrorStateProps) {
+  const { t } = useLanguage()
+  const resolvedTitle = title ?? t('ui.dataError', 'Unable to load data')
+  const resolvedMessage =
+    message ??
+    t(
+      'ui.connectionError',
+      'We are having trouble reaching the server. Please try again.',
+    )
+
   if (variant === 'compact') {
     return (
       <div
@@ -35,7 +45,7 @@ export function QueryErrorState({
             className="size-4 shrink-0 text-muted-foreground"
             aria-hidden="true"
           />
-          <span className="truncate">{message}</span>
+          <span className="truncate">{resolvedMessage}</span>
         </div>
         {onRetry ? (
           <Button
@@ -51,7 +61,7 @@ export function QueryErrorState({
             ) : (
               <RotateCw className="size-3.5" aria-hidden="true" />
             )}
-            <span>Try again</span>
+            <span>{t('common.tryAgain', 'Try again')}</span>
           </Button>
         ) : null}
       </div>
@@ -71,10 +81,12 @@ export function QueryErrorState({
           className="size-5 text-muted-foreground/80"
           aria-hidden="true"
         />
-        {title ? (
-          <h4 className="text-sm font-semibold text-foreground">{title}</h4>
+        {resolvedTitle ? (
+          <h4 className="text-sm font-semibold text-foreground">
+            {resolvedTitle}
+          </h4>
         ) : null}
-        <p className="max-w-md">{message}</p>
+        <p className="max-w-md">{resolvedMessage}</p>
         {onRetry ? (
           <Button
             type="button"
@@ -89,7 +101,7 @@ export function QueryErrorState({
             ) : (
               <RotateCw className="size-3.5" aria-hidden="true" />
             )}
-            <span>Try again</span>
+            <span>{t('common.tryAgain', 'Try again')}</span>
           </Button>
         ) : null}
       </div>
@@ -107,9 +119,11 @@ export function QueryErrorState({
       <div className="flex size-12 items-center justify-center rounded-full bg-muted/60 text-muted-foreground">
         <AlertCircle className="size-6 text-foreground/70" aria-hidden="true" />
       </div>
-      <h3 className="mt-4 text-base font-semibold text-foreground">{title}</h3>
+      <h3 className="mt-4 text-base font-semibold text-foreground">
+        {resolvedTitle}
+      </h3>
       <p className="mt-1.5 max-w-md text-sm text-muted-foreground leading-relaxed">
-        {message}
+        {resolvedMessage}
       </p>
       {onRetry ? (
         <Button

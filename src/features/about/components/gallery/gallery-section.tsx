@@ -1,4 +1,5 @@
 import { Reveal } from '#/components/ui/reveal'
+import { useLanguage } from '#/lib/i18n'
 
 import { aboutGalleryContent } from '../../constants/gallery'
 import { Gallery, GalleryGrid, GalleryImage } from './gallery'
@@ -10,10 +11,19 @@ interface AboutGallerySectionProps {
 }
 
 export function AboutGallerySection({
-  eyebrow = aboutGalleryContent.eyebrow,
-  title = aboutGalleryContent.title,
-  description = aboutGalleryContent.description,
+  eyebrow,
+  title,
+  description,
 }: AboutGallerySectionProps) {
+  const { t } = useLanguage()
+  const resolvedEyebrow =
+    eyebrow ?? t('about.gallery.eyebrow', aboutGalleryContent.eyebrow)
+  const resolvedTitle =
+    title ?? t('about.gallery.title', aboutGalleryContent.title)
+  const resolvedDescription =
+    description ??
+    t('about.gallery.description', aboutGalleryContent.description)
+
   return (
     <section
       aria-labelledby="about-gallery-heading"
@@ -26,17 +36,17 @@ export function AboutGallerySection({
         >
           <div className="max-w-2xl">
             <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
-              {eyebrow}
+              {resolvedEyebrow}
             </p>
             <h2
               id="about-gallery-heading"
               className="mt-2 text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
             >
-              {title}
+              {resolvedTitle}
             </h2>
           </div>
           <p className="max-w-md text-sm leading-relaxed font-normal text-description-text sm:text-base lg:pb-2 lg:text-right">
-            {description}
+            {resolvedDescription}
           </p>
         </Reveal>
 

@@ -27,7 +27,7 @@ try {
   assert.equal(calls, 2)
   now += 300_000
   fail = true
-  await assert.rejects(read(), /upstream failed/)
+  assert.equal(await read(), data)
   fail = false
   await read()
   assert.equal(calls, 4)

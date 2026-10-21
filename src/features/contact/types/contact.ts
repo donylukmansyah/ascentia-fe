@@ -8,6 +8,8 @@ export interface ContactInput {
   company?: string
   phone?: string
   product?: string
+  submission_id?: string
+  _hp_field?: string
 }
 
 export interface ContactSubmissionResult {

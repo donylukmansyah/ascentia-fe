@@ -3,6 +3,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 
 import { CtaLink } from '#/components/ui/cta-link'
 import { Reveal } from '#/components/ui/reveal'
+import { useLanguage } from '#/lib/i18n'
 
 import { CategoryNav } from './category-nav'
 
@@ -23,13 +24,20 @@ const DEFAULT_DESCRIPTION =
 
 export function WhoWeAreSection({
   image = DEFAULT_IMAGE,
-  eyebrow = 'About Us',
-  heading = DEFAULT_HEADING,
-  description = DEFAULT_DESCRIPTION,
-  ctaLabel = 'About Ascentia',
+  eyebrow,
+  heading,
+  description,
+  ctaLabel,
   ctaTo = '/about-us',
   showCategoryTicker = true,
 }: WhoWeAreSectionProps) {
+  const { t } = useLanguage()
+  const resolvedEyebrow = eyebrow ?? t('home.whoWeAre.eyebrow', 'About Us')
+  const resolvedHeading = heading ?? t('home.whoWeAre.heading', DEFAULT_HEADING)
+  const resolvedDesc =
+    description ?? t('home.whoWeAre.description', DEFAULT_DESCRIPTION)
+  const resolvedCta = ctaLabel ?? t('home.whoWeAre.cta', 'About Ascentia')
+
   const sceneRef = useRef<HTMLDivElement>(null)
   const reduceMotion = useReducedMotion() ?? false
   const { scrollYProgress } = useScroll({
@@ -77,13 +85,13 @@ export function WhoWeAreSection({
           className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-12 sm:px-8 sm:pt-16 lg:px-14 lg:pt-20 xl:pt-24"
         >
           <p className="text-[10px] font-bold tracking-[0.12em] text-white/85 uppercase sm:text-[11px]">
-            {eyebrow}
+            {resolvedEyebrow}
           </p>
           <h2
             id="who-we-are-heading"
             className="mt-2 text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-white"
           >
-            {heading}
+            {resolvedHeading}
           </h2>
         </Reveal>
 
@@ -94,10 +102,10 @@ export function WhoWeAreSection({
             className="ml-auto flex w-full max-w-sm flex-col items-start gap-3.5 sm:max-w-md sm:gap-4 lg:max-w-[550px] xl:max-w-[550px]"
           >
             <p className="text-sm leading-relaxed font-normal text-white/95 sm:text-base">
-              {description}
+              {resolvedDesc}
             </p>
             <CtaLink to={ctaTo} size="default">
-              {ctaLabel}
+              {resolvedCta}
             </CtaLink>
           </Reveal>
         </div>

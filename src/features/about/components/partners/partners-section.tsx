@@ -9,6 +9,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
 import { Reveal } from '#/components/ui/reveal'
+import { useLanguage } from '#/lib/i18n'
 
 import { aboutPartnersContent } from '../../constants/partners'
 import { AboutPartnerCard } from './partner-card'
@@ -28,10 +29,19 @@ interface AboutPartnersSectionProps {
 }
 
 export function AboutPartnersSection({
-  eyebrow = aboutPartnersContent.eyebrow,
-  title = aboutPartnersContent.title,
-  description = aboutPartnersContent.description,
+  eyebrow,
+  title,
+  description,
 }: AboutPartnersSectionProps) {
+  const { t: tLocale } = useLanguage()
+  const resolvedEyebrow =
+    eyebrow ?? tLocale('about.partners.eyebrow', aboutPartnersContent.eyebrow)
+  const resolvedTitle =
+    title ?? tLocale('about.partners.title', aboutPartnersContent.title)
+  const resolvedDescription =
+    description ??
+    tLocale('about.partners.description', aboutPartnersContent.description)
+
   const partners = aboutPartnersContent.partners
   const count = partners.length
   const [leftGlobal, setLeftGlobal] = useState(count)
@@ -359,17 +369,17 @@ export function AboutPartnersSection({
         >
           <div className="max-w-2xl">
             <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
-              {eyebrow}
+              {resolvedEyebrow}
             </p>
             <h2
               id="about-partners-heading"
               className="mt-2 text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
             >
-              {title}
+              {resolvedTitle}
             </h2>
           </div>
           <p className="max-w-md text-sm leading-relaxed font-normal text-description-text sm:text-base lg:pb-2 lg:text-right">
-            {description}
+            {resolvedDescription}
           </p>
         </Reveal>
       </div>
@@ -409,7 +419,10 @@ export function AboutPartnersSection({
                 onClickCapture={handleClickCapture}
                 tabIndex={0}
                 role="region"
-                aria-label="Partner brands catalog"
+                aria-label={tLocale(
+                  'about.partners.catalogLabel',
+                  'Partner brands catalog',
+                )}
                 className="relative -mr-5 flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain overflow-y-clip py-8 pr-5 scrollbar-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:cursor-grabbing sm:-mr-8 sm:pr-8 md:mx-0 md:px-1 md:pl-2 md:pr-1"
               >
                 {looped.map(({ partner, index, copy, global, key }) => (
@@ -432,13 +445,19 @@ export function AboutPartnersSection({
               <div
                 className="mx-auto mt-4 flex max-w-[620px] items-center justify-end gap-2 px-1 md:px-8"
                 role="group"
-                aria-label="Partner carousel controls"
+                aria-label={tLocale(
+                  'about.partners.controlsLabel',
+                  'Partner carousel controls',
+                )}
               >
                 <Button
                   type="button"
                   variant="outline"
                   size="icon"
-                  aria-label="Previous partners"
+                  aria-label={tLocale(
+                    'about.partners.prevLabel',
+                    'Previous partners',
+                  )}
                   onClick={() => goTo('prev')}
                   className="size-9 cursor-pointer rounded-full border border-border bg-white text-[var(--brand-dark)] transition-all hover:border-primary hover:bg-primary hover:text-white"
                 >
@@ -448,7 +467,10 @@ export function AboutPartnersSection({
                   type="button"
                   variant="default"
                   size="icon"
-                  aria-label="Next partners"
+                  aria-label={tLocale(
+                    'about.partners.nextLabel',
+                    'Next partners',
+                  )}
                   onClick={() => goTo('next')}
                   className="size-9 cursor-pointer rounded-full border border-primary bg-primary text-white shadow-xs transition-all hover:border-[var(--brand-dark)] hover:bg-[var(--brand-dark)]"
                 >

@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 
 import { Reveal } from '#/components/ui/reveal'
+import { useLanguage } from '#/lib/i18n'
 
 import type { ProductCardData } from '../types/product'
 import { ProductCard } from './product-card'
@@ -10,14 +11,17 @@ interface RelatedProductsSectionProps {
 }
 
 export function RelatedProductsLoading() {
+  const { t } = useLanguage()
   return (
     <section
-      aria-label="Loading related products"
+      aria-label={t('products.loadingRelated', 'Loading related products…')}
       aria-busy="true"
       role="status"
       className="border-t border-border bg-background py-14 sm:py-18 lg:py-20"
     >
-      <span className="sr-only">Loading related products…</span>
+      <span className="sr-only">
+        {t('products.loadingRelated', 'Loading related products…')}
+      </span>
       <div
         aria-hidden="true"
         className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12"
@@ -44,6 +48,7 @@ export function RelatedProductsLoading() {
 export function RelatedProductsSection({
   products: related,
 }: RelatedProductsSectionProps) {
+  const { t } = useLanguage()
   if (related.length === 0) return null
 
   return (
@@ -60,17 +65,20 @@ export function RelatedProductsSection({
                 id="related-products-heading"
                 className="text-2xl font-bold tracking-tight text-[#1b1b36] sm:text-3xl"
               >
-                Related Products
+                {t('products.relatedProducts', 'Related Products')}
               </h2>
               <p className="mt-1 text-sm text-muted-foreground">
-                More instruments, equipment, and solutions from Ascentia
+                {t(
+                  'ui.relatedDescription',
+                  'More instruments and solutions from Ascentia',
+                )}
               </p>
             </div>
             <Link
               to="/products"
               className="cursor-pointer text-sm font-semibold text-primary hover:underline"
             >
-              View all products →
+              {t('ui.viewAllProducts', 'View all products')} →
             </Link>
           </div>
         </Reveal>

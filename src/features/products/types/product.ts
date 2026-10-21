@@ -17,6 +17,7 @@ export interface ProductCardData {
   id: string
   slug: string
   name: string
+  nameEn?: string
   brand: string
   brandId: string
   typeIds: string[]
@@ -48,9 +49,15 @@ export interface ProductDetailData extends ProductCardData {
   images: ProductImage[]
   brandLogo?: string
   descriptionHtml: string
+  descriptionHtmlEn?: string
   summaryHtml: string
+  summaryHtmlEn?: string
   specificationsHtml: string
+  specificationsHtmlEn?: string
   applicationsHtml: string
+  applicationsHtmlEn?: string
+  brochureUrl?: string
+  videoUrl?: string
   tags: string[]
   publishedAt: string
   modifiedAt: string

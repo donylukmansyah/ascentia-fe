@@ -10,6 +10,7 @@ import {
   paginationTotals,
   positiveId,
   record,
+  safeUrl,
   sanitizeProductHtml,
   text,
 } from './product-mapper'
@@ -238,7 +239,8 @@ async function fetchProductDetail(
       {
         slug,
         per_page: '2',
-        _fields: 'id,slug,status,date,modified,acf,yoast_head_json',
+        _fields:
+          'id,slug,status,date,modified,acf,ascentia_i18n,yoast_head_json',
         acf_format: 'standard',
       },
       signal,
@@ -259,12 +261,64 @@ async function fetchProductDetail(
   const raw = record(store.data)
   if (positiveId(raw.id) !== id) throw new Error('Product ID mismatch')
   const product = mapProduct(raw, taxonomy)
-  const acf = wp.acf && !Array.isArray(wp.acf) ? record(wp.acf) : {}
+  const acf =
+    wp.acf && typeof wp.acf === 'object' && !Array.isArray(wp.acf)
+      ? record(wp.acf)
+      : {}
+  const i18n =
+    wp.ascentia_i18n &&
+    typeof wp.ascentia_i18n === 'object' &&
+    !Array.isArray(wp.ascentia_i18n)
+      ? record(wp.ascentia_i18n)
+      : {}
+
+  const titleEn =
+    typeof i18n.title_en === 'string' && i18n.title_en
+      ? i18n.title_en
+      : typeof acf.title_en === 'string' && acf.title_en
+        ? acf.title_en
+        : undefined
   const descriptionHtml = sanitizeProductHtml(raw.description, taxonomy)
+  const descriptionHtmlEn = sanitizeProductHtml(
+    i18n.product_description_en || acf.product_description_en,
+    taxonomy,
+  )
   const summaryHtml = sanitizeProductHtml(raw.short_description, taxonomy)
+  const summaryHtmlEn = sanitizeProductHtml(
+    i18n.product_summary_en || acf.product_summary_en,
+    taxonomy,
+  )
+  const specificationsHtml = sanitizeProductHtml(
+    i18n.specifications || acf.specifications,
+    taxonomy,
+  )
+  const specificationsHtmlEn = sanitizeProductHtml(
+    i18n.specifications_en || acf.specifications_en,
+    taxonomy,
+  )
+  const applicationsHtml = sanitizeProductHtml(
+    i18n.applications || acf.applications,
+    taxonomy,
+  )
+  const applicationsHtmlEn = sanitizeProductHtml(
+    i18n.applications_en || acf.applications_en,
+    taxonomy,
+  )
+  const brochureUrl =
+    (typeof i18n.brochure_url === 'string' && i18n.brochure_url) ||
+    (typeof acf.brochure_file === 'object' && acf.brochure_file
+      ? safeUrl(record(acf.brochure_file).url)
+      : undefined)
+  const videoUrl =
+    (typeof i18n.video_url === 'string' && i18n.video_url) ||
+    (typeof acf.video_url === 'string' && acf.video_url
+      ? acf.video_url
+      : undefined)
+
   const seo = mapYoastSeo(wp.yoast_head_json)
   return {
     ...product,
+    nameEn: titleEn,
     slug,
     seo: {
       ...seo,
@@ -277,9 +331,15 @@ async function fetchProductDetail(
     brandLogo: taxonomy.brands.find((term) => term.id === product.brandId)
       ?.logo,
     descriptionHtml,
+    descriptionHtmlEn: descriptionHtmlEn || undefined,
     summaryHtml,
-    specificationsHtml: sanitizeProductHtml(acf.specifications, taxonomy),
-    applicationsHtml: sanitizeProductHtml(acf.applications, taxonomy),
+    summaryHtmlEn: summaryHtmlEn || undefined,
+    specificationsHtml,
+    specificationsHtmlEn: specificationsHtmlEn || undefined,
+    applicationsHtml,
+    applicationsHtmlEn: applicationsHtmlEn || undefined,
+    brochureUrl,
+    videoUrl,
     tags: [
       ...new Set(
         [...taxonomy.types, ...taxonomy.applications]

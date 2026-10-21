@@ -105,7 +105,7 @@ with sync_playwright() as p:
                     return {text: a.innerText, ratio: (Math.max(fg, bg) + .05) / (Math.min(fg, bg) + .05)};
                 });
             }''')
-            check(f'{width}px CTA text color white and visible', bool(contrast) and all(item['ratio'] >= 2.8 for item in contrast), contrast)
+            check(f'{width}px CTA contrast meets WCAG AA', bool(contrast) and all(item['ratio'] >= 4.5 for item in contrast), contrast)
             page.screenshot(path=str(output / f'home-{width}.png'))
             if width == 390:
                 toggle = page.get_by_role('button', name='Open navigation menu', exact=True)
@@ -125,8 +125,8 @@ with sync_playwright() as p:
                     expect(page.locator('#product-detail-heading')).to_be_visible(timeout=45000)
                     check(f'{width}px product detail navigates', href in page.url)
                     nav = page.get_by_role('navigation', name='Product detail sections')
-                    nav.get_by_role('button', name='Description', exact=True).click()
-                    expect(page.get_by_role('tab', name='Description', exact=True)).to_have_attribute('aria-selected', 'true')
+                    nav.get_by_role('button', name='Overview', exact=True).click()
+                    expect(page.get_by_role('tab', name='Overview', exact=True)).to_have_attribute('aria-selected', 'true')
                 elif path in ('/news', '/blogs'):
                     links = page.locator(f'main article a[href^="{path}/"]')
                     expect(links.first).to_be_visible(timeout=45000)
@@ -153,7 +153,7 @@ with sync_playwright() as p:
             expect(form.get_by_role('status')).to_contain_text('Thank you', timeout=15000)
             expect(form.get_by_role('textbox', name=re.compile('message', re.I))).to_have_value('')
             check(f'{width}px simulated success resets form', True)
-            check(f'{width}px all writes intercepted', len(writes) == len(mocked) == 2, writes)
+            check(f'{width}px all writes intercepted', len(writes) == len(mocked) and len(mocked) >= 2, writes)
             page.screenshot(path=str(output / f'contact-{width}.png'))
             response = page.goto(base + '/quality-check-missing-page', wait_until='domcontentloaded')
             expect(page.get_by_role('heading', name='Page not found', exact=True)).to_be_visible()

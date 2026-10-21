@@ -4,14 +4,18 @@ import { useHydrated } from '@tanstack/react-router'
 import { CtaLink } from '#/components/ui/cta-link'
 import { cn } from '#/lib/utils'
 
-import { heroSlides } from '../constants/hero'
+import { useLanguage } from '#/lib/i18n'
+
+import { useHeroSlides } from '../constants/hero'
 
 const AUTOPLAY_DELAY = 6500
 
 export function HeroSection() {
   const [activeIndex, setActiveIndex] = useState(0)
   const hydrated = useHydrated()
-  const activeSlide = heroSlides[activeIndex]
+  const { t } = useLanguage()
+  const slides = useHeroSlides()
+  const activeSlide = slides[activeIndex] ?? slides[0]
 
   useEffect(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -21,20 +25,20 @@ export function HeroSection() {
     }
 
     const interval = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % heroSlides.length)
+      setActiveIndex((current) => (current + 1) % slides.length)
     }, AUTOPLAY_DELAY)
 
     return () => window.clearInterval(interval)
-  }, [activeIndex])
+  }, [activeIndex, slides.length])
 
   return (
     <section
-      aria-label="Featured laboratory solutions"
+      aria-label={t('home.carouselLabel', 'Featured laboratory solutions')}
       aria-roledescription="carousel"
       className="hero-carousel relative isolate flex min-h-svh items-stretch overflow-hidden bg-foreground text-white"
     >
       <div className="absolute inset-0 z-0" aria-hidden="true">
-        {heroSlides
+        {slides
           .filter((_, index) => hydrated || index === 0)
           .map((slide, index) => (
             <img
@@ -66,7 +70,7 @@ export function HeroSection() {
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-5 pb-7 pt-32 sm:px-8 sm:pb-9 sm:pt-36 lg:px-12 lg:pb-12 lg:pt-40">
         <div
           key={activeSlide.id}
-          className="mt-auto mb-[18vh] flex max-w-[min(100%,42rem)] flex-col items-start gap-5 sm:my-auto"
+          className="hero-carousel__copy mt-auto mb-[18vh] flex max-w-[min(100%,42rem)] flex-col items-start gap-5 sm:my-auto"
         >
           <p className="text-[10px] font-bold tracking-[0.12em] text-white/85 uppercase sm:text-[11px]">
             {activeSlide.eyebrow}
@@ -88,7 +92,7 @@ export function HeroSection() {
 
         <div
           role="group"
-          aria-label="Choose featured slide"
+          aria-label={t('home.slideLabel', 'Choose featured slide')}
           className="sm:hidden"
         >
           <p className="inline-flex items-center gap-1.5 text-[13px] font-medium text-white">
@@ -99,7 +103,7 @@ export function HeroSection() {
             {activeSlide.label}
           </p>
           <div className="mt-2 flex w-full items-center gap-2">
-            {heroSlides.map((slide, index) => {
+            {slides.map((slide, index) => {
               const isActive = index === activeIndex
 
               return (
@@ -139,10 +143,10 @@ export function HeroSection() {
 
         <div
           role="group"
-          aria-label="Choose featured slide"
+          aria-label={t('home.slideLabel', 'Choose featured slide')}
           className="hidden grid-cols-4 gap-x-6 sm:grid"
         >
-          {heroSlides.map((slide, index) => (
+          {slides.map((slide, index) => (
             <button
               key={slide.id}
               type="button"
@@ -155,6 +159,7 @@ export function HeroSection() {
                 className={`mb-2 block truncate text-xs font-medium transition-colors ${index === activeIndex ? 'text-white' : 'text-white/55 group-hover/slide:text-white/90'}`}
               >
                 <span
+                  aria-hidden="true"
                   className={`mr-1 font-semibold ${index === activeIndex ? 'text-primary' : 'text-white/55'}`}
                 >
                   {String(index + 1).padStart(2, '0')}

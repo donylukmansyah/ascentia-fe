@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'motion/react'
 import { cn } from 'cn'
 
 import { Reveal } from '#/components/ui/reveal'
+import { useLanguage } from '#/lib/i18n'
 
 import type { ProductTaxonomy } from '../types/product'
 
@@ -27,8 +28,14 @@ export function BrandFilter({
   title = 'Brands',
   label = 'Filter by brand',
 }: BrandFilterProps) {
+  const { t } = useLanguage()
   const entries = [
-    { id: ALL_BRAND_ID, slug: ALL_BRAND_ID, name: 'All', logo: undefined },
+    {
+      id: ALL_BRAND_ID,
+      slug: ALL_BRAND_ID,
+      name: t('common.all'),
+      logo: undefined,
+    },
     ...brands,
   ]
   const reduceMotion = useReducedMotion() ?? false

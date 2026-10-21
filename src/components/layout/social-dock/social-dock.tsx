@@ -2,6 +2,7 @@ import { Mail, Phone, Plus } from 'lucide-react'
 import { animate } from 'motion/react'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 
+import { useLanguage } from '#/lib/i18n'
 import { cn } from '#/lib/utils'
 
 interface SocialDockItem {
@@ -103,6 +104,7 @@ function prefersReducedMotion() {
 }
 
 export function SocialDock({ className }: { className?: string }) {
+  const { t } = useLanguage()
   const reactId = useId().replace(/:/g, '')
   const menuId = `social-dock-menu-${reactId}`
   const gooId = `social-dock-goo-${reactId}`
@@ -483,7 +485,7 @@ export function SocialDock({ className }: { className?: string }) {
         <div
           id={menuId}
           role="menu"
-          aria-label="Kontak Ascentia"
+          aria-label={t('common.contactAscentia', 'Contact Ascentia')}
           inert={!open}
           className="absolute inset-0"
         >

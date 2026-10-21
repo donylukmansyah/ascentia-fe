@@ -1,5 +1,7 @@
 import { cn } from 'cn'
 
+import { useLanguage } from '#/lib/i18n'
+
 import type { AboutPartner } from '../../constants/partners'
 import { CircleArrow } from '../circle-arrow'
 
@@ -18,13 +20,23 @@ export function AboutPartnerCard({
   className,
   tabIndex,
 }: AboutPartnerCardProps) {
+  const { t } = useLanguage()
+  const description = t(
+    `about.partners.items.${partner.id}`,
+    partner.description,
+  )
+  const detailsLabel = t(
+    'about.partners.showDetails',
+    'Show {name} details',
+  ).replace('{name}', partner.name)
+
   return (
     <button
       type="button"
       onClick={onSelect}
       tabIndex={tabIndex}
       aria-pressed={active}
-      aria-label={`Show ${partner.name} details`}
+      aria-label={detailsLabel}
       className={cn(
         'group relative flex min-h-[320px] w-full cursor-pointer flex-col justify-between overflow-hidden rounded-lg bg-white p-6 text-left text-foreground shadow-lg ring-1 ring-black/5 transition-[color,box-shadow] duration-300 ease-out motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary before:absolute before:inset-0 before:bg-gradient-to-br before:from-[#288AC6] before:to-[#255DA2] before:opacity-0 before:transition-opacity before:duration-300 before:ease-out motion-reduce:before:transition-none sm:p-7 lg:min-h-[360px]',
         active &&
@@ -76,7 +88,7 @@ export function AboutPartnerCard({
             active ? 'text-white/85' : 'text-description-text',
           )}
         >
-          {partner.description}
+          {description}
         </p>
       </div>
       <div className="relative z-10 mt-8 flex justify-end">

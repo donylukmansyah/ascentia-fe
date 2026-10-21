@@ -3,6 +3,7 @@ import type { ComponentProps, RefObject } from 'react'
 import { Dialog } from '@base-ui/react/dialog'
 import { ChevronLeft, ChevronRight, ImageOff, X } from 'lucide-react'
 
+import { useLanguage } from '#/lib/i18n'
 import { cn } from '#/lib/utils'
 
 export interface LightboxImage {
@@ -13,12 +14,17 @@ export interface LightboxImage {
 }
 
 export function ImageWithFallback(props: ComponentProps<'img'>) {
+  const { t } = useLanguage()
   const [failed, setFailed] = useState(false)
   return failed ? (
     <span
       role={props.alt ? 'img' : undefined}
       aria-hidden={props.alt ? undefined : true}
-      aria-label={props.alt ? `${props.alt} unavailable` : undefined}
+      aria-label={
+        props.alt
+          ? `${props.alt} ${t('common.unavailable', 'unavailable')}`
+          : undefined
+      }
       className={cn(
         'flex items-center justify-center text-muted-foreground',
         props.className,
@@ -37,8 +43,8 @@ export function ImageLightbox({
   onSelect,
   onClose,
   returnFocus,
-  title = 'Photo viewer',
-  closeAriaLabel = 'Close photo viewer',
+  title,
+  closeAriaLabel,
 }: {
   images: readonly LightboxImage[]
   selectedId: string | null
@@ -48,7 +54,11 @@ export function ImageLightbox({
   title?: string
   closeAriaLabel?: string
 }) {
+  const { t } = useLanguage()
   const closeRef = useRef<HTMLButtonElement>(null)
+  const resolvedTitle = title ?? t('common.photoViewer', 'Photo viewer')
+  const resolvedCloseLabel =
+    closeAriaLabel ?? t('common.closePhotoViewer', 'Close photo viewer')
   const selected = images.find((image) => image.id === selectedId)
   const index = selected ? images.indexOf(selected) : -1
 
@@ -83,11 +93,11 @@ export function ImageLightbox({
           }}
           className="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center p-4 outline-none transition-[opacity,scale] duration-200 ease-out data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 sm:p-8 motion-reduce:transition-none"
         >
-          <Dialog.Title className="sr-only">{title}</Dialog.Title>
+          <Dialog.Title className="sr-only">{resolvedTitle}</Dialog.Title>
 
           <Dialog.Close
             ref={closeRef}
-            aria-label={closeAriaLabel}
+            aria-label={resolvedCloseLabel}
             className="pointer-events-auto absolute top-6 right-6 z-50 flex size-10 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-white"
           >
             <X className="size-5" aria-hidden="true" />
@@ -106,7 +116,7 @@ export function ImageLightbox({
           {images.length > 1 && (
             <button
               type="button"
-              aria-label="Previous photo"
+              aria-label={t('common.previousPhoto', 'Previous photo')}
               onClick={() => move(-1)}
               className="pointer-events-auto absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 z-50 flex size-10 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-white"
             >
@@ -132,7 +142,7 @@ export function ImageLightbox({
           {images.length > 1 && (
             <button
               type="button"
-              aria-label="Next photo"
+              aria-label={t('common.nextPhoto', 'Next photo')}
               onClick={() => move(1)}
               className="pointer-events-auto absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 z-50 flex size-10 cursor-pointer items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-md transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-white"
             >

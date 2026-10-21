@@ -11,6 +11,7 @@ import { PageHero } from '#/components/ui/page-hero'
 import { Reveal } from '#/components/ui/reveal'
 import { AboutLocationsSection } from '#/features/about/components/locations/locations-section'
 import { aboutLocationsContent } from '#/features/about/constants/locations'
+import { useLanguage } from '#/lib/i18n'
 
 import { ContactPanel } from '../components/contact-panel'
 
@@ -19,12 +20,16 @@ const jakartaDirectionsUrl =
   'https://www.google.com/maps/dir/?api=1&destination=PT+Ascentia+Arsya+Analitika&destination_place_id=ChIJAfPlzjL3aS4RJgkrqoECgtU'
 
 export function ContactPage() {
+  const { t } = useLanguage()
   return (
     <>
       <PageHero
         headingId="contact-hero-heading"
-        title="Contact Us"
-        description="Analytical instruments, trusted materials, and technical support for the work that brings reliable results."
+        title={t('contact.kicker', 'Contact Us')}
+        description={t(
+          'contact.heroDescription',
+          'Instrument selection, method support, and after-sales service for laboratories across Indonesia.',
+        )}
         image="/images/contact-us/contact-us.webp"
         imagePosition="55% 48%"
         contentHref="#contact-content"
@@ -38,8 +43,11 @@ export function ContactPage() {
       <div className="mx-auto w-full max-w-7xl px-5 pb-14 sm:px-8 sm:pb-16 lg:px-12 lg:pb-20">
         <AboutLocationsSection
           contained
-          title="Closer to where the work happens."
-          description="Our Jakarta and Kendari offices serve laboratories and industrial teams across Indonesia."
+          title={t('about.locations.title', 'Support, within reach')}
+          description={t(
+            'about.locations.description',
+            'Facilities in Jakarta and Kendari provide application consulting, fast consumable dispatch, and on-site engineering across Indonesia.',
+          )}
         />
       </div>
       <section
@@ -61,8 +69,8 @@ export function ContactPage() {
               className="flex flex-col gap-5"
             >
               <div>
-                <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
-                  Jakarta · Head Office
+                <p className="text-[10px] font-bold tracking-[0.12em] text-primary-text uppercase sm:text-[11px]">
+                  {t('about.locations.jakartaTitle', 'Jakarta Head Office')}
                 </p>
                 <h2
                   id="jakarta-map-heading"
@@ -80,7 +88,7 @@ export function ContactPage() {
                 rel="noopener noreferrer"
                 className="w-full sm:w-fit lg:w-full"
               >
-                Get directions
+                {t('common.getDirections', 'Get directions')}
               </CtaLink>
             </div>
           </Reveal>
@@ -101,7 +109,7 @@ export function ContactPage() {
               <MarkerPin>
                 <button
                   type="button"
-                  aria-label="Lihat info kantor Jakarta"
+                  aria-label={t('common.officeInfo', 'Office info')}
                   className="flex cursor-pointer items-center justify-center rounded-full text-primary drop-shadow-md transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary motion-reduce:transition-none motion-reduce:hover:scale-100"
                 >
                   <MapPin
@@ -116,7 +124,7 @@ export function ContactPage() {
                     PT Ascentia Arsya Analitika
                   </p>
                   <p className="mt-1 text-xs text-muted-foreground">
-                    Head Office · Jakarta
+                    {t('about.locations.jakartaTitle', 'Jakarta Head Office')}
                   </p>
                 </div>
               </MarkerCard>

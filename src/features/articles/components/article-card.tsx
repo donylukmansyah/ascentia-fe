@@ -1,11 +1,36 @@
+import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { Clock3, Star } from 'lucide-react'
+import { Check, Share2, Star } from 'lucide-react'
 
+import { useLanguage } from '#/lib/i18n'
 import type { Article } from '../types/article'
 
 export function ArticleMetadata({ article }: { article: Article }) {
+  const { t } = useLanguage()
+  const [copied, setCopied] = useState(false)
+
+  const handleShare = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const path = article.categories?.some((c) => c.id === 20)
+      ? `/blogs/${article.slug}`
+      : `/news/${article.slug}`
+    const url =
+      typeof window !== 'undefined'
+        ? `${window.location.origin}${path}`
+        : `https://ascentia.co.id${path}`
+
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // Ignore clipboard error
+    }
+  }
+
   return (
-    <div className="flex items-center justify-between gap-2 text-xs leading-relaxed text-[#7a8395] sm:text-[13px]">
+    <div className="flex items-center justify-between gap-2 text-xs leading-relaxed text-muted-foreground sm:text-[13px]">
       <div className="flex min-w-0 flex-wrap items-center gap-x-1.5 gap-y-1">
         <time dateTime={article.date}>
           {new Date(`${article.date}T00:00:00Z`).toLocaleDateString('en-US', {
@@ -15,18 +40,28 @@ export function ArticleMetadata({ article }: { article: Article }) {
             timeZone: 'UTC',
           })}
         </time>
+        <span>·</span>
+        <span>
+          {article.readMinutes} {t('articles.readingTime', 'min read')}
+        </span>
         <Star
           aria-hidden="true"
           className="size-3 shrink-0 fill-[#f28b3b] text-[#f28b3b]"
         />
       </div>
-      <span className="inline-flex shrink-0 items-center gap-1 text-[11px] font-medium text-muted-foreground sm:text-xs">
-        <Clock3
-          className="size-3 text-muted-foreground/75"
-          aria-hidden="true"
-        />
-        {article.readMinutes} min read
-      </span>
+      <button
+        type="button"
+        onClick={handleShare}
+        aria-label={`Copy link for ${article.title}`}
+        title={copied ? 'Link copied!' : 'Copy link'}
+        className="relative z-10 -my-1 -mr-1 flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-sm text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      >
+        {copied ? (
+          <Check className="size-4 text-emerald-600" aria-hidden="true" />
+        ) : (
+          <Share2 className="size-4" aria-hidden="true" />
+        )}
+      </button>
     </div>
   )
 }
@@ -38,7 +73,16 @@ export function ArticleCard({
   article: Article
   variant?: 'featured' | 'compact' | 'brief' | 'latest'
 }) {
+  const { pick } = useLanguage()
   const horizontal = variant === 'compact' || variant === 'brief'
+  const displayTitle = pick(
+    { id: article.title, en: article.titleEn },
+    article.title,
+  )
+  const displayExcerpt = pick(
+    { id: article.excerpt, en: article.excerptEn },
+    article.excerpt,
+  )
 
   return (
     <article
@@ -64,14 +108,14 @@ export function ArticleCard({
           <h3
             className={`line-clamp-2 text-balance font-bold tracking-[-0.025em] text-[#1b1b36] group-hover:text-[var(--brand-dark)] ${variant === 'featured' ? 'text-2xl leading-tight sm:text-[28px]' : variant === 'latest' ? 'text-lg leading-snug sm:text-xl' : 'text-sm leading-snug'}`}
           >
-            {article.title}
+            {displayTitle}
           </h3>
         </Link>
         {variant !== 'brief' && (
           <p
             className={`text-sm leading-relaxed text-[#526176] ${variant === 'compact' ? 'line-clamp-2' : 'line-clamp-3'}`}
           >
-            {article.excerpt}
+            {displayExcerpt}
           </p>
         )}
         <ArticleMetadata article={article} />

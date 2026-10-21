@@ -10,7 +10,9 @@ export interface Article {
   id: string
   slug: string
   title: string
+  titleEn?: string
   excerpt: string
+  excerptEn?: string
   image: string
   alt: string
   date: string
@@ -25,6 +27,7 @@ export interface Article {
 export interface ArticleDetailData extends Article {
   seo?: SeoMetadata
   content: string
+  contentEn?: string
 }
 
 export interface NewsListingData {

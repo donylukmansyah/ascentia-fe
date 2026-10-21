@@ -65,7 +65,7 @@ function safeUrl(value: unknown): string | undefined {
 function calculateReadMinutes(content: string): number {
   const plain = stripHtmlTags(content)
   const words = plain.split(/\s+/).filter(Boolean).length
-  return Math.max(1, Math.round(words / 200))
+  return Math.max(1, Math.ceil(words / 200))
 }
 
 export function mapArticle(value: unknown): Article {
@@ -88,6 +88,31 @@ function mapArticleWithImageSize(value: unknown, imageSize: string): Article {
   const excerptObj = record(post.excerpt)
   const rawExcerpt = text(excerptObj.rendered)
   const excerpt = stripHtmlTags(rawExcerpt)
+
+  const acf =
+    post.acf && typeof post.acf === 'object' && !Array.isArray(post.acf)
+      ? record(post.acf)
+      : {}
+  const i18n =
+    post.ascentia_i18n &&
+    typeof post.ascentia_i18n === 'object' &&
+    !Array.isArray(post.ascentia_i18n)
+      ? record(post.ascentia_i18n)
+      : {}
+
+  const titleEn =
+    typeof i18n.title_en === 'string' && i18n.title_en.trim()
+      ? i18n.title_en.trim()
+      : typeof acf.title_en === 'string' && acf.title_en.trim()
+        ? acf.title_en.trim()
+        : undefined
+  const rawExcerptEn =
+    typeof i18n.excerpt_en === 'string' && i18n.excerpt_en.trim()
+      ? i18n.excerpt_en
+      : typeof acf.excerpt_en === 'string' && acf.excerpt_en.trim()
+        ? acf.excerpt_en
+        : undefined
+  const excerptEn = rawExcerptEn ? stripHtmlTags(rawExcerptEn) : undefined
 
   const dateRaw = text(post.date)
   const date = dateRaw.slice(0, 10) || new Date().toISOString().slice(0, 10)
@@ -155,7 +180,9 @@ function mapArticleWithImageSize(value: unknown, imageSize: string): Article {
     id,
     slug,
     title,
+    titleEn,
     excerpt,
+    excerptEn,
     image: imageUrl,
     alt: imageAlt,
     date,
@@ -174,9 +201,28 @@ export function mapArticleDetail(value: unknown): ArticleDetailData {
   const rawContent = post.content ? text(record(post.content).rendered) : ''
   const content = sanitizeArticleHtml(rawContent)
 
+  const acf =
+    post.acf && typeof post.acf === 'object' && !Array.isArray(post.acf)
+      ? record(post.acf)
+      : {}
+  const i18n =
+    post.ascentia_i18n &&
+    typeof post.ascentia_i18n === 'object' &&
+    !Array.isArray(post.ascentia_i18n)
+      ? record(post.ascentia_i18n)
+      : {}
+  const rawContentEn =
+    typeof i18n.content_en === 'string' && i18n.content_en.trim()
+      ? i18n.content_en
+      : typeof acf.content_en === 'string' && acf.content_en.trim()
+        ? acf.content_en
+        : undefined
+  const contentEn = rawContentEn ? sanitizeArticleHtml(rawContentEn) : undefined
+
   return {
     ...base,
     content,
+    contentEn,
     seo: mapYoastSeo(post.yoast_head_json),
   }
 }
