@@ -1,0 +1,445 @@
+{
+  "scope": "Read-only source/dependency assessment. No exploit requests, no live form submission, no package updates. Three ordinary HTTPS HEAD requests only.",
+  "head": "e2f1ca48c931660f1b063c7074e30bee67fca151",
+  "lockfile_sha256": "c59a416547b6a402ba1e73c051cd2da86b6ae3de58041ac3eb665eb49b52b365",
+  "node": "24.14.0",
+  "all_dependencies": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 1,
+      "moderate": 7,
+      "high": 4,
+      "critical": 1
+    },
+    "dependencies": 695,
+    "devDependencies": 0,
+    "optionalDependencies": 0,
+    "totalDependencies": 695
+  },
+  "prod_classified_dependencies": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 1,
+      "moderate": 5,
+      "high": 3,
+      "critical": 1
+    },
+    "dependencies": 526,
+    "devDependencies": 0,
+    "optionalDependencies": 0,
+    "totalDependencies": 526
+  },
+  "advisories": [
+    {
+      "package": "braces",
+      "severity": "high",
+      "title": "braces vulnerable to stack-exhaustion denial of service through deeply nested patterns",
+      "cves": ["CVE-2026-93687"],
+      "affected": "<=3.0.3",
+      "patched": "<0.0.0",
+      "url": "https://github.com/advisories/GHSA-vfj7-8cjw-p6xm",
+      "findings": [
+        {
+          "version": "3.0.3",
+          "paths": [".>shadcn>fast-glob>micromatch>braces"]
+        }
+      ]
+    },
+    {
+      "package": "seroval",
+      "severity": "critical",
+      "title": "Seroval: `fromJSON()` Promise thenable assimilation invokes plugin-produced callables (bypass of GHSA-mv8w-475r-vwqw)",
+      "cves": ["CVE-2026-104846"],
+      "affected": ">=0.12.0 <=1.6.0",
+      "patched": ">=1.6.2",
+      "url": "https://github.com/advisories/GHSA-p6vx-979v-rg4c",
+      "findings": [
+        {
+          "version": "1.5.6",
+          "paths": [
+            ".>@tanstack/react-devtools>@tanstack/devtools>solid-js>seroval"
+          ]
+        }
+      ]
+    },
+    {
+      "package": "seroval",
+      "severity": "high",
+      "title": "Seroval: Memory exhaustion via unchecked TypedArray length in JSON deserialization",
+      "cves": ["CVE-2026-104845"],
+      "affected": "<=1.6.2",
+      "patched": ">=1.6.3",
+      "url": "https://github.com/advisories/GHSA-jp82-f5mq-hwhp",
+      "findings": [
+        {
+          "version": "1.5.6",
+          "paths": [
+            ".>@tanstack/react-devtools>@tanstack/devtools>solid-js>seroval"
+          ]
+        }
+      ]
+    },
+    {
+      "package": "vite",
+      "severity": "moderate",
+      "title": "launch-editor: escapeCmdArgs() omits % escaping on Windows",
+      "cves": ["CVE-2026-112943"],
+      "affected": ">=8.3.0 <=8.3.2",
+      "patched": ">=8.3.3",
+      "url": "https://github.com/advisories/GHSA-698v-4r3x-3vcv",
+      "findings": [
+        {
+          "version": "8.3.2",
+          "paths": [".>vite"]
+        }
+      ]
+    },
+    {
+      "package": "launch-editor",
+      "severity": "moderate",
+      "title": "launch-editor: escapeCmdArgs() omits % escaping on Windows",
+      "cves": ["CVE-2026-112943"],
+      "affected": "<=2.14.1",
+      "patched": ">=2.14.2",
+      "url": "https://github.com/advisories/GHSA-698v-4r3x-3vcv",
+      "findings": [
+        {
+          "version": "2.14.1",
+          "paths": [
+            ".>@tanstack/devtools-vite>@tanstack/devtools-bundler-core>launch-editor"
+          ]
+        }
+      ]
+    },
+    {
+      "package": "vite",
+      "severity": "moderate",
+      "title": "launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors",
+      "cves": ["CVE-2026-112944"],
+      "affected": ">=8.3.0 <=8.3.2",
+      "patched": ">=8.3.3",
+      "url": "https://github.com/advisories/GHSA-r825-w8mm-5pxw",
+      "findings": [
+        {
+          "version": "8.3.2",
+          "paths": [".>vite"]
+        }
+      ]
+    },
+    {
+      "package": "launch-editor",
+      "severity": "moderate",
+      "title": "launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors",
+      "cves": ["CVE-2026-112944"],
+      "affected": "<=2.14.1",
+      "patched": ">=2.14.2",
+      "url": "https://github.com/advisories/GHSA-r825-w8mm-5pxw",
+      "findings": [
+        {
+          "version": "2.14.1",
+          "paths": [
+            ".>@tanstack/devtools-vite>@tanstack/devtools-bundler-core>launch-editor"
+          ]
+        }
+      ]
+    },
+    {
+      "package": "vite",
+      "severity": "high",
+      "title": "launch-editor: `fs.existsSync()` existence check can be bypassed on Windows",
+      "cves": ["CVE-2026-112942"],
+      "affected": ">=8.3.0 <=8.3.2",
+      "patched": ">=8.3.3",
+      "url": "https://github.com/advisories/GHSA-587h-7wmj-h5pm",
+      "findings": [
+        {
+          "version": "8.3.2",
+          "paths": [".>vite"]
+        }
+      ]
+    },
+    {
+      "package": "launch-editor",
+      "severity": "high",
+      "title": "launch-editor: `fs.existsSync()` existence check can be bypassed on Windows",
+      "cves": ["CVE-2026-112942"],
+      "affected": "<=2.14.1",
+      "patched": ">=2.14.2",
+      "url": "https://github.com/advisories/GHSA-587h-7wmj-h5pm",
+      "findings": [
+        {
+          "version": "2.14.1",
+          "paths": [
+            ".>@tanstack/devtools-vite>@tanstack/devtools-bundler-core>launch-editor"
+          ]
+        }
+      ]
+    },
+    {
+      "package": "vite",
+      "severity": "low",
+      "title": "Vite: Cross origin script execution through Vite custom middleware",
+      "cves": ["CVE-2026-112945"],
+      "affected": ">=8.3.0 <=8.3.2",
+      "patched": ">=8.3.3",
+      "url": "https://github.com/advisories/GHSA-9jrq-w75r-8gcw",
+      "findings": [
+        {
+          "version": "8.3.2",
+          "paths": [".>vite"]
+        }
+      ]
+    },
+    {
+      "package": "vite",
+      "severity": "moderate",
+      "title": "Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine",
+      "cves": ["CVE-2026-112946"],
+      "affected": ">=8.3.0 <=8.3.2",
+      "patched": ">=8.3.3",
+      "url": "https://github.com/advisories/GHSA-rq7h-c2jc-7f22",
+      "findings": [
+        {
+          "version": "8.3.2",
+          "paths": [".>vite"]
+        }
+      ]
+    },
+    {
+      "package": "vite",
+      "severity": "moderate",
+      "title": "Vite: First 4 bytes of files outside of `server.fs` setting is exposed by `?vite-wasm-instance`",
+      "cves": ["CVE-2026-112947"],
+      "affected": ">=8.3.0 <=8.3.2",
+      "patched": ">=8.3.3",
+      "url": "https://github.com/advisories/GHSA-vfpm-58rq-9qcg",
+      "findings": [
+        {
+          "version": "8.3.2",
+          "paths": [".>vite"]
+        }
+      ]
+    },
+    {
+      "package": "sanitize-html",
+      "severity": "moderate",
+      "title": "ApostropheCMS sanitize-html: unbounded recursion when re-sanitizing the fallback of a discarded iframe (stack overflow, nestingLimit not enforced)",
+      "cves": ["CVE-2026-113650"],
+      "affected": ">=2.18.0 <2.18.1",
+      "patched": ">=2.18.1",
+      "url": "https://github.com/advisories/GHSA-c9rx-x947-fp3h",
+      "findings": [
+        {
+          "version": "2.18.0",
+          "paths": [".>sanitize-html"]
+        }
+      ]
+    }
+  ],
+  "primary_npm_advisories": [
+    {
+      "ghsa_id": "GHSA-p6vx-979v-rg4c",
+      "cve_id": "CVE-2026-104846",
+      "summary": "Seroval: `fromJSON()` Promise thenable assimilation invokes plugin-produced callables (bypass of GHSA-mv8w-475r-vwqw)",
+      "severity": "critical",
+      "published_at": "2026-10-05T23:40:43Z",
+      "updated_at": "2026-10-05T23:40:44Z",
+      "html_url": "https://github.com/advisories/GHSA-p6vx-979v-rg4c",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "seroval"
+          },
+          "vulnerable_version_range": ">= 0.12.0, <= 1.6.0",
+          "first_patched_version": "1.6.2",
+          "vulnerable_functions": []
+        }
+      ]
+    },
+    {
+      "ghsa_id": "GHSA-jp82-f5mq-hwhp",
+      "cve_id": "CVE-2026-104845",
+      "summary": "Seroval: Memory exhaustion via unchecked TypedArray length in JSON deserialization",
+      "severity": "high",
+      "published_at": "2026-10-05T23:40:40Z",
+      "updated_at": "2026-10-05T23:40:41Z",
+      "html_url": "https://github.com/advisories/GHSA-jp82-f5mq-hwhp",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "seroval"
+          },
+          "vulnerable_version_range": "<= 1.6.2",
+          "first_patched_version": "1.6.3",
+          "vulnerable_functions": []
+        }
+      ]
+    },
+    {
+      "ghsa_id": "GHSA-c9rx-x947-fp3h",
+      "cve_id": "CVE-2026-113650",
+      "summary": "ApostropheCMS sanitize-html: unbounded recursion when re-sanitizing the fallback of a discarded iframe (stack overflow, nestingLimit not enforced)",
+      "severity": "medium",
+      "published_at": "2026-10-21T17:05:01Z",
+      "updated_at": "2026-10-21T17:05:02Z",
+      "html_url": "https://github.com/advisories/GHSA-c9rx-x947-fp3h",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "sanitize-html"
+          },
+          "vulnerable_version_range": ">= 2.18.0, < 2.18.1",
+          "first_patched_version": "2.18.1",
+          "vulnerable_functions": []
+        }
+      ]
+    }
+  ],
+  "passive_https_heads": [
+    {
+      "requested_url": "https://ascentia.co.id/",
+      "final_url": "https://ascentia.co.id/",
+      "status": 200,
+      "tls_verification": "passed",
+      "headers": {
+        "Server": "LiteSpeed",
+        "X-Powered-By": "PHP/7.4.33",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+        "Content-Security-Policy": null,
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": null,
+        "Referrer-Policy": null,
+        "X-Robots-Tag": null
+      }
+    },
+    {
+      "requested_url": "https://cms.ascentia.co.id/",
+      "final_url": "https://ascentia.co.id/",
+      "status": 200,
+      "tls_verification": "passed",
+      "headers": {
+        "Server": "LiteSpeed",
+        "X-Powered-By": "PHP/7.4.33",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+        "Content-Security-Policy": null,
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": null,
+        "Referrer-Policy": null,
+        "X-Robots-Tag": null
+      }
+    },
+    {
+      "requested_url": "https://cms.ascentia.co.id/wp-json/",
+      "final_url": "https://cms.ascentia.co.id/wp-json/",
+      "status": 200,
+      "tls_verification": "passed",
+      "headers": {
+        "Server": "LiteSpeed",
+        "X-Powered-By": "PHP/7.4.33",
+        "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+        "Content-Security-Policy": null,
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": null,
+        "Referrer-Policy": null,
+        "X-Robots-Tag": "noindex"
+      }
+    }
+  ],
+  "local_inventory": {
+    "php_cli": "PHP 8.2.29 (cli) (built: Jul  1 2025 20:19:51) (NTS Visual C++ 2019 x64)",
+    "wordpress_version": "7.1.3",
+    "php_lint": [
+      {
+        "file": "ascentia-inquiries/ascentia-inquiries.php",
+        "exit_code": 0
+      },
+      {
+        "file": "ascentia-inquiries/uninstall.php",
+        "exit_code": 0
+      },
+      {
+        "file": "ascentia-inquiries/includes/admin-inquiries.php",
+        "exit_code": 0
+      },
+      {
+        "file": "ascentia-inquiries/includes/admin-settings.php",
+        "exit_code": 0
+      },
+      {
+        "file": "ascentia-inquiries/includes/analytics.php",
+        "exit_code": 0
+      },
+      {
+        "file": "ascentia-inquiries/includes/bootstrap.php",
+        "exit_code": 0
+      },
+      {
+        "file": "ascentia-inquiries/includes/email-template.php",
+        "exit_code": 0
+      },
+      {
+        "file": "ascentia-inquiries/includes/email.php",
+        "exit_code": 0
+      },
+      {
+        "file": "ascentia-inquiries/includes/helpers.php",
+        "exit_code": 0
+      },
+      {
+        "file": "ascentia-inquiries/includes/index.php",
+        "exit_code": 0
+      },
+      {
+        "file": "ascentia-inquiries/includes/post-type.php",
+        "exit_code": 0
+      },
+      {
+        "file": "ascentia-inquiries/includes/rest-analytics.php",
+        "exit_code": 0
+      },
+      {
+        "file": "ascentia-inquiries/includes/rest-contact.php",
+        "exit_code": 0
+      },
+      {
+        "file": "ascentia-inquiries/languages/index.php",
+        "exit_code": 0
+      }
+    ],
+    "save_regression_exit": 1,
+    "live_host_runtime": "not inspected"
+  },
+  "regressions": {
+    "typecheck": "pass",
+    "eslint": "pass",
+    "unit_files": "10/10 pass",
+    "contact_cache_boundary": "pass",
+    "php_plugin_syntax": "14/14 pass; not PHP engine security test",
+    "php_insert_failure_stub": "FAIL: success true with id0",
+    "sanitize_product_html_malformed": "FAIL: RangeError Maximum call stack size exceeded; isolated local process"
+  },
+  "runtime_dependency_qualification": {
+    "seroval": "1.5.6 in solid-js/devtools path; framework path uses 1.6.8. Inspected existing SSR bundle deserializeTypedArray contains ArrayBuffer guard. Public exploitability not established.",
+    "sanitize-html": "2.18.0 used by real CMS product/article/SEO sanitizers, present in production server artifact. Local actual product sanitizer repro fails.",
+    "vite": "8.3.2 development tooling. Do not expose Vite dev server/preview to production.",
+    "braces": "shadcn CLI dependency path. Runtime endpoint reachability unconfirmed."
+  },
+  "local_wp_plugins": {
+    "woocommerce": "6.9.5",
+    "advanced-custom-fields": "6.8.10",
+    "wordpress-seo": "28.6",
+    "wordfence": "9.0.2",
+    "wp-smushit": "3.13.1",
+    "litespeed-cache": "6.5.0.1"
+  },
+  "limitations": [
+    "No hosting filesystem, PHP-FPM/LSAPI package version or vendor backport evidence",
+    "No WAF or authenticated host log review",
+    "No complete third-party WP theme/plugin audit",
+    "No incident/compromise determination",
+    "Installed package declarations do not prove external reachability"
+  ]
+}

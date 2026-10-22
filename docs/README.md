@@ -12,6 +12,9 @@ docs/
 
 Current documents:
 
+- [Security readiness: PHP2Shell, Node, and WordPress](research/2026-10-21-security-readiness.md)
+- [PHP2Shell primary-source verification](research/2026-10-21-php2shell-source-verification.md)
+
 - [Latest release gate and end-to-end results](research/2026-10-21-release-gate-e2e.md)
 - [Production deployment and rollback runbook](deployment/production-release-runbook.md)
 
