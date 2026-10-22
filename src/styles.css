@@ -82,6 +82,7 @@ body {
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-primary-text: #176a9b;
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -176,7 +177,7 @@ body {
 }
 
 header[data-header-state='visible'] ~ main .product-detail-nav {
-  top: calc(5rem + 2px);
+  top: calc(5rem + 4px);
   transition: top 500ms var(--ease-out);
 }
 
@@ -192,7 +193,7 @@ header[data-header-state='hidden-initial'] ~ main .product-detail-nav {
 
 @media (width >= 64rem) {
   header[data-header-state='visible'] ~ main .product-detail-nav {
-    top: calc(6rem + 2px);
+    top: calc(6rem + 4px);
   }
 }
 
@@ -645,6 +646,6 @@ header[data-header-state='hidden-initial'] ~ main .product-detail-nav {
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    @apply font-sans bg-background text-foreground;
   }
 }

@@ -14,7 +14,7 @@ export function createKeyedCache<T>(
 
     let promise = pending.get(key)
     if (!promise) {
-      promise = load(key, signal)
+      promise = load(key)
         .then((data) => {
           if (cached.size >= maxEntries) {
             const oldest = cached.keys().next().value
@@ -38,6 +38,7 @@ export function createKeyedCache<T>(
     return new Promise<T>((resolve, reject) => {
       const abort = () => reject(signal.reason)
       signal.addEventListener('abort', abort, { once: true })
+      if (signal.aborted) abort()
       promise.then(resolve, reject).finally(() => {
         signal.removeEventListener('abort', abort)
       })

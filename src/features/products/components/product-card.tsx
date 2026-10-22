@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowUpRight, Box } from 'lucide-react'
 
+import { useLanguage } from '#/lib/i18n'
 import { cn } from '#/lib/utils'
 import type { ProductCardData } from '../types/product'
 
@@ -10,6 +11,12 @@ export interface ProductCardProps {
 }
 
 export function ProductCard({ product, className }: ProductCardProps) {
+  const { pick, t } = useLanguage()
+  const displayName = pick(
+    { id: product.name, en: product.nameEn },
+    product.name,
+  )
+
   return (
     <article
       className={cn(
@@ -23,7 +30,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
             src={product.image}
             srcSet={product.imageSrcSet}
             sizes="(min-width: 1024px) 260px, (min-width: 640px) 45vw, 50vw"
-            alt={product.imageAlt || product.name}
+            alt={product.imageAlt || displayName}
             width={400}
             height={300}
             loading="lazy"
@@ -50,16 +57,16 @@ export function ProductCard({ product, className }: ProductCardProps) {
             <Link
               to="/products/$slug"
               params={{ slug: product.slug }}
-              title={product.name}
+              title={displayName}
               className="before:absolute before:inset-0 focus-visible:outline-none"
             >
-              {product.name}
+              {displayName}
             </Link>
           </h3>
         </div>
 
         <div className="mt-4 flex items-center gap-1 text-[11px] font-medium tracking-normal text-muted-foreground transition-colors group-hover:text-primary">
-          <span>View Product</span>
+          <span>{t('common.viewDetails', 'View Product')}</span>
           <ArrowUpRight
             className="size-3.5 text-primary transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transition-none"
             aria-hidden="true"

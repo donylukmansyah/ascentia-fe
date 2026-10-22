@@ -4,6 +4,7 @@ import { Button } from '#/components/ui/button'
 import { PagePagination } from '#/components/ui/pagination'
 import { QueryErrorState } from '#/components/ui/query-error-state'
 import { Reveal } from '#/components/ui/reveal'
+import { useLanguage } from '#/lib/i18n'
 
 import { ProductCard } from './product-card'
 import type { ProductCardData } from '../types/product'
@@ -55,7 +56,7 @@ export function ProductGrid({
   totalPages,
   kicker = 'All products',
   title = 'Browse by brand',
-  filterLabel = 'brand',
+  filterLabel,
   page,
   searchQuery,
   pending = false,
@@ -67,6 +68,7 @@ export function ProductGrid({
   pageHref,
   onReset,
 }: ProductGridProps) {
+  const { t } = useLanguage()
   const topRef = useRef<HTMLDivElement>(null)
   const current = Math.min(Math.max(page, 1), Math.max(1, totalPages))
   const goTo = (next: number) => {
@@ -98,16 +100,16 @@ export function ProductGrid({
             className="pt-1 text-xs whitespace-nowrap text-muted-foreground sm:text-sm"
           >
             {pending ? (
-              <span className="sr-only">Loading products…</span>
+              <span className="sr-only">{t('ui.loadingProducts')}</span>
             ) : (
-              `${total} products`
+              `${total} ${t('ui.productCount')}`
             )}
           </p>
         </div>
       </Reveal>
       {pending ? (
         <div role="status">
-          <span className="sr-only">Loading products…</span>
+          <span className="sr-only">{t('ui.loadingProducts')}</span>
           <ul
             aria-hidden="true"
             className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4"
@@ -119,8 +121,8 @@ export function ProductGrid({
         </div>
       ) : error ? (
         <QueryErrorState
-          title="Unable to load products"
-          message="We are having trouble reaching the server. Please try again."
+          title={t('ui.productsError')}
+          message={t('ui.connectionError')}
           onRetry={onRetry}
           isRetrying={fetching}
           className="mt-8"
@@ -130,32 +132,30 @@ export function ProductGrid({
           role="status"
           className="mt-8 rounded-lg border border-border bg-white p-8"
         >
-          <p className="font-semibold">This page is not available</p>
+          <p className="font-semibold">{t('ui.pageUnavailable')}</p>
           <Button
             type="button"
             variant="outline"
             className="mt-4 cursor-pointer"
             onClick={() => onPageChange(1)}
           >
-            Go to page 1
+            {t('ui.firstPage')}
           </Button>
         </div>
       ) : products.length === 0 ? (
         <div className="mt-8 flex flex-col items-center rounded-lg border border-border bg-white px-6 py-16 text-center">
           <p className="text-base font-semibold text-foreground">
-            {invalidCategory
-              ? 'This filter is no longer available'
-              : 'No products found'}
+            {invalidCategory ? t('ui.filterUnavailable') : t('ui.noProducts')}
           </p>
           {searchQuery ? (
             <p className="mt-2 max-w-md text-sm text-muted-foreground">
-              No results found matching &ldquo;
+              {t('ui.noMatchingResults')} &ldquo;
               <span className="font-medium text-foreground">{searchQuery}</span>
               &rdquo;.
             </p>
           ) : (
             <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-              Try a different {filterLabel} or search keyword.
+              {t('ui.tryFilter')} {filterLabel ? `(${filterLabel})` : ''}
             </p>
           )}
           <Button
@@ -164,7 +164,7 @@ export function ProductGrid({
             onClick={onReset}
             className="mt-6 cursor-pointer"
           >
-            Reset filters
+            {t('ui.resetFilters')}
           </Button>
         </div>
       ) : (

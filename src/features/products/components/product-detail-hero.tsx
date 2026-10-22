@@ -29,6 +29,10 @@ export function ProductDetailHero({ product }: ProductDetailHeroProps) {
       {heroImage ? (
         <motion.img
           src={heroImage}
+          srcSet={product.imageSrcSet}
+          sizes="(min-width: 1024px) 51vw, (min-width: 640px) 58vw, 72vw"
+          width={600}
+          height={600}
           alt=""
           aria-hidden="true"
           decoding="async"

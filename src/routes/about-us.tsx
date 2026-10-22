@@ -8,7 +8,7 @@ export const Route = createFileRoute('/about-us')({
     createSeoMeta({
       title: 'About Us | Ascentia Arsya Analitika',
       description:
-        'Innovative analytical technologies and first-rate support for laboratories and industry.',
+        'Analytical instruments and technical support for laboratories and industry.',
       path: '/about-us',
     }),
   component: AboutPage,

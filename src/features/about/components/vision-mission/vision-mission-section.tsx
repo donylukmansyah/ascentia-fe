@@ -1,4 +1,5 @@
 import { Reveal } from '#/components/ui/reveal'
+import { useLanguage } from '#/lib/i18n'
 
 import { aboutVisionMissionContent } from '../../constants/vision-mission'
 import { CircleArrow } from '../circle-arrow'
@@ -13,14 +14,45 @@ interface AboutVisionMissionSectionProps {
 }
 
 export function AboutVisionMissionSection({
-  visionTitle = aboutVisionMissionContent.vision.title,
-  visionDescription = aboutVisionMissionContent.vision.description,
-  missionTitle = aboutVisionMissionContent.mission.title,
-  missionDescription = aboutVisionMissionContent.mission.description,
+  visionTitle,
+  visionDescription,
+  missionTitle,
+  missionDescription,
 }: AboutVisionMissionSectionProps) {
+  const { t } = useLanguage()
+  const resolvedVisionTitle =
+    visionTitle ??
+    t('about.visionMission.visionTitle', aboutVisionMissionContent.vision.title)
+  const resolvedVisionDesc =
+    visionDescription ??
+    t(
+      'about.visionMission.visionDesc',
+      aboutVisionMissionContent.vision.description,
+    )
+  const resolvedVisionDetail = t(
+    'about.visionMission.visionDetail',
+    aboutVisionMissionContent.vision.detail,
+  )
+  const resolvedMissionTitle =
+    missionTitle ??
+    t(
+      'about.visionMission.missionTitle',
+      aboutVisionMissionContent.mission.title,
+    )
+  const resolvedMissionDesc =
+    missionDescription ??
+    t(
+      'about.visionMission.missionDesc',
+      aboutVisionMissionContent.mission.description,
+    )
+  const resolvedMissionDetail = t(
+    'about.visionMission.missionDetail',
+    aboutVisionMissionContent.mission.detail,
+  )
+
   return (
     <section
-      aria-label="Vision and mission"
+      aria-label={t('about.visionMission.sectionLabel', 'Vision and mission')}
       className="bg-muted py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto grid w-full max-w-7xl items-stretch gap-5 px-5 sm:px-8 lg:grid-cols-2 lg:px-12">
@@ -31,8 +63,8 @@ export function AboutVisionMissionSection({
               <MediaCard
                 image={aboutVisionMissionContent.vision.image.src}
                 imageAlt={aboutVisionMissionContent.vision.image.alt}
-                title={visionTitle}
-                description={visionDescription}
+                title={resolvedVisionTitle}
+                description={resolvedVisionDesc}
                 action={<CircleArrow />}
                 className="h-full"
               />
@@ -48,13 +80,13 @@ export function AboutVisionMissionSection({
                 </p>
                 <div className="flex flex-1 flex-col justify-end p-6 sm:p-8">
                   <p className="text-[10px] font-bold tracking-[0.12em] text-white/70 uppercase sm:text-[11px]">
-                    Our vision
+                    {resolvedVisionTitle}
                   </p>
                   <h3 className="mt-2 text-2xl font-medium tracking-[0.25em] text-white uppercase sm:text-3xl">
-                    {visionTitle}
+                    {resolvedVisionTitle}
                   </h3>
                   <p className="mt-4 max-w-md text-sm leading-relaxed font-normal text-white/85 sm:text-base">
-                    {aboutVisionMissionContent.vision.detail}
+                    {resolvedVisionDetail}
                   </p>
                 </div>
               </article>
@@ -68,8 +100,8 @@ export function AboutVisionMissionSection({
               <MediaCard
                 image={aboutVisionMissionContent.mission.image.src}
                 imageAlt={aboutVisionMissionContent.mission.image.alt}
-                title={missionTitle}
-                description={missionDescription}
+                title={resolvedMissionTitle}
+                description={resolvedMissionDesc}
                 action={<CircleArrow />}
                 className="h-full"
               />
@@ -85,13 +117,13 @@ export function AboutVisionMissionSection({
                 </p>
                 <div className="flex flex-1 flex-col justify-end p-6 sm:p-8">
                   <p className="text-[10px] font-bold tracking-[0.12em] text-white/70 uppercase sm:text-[11px]">
-                    Our mission
+                    {resolvedMissionTitle}
                   </p>
                   <h3 className="mt-2 text-2xl font-medium tracking-[0.25em] text-white uppercase sm:text-3xl">
-                    {missionTitle}
+                    {resolvedMissionTitle}
                   </h3>
                   <p className="mt-4 max-w-md text-sm leading-relaxed font-normal text-white/85 sm:text-base">
-                    {aboutVisionMissionContent.mission.detail}
+                    {resolvedMissionDetail}
                   </p>
                 </div>
               </article>

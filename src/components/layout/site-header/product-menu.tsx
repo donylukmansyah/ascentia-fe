@@ -9,6 +9,7 @@ import {
 import { Link } from '@tanstack/react-router'
 
 import { productBrowseItems } from './navigation-data'
+import { useLanguage } from '#/lib/i18n'
 import { cn } from '#/lib/utils'
 
 type ProductMenuProps = {
@@ -17,6 +18,7 @@ type ProductMenuProps = {
 }
 
 export function ProductMenu({ className, onOpenChange }: ProductMenuProps) {
+  const { t } = useLanguage()
   // Non-modal: no scroll lock.
   return (
     <DropdownMenu modal={false} onOpenChange={(open) => onOpenChange?.(open)}>
@@ -25,9 +27,9 @@ export function ProductMenu({ className, onOpenChange }: ProductMenuProps) {
           'group inline-flex cursor-pointer items-center gap-1 py-2 text-[11px] font-medium tracking-[-0.01em] uppercase transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4',
           className,
         )}
-        aria-label="Browse products"
+        aria-label={t('ui.browseProducts')}
       >
-        Products
+        {t('nav.products', 'Products')}
         <ChevronDown
           className="size-3 transition-transform duration-200 group-data-popup-open:rotate-180"
           aria-hidden="true"
@@ -39,7 +41,7 @@ export function ProductMenu({ className, onOpenChange }: ProductMenuProps) {
         className="w-[27rem] rounded-xl border border-border/70 bg-popover p-2.5 shadow-[0_3px_10px_-5px_rgb(0_0_0/0.16)]"
       >
         <p className="px-2 pt-1 pb-2.5 text-[10px] font-semibold tracking-[0.08em] text-muted-foreground uppercase">
-          Browse products by
+          {t('ui.browseProductsBy')}
         </p>
         <ul className="grid grid-cols-2 gap-1">
           {productBrowseItems.map(
@@ -59,10 +61,13 @@ export function ProductMenu({ className, onOpenChange }: ProductMenuProps) {
                   </span>
                   <span className="min-w-0 pt-0.5">
                     <span className="block text-[13px] font-semibold leading-none text-foreground">
-                      {label}
+                      {t(`ui.${label.toLowerCase()}`)}
                     </span>
                     <span className="mt-0.5 block text-[11px] leading-snug text-muted-foreground">
-                      {description}
+                      {t(
+                        `ui.${label === 'Brands' ? 'brandDescription' : label === 'Types' ? 'typeDescription' : 'applicationDescription'}`,
+                        description,
+                      )}
                     </span>
                   </span>
                 </DropdownMenuItem>

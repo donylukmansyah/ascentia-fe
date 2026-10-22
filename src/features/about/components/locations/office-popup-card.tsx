@@ -3,6 +3,7 @@ import type { Variants } from 'motion/react'
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react'
 
 import { CtaLink } from '#/components/ui/cta-link'
+import { useLanguage } from '#/lib/i18n'
 
 import type { OfficeLocation } from '../../constants/locations'
 
@@ -22,6 +23,7 @@ const item: Variants = {
 }
 
 export function OfficePopupCard({ office }: { office: OfficeLocation }) {
+  const { t } = useLanguage()
   const reduceMotion = useReducedMotion() ?? false
 
   return (
@@ -107,7 +109,7 @@ export function OfficePopupCard({ office }: { office: OfficeLocation }) {
                     rel="noopener noreferrer"
                     className="mt-1.5 w-full"
                   >
-                    Open in Google Maps
+                    {t('common.openMaps', 'Open in Google Maps')}
                   </CtaLink>
                 </motion.div>
               </div>

@@ -25,9 +25,9 @@ export const Route = createFileRoute('/news/')({
   },
   head: () =>
     createSeoMeta({
-      title: 'Our News | Ascentia Arsya Analitika',
+      title: 'News & Updates | Ascentia Arsya Analitika',
       description:
-        'Company updates, events, and insights from Ascentia’s work with laboratories and industry.',
+        'Company updates, events, and technical notes from Ascentia.',
       path: '/news',
     }),
   component: NewsPage,

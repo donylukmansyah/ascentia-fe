@@ -18,6 +18,8 @@ function validateContactInput(data: unknown): ContactInput {
     company: parsed.data.company || undefined,
     phone: parsed.data.phone || undefined,
     product: parsed.data.product || undefined,
+    submission_id: parsed.data.submission_id || undefined,
+    _hp_field: parsed.data._hp_field || undefined,
   }
 }
 

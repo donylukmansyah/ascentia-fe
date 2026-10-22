@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { Bookmark, Check, RotateCcw, Share2, Star } from 'lucide-react'
+import { Check, RotateCcw, Share2, Star } from 'lucide-react'
 
 import { Breadcrumb } from '#/components/ui/breadcrumb'
 import { Button } from '#/components/ui/button'
 import { Reveal } from '#/components/ui/reveal'
+import SocialButton from '#/components/ui/social-button'
+import { useLanguage } from '#/lib/i18n'
 
-import { useArticleBookmark } from '../components/article-bookmarks'
 import { ArticleCard } from '../components/article-card'
 import { BlogCard } from '../components/blog-card'
 import type { Article, ArticleDetailData } from '../types/article'
@@ -20,10 +21,18 @@ export function ArticleDetailPage({
   relatedArticles?: Article[]
   backTo?: '/news' | '/blogs'
 }) {
-  const { bookmarked, toggle } = useArticleBookmark(article.id)
+  const { language, pick, t } = useLanguage()
   const [copied, setCopied] = useState(false)
   const isBlogs = backTo === '/blogs'
-  const parentLabel = isBlogs ? 'Blogs' : 'News'
+  const parentLabel = isBlogs ? t('nav.blogs', 'Blogs') : t('nav.news', 'News')
+  const displayTitle = pick(
+    { id: article.title, en: article.titleEn },
+    article.title,
+  )
+  const displayContent = pick(
+    { id: article.content, en: article.contentEn },
+    article.content,
+  )
 
   const handleCopyLink = () => {
     if (typeof window === 'undefined') return
@@ -36,7 +45,7 @@ export function ArticleDetailPage({
   useEffect(() => {
     setShareUrl(window.location.href)
   }, [])
-  const shareTitle = encodeURIComponent(article.title)
+  const shareTitle = encodeURIComponent(displayTitle)
 
   return (
     <article className="min-h-screen bg-background pb-20 pt-28 sm:pt-36 lg:pb-28">
@@ -44,9 +53,9 @@ export function ArticleDetailPage({
         <Reveal variant="up" distance={20} duration={0.5}>
           <Breadcrumb
             items={[
-              { label: 'Home', to: '/' },
+              { label: t('nav.home', 'Home'), to: '/' },
               { label: parentLabel, to: backTo },
-              { label: article.title },
+              { label: displayTitle },
             ]}
             variant="light"
             className="mb-8"
@@ -66,7 +75,7 @@ export function ArticleDetailPage({
           )}
 
           <h1 className="text-balance text-[clamp(2rem,4vw,3.25rem)] font-bold tracking-[-0.03em] text-[#1b1b36] sm:leading-tight">
-            {article.title}
+            {displayTitle}
           </h1>
 
           <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-y border-border py-4">
@@ -92,7 +101,7 @@ export function ArticleDetailPage({
                 <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <time dateTime={article.date}>
                     {new Date(`${article.date}T00:00:00Z`).toLocaleDateString(
-                      'en-US',
+                      language === 'id' ? 'id-ID' : 'en-US',
                       {
                         month: 'short',
                         day: 'numeric',
@@ -101,6 +110,11 @@ export function ArticleDetailPage({
                       },
                     )}
                   </time>
+                  <span>·</span>
+                  <span>
+                    {article.readMinutes}{' '}
+                    {t('articles.readingTime', 'min read')}
+                  </span>
                   <Star
                     aria-hidden="true"
                     className="size-3 shrink-0 fill-[#f28b3b] text-[#f28b3b]"
@@ -109,25 +123,22 @@ export function ArticleDetailPage({
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={toggle}
-                aria-label={
-                  bookmarked ? 'Remove bookmark' : 'Bookmark this article'
-                }
-                className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md border border-border text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
-              >
-                <Bookmark
-                  className={`size-4 ${bookmarked ? 'fill-current text-[#1b1b36]' : ''}`}
-                  aria-hidden="true"
-                />
-              </button>
+            {/* Mobile expanding share pill */}
+            <div className="sm:hidden">
+              <SocialButton shareUrl={shareUrl} shareTitle={shareTitle} />
+            </div>
+
+            {/* Desktop share buttons */}
+            <div className="hidden items-center gap-2 sm:flex">
               <button
                 type="button"
                 onClick={handleCopyLink}
-                title={copied ? 'Copied!' : 'Copy link'}
-                aria-label="Copy article link"
+                title={
+                  copied
+                    ? t('ui.copied', 'Copied!')
+                    : t('ui.copyLink', 'Copy link')
+                }
+                aria-label={t('ui.copyLink', 'Copy link')}
                 className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md border border-border text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
               >
                 {copied ? (
@@ -143,7 +154,7 @@ export function ArticleDetailPage({
                 href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Share on LinkedIn"
+                aria-label={`${t('ui.shareOn', 'Share on')} LinkedIn`}
                 className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md border border-border text-muted-foreground hover:bg-muted hover:text-[#0077b5] focus-visible:outline-2 focus-visible:outline-primary"
               >
                 <LinkedInIcon className="size-4" />
@@ -152,7 +163,7 @@ export function ArticleDetailPage({
                 href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${shareTitle}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Share on X"
+                aria-label={`${t('ui.shareOn', 'Share on')} X`}
                 className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md border border-border text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
               >
                 <TwitterIcon className="size-4" />
@@ -161,7 +172,7 @@ export function ArticleDetailPage({
                 href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Share on Facebook"
+                aria-label={`${t('ui.shareOn', 'Share on')} Facebook`}
                 className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md border border-border text-muted-foreground hover:bg-muted hover:text-[#1877f2] focus-visible:outline-2 focus-visible:outline-primary"
               >
                 <FacebookIcon className="size-4" />
@@ -186,7 +197,7 @@ export function ArticleDetailPage({
         <Reveal variant="up" distance={16} delay={0.12} duration={0.5}>
           <div
             className="article-rich-text mt-10"
-            dangerouslySetInnerHTML={{ __html: article.content }}
+            dangerouslySetInnerHTML={{ __html: displayContent }}
           />
         </Reveal>
 
@@ -195,17 +206,20 @@ export function ArticleDetailPage({
             to={backTo}
             className="inline-flex cursor-pointer items-center gap-2 text-sm font-semibold text-primary hover:underline"
           >
-            ← Back to {parentLabel}
+            ←{' '}
+            {isBlogs
+              ? t('ui.backBlogs', 'Back to Blogs')
+              : t('ui.backNews', 'Back to News')}
           </Link>
           <div className="flex items-center gap-2">
             <span className="text-xs font-medium text-muted-foreground">
-              Share this article:
+              {t('articles.shareArticle', 'Share this article')}:
             </span>
             <button
               type="button"
               onClick={handleCopyLink}
               className="inline-flex size-8 cursor-pointer items-center justify-center rounded-md border border-border text-muted-foreground hover:bg-muted hover:text-foreground"
-              aria-label="Copy link"
+              aria-label={t('ui.copyLink', 'Copy link')}
             >
               {copied ? (
                 <Check className="size-3.5 text-emerald-600" />
@@ -229,17 +243,25 @@ export function ArticleDetailPage({
                   id="related-news-heading"
                   className="text-2xl font-bold tracking-tight text-[#1b1b36] sm:text-3xl"
                 >
-                  Related {isBlogs ? 'Blogs' : 'News'}
+                  {isBlogs
+                    ? t('ui.relatedBlogs', 'Related blogs')
+                    : t('ui.relatedNews', 'Related news')}
                 </h2>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  More updates, stories, and insights from Ascentia
+                  {t(
+                    'ui.relatedArticlesDescription',
+                    'More updates and insights from Ascentia',
+                  )}
                 </p>
               </div>
               <Link
                 to={backTo}
                 className="hidden cursor-pointer text-sm font-semibold text-primary hover:underline sm:inline-block"
               >
-                View all {parentLabel.toLowerCase()} →
+                {isBlogs
+                  ? t('ui.viewAllBlogs', 'View all blogs')
+                  : t('ui.viewAllNews', 'View all news')}{' '}
+                →
               </Link>
             </div>
           </Reveal>
@@ -270,21 +292,24 @@ export function ArticleDetailPage({
 }
 
 export function ArticleNotFoundPage() {
+  const { t } = useLanguage()
   return (
     <section className="mx-auto max-w-3xl px-5 pb-20 pt-36 text-center sm:px-8 sm:pt-44">
       <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
-        Article not found
+        {t('ui.articleNotFound', 'Article not found')}
       </h1>
       <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
-        The article you are looking for may have been moved, renamed, or is
-        temporarily unavailable.
+        {t(
+          'ui.articleMissing',
+          'The article you are looking for may have been moved, renamed, or is temporarily unavailable.',
+        )}
       </p>
       <div className="mt-8 flex justify-center gap-4">
         <Link
           to="/news"
           className="inline-flex cursor-pointer items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary/90"
         >
-          Back to News
+          {t('ui.backNews', 'Back to News')}
         </Link>
       </div>
     </section>
@@ -292,14 +317,17 @@ export function ArticleNotFoundPage() {
 }
 
 export function ArticleDetailError({ onRetry }: { onRetry: () => void }) {
+  const { t } = useLanguage()
   return (
     <section className="mx-auto max-w-3xl px-5 pb-20 pt-36 text-center sm:px-8 sm:pt-44">
       <h1 className="text-2xl font-bold text-destructive sm:text-3xl">
-        Failed to load article
+        {t('ui.articleError', 'Failed to load article')}
       </h1>
       <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
-        We could not connect to the editorial server. Please check your
-        connection and try again.
+        {t(
+          'ui.connectionError',
+          'We are having trouble reaching the server. Please try again.',
+        )}
       </p>
       <div className="mt-8 flex justify-center gap-4">
         <Button
@@ -308,13 +336,13 @@ export function ArticleDetailError({ onRetry }: { onRetry: () => void }) {
           className="inline-flex cursor-pointer items-center gap-2"
         >
           <RotateCcw className="size-4" />
-          Try again
+          {t('common.tryAgain', 'Try again')}
         </Button>
         <Link
           to="/news"
           className="inline-flex cursor-pointer items-center justify-center rounded-md border border-border px-5 py-2.5 text-sm font-semibold hover:bg-muted"
         >
-          Back to News
+          {t('ui.backNews', 'Back to News')}
         </Link>
       </div>
     </section>

@@ -3,6 +3,7 @@ import { motion } from 'motion/react'
 import type { Transition } from 'motion/react'
 
 import { ImageLightbox } from '#/components/ui/image-lightbox'
+import { useLanguage } from '#/lib/i18n'
 import { cn } from '#/lib/utils'
 
 import type { GalleryPhoto } from '../../constants/gallery'
@@ -36,6 +37,7 @@ export function Gallery({
   children: React.ReactNode
   photos?: GalleryPhoto[]
 }) {
+  const { t } = useLanguage()
   const [selected, setSelected] = React.useState<GalleryPhoto | null>(null)
   const returnFocus = React.useRef<HTMLElement | null>(null)
 
@@ -65,8 +67,8 @@ export function Gallery({
         onSelect={(id) => setSelected(photos.find((p) => p.id === id) ?? null)}
         onClose={() => setSelected(null)}
         returnFocus={returnFocus}
-        title="Gallery viewer"
-        closeAriaLabel="Close gallery"
+        title={t('about.gallery.viewerLabel', 'Gallery viewer')}
+        closeAriaLabel={t('about.gallery.closeLabel', 'Close gallery')}
       />
     </GalleryContext.Provider>
   )

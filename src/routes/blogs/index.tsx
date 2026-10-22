@@ -31,10 +31,10 @@ export const Route = createFileRoute('/blogs/')({
   },
   head: ({ loaderData }) =>
     createSeoMeta({
-      title: `Our Blogs | Ascentia Arsya Analitika${loaderData && loaderData.page > 1 ? ` | Page ${loaderData.page}` : ''}`,
+      title: `Blogs | Ascentia Arsya Analitika${loaderData && loaderData.page > 1 ? ` | Page ${loaderData.page}` : ''}`,
       robots: loaderData?.unavailable ? 'noindex, follow' : undefined,
       description:
-        'Practical guides and insights on analytical instruments, sample preparation, and laboratory workflows.',
+        'Practical guides, method comparisons, and notes from laboratory work.',
       path: `/blogs${loaderData && loaderData.page > 1 ? `?page=${loaderData.page}` : ''}`,
     }),
   component: BlogsPage,

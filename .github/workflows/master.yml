@@ -1,0 +1,49 @@
+name: Deploy Production to cPanel
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - feat/products
+  workflow_dispatch:
+
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build production
+        run: pnpm build
+
+      - name: Prepare production package
+        run: |
+          mkdir -p deploy
+          cp -r .output deploy/
+          cp app.js package.json deploy/
+
+      - name: Upload to Production via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./deploy/
+          server-dir: ./
+          dangerous-clean-slate: false

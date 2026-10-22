@@ -9,12 +9,16 @@ import {
   DialogTitle,
 } from '#/components/ui/dialog'
 import { CtaButton } from '#/components/ui/cta-link'
+import { EnquirySubmitButton } from '#/components/ui/enquiry-submit-button'
 import { sendContactEnquiry } from '#/features/contact/api/contact-api'
+import { HoneypotField } from '#/features/contact/components/honeypot-field'
 import {
   quoteFormSchema,
   sanitizePhoneInput,
 } from '#/features/contact/forms/contact-schema'
 import type { QuoteFormData } from '#/features/contact/forms/contact-schema'
+import { useIdempotentSubmission } from '#/features/contact/hooks/use-idempotent-submission'
+import { useLanguage } from '#/lib/i18n'
 import { cn } from '#/lib/utils'
 
 import type { ProductDetailData } from '../types/product'
@@ -30,16 +34,25 @@ export function ProductQuoteDialog({
   open,
   onOpenChange,
 }: ProductQuoteDialogProps) {
+  const { pick, t } = useLanguage()
+  const displayName = pick(
+    { id: product.name, en: product.nameEn },
+    product.name,
+  )
+
   const nameInputRef = useRef<HTMLInputElement>(null)
   const emailInputRef = useRef<HTMLInputElement>(null)
   const phoneInputRef = useRef<HTMLInputElement>(null)
   const messageInputRef = useRef<HTMLTextAreaElement>(null)
+  const submittingRef = useRef(false)
+  const { keyFor, reset } = useIdempotentSubmission()
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [company, setCompany] = useState('')
   const [phone, setPhone] = useState('')
   const [message, setMessage] = useState('')
+  const [honeypot, setHoneypot] = useState('')
   const [errors, setErrors] = useState<
     Partial<Record<keyof QuoteFormData, string>>
   >({})
@@ -111,12 +124,25 @@ export function ProductQuoteDialog({
       return
     }
 
-    setErrors({})
-    setIsSubmitting(true)
+    if (submittingRef.current) return
 
     const finalMessage =
       result.data.message?.trim() ||
-      `Official quotation request (RFQ) and technical specifications for ${product.name} (${product.brand}).`
+      `Official quotation request and technical specifications for ${product.name} (${product.brand}).`
+    const productLabel = `${product.name} (${product.brand})`
+    const submissionId = keyFor({
+      name: result.data.name,
+      email: result.data.email,
+      company: result.data.company,
+      phone: result.data.phone,
+      product: productLabel,
+      message: finalMessage,
+      type: 'quote',
+    })
+
+    setErrors({})
+    submittingRef.current = true
+    setIsSubmitting(true)
 
     try {
       await sendContactEnquiry({
@@ -125,19 +151,23 @@ export function ProductQuoteDialog({
           email: result.data.email,
           company: result.data.company,
           phone: result.data.phone,
-          product: `${product.name} (${product.brand})`,
+          product: productLabel,
           message: finalMessage,
           type: 'quote',
+          submission_id: submissionId,
+          _hp_field: honeypot || undefined,
         },
       })
+      reset()
       setIsSuccess(true)
     } catch (error) {
       const errText =
         error instanceof Error
           ? error.message
-          : 'Failed to submit quote request.'
+          : t('quote.error', 'Failed to submit quote request.')
       setErrorMessage(errText)
     } finally {
+      submittingRef.current = false
       setIsSubmitting(false)
     }
   }
@@ -153,24 +183,27 @@ export function ProductQuoteDialog({
       setCompany('')
       setPhone('')
       setMessage('')
+      setHoneypot('')
     }
   }
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent initialFocus={nameInputRef} className="max-w-lg p-0">
-        <div className="flex items-start justify-between border-b border-border/70 px-6 py-5">
+        <div className="flex items-start justify-between border-b border-border/70 px-6 py-4">
           <div className="pr-4">
-            <DialogTitle className="text-lg font-bold tracking-tight text-foreground">
-              Request a Quote
+            <DialogTitle className="text-base font-bold tracking-tight text-foreground sm:text-lg">
+              {t('quote.title', 'Request a Quote')}
             </DialogTitle>
             <DialogDescription className="mt-1 text-xs text-muted-foreground">
-              Our sales engineering team will prepare official pricing and
-              technical specifications for this unit.
+              {t(
+                'quote.subtitle',
+                'Our sales engineering team will prepare official pricing and technical specifications for this unit.',
+              )}
             </DialogDescription>
           </div>
           <DialogClose
-            aria-label="Close quote request"
+            aria-label={t('quote.closeAria', 'Close quote request')}
             className="grid size-8 shrink-0 cursor-pointer place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary"
           >
             <X className="size-4" aria-hidden="true" />
@@ -182,7 +215,7 @@ export function ProductQuoteDialog({
             {product.image ? (
               <img
                 src={product.image}
-                alt={product.name}
+                alt={displayName}
                 className="size-12 shrink-0 rounded-lg border border-border/60 bg-white object-contain p-1"
               />
             ) : null}
@@ -191,7 +224,7 @@ export function ProductQuoteDialog({
                 {product.brand}
               </span>
               <p className="truncate text-xs font-semibold text-foreground">
-                {product.name}
+                {displayName}
               </p>
             </div>
           </div>
@@ -199,35 +232,39 @@ export function ProductQuoteDialog({
           {isSuccess ? (
             <div
               role="status"
-              className="my-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5 text-center"
+              className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-center"
             >
               <CheckCircle2
-                className="mx-auto size-10 text-emerald-600 dark:text-emerald-400"
+                className="mx-auto mb-2 size-7 text-emerald-600"
                 aria-hidden="true"
               />
-              <h3 className="mt-3 text-base font-bold text-emerald-950 dark:text-emerald-200">
-                Request Submitted Successfully
+              <h3 className="text-sm font-bold text-foreground">
+                {t('quote.successTitle', 'Quote Request Sent')}
               </h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-emerald-800 dark:text-emerald-300">
-                Thank you, <strong>{name}</strong>! Ascentia's sales engineering
-                team will prepare an official quotation for{' '}
-                <strong>{product.name}</strong> and reach out to{' '}
-                <strong>{email}</strong> shortly.
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                {t(
+                  'quote.successMessage',
+                  'Thank you for your request. Our team will get back to you shortly.',
+                )}
               </p>
-              <button
-                type="button"
-                onClick={handleClose}
-                className="mt-5 inline-flex min-h-10 cursor-pointer items-center justify-center rounded-full bg-emerald-600 px-6 text-xs font-semibold text-white transition-colors hover:bg-emerald-700"
-              >
-                Done
-              </button>
+              <div className="mt-4 flex justify-center">
+                <CtaButton size="compact" onClick={handleClose}>
+                  {t('common.done', 'Done')}
+                </CtaButton>
+              </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} noValidate className="grid gap-3.5">
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+              className="relative grid gap-3.5"
+            >
+              <HoneypotField value={honeypot} onChange={setHoneypot} />
               <div className="grid gap-3.5 sm:grid-cols-2">
                 <label className="grid gap-1.5 text-xs font-semibold text-foreground">
                   <span>
-                    Full name <span className="text-destructive">*</span>
+                    {t('quote.name', 'Full Name')}{' '}
+                    <span className="text-destructive">*</span>
                   </span>
                   <input
                     ref={nameInputRef}
@@ -240,7 +277,7 @@ export function ProductQuoteDialog({
                       setName(e.target.value)
                       if (isSubmitted) validateField('name', e.target.value)
                     }}
-                    placeholder="e.g. John Doe"
+                    placeholder={t('quote.namePlaceholder', 'e.g. John Doe')}
                     className={cn(
                       'h-10 rounded-md border bg-background px-3 text-xs font-normal text-foreground outline-none transition-colors placeholder:text-muted-foreground',
                       errors.name
@@ -260,7 +297,8 @@ export function ProductQuoteDialog({
                 </label>
                 <label className="grid gap-1.5 text-xs font-semibold text-foreground">
                   <span>
-                    Work email <span className="text-destructive">*</span>
+                    {t('quote.email', 'Email Address')}{' '}
+                    <span className="text-destructive">*</span>
                   </span>
                   <input
                     ref={emailInputRef}
@@ -273,7 +311,10 @@ export function ProductQuoteDialog({
                       setEmail(e.target.value)
                       if (isSubmitted) validateField('email', e.target.value)
                     }}
-                    placeholder="name@company.com"
+                    placeholder={t(
+                      'quote.emailPlaceholder',
+                      'name@company.com',
+                    )}
                     className={cn(
                       'h-10 rounded-md border bg-background px-3 text-xs font-normal text-foreground outline-none transition-colors placeholder:text-muted-foreground',
                       errors.email
@@ -296,9 +337,9 @@ export function ProductQuoteDialog({
               <div className="grid gap-3.5 sm:grid-cols-2">
                 <label className="grid gap-1.5 text-xs font-semibold text-foreground">
                   <span>
-                    Company / Institution{' '}
+                    {t('quote.company', 'Company / Organization')}{' '}
                     <span className="text-[11px] font-normal text-muted-foreground">
-                      (optional)
+                      ({t('quote.optional', 'optional')})
                     </span>
                   </span>
                   <input
@@ -311,7 +352,10 @@ export function ProductQuoteDialog({
                       setCompany(e.target.value)
                       if (isSubmitted) validateField('company', e.target.value)
                     }}
-                    placeholder="Company, university, or lab name"
+                    placeholder={t(
+                      'quote.companyPlaceholder',
+                      'Company, university, or lab name',
+                    )}
                     className={cn(
                       'h-10 rounded-md border bg-background px-3 text-xs font-normal text-foreground outline-none transition-colors placeholder:text-muted-foreground',
                       errors.company
@@ -331,9 +375,9 @@ export function ProductQuoteDialog({
                 </label>
                 <label className="grid gap-1.5 text-xs font-semibold text-foreground">
                   <span>
-                    Phone / WhatsApp{' '}
+                    {t('quote.phone', 'Phone / WhatsApp Number')}{' '}
                     <span className="text-[11px] font-normal text-muted-foreground">
-                      (optional)
+                      ({t('quote.optional', 'optional')})
                     </span>
                   </span>
                   <input
@@ -348,7 +392,10 @@ export function ProductQuoteDialog({
                       setPhone(sanitized)
                       if (isSubmitted) validateField('phone', sanitized)
                     }}
-                    placeholder="+62 812-xxxx-xxxx"
+                    placeholder={t(
+                      'quote.phonePlaceholder',
+                      '+62 812-xxxx-xxxx',
+                    )}
                     className={cn(
                       'h-10 rounded-md border bg-background px-3 text-xs font-normal text-foreground outline-none transition-colors placeholder:text-muted-foreground',
                       errors.phone
@@ -370,9 +417,9 @@ export function ProductQuoteDialog({
 
               <label className="grid gap-1.5 text-xs font-semibold text-foreground">
                 <span>
-                  Notes / Specifications{' '}
+                  {t('quote.notesLabel', 'Notes / Specifications')}{' '}
                   <span className="text-[11px] font-normal text-muted-foreground">
-                    (optional)
+                    ({t('quote.optional', 'optional')})
                   </span>
                 </span>
                 <textarea
@@ -385,7 +432,10 @@ export function ProductQuoteDialog({
                     setMessage(e.target.value)
                     if (isSubmitted) validateField('message', e.target.value)
                   }}
-                  placeholder="e.g. 2 units required, delivery to site, specific configuration..."
+                  placeholder={t(
+                    'quote.notesPlaceholder',
+                    'e.g. 2 units required, delivery to site, specific configuration...',
+                  )}
                   className={cn(
                     'min-h-20 resize-y rounded-md border bg-background p-3 text-xs leading-relaxed font-normal text-foreground outline-none transition-colors placeholder:text-muted-foreground',
                     errors.message
@@ -413,18 +463,21 @@ export function ProductQuoteDialog({
                 </div>
               )}
 
-              <div className="mt-2 flex items-center justify-end gap-3 pt-2">
+              <div className="mt-2 flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:items-center sm:justify-end sm:gap-3">
                 <button
                   type="button"
                   onClick={handleClose}
                   disabled={isSubmitting}
-                  className="min-h-10 cursor-pointer rounded-full px-4 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  className="min-h-10 cursor-pointer rounded-full px-4 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-50"
                 >
-                  Cancel
+                  {t('common.close', 'Cancel')}
                 </button>
-                <CtaButton type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? 'Sending...' : 'Submit Request'}
-                </CtaButton>
+                <EnquirySubmitButton
+                  label={t('quote.submit', 'Submit Request')}
+                  submittingLabel={t('quote.sending', 'Sending...')}
+                  isSubmitting={isSubmitting}
+                  className="w-full sm:w-auto sm:min-w-44"
+                />
               </div>
             </form>
           )}

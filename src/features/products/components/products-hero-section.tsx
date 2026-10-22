@@ -4,6 +4,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { cn } from 'cn'
 
 import { Breadcrumb } from '#/components/ui/breadcrumb'
+import { useLanguage } from '#/lib/i18n'
 
 import { brandsHeroContent } from '../constants/brands-hero'
 
@@ -26,6 +27,7 @@ export function ProductsHeroSection({
   imagePositionClassName,
   parallaxRange = 80,
 }: ProductsHeroSectionProps = {}) {
+  const { t } = useLanguage()
   const sectionRef = useRef<HTMLElement>(null)
   const reduceMotion = useReducedMotion() ?? false
   const { scrollYProgress } = useScroll({
@@ -71,7 +73,7 @@ export function ProductsHeroSection({
         <div className="hero-carousel__copy flex max-w-[min(100%,42rem)] flex-col items-start gap-5 text-left">
           <Breadcrumb
             items={[
-              { label: brandsHeroContent.breadcrumbParent, to: '/' },
+              { label: t('nav.home'), to: '/' },
               { label: breadcrumbCurrent },
             ]}
           />

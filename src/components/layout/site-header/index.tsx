@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { Command, Menu, Search, X } from 'lucide-react'
-import { Link, useRouterState } from '@tanstack/react-router'
+import { Link, useHydrated, useRouterState } from '@tanstack/react-router'
 
 import { useStickyHeader } from '#/hooks/use-sticky-header'
+import { useLanguage } from '#/lib/i18n'
 import { cn } from '#/lib/utils'
 
 import { LanguagePicker } from './language-picker'
-import type { LanguageCode } from './language-picker'
 import { MobileNavigation } from './mobile-navigation'
 import { navigationItems } from './navigation-data'
 import { ProductMenu } from './product-menu'
@@ -20,8 +20,10 @@ export function SiteHeader({
   searchOpen?: boolean
   searchShortcut?: string
 }) {
+  const hydrated = useHydrated()
   const pathname = useRouterState({
-    select: (state) => state.location.pathname,
+    select: (state) =>
+      state.matches.at(-1)?.pathname.replace(/\/+$/, '') || '/',
   })
   // Root-only match means no page matched.
   const isRouteNotFound = useRouterState({
@@ -34,7 +36,7 @@ export function SiteHeader({
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isProductsMenuOpen, setIsProductsMenuOpen] = useState(false)
   const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false)
-  const [language, setLanguage] = useState<LanguageCode>('en')
+  const { language, setLanguage, t } = useLanguage()
   // Pin header while dropdown open.
   const mode = useStickyHeader({
     paused: isDesktopDropdownOpen || searchOpen,
@@ -93,9 +95,11 @@ export function SiteHeader({
     <header
       data-header-state={isMenuOpen ? 'visible' : mode}
       className={cn(
-        'top-0 inset-x-0 z-50 border-t-[3px] border-primary transform-gpu transition-[background-color,box-shadow,color,translate] motion-reduce:transition-none',
+        'top-0 inset-x-0 z-50 border-t-[3px] border-t-primary transform-gpu transition-[border-color,box-shadow,translate] motion-reduce:transition-none',
         mode === 'transparent' && !isMenuOpen ? 'absolute' : 'fixed',
-        isHeaderSolid ? 'bg-background' : 'bg-transparent',
+        isHeaderSolid
+          ? 'bg-background border-b border-b-border/80'
+          : 'bg-transparent border-b border-b-transparent',
         isDarkContent ? 'text-foreground' : 'text-white',
         isHidden && !isMenuOpen
           ? cn(
@@ -109,7 +113,7 @@ export function SiteHeader({
         <Link
           to="/"
           activeOptions={{ exact: true }}
-          aria-label="Ascentia home"
+          aria-label="Ascentia Arsya Analitika"
           className="shrink-0"
         >
           <img
@@ -126,7 +130,10 @@ export function SiteHeader({
           />
         </Link>
 
-        <nav aria-label="Primary navigation" className="hidden lg:block">
+        <nav
+          aria-label={t('common.primaryNav', 'Primary navigation')}
+          className="hidden lg:block"
+        >
           <ul className="flex items-center gap-6 xl:gap-7">
             {navigationItems.map((item) => {
               const isActive = pathname === item.href
@@ -146,6 +153,15 @@ export function SiteHeader({
                 )
               }
 
+              const navLabels: Record<string, string> = {
+                '/': t('nav.home', 'Home'),
+                '/about-us': t('nav.about', 'About Us'),
+                '/news': t('nav.news', 'News'),
+                '/blogs': t('nav.blogs', 'Blogs'),
+                '/contact-us': t('nav.contact', 'Contact Us'),
+              }
+              const navLabel = navLabels[item.href] || item.label
+
               return (
                 <li key={item.href}>
                   <Link
@@ -164,7 +180,7 @@ export function SiteHeader({
                         : 'after:scale-x-0',
                     )}
                   >
-                    {item.label}
+                    {navLabel}
                   </Link>
                 </li>
               )
@@ -191,16 +207,18 @@ export function SiteHeader({
           <span aria-hidden="true" className="h-5 w-px bg-current opacity-25" />
           <button
             type="button"
-            aria-label="Search Ascentia"
+            aria-label={t('ui.searchTitle', 'Search Ascentia')}
             aria-haspopup="dialog"
             aria-expanded={searchOpen}
             aria-keyshortcuts={
               searchShortcut.startsWith('⌘') ? 'Meta+k' : 'Control+k'
             }
+            disabled={!hydrated}
+            aria-busy={!hydrated}
             data-site-search-trigger
             onClick={openSearch}
             className={cn(
-              'inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 xl:border xl:px-2.5',
+              'inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-md transition-colors disabled:cursor-wait disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 xl:border xl:px-2.5',
               isDarkContent
                 ? 'border-border/80 hover:bg-muted hover:text-foreground'
                 : 'border-white/30 hover:bg-white/10 hover:text-white',
@@ -208,9 +226,10 @@ export function SiteHeader({
           >
             <Search className="size-3.5" aria-hidden="true" />
             <span className="hidden text-[11px] font-medium tracking-normal xl:inline">
-              Search
+              {t('common.search', 'Search')}
             </span>
             <kbd
+              aria-hidden="true"
               className={cn(
                 'ml-1 hidden items-center gap-0.5 rounded px-1.5 py-0.5 text-[9px] font-medium leading-none xl:inline-flex',
                 isDarkContent
@@ -227,13 +246,15 @@ export function SiteHeader({
         <div className="relative z-10 flex items-center gap-1 lg:hidden">
           <button
             type="button"
-            aria-label="Search Ascentia"
+            aria-label={t('ui.searchTitle', 'Search Ascentia')}
             aria-haspopup="dialog"
             aria-expanded={searchOpen}
+            disabled={!hydrated}
+            aria-busy={!hydrated}
             data-site-search-trigger
             onClick={openSearch}
             className={cn(
-              'inline-flex size-11 cursor-pointer items-center justify-center transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4',
+              'inline-flex size-11 cursor-pointer items-center justify-center transition-colors disabled:cursor-wait disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4',
               isDarkContent
                 ? 'text-foreground hover:text-primary'
                 : 'text-white hover:text-white/70',

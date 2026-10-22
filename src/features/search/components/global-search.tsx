@@ -1,13 +1,8 @@
-import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-
 import { isMacPlatform, isSearchShortcut } from '../search-shortcut'
 
-const SearchDialog = lazy(() =>
-  import('./search-dialog').then((module) => ({
-    default: module.SearchDialog,
-  })),
-)
+import { SearchDialog } from './search-dialog'
 
 interface SearchControls {
   open: boolean
@@ -57,13 +52,11 @@ export function GlobalSearch({
     <>
       {children({ open, shortcut: '⌘ K', onOpen })}
       {requested && (
-        <Suspense fallback={null}>
-          <SearchDialog
-            open={open}
-            onOpenChange={setOpen}
-            returnFocus={returnFocus}
-          />
-        </Suspense>
+        <SearchDialog
+          open={open}
+          onOpenChange={setOpen}
+          returnFocus={returnFocus}
+        />
       )}
     </>
   )

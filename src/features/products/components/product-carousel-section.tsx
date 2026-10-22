@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { Button } from '#/components/ui/button'
 import { CtaLink } from '#/components/ui/cta-link'
 import { Reveal } from '#/components/ui/reveal'
+import { useLanguage } from '#/lib/i18n'
 import type { ProductCardData } from '#/features/products/types/product'
 
 import { ProductCard } from './product-card'
@@ -24,15 +25,16 @@ interface ProductCarouselSectionProps {
 
 export function ProductCarouselSection({
   kicker,
-  title = 'Explore our recommendations',
+  title,
   description,
   products,
   pending = false,
   error = false,
   retry,
   ctaTo,
-  ctaLabel = 'View all products',
+  ctaLabel,
 }: ProductCarouselSectionProps) {
+  const { t } = useLanguage()
   const headingId = useId()
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [canScrollPrev, setCanScrollPrev] = useState(false)
@@ -91,60 +93,67 @@ export function ProductCarouselSection({
       className="overflow-x-clip bg-background py-12 sm:py-16 lg:py-20"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            {kicker && (
-              <p className="mb-2 text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
-                {kicker}
-              </p>
-            )}
-            <h2
-              id={headingId}
-              className="text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.04em] text-foreground"
-            >
-              {title}
-            </h2>
-            {description && (
-              <p className="mt-4 max-w-2xl text-sm leading-relaxed font-normal text-description-text sm:text-base">
-                {description}
-              </p>
-            )}
-          </div>
-
-          {!pending &&
-            !error &&
-            products.length > 0 &&
-            (canScrollPrev || canScrollNext) && (
-              <div
-                className="flex items-center gap-3 shrink-0"
-                role="group"
-                aria-label="Product carousel controls"
+        <Reveal
+          variant="up"
+          distance={28}
+          duration={0.5}
+          margin="0px 0px -60px 0px"
+        >
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              {kicker && (
+                <p className="mb-2 text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
+                  {kicker}
+                </p>
+              )}
+              <h2
+                id={headingId}
+                className="text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.04em] text-foreground"
               >
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="icon"
-                  aria-label="Previous products"
-                  disabled={!canScrollPrev}
-                  onClick={() => scrollByCard('prev')}
-                  className="size-11 cursor-pointer rounded-full border border-border bg-white text-[var(--brand-dark)] transition-all hover:border-primary hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
+                {title ?? t('ui.recommendations')}
+              </h2>
+              {description && (
+                <p className="mt-4 max-w-2xl text-sm leading-relaxed font-normal text-description-text sm:text-base">
+                  {description}
+                </p>
+              )}
+            </div>
+
+            {!pending &&
+              !error &&
+              products.length > 0 &&
+              (canScrollPrev || canScrollNext) && (
+                <div
+                  className="flex items-center gap-3 shrink-0"
+                  role="group"
+                  aria-label={t('ui.productControls')}
                 >
-                  <ArrowLeft className="size-5" aria-hidden="true" />
-                </Button>
-                <Button
-                  type="button"
-                  variant="default"
-                  size="icon"
-                  aria-label="Next products"
-                  disabled={!canScrollNext}
-                  onClick={() => scrollByCard('next')}
-                  className="size-11 cursor-pointer rounded-full border border-primary bg-primary text-white shadow-xs transition-all hover:border-[var(--brand-dark)] hover:bg-[var(--brand-dark)] disabled:cursor-not-allowed disabled:opacity-35"
-                >
-                  <ArrowRight className="size-5" aria-hidden="true" />
-                </Button>
-              </div>
-            )}
-        </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    aria-label={t('ui.previousProducts')}
+                    disabled={!canScrollPrev}
+                    onClick={() => scrollByCard('prev')}
+                    className="size-11 cursor-pointer rounded-full border border-border bg-white text-[var(--brand-dark)] transition-all hover:border-primary hover:bg-primary hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
+                  >
+                    <ArrowLeft className="size-5" aria-hidden="true" />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="default"
+                    size="icon"
+                    aria-label={t('ui.nextProducts')}
+                    disabled={!canScrollNext}
+                    onClick={() => scrollByCard('next')}
+                    className="size-11 cursor-pointer rounded-full border border-primary bg-primary text-white shadow-xs transition-all hover:border-[var(--brand-dark)] hover:bg-[var(--brand-dark)] disabled:cursor-not-allowed disabled:opacity-35"
+                  >
+                    <ArrowRight className="size-5" aria-hidden="true" />
+                  </Button>
+                </div>
+              )}
+          </div>
+        </Reveal>
 
         {pending ? (
           <div
@@ -152,7 +161,7 @@ export function ProductCarouselSection({
             role="status"
             className="mt-10 flex gap-4 overflow-hidden pt-2 pb-4"
           >
-            <span className="sr-only">Loading products…</span>
+            <span className="sr-only">{t('ui.loadingProducts')}</span>
             {[0, 1, 2].map((index) => (
               <div
                 key={index}
@@ -164,7 +173,7 @@ export function ProductCarouselSection({
         ) : error ? (
           <div role="alert" className="mt-10 flex items-center gap-3">
             <p className="text-sm text-description-text">
-              Unable to load products.
+              {t('ui.productsError')}
             </p>
             {retry && (
               <Button
@@ -173,41 +182,50 @@ export function ProductCarouselSection({
                 onClick={retry}
                 className="cursor-pointer"
               >
-                Try again
+                {t('common.tryAgain')}
               </Button>
             )}
           </div>
         ) : (
-          <div
-            ref={scrollContainerRef}
-            onScroll={checkScroll}
-            onLoadCapture={checkScroll}
-            role="region"
-            aria-roledescription="carousel"
-            aria-label="Featured products catalog"
-            className="mt-10 flex gap-4 overflow-hidden pt-2 pb-4 scroll-smooth motion-reduce:scroll-auto snap-x snap-mandatory [touch-action:pan-y]"
+          <Reveal
+            variant="up"
+            distance={32}
+            delay={0.12}
+            duration={0.55}
+            margin="0px 0px -60px 0px"
           >
-            {products.map((product, index) => (
-              <Reveal
-                key={product.id}
-                variant="up"
-                distance={24}
-                duration={0.45}
-                margin="0px 0px -40px 0px"
-                delay={(index % 4) * 0.08}
-                className="min-w-0 shrink-0 snap-start basis-[88%] sm:basis-[calc(50%-12px)] lg:basis-[calc((100%-104px)/3)]"
-              >
-                <ProductCard product={product} className="h-full" />
-              </Reveal>
-            ))}
-          </div>
+            <div
+              ref={scrollContainerRef}
+              onScroll={checkScroll}
+              onLoadCapture={checkScroll}
+              role="region"
+              aria-roledescription="carousel"
+              aria-label={t('home.featured.title')}
+              className="mt-10 flex gap-4 overflow-hidden pt-2 pb-4 scroll-smooth motion-reduce:scroll-auto snap-x snap-mandatory [touch-action:pan-y]"
+            >
+              {products.map((product) => (
+                <div
+                  key={product.id}
+                  className="min-w-0 shrink-0 snap-start basis-[88%] sm:basis-[calc(50%-12px)] lg:basis-[calc((100%-104px)/3)]"
+                >
+                  <ProductCard product={product} className="h-full" />
+                </div>
+              ))}
+            </div>
+          </Reveal>
         )}
 
         {ctaTo && !error && (
           <div className="mt-10 flex justify-center sm:mt-12">
-            <Reveal variant="up" distance={16} margin="0px 0px -40px 0px">
+            <Reveal
+              variant="up"
+              distance={24}
+              delay={0.22}
+              duration={0.5}
+              margin="0px 0px -50px 0px"
+            >
               <CtaLink to={ctaTo} size="default">
-                {ctaLabel}
+                {ctaLabel ?? t('ui.viewAllProducts')}
               </CtaLink>
             </Reveal>
           </div>

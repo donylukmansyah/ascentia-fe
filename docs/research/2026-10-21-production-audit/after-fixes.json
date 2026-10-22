@@ -1,0 +1,2094 @@
+{
+  "scope": "Local production after fixes; not public deployment. No real contact submission.",
+  "lighthouse": {
+    "contact-mobile-1": {
+      "scores": {
+        "performance": 79,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "fetch_time": "2026-10-21T01:44:19.539Z",
+      "url": "http://127.0.0.1:3103/contact-us",
+      "lighthouse": "13.5.0",
+      "host_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 3104.095125,
+        "largest-contentful-paint": 4325.514149999999,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0,
+        "speed-index": 3104.095125,
+        "total-byte-weight": 498998,
+        "server-response-time": 9
+      },
+      "warnings": [],
+      "failed_audits": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "score": 0,
+          "display": "Est savings of 58 KiB"
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "score": 0,
+          "display": "Est savings of 59 KiB"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "score": 0,
+          "display": null
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests",
+          "score": 0,
+          "display": "Est savings of 150 ms"
+        }
+      ]
+    },
+    "contact-mobile-2": {
+      "scores": {
+        "performance": 80,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "fetch_time": "2026-10-21T01:44:35.549Z",
+      "url": "http://127.0.0.1:3103/contact-us",
+      "lighthouse": "13.5.0",
+      "host_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 3085.208875,
+        "largest-contentful-paint": 4296.492425,
+        "total-blocking-time": 6,
+        "cumulative-layout-shift": 0,
+        "speed-index": 3085.208875,
+        "total-byte-weight": 498998,
+        "server-response-time": 9
+      },
+      "warnings": [],
+      "failed_audits": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "score": 0,
+          "display": "Est savings of 58 KiB"
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "score": 0,
+          "display": "Est savings of 59 KiB"
+        },
+        {
+          "id": "image-delivery-insight",
+          "title": "Improve image delivery",
+          "score": 0,
+          "display": "Est savings of 60 KiB"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "score": 0,
+          "display": null
+        }
+      ]
+    },
+    "contact-mobile-3": {
+      "scores": {
+        "performance": 79,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "fetch_time": "2026-10-21T01:44:51.181Z",
+      "url": "http://127.0.0.1:3103/contact-us",
+      "lighthouse": "13.5.0",
+      "host_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 3106.7183749999995,
+        "largest-contentful-paint": 4329.46205,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0,
+        "speed-index": 3106.7183749999995,
+        "total-byte-weight": 498997,
+        "server-response-time": 7
+      },
+      "warnings": [],
+      "failed_audits": [
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "score": 0,
+          "display": "Est savings of 58 KiB"
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "score": 0,
+          "display": "Est savings of 59 KiB"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "score": 0,
+          "display": null
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests",
+          "score": 0,
+          "display": "Est savings of 150 ms"
+        }
+      ]
+    },
+    "home-desktop": {
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best-practices": 81,
+        "seo": 100
+      },
+      "fetch_time": "2026-10-21T01:43:57.406Z",
+      "url": "http://127.0.0.1:3103/",
+      "lighthouse": "13.5.0",
+      "host_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+          "cpuSlowdownMultiplier": 1
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": false,
+          "width": 1350,
+          "height": 940,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 753.728125,
+        "largest-contentful-paint": 1080.87375,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 7.965180984921132e-6,
+        "speed-index": 1696.4887912718273,
+        "total-byte-weight": 748935,
+        "server-response-time": 1744
+      },
+      "warnings": [],
+      "failed_audits": [
+        {
+          "id": "is-on-https",
+          "title": "Does not use HTTPS",
+          "score": 0,
+          "display": "10 insecure requests found"
+        },
+        {
+          "id": "server-response-time",
+          "title": "Reduce initial server response time",
+          "score": 0,
+          "display": "Root document took 1,740 ms"
+        },
+        {
+          "id": "label-content-name-mismatch",
+          "title": "Elements with visible text labels do not have matching accessible names.",
+          "score": 0,
+          "display": null
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "score": 0,
+          "display": "Est savings of 56 KiB"
+        },
+        {
+          "id": "document-latency-insight",
+          "title": "Document request latency",
+          "score": 0,
+          "display": "Est savings of 1,640 ms"
+        },
+        {
+          "id": "forced-reflow-insight",
+          "title": "Forced reflow",
+          "score": 0,
+          "display": null
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "score": 0,
+          "display": null
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests",
+          "score": 0,
+          "display": "Est savings of 40 ms"
+        }
+      ]
+    },
+    "home-mobile-1": {
+      "scores": {
+        "performance": 72,
+        "accessibility": 100,
+        "best-practices": 81,
+        "seo": 100
+      },
+      "fetch_time": "2026-10-21T01:42:54.054Z",
+      "url": "http://127.0.0.1:3103/",
+      "lighthouse": "13.5.0",
+      "host_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 3301.7535000000003,
+        "largest-contentful-paint": 5185.254900000001,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0,
+        "speed-index": 4734.8382558012345,
+        "total-byte-weight": 713036,
+        "server-response-time": 1737
+      },
+      "warnings": [],
+      "failed_audits": [
+        {
+          "id": "is-on-https",
+          "title": "Does not use HTTPS",
+          "score": 0,
+          "display": "8 insecure requests found"
+        },
+        {
+          "id": "server-response-time",
+          "title": "Reduce initial server response time",
+          "score": 0,
+          "display": "Root document took 1,740 ms"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "score": 0,
+          "display": "Est savings of 56 KiB"
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "score": 0,
+          "display": "Est savings of 257 KiB"
+        },
+        {
+          "id": "document-latency-insight",
+          "title": "Document request latency",
+          "score": 0,
+          "display": "Est savings of 1,640 ms"
+        },
+        {
+          "id": "image-delivery-insight",
+          "title": "Improve image delivery",
+          "score": 0,
+          "display": "Est savings of 217 KiB"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "score": 0,
+          "display": null
+        }
+      ]
+    },
+    "home-mobile-2": {
+      "scores": {
+        "performance": 74,
+        "accessibility": 100,
+        "best-practices": 81,
+        "seo": 100
+      },
+      "fetch_time": "2026-10-21T01:43:15.927Z",
+      "url": "http://127.0.0.1:3103/",
+      "lighthouse": "13.5.0",
+      "host_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 3410.896875,
+        "largest-contentful-paint": 5164.276249999999,
+        "total-blocking-time": 1.5,
+        "cumulative-layout-shift": 0,
+        "speed-index": 3410.896875,
+        "total-byte-weight": 713022,
+        "server-response-time": 9
+      },
+      "warnings": [],
+      "failed_audits": [
+        {
+          "id": "is-on-https",
+          "title": "Does not use HTTPS",
+          "score": 0,
+          "display": "8 insecure requests found"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "score": 0,
+          "display": "Est savings of 56 KiB"
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "score": 0,
+          "display": "Est savings of 257 KiB"
+        },
+        {
+          "id": "image-delivery-insight",
+          "title": "Improve image delivery",
+          "score": 0,
+          "display": "Est savings of 244 KiB"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "score": 0,
+          "display": null
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests",
+          "score": 0,
+          "display": "Est savings of 150 ms"
+        }
+      ]
+    },
+    "home-mobile-3": {
+      "scores": {
+        "performance": 74,
+        "accessibility": 100,
+        "best-practices": 81,
+        "seo": 100
+      },
+      "fetch_time": "2026-10-21T01:43:37.285Z",
+      "url": "http://127.0.0.1:3103/",
+      "lighthouse": "13.5.0",
+      "host_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 3299.8391249999995,
+        "largest-contentful-paint": 5184.074774999999,
+        "total-blocking-time": 0.5,
+        "cumulative-layout-shift": 0,
+        "speed-index": 3299.8391249999995,
+        "total-byte-weight": 713024,
+        "server-response-time": 9
+      },
+      "warnings": [],
+      "failed_audits": [
+        {
+          "id": "is-on-https",
+          "title": "Does not use HTTPS",
+          "score": 0,
+          "display": "8 insecure requests found"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "score": 0,
+          "display": "Est savings of 56 KiB"
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "score": 0,
+          "display": "Est savings of 257 KiB"
+        },
+        {
+          "id": "image-delivery-insight",
+          "title": "Improve image delivery",
+          "score": 0,
+          "display": "Est savings of 244 KiB"
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "score": 0,
+          "display": null
+        }
+      ]
+    },
+    "news-mobile": {
+      "scores": {
+        "performance": 68,
+        "accessibility": 100,
+        "best-practices": 81,
+        "seo": 100
+      },
+      "fetch_time": "2026-10-21T01:45:28.708Z",
+      "url": "http://127.0.0.1:3103/news",
+      "lighthouse": "13.5.0",
+      "host_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 3258.043375,
+        "largest-contentful-paint": 5156.8520499999995,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0,
+        "speed-index": 7661.651800702502,
+        "total-byte-weight": 1632926,
+        "server-response-time": 3760
+      },
+      "warnings": [],
+      "failed_audits": [
+        {
+          "id": "is-on-https",
+          "title": "Does not use HTTPS",
+          "score": 0,
+          "display": "6 insecure requests found"
+        },
+        {
+          "id": "server-response-time",
+          "title": "Reduce initial server response time",
+          "score": 0,
+          "display": "Root document took 3,760 ms"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "score": 0,
+          "display": "Est savings of 57 KiB"
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "score": 0,
+          "display": "Est savings of 1,183 KiB"
+        },
+        {
+          "id": "document-latency-insight",
+          "title": "Document request latency",
+          "score": 0,
+          "display": "Est savings of 3,660 ms"
+        },
+        {
+          "id": "image-delivery-insight",
+          "title": "Improve image delivery",
+          "score": 0,
+          "display": "Est savings of 1,069 KiB"
+        },
+        {
+          "id": "lcp-breakdown-insight",
+          "title": "LCP breakdown",
+          "score": 0,
+          "display": null
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "score": 0,
+          "display": null
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests",
+          "score": 0,
+          "display": "Est savings of 300 ms"
+        }
+      ]
+    },
+    "product-mobile": {
+      "scores": {
+        "performance": 63,
+        "accessibility": 100,
+        "best-practices": 81,
+        "seo": 100
+      },
+      "fetch_time": "2026-10-21T01:45:06.036Z",
+      "url": "http://127.0.0.1:3103/products/xrtga-range-thermogravimetric-analyser",
+      "lighthouse": "13.5.0",
+      "host_user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 2931.7252,
+        "largest-contentful-paint": 6749.1141,
+        "total-blocking-time": 6,
+        "cumulative-layout-shift": 0.001212647990098515,
+        "speed-index": 9093.36723800038,
+        "total-byte-weight": 1116604,
+        "server-response-time": 3188
+      },
+      "warnings": [],
+      "failed_audits": [
+        {
+          "id": "is-on-https",
+          "title": "Does not use HTTPS",
+          "score": 0,
+          "display": "11 insecure requests found"
+        },
+        {
+          "id": "server-response-time",
+          "title": "Reduce initial server response time",
+          "score": 0,
+          "display": "Root document took 3,190 ms"
+        },
+        {
+          "id": "unused-javascript",
+          "title": "Reduce unused JavaScript",
+          "score": 0,
+          "display": "Est savings of 56 KiB"
+        },
+        {
+          "id": "cache-insight",
+          "title": "Use efficient cache lifetimes",
+          "score": 0,
+          "display": "Est savings of 692 KiB"
+        },
+        {
+          "id": "document-latency-insight",
+          "title": "Document request latency",
+          "score": 0,
+          "display": "Est savings of 3,090 ms"
+        },
+        {
+          "id": "forced-reflow-insight",
+          "title": "Forced reflow",
+          "score": 0,
+          "display": null
+        },
+        {
+          "id": "image-delivery-insight",
+          "title": "Improve image delivery",
+          "score": 0,
+          "display": "Est savings of 609 KiB"
+        },
+        {
+          "id": "lcp-breakdown-insight",
+          "title": "LCP breakdown",
+          "score": 0,
+          "display": null
+        },
+        {
+          "id": "lcp-discovery-insight",
+          "title": "LCP request discovery",
+          "score": 0,
+          "display": null
+        },
+        {
+          "id": "network-dependency-tree-insight",
+          "title": "Network dependency tree",
+          "score": 0,
+          "display": null
+        },
+        {
+          "id": "render-blocking-insight",
+          "title": "Render-blocking requests",
+          "score": 0,
+          "display": "Est savings of 150 ms"
+        }
+      ]
+    }
+  },
+  "browser": [
+    {
+      "check": ".css gzip negotiated",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": ".css gzip preserves content",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": ".css Brotli negotiated",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": ".js gzip negotiated",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": ".js gzip preserves content",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": ".js Brotli negotiated",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "unversioned brand image cache bounded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px / status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px search keyboard focus restored",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px mobile navigation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /about-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/brands status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px product tabs available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px product keyboard tabs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/types status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/applications status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /news status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /news article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /blogs status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /blogs article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /contact-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px empty contact validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px invalid email blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px failed contact preserves input",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px genuine 404",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px no uncaught exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "390px / status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px search keyboard focus restored",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px mobile navigation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /about-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/brands status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px product tabs available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px product keyboard tabs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "direct product WhatsApp contains product URL",
+      "passed": true,
+      "detail": "Halo Tim Sales PT Ascentia Arsya Analitika, saya ingin konsultasi dan menanyakan penawaran harga untuk produk:\n\n*TGA 1100 Thermogravimetric Analyser* (XRF Scientific)\nLink: https://ascentia.co.id/products/xrtga-range-thermogravimetric-analyser\n\nMohon informasinya, terima kasih."
+    },
+    {
+      "check": "390px /products/types status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/applications status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /contact-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px empty contact validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px invalid email blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px failed contact preserves input",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px genuine 404",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px no uncaught exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "768px / status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px search keyboard focus restored",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px mobile navigation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /about-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/brands status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px product tabs available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px product keyboard tabs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/types status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/applications status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /news status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /news article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /blogs status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /blogs article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /contact-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px empty contact validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px invalid email blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px failed contact preserves input",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px genuine 404",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px no uncaught exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "1440px / status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px search keyboard focus restored",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /about-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/brands status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px product tabs available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px product keyboard tabs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/types status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/applications status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /contact-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px empty contact validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px invalid email blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px failed contact preserves input",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px genuine 404",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px no uncaught exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "maps remain unloaded above fold failure=False",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "lazy map initializes with named popup failure=False",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "maps remain unloaded above fold failure=True",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "map failure preserves external directions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "map recovers after retry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "lazy map initializes with named popup failure=True",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "search 503 exposes retry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "search recovers after retry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "slow network first search click opens dialog",
+      "passed": true,
+      "detail": {
+        "aria_expanded": "true"
+      }
+    },
+    {
+      "check": "slow network search works after hydration",
+      "passed": true,
+      "detail": {
+        "navigation_to_open_seconds": 6.41
+      }
+    }
+  ],
+  "quality": [
+    {
+      "check": "production assets only",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "HTML compression negotiated",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "compressed HTML decodes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "robots is text with crawler rules",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px / HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px stable single canonical",
+      "passed": true,
+      "detail": ["https://ascentia.co.id/"]
+    },
+    {
+      "check": "390px descriptive About link",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px logo intrinsic dimensions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px CTA text color white and visible",
+      "passed": true,
+      "detail": [
+        {
+          "text": "Explore Instruments",
+          "ratio": 5.648783374245738
+        },
+        {
+          "text": "About Ascentia",
+          "ratio": 5.648783374245738
+        },
+        {
+          "text": "View all products",
+          "ratio": 5.648783374245738
+        }
+      ]
+    },
+    {
+      "check": "390px /about-us HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/brands HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px product detail navigates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/types HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/applications HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news detail navigates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs detail navigates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /contact-us HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px empty form invalid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px email validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px failed submission preserves message",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px simulated success resets form",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px all writes intercepted",
+      "passed": true,
+      "detail": [
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/77a5ab5c96ee8c3a970011ebdf95c53c0a75c679a849e7c2a476f310105f6d84",
+        "http://127.0.0.1:3103/_serverFn/77a5ab5c96ee8c3a970011ebdf95c53c0a75c679a849e7c2a476f310105f6d84",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22"
+      ]
+    },
+    {
+      "check": "390px genuine 404 status",
+      "passed": true,
+      "detail": 404
+    },
+    {
+      "check": "390px no uncaught browser errors",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "1440px / HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px stable single canonical",
+      "passed": true,
+      "detail": ["https://ascentia.co.id/"]
+    },
+    {
+      "check": "1440px descriptive About link",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px logo intrinsic dimensions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px CTA text color white and visible",
+      "passed": true,
+      "detail": [
+        {
+          "text": "Explore Instruments",
+          "ratio": 5.648783374245738
+        },
+        {
+          "text": "About Ascentia",
+          "ratio": 5.648783374245738
+        },
+        {
+          "text": "View all products",
+          "ratio": 5.648783374245738
+        }
+      ]
+    },
+    {
+      "check": "1440px /about-us HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/brands HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px product detail navigates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/types HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/applications HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news detail navigates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs detail navigates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /contact-us HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px empty form invalid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px email validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px failed submission preserves message",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px simulated success resets form",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px all writes intercepted",
+      "passed": true,
+      "detail": [
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/77a5ab5c96ee8c3a970011ebdf95c53c0a75c679a849e7c2a476f310105f6d84",
+        "http://127.0.0.1:3103/_serverFn/77a5ab5c96ee8c3a970011ebdf95c53c0a75c679a849e7c2a476f310105f6d84",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3103/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22"
+      ]
+    },
+    {
+      "check": "1440px genuine 404 status",
+      "passed": true,
+      "detail": 404
+    },
+    {
+      "check": "1440px no uncaught browser errors",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "checks": {
+    "build": "pass",
+    "typecheck": "pass",
+    "lint": "pass",
+    "format": "pass",
+    "unit_files": "10/10 pass",
+    "boundary_regressions": "pass",
+    "fault_injection": "503=2 attempts, malformed JSON=1, timeout=2, recovery pass"
+  },
+  "raw_reports": "C:\\Users\\Minguri\\AppData\\Local\\Temp\\ascentia-production-audit"
+}

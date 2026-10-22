@@ -1,24 +1,32 @@
-import { AlertCircle, ArrowUpRight, CheckCircle2, Loader2 } from 'lucide-react'
+import { AlertCircle, CheckCircle2 } from 'lucide-react'
 import { useRef, useState } from 'react'
 
+import { EnquirySubmitButton } from '#/components/ui/enquiry-submit-button'
 import { cn } from '#/lib/utils'
+import { useLanguage } from '#/lib/i18n'
 
 import { sendContactEnquiry } from '../api/contact-api'
 import { contactFormSchema } from '../forms/contact-schema'
 import type { ContactFormData } from '../forms/contact-schema'
+import { useIdempotentSubmission } from '../hooks/use-idempotent-submission'
+import { HoneypotField } from './honeypot-field'
 
 interface ContactFormProps {
   className?: string
 }
 
 export function ContactForm({ className }: ContactFormProps) {
+  const { t } = useLanguage()
   const nameInputRef = useRef<HTMLInputElement>(null)
   const emailInputRef = useRef<HTMLInputElement>(null)
   const messageInputRef = useRef<HTMLTextAreaElement>(null)
+  const submittingRef = useRef(false)
+  const { keyFor, reset } = useIdempotentSubmission()
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
+  const [honeypot, setHoneypot] = useState('')
   const [errors, setErrors] = useState<
     Partial<Record<keyof ContactFormData, string>>
   >({})
@@ -80,7 +88,17 @@ export function ContactForm({ className }: ContactFormProps) {
       return
     }
 
+    if (submittingRef.current) return
+
+    const submissionId = keyFor({
+      name: result.data.name,
+      email: result.data.email,
+      message: result.data.message,
+      type: 'contact',
+    })
+
     setErrors({})
+    submittingRef.current = true
     setIsSubmitting(true)
 
     try {
@@ -90,20 +108,25 @@ export function ContactForm({ className }: ContactFormProps) {
           email: result.data.email,
           message: result.data.message,
           type: 'contact',
+          submission_id: submissionId,
+          _hp_field: honeypot || undefined,
         },
       })
+      reset()
       setIsSuccess(true)
       setIsSubmitted(false)
       setName('')
       setEmail('')
       setMessage('')
+      setHoneypot('')
     } catch (error) {
       const errText =
         error instanceof Error
           ? error.message
-          : 'Unable to send message right now.'
+          : t('contact.form.error', 'Unable to send message right now.')
       setErrorMessage(errText)
     } finally {
+      submittingRef.current = false
       setIsSubmitting(false)
     }
   }
@@ -111,18 +134,21 @@ export function ContactForm({ className }: ContactFormProps) {
   return (
     <form
       noValidate
-      className={cn('grid content-start gap-4', className)}
+      className={cn('relative grid content-start gap-4', className)}
       onSubmit={handleSubmit}
     >
+      <HoneypotField value={honeypot} onChange={setHoneypot} />
       <label className="grid gap-1.5 text-[10px] font-bold tracking-[0.08em] text-foreground/75 uppercase">
         <span>
-          Name <span className="text-destructive">*</span>
+          {t('contact.form.name', 'Name')}{' '}
+          <span className="text-destructive">*</span>
         </span>
         <input
           ref={nameInputRef}
           name="name"
           type="text"
           value={name}
+          placeholder={t('contact.form.namePlaceholder', 'Your full name')}
           onChange={(e) => {
             setName(e.target.value)
             if (isSuccess) setIsSuccess(false)
@@ -146,13 +172,15 @@ export function ContactForm({ className }: ContactFormProps) {
       </label>
       <label className="grid gap-1.5 text-[10px] font-bold tracking-[0.08em] text-foreground/75 uppercase">
         <span>
-          Work email <span className="text-destructive">*</span>
+          {t('contact.form.email', 'Work email')}{' '}
+          <span className="text-destructive">*</span>
         </span>
         <input
           ref={emailInputRef}
           name="email"
           type="email"
           value={email}
+          placeholder={t('contact.form.emailPlaceholder', 'you@company.com')}
           onChange={(e) => {
             setEmail(e.target.value)
             if (isSuccess) setIsSuccess(false)
@@ -176,13 +204,18 @@ export function ContactForm({ className }: ContactFormProps) {
       </label>
       <label className="grid gap-1.5 text-[10px] font-bold tracking-[0.08em] text-foreground/75 uppercase">
         <span>
-          Message <span className="text-destructive">*</span>
+          {t('contact.form.message', 'Message')}{' '}
+          <span className="text-destructive">*</span>
         </span>
         <textarea
           ref={messageInputRef}
           name="message"
           rows={5}
           value={message}
+          placeholder={t(
+            'contact.form.messagePlaceholder',
+            'Tell us about your sample preparation or analysis requirements...',
+          )}
           onChange={(e) => {
             setMessage(e.target.value)
             if (isSuccess) setIsSuccess(false)
@@ -203,28 +236,12 @@ export function ContactForm({ className }: ContactFormProps) {
           </p>
         )}
       </label>
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="group/cta relative inline-flex min-h-11 w-full cursor-pointer items-center justify-center overflow-hidden rounded-full bg-accent px-4 text-[13px] font-medium text-white transition-[background-color,color,translate] duration-200 ease hover:-translate-y-0.5 hover:bg-[var(--brand-dark)] hover:text-white focus-visible:bg-[var(--brand-dark)] focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary disabled:pointer-events-none disabled:opacity-70 motion-reduce:transition-none"
-      >
-        <span className="relative z-10 pr-9 transition-[color,translate] duration-300 ease-out group-hover/cta:translate-x-9 group-focus-visible/cta:translate-x-9 motion-reduce:transition-none">
-          {isSubmitting ? 'Sending enquiry...' : 'Send enquiry'}
-        </span>
-        <span className="absolute left-full top-1/2 z-0 grid size-9 -translate-x-[115%] -translate-y-1/2 place-items-center rounded-full bg-white text-foreground transition-[left,translate] duration-400 ease-out group-hover/cta:left-0 group-hover/cta:translate-x-[15%] group-focus-visible/cta:left-0 group-focus-visible/cta:translate-x-[15%] motion-reduce:transition-none">
-          {isSubmitting ? (
-            <Loader2
-              className="size-4 animate-spin text-accent"
-              aria-hidden="true"
-            />
-          ) : (
-            <ArrowUpRight
-              className="size-4 transition-transform duration-300 ease-out group-hover/cta:rotate-45 group-focus-visible/cta:rotate-45 motion-reduce:transition-none"
-              aria-hidden="true"
-            />
-          )}
-        </span>
-      </button>
+      <EnquirySubmitButton
+        label={t('contact.form.submit', 'Send enquiry')}
+        submittingLabel={t('contact.form.submitting', 'Sending...')}
+        isSubmitting={isSubmitting}
+        className="w-full"
+      />
 
       {isSuccess ? (
         <div
@@ -236,8 +253,10 @@ export function ContactForm({ className }: ContactFormProps) {
             aria-hidden="true"
           />
           <p className="leading-relaxed">
-            Thank you! Your enquiry has been received. Our team will review your
-            request and contact you shortly.
+            {t(
+              'contact.form.success',
+              'Thank you! Your enquiry has been received. Our team will review your request and contact you shortly.',
+            )}
           </p>
         </div>
       ) : null}
@@ -247,7 +266,8 @@ export function ContactForm({ className }: ContactFormProps) {
           role="alert"
           className="rounded-lg border border-destructive/30 bg-destructive/10 p-3 text-sm leading-relaxed text-destructive"
         >
-          {errorMessage}. Please email us directly at{' '}
+          {errorMessage}.{' '}
+          {t('contact.form.errorHelp', 'Please email us directly at')}{' '}
           <a
             href="mailto:sales@ascentia.co.id"
             className="cursor-pointer font-medium underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"

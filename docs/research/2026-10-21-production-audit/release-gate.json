@@ -1,0 +1,1929 @@
+{
+  "verdict": "HOLD_PUBLIC_RELEASE",
+  "artifact_manifest_sha256": "6987657542b885e7aa935212762305ecf2119ffab0b316c746dd1880ab643c48",
+  "artifact_files": 296,
+  "scope": "Immutable copied local production .output; Node 24.14.0; pnpm start; CMS local; no real enquiry/email or deployment",
+  "browser": [
+    {
+      "check": ".css gzip negotiated",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": ".css gzip preserves content",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": ".css Brotli negotiated",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": ".js gzip negotiated",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": ".js gzip preserves content",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": ".js Brotli negotiated",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "unversioned brand image cache bounded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px / status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px search keyboard focus restored",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px mobile navigation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /about-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/brands status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px product tabs available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px product keyboard tabs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/types status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/applications status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /news status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /news article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /blogs status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /blogs article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /contact-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px empty contact validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px invalid email blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px failed contact preserves input",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px genuine 404",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "360px no uncaught exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "390px / status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px search keyboard focus restored",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px mobile navigation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /about-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/brands status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px product tabs available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px product keyboard tabs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "direct product WhatsApp contains product URL",
+      "passed": true,
+      "detail": "Halo Tim Sales PT Ascentia Arsya Analitika, saya ingin konsultasi dan menanyakan penawaran harga untuk produk:\n\n*TGA 1100 Thermogravimetric Analyser* (XRF Scientific)\nLink: https://ascentia.co.id/products/xrtga-range-thermogravimetric-analyser\n\nMohon informasinya, terima kasih."
+    },
+    {
+      "check": "390px /products/types status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/applications status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /contact-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px empty contact validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px invalid email blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px failed contact preserves input",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px genuine 404",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px no uncaught exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "768px / status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px search keyboard focus restored",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px mobile navigation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /about-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/brands status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px product tabs available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px product keyboard tabs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/types status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/applications status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /news status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /news article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /blogs status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /blogs article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /contact-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px empty contact validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px invalid email blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px failed contact preserves input",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px genuine 404",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "768px no uncaught exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "1440px / status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px search keyboard focus restored",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /about-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/brands status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px product tabs available",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px product keyboard tabs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/types status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/applications status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs article detail",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /contact-us status 200",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px empty contact validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px invalid email blocked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px failed contact preserves input",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px genuine 404",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px no uncaught exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "maps remain unloaded above fold failure=False",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "lazy map initializes with named popup failure=False",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "maps remain unloaded above fold failure=True",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "map failure preserves external directions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "map recovers after retry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "lazy map initializes with named popup failure=True",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "search 503 exposes retry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "search recovers after retry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "slow network first search click opens dialog",
+      "passed": true,
+      "detail": {
+        "aria_expanded": true
+      }
+    },
+    {
+      "check": "slow network search works after hydration",
+      "passed": true,
+      "detail": {
+        "navigation_to_open_seconds": 6.58
+      }
+    }
+  ],
+  "journeys": [
+    {
+      "check": "390px pagination/filter/search/empty/reset/reload/Back",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px global search keyboard result navigation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px quote validation/error preservation/retry/simulated success/focus/reset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px locale URL/query/hash/reload/scroll",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px no uncaught journey exceptions",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "1440px pagination/filter/search/empty/reset/reload/Back",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px global search keyboard result navigation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px quote validation/error preservation/retry/simulated success/focus/reset",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px locale URL/query/hash/reload/scroll",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px selecting current language preserves scroll",
+      "passed": false,
+      "detail": "Selecting current language shifted scroll: 1280 to 1350"
+    },
+    {
+      "check": "1440px no uncaught journey exceptions",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "quality": [
+    {
+      "check": "production assets only",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "HTML compression negotiated",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "compressed HTML decodes",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "robots is text with crawler rules",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px / HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px stable single canonical",
+      "passed": true,
+      "detail": ["https://ascentia.co.id/"]
+    },
+    {
+      "check": "390px descriptive About link",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px logo intrinsic dimensions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px CTA contrast meets WCAG AA",
+      "passed": false,
+      "detail": [
+        {
+          "text": "Explore Instruments",
+          "ratio": 2.816532937749215
+        },
+        {
+          "text": "About Ascentia",
+          "ratio": 2.816532937749215
+        },
+        {
+          "text": "View all products",
+          "ratio": 2.816532937749215
+        }
+      ]
+    },
+    {
+      "check": "390px /about-us HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/brands HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px product detail navigates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/types HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/applications HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /news detail navigates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /blogs detail navigates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /contact-us HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px empty form invalid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px email validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px failed submission preserves message",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px simulated success resets form",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "390px all writes intercepted",
+      "passed": true,
+      "detail": [
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/77a5ab5c96ee8c3a970011ebdf95c53c0a75c679a849e7c2a476f310105f6d84",
+        "http://127.0.0.1:3114/_serverFn/77a5ab5c96ee8c3a970011ebdf95c53c0a75c679a849e7c2a476f310105f6d84",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22"
+      ]
+    },
+    {
+      "check": "390px genuine 404 status",
+      "passed": true,
+      "detail": 404
+    },
+    {
+      "check": "390px no uncaught browser errors",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "1440px / HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px / no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px stable single canonical",
+      "passed": true,
+      "detail": ["https://ascentia.co.id/"]
+    },
+    {
+      "check": "1440px descriptive About link",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px logo intrinsic dimensions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px CTA contrast meets WCAG AA",
+      "passed": false,
+      "detail": [
+        {
+          "text": "Explore Instruments",
+          "ratio": 2.816532937749215
+        },
+        {
+          "text": "About Ascentia",
+          "ratio": 2.816532937749215
+        },
+        {
+          "text": "View all products",
+          "ratio": 2.816532937749215
+        }
+      ]
+    },
+    {
+      "check": "1440px /about-us HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /about-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/brands HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/brands no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px product detail navigates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/types HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/types no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/applications HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /products/applications no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /news detail navigates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /blogs detail navigates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /contact-us HTTP success",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px /contact-us no overflow",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px empty form invalid",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px email validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px failed submission preserves message",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px simulated success resets form",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "check": "1440px all writes intercepted",
+      "passed": true,
+      "detail": [
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/77a5ab5c96ee8c3a970011ebdf95c53c0a75c679a849e7c2a476f310105f6d84",
+        "http://127.0.0.1:3114/_serverFn/77a5ab5c96ee8c3a970011ebdf95c53c0a75c679a849e7c2a476f310105f6d84",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22",
+        "http://127.0.0.1:3114/_serverFn/5f89961a2a538f54ad77949e7b838a3be14e9635e8690c76e3206a0161037e22"
+      ]
+    },
+    {
+      "check": "1440px genuine 404 status",
+      "passed": true,
+      "detail": 404
+    },
+    {
+      "check": "1440px no uncaught browser errors",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "internal_links": {
+    "seeds": [
+      "/",
+      "/about-us",
+      "/contact-us",
+      "/products/brands",
+      "/products/types",
+      "/products/applications",
+      "/news",
+      "/blogs",
+      "/id",
+      "/id/products/brands"
+    ],
+    "scope": "SSR anchor hrefs only; no exhaustive JS-state crawl; fragments not verified here",
+    "checked": 43,
+    "failures": [],
+    "results": [
+      {
+        "url": "http://127.0.0.1:3114/",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/"
+      },
+      {
+        "url": "http://127.0.0.1:3114/about-us",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/about-us"
+      },
+      {
+        "url": "http://127.0.0.1:3114/blogs",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/blogs"
+      },
+      {
+        "url": "http://127.0.0.1:3114/blogs/how-to-choose-the-right-xrf-analyzer-for-your-industry",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/blogs/how-to-choose-the-right-xrf-analyzer-for-your-industry"
+      },
+      {
+        "url": "http://127.0.0.1:3114/blogs/how-to-choose-the-right-xrf-analyzer-for-your-industry-2",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/blogs/how-to-choose-the-right-xrf-analyzer-for-your-industry-2"
+      },
+      {
+        "url": "http://127.0.0.1:3114/blogs/the-future-of-smart-industrial-solutions-and-digital-transformation",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/blogs/the-future-of-smart-industrial-solutions-and-digital-transformation"
+      },
+      {
+        "url": "http://127.0.0.1:3114/blogs/xrf-vs-oes-understanding-the-differences-in-metal-analysis",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/blogs/xrf-vs-oes-understanding-the-differences-in-metal-analysis"
+      },
+      {
+        "url": "http://127.0.0.1:3114/contact-us",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/contact-us"
+      },
+      {
+        "url": "http://127.0.0.1:3114/id/products/brands",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/id/products/brands"
+      },
+      {
+        "url": "http://127.0.0.1:3114/news",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/news"
+      },
+      {
+        "url": "http://127.0.0.1:3114/news/ascentia-drives-innovation-in-industrial-technology",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/news/ascentia-drives-innovation-in-industrial-technology"
+      },
+      {
+        "url": "http://127.0.0.1:3114/news/ascentia-explores-new-opportunities-in-industrial-collaboration",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/news/ascentia-explores-new-opportunities-in-industrial-collaboration"
+      },
+      {
+        "url": "http://127.0.0.1:3114/news/ascentia-focuses-on-customer-oriented-technology-solutions",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/news/ascentia-focuses-on-customer-oriented-technology-solutions"
+      },
+      {
+        "url": "http://127.0.0.1:3114/news/ascentia-strengthens-its-commitment-to-industrial-excellence",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/news/ascentia-strengthens-its-commitment-to-industrial-excellence"
+      },
+      {
+        "url": "http://127.0.0.1:3114/news/nkankvoanokvaolknnvankovnkokpva",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/news/nkankvoanokvaolknnvankovnkokpva"
+      },
+      {
+        "url": "http://127.0.0.1:3114/news/the-importance-of-reliable-technology-in-modern-industrial-operations",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/news/the-importance-of-reliable-technology-in-modern-industrial-operations"
+      },
+      {
+        "url": "http://127.0.0.1:3114/news/understanding-xrf-technology-for-accurate-material-testing",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/news/understanding-xrf-technology-for-accurate-material-testing"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/brands"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/applications",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/applications"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/applications?category=lab-research",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/applications?category=lab-research"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/applications?category=mining",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/applications?category=mining"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/applications?page=2",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/applications?page=2"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/brands",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/brands"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/brands?category=brammer-standard",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/brands?category=brammer-standard"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/brands?category=kingyosion",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/brands?category=kingyosion"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/brands?category=mettler-toledo",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/brands?category=mettler-toledo"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/brands?category=oreas",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/brands?category=oreas"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/brands?category=spectral-evolution",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/brands?category=spectral-evolution"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/brands?category=xrf-scientific",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/brands?category=xrf-scientific"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/brands?page=2",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/brands?page=2"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/phoenix-go-4-gas-fusion-machine-4-positions",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/phoenix-go-4-gas-fusion-machine-4-positions"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/phoenix-go-s-gas-fusion-machine-1-position",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/phoenix-go-s-gas-fusion-machine-1-position"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/phoenix-ii-gas-fusion-machine-3-or-6-positions",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/phoenix-ii-gas-fusion-machine-3-or-6-positions"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/phoenix-vfd-automatic-gas-fusion-machine",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/phoenix-vfd-automatic-gas-fusion-machine"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/types",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/types"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/types?category=analytical",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/types?category=analytical"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/types?category=consumables",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/types?category=consumables"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/types?category=instrument",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/types?category=instrument"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/types?page=2",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/types?page=2"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/xrfuse-1-automatic-electric-fusion-machine-1-position",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/xrfuse-1-automatic-electric-fusion-machine-1-position"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/xrfuse-2-automatic-electric-fusion-machine-2-positions",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/xrfuse-2-automatic-electric-fusion-machine-2-positions"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/xrfuse-6-automatic-electric-fusion-machine-6-positions",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/xrfuse-6-automatic-electric-fusion-machine-6-positions"
+      },
+      {
+        "url": "http://127.0.0.1:3114/products/xrtga-range-thermogravimetric-analyser",
+        "status": 200,
+        "final_url": "http://127.0.0.1:3114/products/xrtga-range-thermogravimetric-analyser"
+      }
+    ]
+  },
+  "contracts": [
+    {
+      "test": "snapshot-seo",
+      "exit_code": 0
+    },
+    {
+      "test": "snapshot-upstream",
+      "exit_code": 0
+    },
+    {
+      "test": "snapshot-contact-roundtrip",
+      "exit_code": 0
+    }
+  ],
+  "lighthouse": {
+    "snapshot-contact-mobile.report": {
+      "scores": {
+        "performance": 78,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 69
+      },
+      "fetch_time": "2026-10-21T04:02:07.328Z",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 3108.5848749999996,
+        "largest-contentful-paint": 4482.501850000001,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0,
+        "speed-index": 3108.5848749999996,
+        "total-byte-weight": 520198
+      },
+      "failed_a11y": [],
+      "warnings": []
+    },
+    "snapshot-home-desktop.report": {
+      "scores": {
+        "performance": 95,
+        "accessibility": 96,
+        "best-practices": 81,
+        "seo": 69
+      },
+      "fetch_time": "2026-10-21T04:01:44.467Z",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 0,
+          "uploadThroughputKbps": 0,
+          "cpuSlowdownMultiplier": 1
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": false,
+          "width": 1350,
+          "height": 940,
+          "deviceScaleFactor": 1,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 758.594125,
+        "largest-contentful-paint": 1106.71295,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 7.965180984921132e-6,
+        "speed-index": 1747.4058510437726,
+        "total-byte-weight": 765571
+      },
+      "failed_a11y": [
+        {
+          "selector": "div.relative > div.hero-carousel__copy > a.group/cta > span.relative",
+          "nodeLabel": "Explore Instruments",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.8pt (13px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "ANALYTICAL INSTRUMENTS",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "SAMPLE PREPARATION",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "MINERAL ANALYSIS",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "XRF TECHNOLOGY",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "GEOCHEMICAL STANDARDS",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "LABORATORY EQUIPMENT",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "ANALYTICAL INSTRUMENTS",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "SAMPLE PREPARATION",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: bold). Expected contrast ratio of 4.5:1"
+        }
+      ],
+      "warnings": []
+    },
+    "snapshot-home-mobile-1.report": {
+      "scores": {
+        "performance": 70,
+        "accessibility": 96,
+        "best-practices": 81,
+        "seo": 69
+      },
+      "fetch_time": "2026-10-21T04:00:38.572Z",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 3339.18575,
+        "largest-contentful-paint": 5017.822900000001,
+        "total-blocking-time": 1,
+        "cumulative-layout-shift": 0,
+        "speed-index": 5966.8618078957215,
+        "total-byte-weight": 729671
+      },
+      "failed_a11y": [
+        {
+          "selector": "div.relative > div.hero-carousel__copy > a.group/cta > span.relative",
+          "nodeLabel": "Explore Instruments",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "ANALYTICAL INSTRUMENTS",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "SAMPLE PREPARATION",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "MINERAL ANALYSIS",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+        }
+      ],
+      "warnings": []
+    },
+    "snapshot-home-mobile-2.report": {
+      "scores": {
+        "performance": 75,
+        "accessibility": 96,
+        "best-practices": 81,
+        "seo": 69
+      },
+      "fetch_time": "2026-10-21T04:01:01.862Z",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 3157.480625,
+        "largest-contentful-paint": 5042.672875,
+        "total-blocking-time": 3,
+        "cumulative-layout-shift": 0,
+        "speed-index": 3157.480625,
+        "total-byte-weight": 729660
+      },
+      "failed_a11y": [
+        {
+          "selector": "div.relative > div.hero-carousel__copy > a.group/cta > span.relative",
+          "nodeLabel": "Explore Instruments",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "ANALYTICAL INSTRUMENTS",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "SAMPLE PREPARATION",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "MINERAL ANALYSIS",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "XRF TECHNOLOGY",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+        }
+      ],
+      "warnings": []
+    },
+    "snapshot-home-mobile-3.report": {
+      "scores": {
+        "performance": 75,
+        "accessibility": 96,
+        "best-practices": 81,
+        "seo": 69
+      },
+      "fetch_time": "2026-10-21T04:01:22.730Z",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 3152.5132499999995,
+        "largest-contentful-paint": 5036.618550000001,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0,
+        "speed-index": 3152.5132499999995,
+        "total-byte-weight": 729656
+      },
+      "failed_a11y": [
+        {
+          "selector": "div.relative > div.hero-carousel__copy > a.group/cta > span.relative",
+          "nodeLabel": "Explore Instruments",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "ANALYTICAL INSTRUMENTS",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "SAMPLE PREPARATION",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "MINERAL ANALYSIS",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "selector": "div.flex > div.flex > div.flex > span",
+          "nodeLabel": "XRF TECHNOLOGY",
+          "explanation": "Fix any of the following:\n  Element has insufficient color contrast of 2.81 (foreground color: #ffffff, background color: #ec7c0e, font size: 8.3pt (11px), font weight: bold). Expected contrast ratio of 4.5:1"
+        }
+      ],
+      "warnings": []
+    },
+    "snapshot-product-mobile.report": {
+      "scores": {
+        "performance": 63,
+        "accessibility": 100,
+        "best-practices": 81,
+        "seo": 69
+      },
+      "fetch_time": "2026-10-21T04:02:24.724Z",
+      "config": {
+        "output": ["json", "html"],
+        "maxWaitForFcp": 30000,
+        "maxWaitForLoad": 45000,
+        "pauseAfterFcpMs": 1000,
+        "pauseAfterLoadMs": 1000,
+        "networkQuietThresholdMs": 1000,
+        "cpuQuietThresholdMs": 1000,
+        "formFactor": "mobile",
+        "throttling": {
+          "rttMs": 150,
+          "throughputKbps": 1638.4,
+          "requestLatencyMs": 562.5,
+          "downloadThroughputKbps": 1474.5600000000002,
+          "uploadThroughputKbps": 675,
+          "cpuSlowdownMultiplier": 4
+        },
+        "throttlingMethod": "simulate",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+        "auditMode": false,
+        "gatherMode": false,
+        "clearStorageTypes": [
+          "file_systems",
+          "shader_cache",
+          "service_workers",
+          "cache_storage"
+        ],
+        "disableStorageReset": false,
+        "debugNavigation": false,
+        "channel": "cli",
+        "usePassiveGathering": false,
+        "disableFullPageScreenshot": false,
+        "skipAboutBlank": false,
+        "blankPage": "about:blank",
+        "ignoreStatusCode": false,
+        "locale": "en-US",
+        "blockedUrlPatterns": null,
+        "additionalTraceCategories": null,
+        "extraHeaders": null,
+        "precomputedLanternData": null,
+        "onlyAudits": null,
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ],
+        "skipAudits": null
+      },
+      "metrics": {
+        "first-contentful-paint": 2934.2988,
+        "largest-contentful-paint": 6518.7878,
+        "total-blocking-time": 2.5,
+        "cumulative-layout-shift": 0.001212647990098515,
+        "speed-index": 12753.32018400052,
+        "total-byte-weight": 1129389
+      },
+      "failed_a11y": [],
+      "warnings": []
+    }
+  },
+  "known_failures": [
+    "PHP wp_insert_post zero accepted as success, id 0",
+    "Current-language selection shifts scroll 70px",
+    "White/orange CTA contrast 2.81 fails WCAG AA",
+    "CMS media still HTTP",
+    "Existing test suite contains stale labels and dev-only router hooks"
+  ],
+  "php_save_stub": {
+    "exit_code": 1,
+    "result": {
+      "success": true,
+      "id": 0
+    },
+    "path": "scripts/verify/verify-inquiry-save.php"
+  },
+  "php_lint": {
+    "files": 14,
+    "passed": 14
+  },
+  "unit_files": {
+    "total": 10,
+    "passed": 10
+  },
+  "additional_passes": [
+    "Global search empty/partial error/race keyboard focus Mac/Linux/mobile",
+    "Product/about lightbox keyboard and focus across 4 widths",
+    "Route-loader delayed-data reduced motion",
+    "Standalone copied .output without node_modules"
+  ],
+  "source_changes_for_this_audit": [
+    "scripts/verify/verify-site-quality.py contrast threshold restored 4.5",
+    "scripts/verify/verify-global-search.py exact locator disambiguation",
+    "scripts/verify/verify-production-audit.py visibility-independent click state",
+    "new release journeys, PHP insertion repro, contact roundtrip checks"
+  ],
+  "raw_evidence_directory": "C:\\Users\\Minguri\\AppData\\Local\\Temp\\ascentia-release"
+}

@@ -16,6 +16,7 @@ export default [
   },
   {
     ignores: [
+      'app.js',
       'eslint.config.js',
       'prettier.config.js',
       '.output/**',

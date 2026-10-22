@@ -149,19 +149,19 @@ const cachedLatestNews = createKeyedCache<LatestNewsData>(
   60_000,
 )
 
-// Popular news.
+// Recommended news (category 119: recommended-news).
 const cachedPopularNews = createKeyedCache<Article[]>(async (_key, signal) => {
   const { data } = await request(
     'wp/v2/posts',
     {
-      categories: '19',
-      per_page: '4',
+      categories: '119',
+      per_page: '5',
       _embed: 'true',
     },
     signal,
   )
   const items = array(data).map(mapArticle)
-  return items.slice(0, 4)
+  return items.slice(0, 5)
 }, 60_000)
 
 // Detail by slug.
@@ -239,7 +239,7 @@ export async function readArticleSitemap(signal?: AbortSignal) {
         page: String(page),
         per_page: '100',
         status: 'publish',
-        categories: '19,20,117',
+        categories: '19,20,117,119',
         orderby: 'id',
         order: 'asc',
         _fields: 'id,slug,categories,modified_gmt,yoast_head_json.robots',

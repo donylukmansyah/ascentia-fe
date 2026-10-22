@@ -1,4 +1,5 @@
 import { Reveal } from '#/components/ui/reveal'
+import { useLanguage } from '#/lib/i18n'
 
 import { aboutCompanyContent } from '../constants/company'
 
@@ -9,10 +10,20 @@ interface AboutCompanySectionProps {
 }
 
 export function AboutCompanySection({
-  eyebrow = aboutCompanyContent.eyebrow,
-  title = aboutCompanyContent.title,
-  paragraphs = aboutCompanyContent.paragraphs,
+  eyebrow,
+  title,
+  paragraphs,
 }: AboutCompanySectionProps) {
+  const { t } = useLanguage()
+  const resolvedEyebrow =
+    eyebrow ?? t('about.company.eyebrow', aboutCompanyContent.eyebrow)
+  const resolvedTitle =
+    title ?? t('about.company.title', aboutCompanyContent.title)
+  const resolvedParagraphs = paragraphs ?? [
+    t('about.company.paragraph1', aboutCompanyContent.paragraphs[0]),
+    t('about.company.paragraph2', aboutCompanyContent.paragraphs[1]),
+  ]
+
   return (
     <section
       id="about-content"
@@ -65,15 +76,15 @@ export function AboutCompanySection({
           className="w-full max-w-2xl"
         >
           <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
-            {eyebrow}
+            {resolvedEyebrow}
           </p>
           <h2
             id="about-company-heading"
             className="mt-2 text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
           >
-            {title}
+            {resolvedTitle}
           </h2>
-          {paragraphs.map((paragraph) => (
+          {resolvedParagraphs.map((paragraph) => (
             <p
               key={paragraph.slice(0, 32)}
               className="mt-4 text-sm leading-relaxed font-normal text-description-text sm:text-base"

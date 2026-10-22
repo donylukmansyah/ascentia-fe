@@ -1,6 +1,8 @@
 import { CtaLink } from '#/components/ui/cta-link'
+import { useLanguage } from '#/lib/i18n'
 
 export function NotFoundPage() {
+  const { t } = useLanguage()
   return (
     <section
       aria-labelledby="not-found-heading"
@@ -27,14 +29,16 @@ export function NotFoundPage() {
           id="not-found-heading"
           className="mt-8 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
         >
-          Page not found
+          {t('ui.pageNotFound', 'Page not found')}
         </h1>
         <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-description-text">
-          The page may have moved, or the address may be incorrect. Let’s get
-          you back on track.
+          {t(
+            'ui.pageMissing',
+            'The page may have moved, or the address may be incorrect.',
+          )}
         </p>
         <div className="mt-8 flex justify-center">
-          <CtaLink to="/">Back to home</CtaLink>
+          <CtaLink to="/">{t('ui.backHome', 'Back to home')}</CtaLink>
         </div>
       </div>
     </section>

@@ -6,6 +6,7 @@ import {
   ImageLightbox,
   ImageWithFallback,
 } from '#/components/ui/image-lightbox'
+import { useLanguage } from '#/lib/i18n'
 import { cn } from '#/lib/utils'
 import type { ProductImage } from '../types/product'
 
@@ -16,6 +17,7 @@ export function ProductImageGallery({
   images: ProductImage[]
   productName: string
 }) {
+  const { t } = useLanguage()
   const previewId = useId()
   const railRef = useRef<HTMLDivElement>(null)
   const previewRef = useRef<HTMLButtonElement>(null)
@@ -59,7 +61,7 @@ export function ProductImageGallery({
           ref={previewRef}
           id={previewId}
           type="button"
-          aria-label="Enlarge product photo"
+          aria-label={t('products.enlargePhoto', 'Enlarge product photo')}
           aria-haspopup="dialog"
           onClick={() => setExpanded(true)}
           className="group relative flex aspect-square w-full cursor-zoom-in items-center justify-center overflow-hidden bg-[color-mix(in_srgb,var(--primary)_10%,white)] p-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary sm:p-5"
@@ -105,7 +107,7 @@ export function ProductImageGallery({
         <div
           ref={railRef}
           role="group"
-          aria-label="Choose product photo"
+          aria-label={t('products.choosePhoto', 'Choose product photo')}
           className="relative mt-3 flex snap-x snap-proximity gap-2.5 overflow-x-auto overscroll-x-contain p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {images.map((image, photoIndex) => (
