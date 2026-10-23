@@ -125,17 +125,12 @@ export function AboutLocationsSection({
               className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between"
             >
               <div className="max-w-2xl">
-                <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
-                  {resolvedEyebrow}
-                </p>
-                <h2
-                  id="about-locations-heading"
-                  className="mt-2 text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
-                >
+                <p className="section-kicker">{resolvedEyebrow}</p>
+                <h2 id="about-locations-heading" className="section-title mt-2">
                   {resolvedTitle}
                 </h2>
               </div>
-              <p className="max-w-md text-sm leading-relaxed font-normal text-description-text sm:text-base lg:pb-2 lg:text-right">
+              <p className="section-description max-w-md lg:pb-2 lg:text-right">
                 {resolvedDescription}
               </p>
             </Reveal>

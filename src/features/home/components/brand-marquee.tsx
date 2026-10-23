@@ -25,7 +25,7 @@ export function BrandMarquee({
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
         <div className="mb-6 flex items-center gap-4">
-          <h2 className="shrink-0 text-xs font-bold tracking-[0.14em] text-[#1E3A5F] uppercase">
+          <h2 className="shrink-0 text-xs font-bold tracking-[0.14em] text-primary uppercase">
             {title}
           </h2>
           <span className="h-px w-14 bg-border" aria-hidden="true" />

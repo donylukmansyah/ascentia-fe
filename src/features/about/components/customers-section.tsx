@@ -20,9 +20,7 @@ export function AboutCustomersSection({ title }: AboutCustomersSectionProps) {
     >
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12">
         <Reveal variant="up">
-          <h2 className="text-center text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground">
-            {resolvedTitle}
-          </h2>
+          <h2 className="section-title text-center">{resolvedTitle}</h2>
         </Reveal>
         <Reveal
           variant="up"

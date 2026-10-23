@@ -185,10 +185,8 @@ export function ProductDetailContent({
             margin="0px 0px -40px 0px"
             className="w-full"
           >
-            <p className="text-[11px] font-bold tracking-[0.1em] text-primary-text uppercase">
-              {product.brand}
-            </p>
-            <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.1] font-bold tracking-[-0.03em] text-foreground break-words">
+            <p className="section-kicker">{product.brand}</p>
+            <h2 className="section-title mt-2 max-w-3xl break-words">
               {displayName}
             </h2>
             <div className="mt-5 flex items-center gap-2.5 sm:gap-3">
