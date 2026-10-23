@@ -41,14 +41,12 @@ jobs:
           cp -r .output deploy/
           cp app.js package.json deploy/
 
-      - name: Upload to Production via FTPS
+      - name: Upload to Production via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          security: strict
           local-dir: ./deploy/
           server-dir: ./
           dangerous-clean-slate: false
