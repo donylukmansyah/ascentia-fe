@@ -75,10 +75,7 @@ export function BlogsContentSection() {
       className="mx-auto w-full max-w-7xl scroll-mt-24 px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20"
     >
       <Reveal variant="up" distance={20} margin="0px 0px -40px 0px">
-        <h2
-          id="blogs-list-heading"
-          className="mb-7 text-[clamp(1.75rem,3vw,2.5rem)] leading-tight font-bold tracking-[-0.03em] text-foreground"
-        >
+        <h2 id="blogs-list-heading" className="section-title mb-7">
           {t('ui.recentBlogs', 'Recent blog posts')}
         </h2>
       </Reveal>

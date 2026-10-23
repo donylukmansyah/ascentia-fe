@@ -101,19 +101,12 @@ export function ProductCarouselSection({
         >
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              {kicker && (
-                <p className="mb-2 text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
-                  {kicker}
-                </p>
-              )}
-              <h2
-                id={headingId}
-                className="text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.04em] text-foreground"
-              >
+              {kicker && <p className="section-kicker mb-2">{kicker}</p>}
+              <h2 id={headingId} className="section-title">
                 {title ?? t('ui.recommendations')}
               </h2>
               {description && (
-                <p className="mt-4 max-w-2xl text-sm leading-relaxed font-normal text-description-text sm:text-base">
+                <p className="section-description mt-4 max-w-2xl">
                   {description}
                 </p>
               )}

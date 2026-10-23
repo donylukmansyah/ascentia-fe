@@ -61,13 +61,10 @@ export function RelatedProductsSection({
         <Reveal variant="up" distance={20} margin="0px 0px -40px 0px">
           <div className="mb-8 flex items-end justify-between">
             <div>
-              <h2
-                id="related-products-heading"
-                className="text-2xl font-bold tracking-tight text-[#1b1b36] sm:text-3xl"
-              >
+              <h2 id="related-products-heading" className="section-title">
                 {t('products.relatedProducts', 'Related Products')}
               </h2>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="section-description mt-4">
                 {t(
                   'ui.relatedDescription',
                   'More instruments and solutions from Ascentia',

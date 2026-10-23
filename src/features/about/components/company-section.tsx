@@ -75,19 +75,14 @@ export function AboutCompanySection({
           delay={0.12}
           className="w-full max-w-2xl"
         >
-          <p className="text-[10px] font-bold tracking-[0.12em] text-primary uppercase sm:text-[11px]">
-            {resolvedEyebrow}
-          </p>
-          <h2
-            id="about-company-heading"
-            className="mt-2 text-[clamp(1.75rem,2.9vw,2.5rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
-          >
+          <p className="section-kicker">{resolvedEyebrow}</p>
+          <h2 id="about-company-heading" className="section-title mt-2">
             {resolvedTitle}
           </h2>
           {resolvedParagraphs.map((paragraph) => (
             <p
               key={paragraph.slice(0, 32)}
-              className="mt-4 text-sm leading-relaxed font-normal text-description-text sm:text-base"
+              className="section-description mt-4"
             >
               {paragraph}
             </p>

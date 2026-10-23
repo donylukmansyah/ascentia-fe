@@ -87,12 +87,8 @@ export function ProductGrid({
       <Reveal variant="up" distance={20} margin="0px 0px -40px 0px">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-[11px] font-bold tracking-[0.08em] text-primary uppercase sm:text-xs">
-              {kicker}
-            </p>
-            <h2 className="mt-1 text-[clamp(1.75rem,3vw,2.5rem)] leading-tight font-bold tracking-[-0.03em] text-foreground">
-              {title}
-            </h2>
+            <p className="section-kicker">{kicker}</p>
+            <h2 className="section-title mt-2">{title}</h2>
           </div>
           <p
             role="status"

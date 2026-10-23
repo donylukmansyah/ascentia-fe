@@ -81,10 +81,7 @@ export function NewsContentSection() {
     >
       <section aria-labelledby="featured-news-heading">
         <Reveal variant="up" distance={20} margin="0px 0px -40px 0px">
-          <h2
-            id="featured-news-heading"
-            className="mb-7 text-[clamp(1.75rem,3vw,2.5rem)] leading-tight font-bold tracking-[-0.03em] text-[#1b1b36]"
-          >
+          <h2 id="featured-news-heading" className="section-title mb-7">
             {t('ui.featuredEvents')}
           </h2>
         </Reveal>
@@ -145,10 +142,7 @@ export function NewsContentSection() {
       <div className="mt-14 grid gap-12 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:mt-20 lg:gap-10">
         <section aria-labelledby="latest-news-heading">
           <Reveal variant="up" distance={20} margin="0px 0px -40px 0px">
-            <h2
-              id="latest-news-heading"
-              className="mb-7 text-[clamp(1.75rem,3vw,2.5rem)] leading-tight font-bold tracking-[-0.03em] text-[#1b1b36]"
-            >
+            <h2 id="latest-news-heading" className="section-title mb-7">
               {t('ui.latestNews')}
             </h2>
           </Reveal>
@@ -212,10 +206,7 @@ export function NewsContentSection() {
           )}
         >
           <Reveal variant="up" distance={20} margin="0px 0px -40px 0px">
-            <h2
-              id="popular-news-heading"
-              className="mb-7 text-[clamp(1.75rem,3vw,2.5rem)] leading-tight font-bold tracking-[-0.03em] text-[#1b1b36]"
-            >
+            <h2 id="popular-news-heading" className="section-title mb-7">
               {t('ui.recommendedPosts')}
             </h2>
           </Reveal>

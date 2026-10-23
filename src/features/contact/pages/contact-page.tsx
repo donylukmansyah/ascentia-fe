@@ -69,7 +69,7 @@ export function ContactPage() {
               className="flex flex-col gap-5"
             >
               <div>
-                <p className="text-[10px] font-bold tracking-[0.12em] text-primary-text uppercase sm:text-[11px]">
+                <p className="section-kicker">
                   {t('about.locations.jakartaTitle', 'Jakarta Head Office')}
                 </p>
                 <h2
@@ -78,7 +78,7 @@ export function ContactPage() {
                 >
                   PT Ascentia Arsya Analitika
                 </h2>
-                <address className="mt-3 max-w-xl text-sm leading-relaxed text-description-text not-italic sm:text-base">
+                <address className="section-description mt-3 max-w-xl not-italic">
                   {jakartaOffice.address}
                 </address>
               </div>

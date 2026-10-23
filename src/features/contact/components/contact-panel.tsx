@@ -70,16 +70,16 @@ export function ContactPanel({
           </span>
 
           <Reveal variant="right" className="p-7 sm:p-10 lg:px-12 lg:py-11">
-            <p className="text-[10px] font-bold tracking-[0.12em] text-primary-text uppercase sm:text-[11px]">
+            <p className="section-kicker">
               {t('contact.kicker', 'Contact Us')}
             </p>
             <h2
               id="contact-panel-heading"
-              className="mt-2 max-w-md text-[clamp(2rem,3.4vw,3rem)] leading-[1.04] font-bold tracking-[-0.045em] text-foreground"
+              className="section-title mt-2 max-w-md"
             >
               {t('contact.heading', 'Tell us what you need to analyse')}
             </h2>
-            <p className="mt-4 max-w-md text-sm leading-relaxed font-normal text-description-text sm:text-base">
+            <p className="section-description mt-4 max-w-md">
               {t(
                 'contact.description',
                 'Share your sample preparation, XRF analysis, or reference material specifications. Our engineers in Jakarta and Kendari will recommend the exact instrument and workflow.',
