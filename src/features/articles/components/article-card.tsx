@@ -3,6 +3,7 @@ import { Link } from '@tanstack/react-router'
 import { Check, Share2, Star } from 'lucide-react'
 
 import { useLanguage } from '#/lib/i18n'
+import { BLOG_CATEGORY_SLUG } from '../constants/categories'
 import type { Article } from '../types/article'
 
 export function ArticleMetadata({ article }: { article: Article }) {
@@ -12,7 +13,7 @@ export function ArticleMetadata({ article }: { article: Article }) {
   const handleShare = async (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    const path = article.categories?.some((c) => c.id === 20)
+    const path = article.categories?.some((c) => c.slug === BLOG_CATEGORY_SLUG)
       ? `/blogs/${article.slug}`
       : `/news/${article.slug}`
     const url =

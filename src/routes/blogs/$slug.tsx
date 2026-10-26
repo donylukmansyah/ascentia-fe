@@ -11,6 +11,7 @@ import {
   ArticleDetailPage,
   ArticleNotFoundPage,
 } from '#/features/articles/pages/article-detail-page'
+import { BLOG_CATEGORY_SLUG } from '#/features/articles/constants/categories'
 import type { ArticleDetailData } from '#/features/articles/types/article'
 import { breadcrumbSchema, createSeoMeta, toAbsoluteUrl } from '#/lib/seo'
 
@@ -20,7 +21,11 @@ export const Route = createFileRoute('/blogs/$slug')({
       blogDetailQueryOptions(params.slug),
     )
     if (!article) throw notFound()
-    if (!article.categories?.some((category) => category.id === 20)) {
+    if (
+      !article.categories?.some(
+        (category) => category.slug === BLOG_CATEGORY_SLUG,
+      )
+    ) {
       throw redirect({ to: '/news/$slug', params, statusCode: 301 })
     }
     void context.queryClient

@@ -1,6 +1,8 @@
 import { createKeyedCache } from '#/lib/cache'
 import { mapYoastSeo } from '#/lib/seo-content'
 
+import { ARTICLE_CATEGORY_IDS } from '../constants/categories'
+
 import {
   array,
   mapArticle,
@@ -95,13 +97,13 @@ async function request(
   }
 }
 
-// Category 117 is Featured Events.
+// Featured Events listing.
 const cachedFeaturedEvents = createKeyedCache<NewsListingData>(
   async (_key, signal) => {
     const { data } = await request(
       'wp/v2/posts',
       {
-        categories: '117',
+        categories: String(ARTICLE_CATEGORY_IDS.featuredEvents),
         per_page: '6',
         _embed: 'true',
       },
@@ -117,7 +119,7 @@ const cachedFeaturedEvents = createKeyedCache<NewsListingData>(
   60_000,
 )
 
-// Category 19 is News.
+// Latest News listing.
 const cachedLatestNews = createKeyedCache<LatestNewsData>(
   async (key, signal) => {
     const [pageStr, perPageStr] = key.split(':')
@@ -126,7 +128,7 @@ const cachedLatestNews = createKeyedCache<LatestNewsData>(
     const { data, headers } = await request(
       'wp/v2/posts',
       {
-        categories: '19',
+        categories: String(ARTICLE_CATEGORY_IDS.news),
         page: String(page),
         per_page: String(perPage),
         _embed: 'true',
@@ -149,12 +151,12 @@ const cachedLatestNews = createKeyedCache<LatestNewsData>(
   60_000,
 )
 
-// Recommended news (category 119: recommended-news).
+// Recommended news listing.
 const cachedPopularNews = createKeyedCache<Article[]>(async (_key, signal) => {
   const { data } = await request(
     'wp/v2/posts',
     {
-      categories: '119',
+      categories: String(ARTICLE_CATEGORY_IDS.recommended),
       per_page: '5',
       _embed: 'true',
     },
@@ -188,7 +190,7 @@ const cachedRelatedNews = createKeyedCache<Article[]>(
     const { data } = await request(
       'wp/v2/posts',
       {
-        categories: '19,117',
+        categories: `${ARTICLE_CATEGORY_IDS.news},${ARTICLE_CATEGORY_IDS.featuredEvents}`,
         per_page: '4',
         exclude: excludeId,
         _embed: 'true',
@@ -208,7 +210,11 @@ const cachedSearchArticles = createKeyedCache<Article[]>(
       'wp/v2/posts',
       {
         search: query,
-        categories: category === 'news' ? '19' : '20',
+        categories: String(
+          category === 'news'
+            ? ARTICLE_CATEGORY_IDS.news
+            : ARTICLE_CATEGORY_IDS.blogs,
+        ),
         status: 'publish',
         per_page: '4',
         orderby: 'relevance',
@@ -239,7 +245,7 @@ export async function readArticleSitemap(signal?: AbortSignal) {
         page: String(page),
         per_page: '100',
         status: 'publish',
-        categories: '19,20,117,119',
+        categories: `${ARTICLE_CATEGORY_IDS.news},${ARTICLE_CATEGORY_IDS.blogs},${ARTICLE_CATEGORY_IDS.featuredEvents},${ARTICLE_CATEGORY_IDS.recommended}`,
         orderby: 'id',
         order: 'asc',
         _fields: 'id,slug,categories,modified_gmt,yoast_head_json.robots',
@@ -264,7 +270,9 @@ export async function readArticleSitemap(signal?: AbortSignal) {
       if (mapYoastSeo(post.yoast_head_json).robots?.startsWith('noindex'))
         continue
       const categories = array(post.categories)
-      const group = categories.includes(20) ? 'blogs' : 'news'
+      const group = categories.includes(ARTICLE_CATEGORY_IDS.blogs)
+        ? 'blogs'
+        : 'news'
       entries.push({
         path: `/${group}/${encodeURIComponent(post.slug)}`,
         modified:
@@ -306,7 +314,7 @@ export function readRelatedNews(excludeId: string, signal?: AbortSignal) {
   return cachedRelatedNews(excludeId, signal)
 }
 
-// Category 20 is Blogs.
+// Blog articles listing.
 const cachedBlogArticles = createKeyedCache<BlogListingData>(
   async (key, signal) => {
     const [pageStr, perPageStr] = key.split(':')
@@ -315,7 +323,7 @@ const cachedBlogArticles = createKeyedCache<BlogListingData>(
     const { data, headers } = await request(
       'wp/v2/posts',
       {
-        categories: '20',
+        categories: String(ARTICLE_CATEGORY_IDS.blogs),
         page: String(page),
         per_page: String(perPage),
         _embed: 'true',
@@ -343,7 +351,7 @@ const cachedBlogDetail = createKeyedCache<ArticleDetailData | null>(
       'wp/v2/posts',
       {
         slug,
-        categories: '20',
+        categories: String(ARTICLE_CATEGORY_IDS.blogs),
         _embed: 'true',
       },
       signal,
@@ -372,7 +380,7 @@ const cachedRelatedBlogs = createKeyedCache<Article[]>(
     const { data } = await request(
       'wp/v2/posts',
       {
-        categories: '20',
+        categories: String(ARTICLE_CATEGORY_IDS.blogs),
         per_page: '4',
         exclude: excludeId,
         _embed: 'true',
