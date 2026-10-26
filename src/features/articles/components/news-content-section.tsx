@@ -4,6 +4,7 @@ import { Link } from '@tanstack/react-router'
 import { ChevronDown, Loader2 } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
+import { EmptyState } from '#/components/ui/empty-state'
 import { QueryErrorState } from '#/components/ui/query-error-state'
 import { Reveal } from '#/components/ui/reveal'
 import { useStickyHeader } from '#/hooks/use-sticky-header'
@@ -43,6 +44,12 @@ export function NewsContentSection() {
   const latestArticles = latestData?.items ?? []
   const hasMore = Boolean(latestData?.hasMore)
 
+  const hasFeatured =
+    Boolean(featured) || centerArticles.length > 0 || rightArticles.length > 0
+  // Hide the whole block when there is nothing to show.
+  const showFeatured =
+    featuredQuery.isPending || featuredQuery.isError || hasFeatured
+
   const allFailed = featuredQuery.isError && latestQuery.isError
   const isRetrying =
     featuredQuery.isFetching ||
@@ -79,65 +86,67 @@ export function NewsContentSection() {
       tabIndex={-1}
       className="mx-auto w-full max-w-7xl scroll-mt-24 px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20"
     >
-      <section aria-labelledby="featured-news-heading">
-        <Reveal variant="up" distance={20} margin="0px 0px -40px 0px">
-          <h2 id="featured-news-heading" className="section-title mb-7">
-            {t('ui.featuredEvents')}
-          </h2>
-        </Reveal>
-        {featuredQuery.isError ? (
-          <QueryErrorState
-            title={t('ui.eventsError')}
-            message={t('ui.connectionError')}
-            onRetry={() => void featuredQuery.refetch()}
-            isRetrying={featuredQuery.isFetching}
-          />
-        ) : (
-          <div className="grid items-start gap-8 md:grid-cols-2 lg:grid-cols-[minmax(0,40fr)_minmax(0,28fr)_minmax(0,32fr)] lg:gap-6">
-            <Reveal
-              variant="up"
-              distance={24}
-              duration={0.5}
-              margin="0px 0px -40px 0px"
-            >
-              {featured ? (
-                <ArticleCard article={featured} variant="featured" />
-              ) : (
-                <div className="h-80 w-full animate-pulse rounded-2xl bg-muted/40" />
-              )}
-            </Reveal>
-            <div className="flex flex-col gap-6">
-              {centerArticles.map((article, idx) => (
-                <Reveal
-                  key={article.id}
-                  variant="up"
-                  distance={20}
-                  duration={0.45}
-                  delay={0.08 + idx * 0.08}
-                  margin="0px 0px -40px 0px"
-                >
-                  <ArticleCard article={article} variant="compact" />
-                </Reveal>
-              ))}
+      {showFeatured && (
+        <section aria-labelledby="featured-news-heading">
+          <Reveal variant="up" distance={20} margin="0px 0px -40px 0px">
+            <h2 id="featured-news-heading" className="section-title mb-7">
+              {t('ui.featuredEvents')}
+            </h2>
+          </Reveal>
+          {featuredQuery.isError ? (
+            <QueryErrorState
+              title={t('ui.eventsError')}
+              message={t('ui.connectionError')}
+              onRetry={() => void featuredQuery.refetch()}
+              isRetrying={featuredQuery.isFetching}
+            />
+          ) : (
+            <div className="grid items-start gap-8 md:grid-cols-2 lg:grid-cols-[minmax(0,40fr)_minmax(0,28fr)_minmax(0,32fr)] lg:gap-6">
+              <Reveal
+                variant="up"
+                distance={24}
+                duration={0.5}
+                margin="0px 0px -40px 0px"
+              >
+                {featured ? (
+                  <ArticleCard article={featured} variant="featured" />
+                ) : (
+                  <div className="h-80 w-full animate-pulse rounded-2xl bg-muted/40" />
+                )}
+              </Reveal>
+              <div className="flex flex-col gap-6">
+                {centerArticles.map((article, idx) => (
+                  <Reveal
+                    key={article.id}
+                    variant="up"
+                    distance={20}
+                    duration={0.45}
+                    delay={0.08 + idx * 0.08}
+                    margin="0px 0px -40px 0px"
+                  >
+                    <ArticleCard article={article} variant="compact" />
+                  </Reveal>
+                ))}
+              </div>
+              <div className="divide-y divide-border md:col-span-2 md:grid md:grid-cols-2 md:gap-x-6 lg:col-span-1 lg:flex lg:flex-col">
+                {rightArticles.map((article, idx) => (
+                  <Reveal
+                    key={article.id}
+                    variant="up"
+                    distance={16}
+                    duration={0.45}
+                    delay={0.12 + idx * 0.07}
+                    margin="0px 0px -40px 0px"
+                    className="py-4 first:pt-0 last:pb-0"
+                  >
+                    <ArticleCard article={article} variant="brief" />
+                  </Reveal>
+                ))}
+              </div>
             </div>
-            <div className="divide-y divide-border md:col-span-2 md:grid md:grid-cols-2 md:gap-x-6 lg:col-span-1 lg:flex lg:flex-col">
-              {rightArticles.map((article, idx) => (
-                <Reveal
-                  key={article.id}
-                  variant="up"
-                  distance={16}
-                  duration={0.45}
-                  delay={0.12 + idx * 0.07}
-                  margin="0px 0px -40px 0px"
-                  className="py-4 first:pt-0 last:pb-0"
-                >
-                  <ArticleCard article={article} variant="brief" />
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        )}
-      </section>
+          )}
+        </section>
+      )}
 
       <div className="mt-14 grid gap-12 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:mt-20 lg:gap-10">
         <section aria-labelledby="latest-news-heading">
@@ -153,6 +162,15 @@ export function NewsContentSection() {
               onRetry={() => void latestQuery.refetch()}
               isRetrying={latestQuery.isFetching}
             />
+          ) : latestArticles.length === 0 ? (
+            latestQuery.isPending ? null : (
+              <EmptyState
+                message={t(
+                  'ui.emptyNews',
+                  'No news articles yet. Check back soon.',
+                )}
+              />
+            )
           ) : (
             <>
               <div className="grid gap-x-6 gap-y-9 sm:grid-cols-2">

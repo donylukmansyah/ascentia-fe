@@ -43,7 +43,8 @@ async def main():
         await home.evaluate("window.__TSR_ROUTER__.navigate({ to: '/' })")
         featured = home.locator('section').filter(has=home.get_by_role('heading', name='Featured products', exact=True))
         await expect(featured.locator('[aria-busy="true"]')).to_be_visible()
-        await expect(home.get_by_role('heading', name='Brands we represent', exact=True)).to_have_count(0)
+        await expect(home.get_by_role('heading', name='Brands we represent', exact=True)).to_be_visible()
+        await expect(home.locator('section[aria-label="Brands we represent"] img').first).to_have_attribute('src', '/images/about-us/our-partner-logo/xrf-scientific.png')
         release.set()
         await expect(featured.locator('article').first).to_be_visible(timeout=30000)
         assert not failures, failures

@@ -1,5 +1,6 @@
 import { queryOptions } from '@tanstack/react-query'
 
+import { retryWordPressQuery } from '#/lib/wordpress-query'
 import { validateListInput } from './product-input'
 
 import {
@@ -10,23 +11,10 @@ import {
 } from './product-api'
 import type { ProductListInput } from '../types/product'
 
-function retryProductQuery(failureCount: number, error: Error) {
-  if (import.meta.env.SSR || failureCount >= 1) return false
-  return (
-    ['TimeoutError', 'WordPressNetworkError', 'WordPressHttp429'].includes(
-      error.name,
-    ) ||
-    /^WordPressHttp5\d{2}$/.test(error.name) ||
-    /^(WordPress request timed out|WordPress connection failed|WordPress request failed \((429|5\d{2})\))$/.test(
-      error.message,
-    )
-  )
-}
-
 export function productTaxonomiesQueryOptions() {
   return queryOptions({
     queryKey: ['products', 'taxonomies'],
-    retry: retryProductQuery,
+    retry: retryWordPressQuery,
     queryFn: ({ signal }) => getProductTaxonomies({ signal }),
     // Category data changes rarely.
     staleTime: 30 * 60_000,
@@ -39,7 +27,7 @@ export function productsQueryOptions(input: ProductListInput) {
   const data = validateListInput(input)
   return queryOptions({
     queryKey: ['products', 'list', data],
-    retry: retryProductQuery,
+    retry: retryWordPressQuery,
     queryFn: ({ signal }) => getProducts({ data, signal }),
     staleTime: 60_000,
   })
@@ -56,7 +44,7 @@ export function featuredProductsQueryOptions() {
 export function productDetailQueryOptions(slug: string) {
   return queryOptions({
     queryKey: ['products', 'detail', slug],
-    retry: retryProductQuery,
+    retry: retryWordPressQuery,
     queryFn: ({ signal }) => getProduct({ data: slug, signal }),
     staleTime: 60_000,
   })
@@ -65,7 +53,7 @@ export function productDetailQueryOptions(slug: string) {
 export function relatedProductsQueryOptions(id: string, brandId: string) {
   return queryOptions({
     queryKey: ['products', 'related', id, brandId],
-    retry: retryProductQuery,
+    retry: retryWordPressQuery,
     queryFn: ({ signal }) =>
       getRelatedProducts({ data: { id, brandId }, signal }),
     staleTime: 60_000,

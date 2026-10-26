@@ -52,6 +52,7 @@
     "blogsError": "Unable to load blog articles",
     "loadingBlogs": "Loading blog articles…",
     "emptyBlogs": "No blog articles yet. Check back soon.",
+    "emptyNews": "No news articles yet. Check back soon.",
     "loadingSearch": "Loading search…",
     "mapUnavailable": "Map unavailable. Directions remain available.",
     "searchTitle": "Search Ascentia",

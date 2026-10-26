@@ -20,16 +20,17 @@ export function getRouter() {
     defaultPendingMs: 200,
     defaultPendingMinMs: 200,
     rewrite: {
+      // Default locale is id (no prefix); en lives under /en.
       input: ({ url }) => {
         const copy = new URL(url.toString())
-        if (copy.pathname === '/id') {
+        if (copy.pathname === '/en') {
           copy.pathname = '/'
-          copy.searchParams.set('__locale', 'id')
+          copy.searchParams.set('__locale', 'en')
           return copy
         }
-        if (copy.pathname.startsWith('/id/')) {
+        if (copy.pathname.startsWith('/en/')) {
           copy.pathname = copy.pathname.slice(3)
-          copy.searchParams.set('__locale', 'id')
+          copy.searchParams.set('__locale', 'en')
           return copy
         }
         return copy
@@ -37,22 +38,22 @@ export function getRouter() {
       output: ({ url }) => {
         const copy = new URL(url.toString())
         const locale = copy.searchParams.get('__locale')
-        const isId =
-          locale === 'id' ||
+        const isEn =
+          locale === 'en' ||
           (locale === null &&
             typeof window !== 'undefined' &&
-            (window.location.pathname === '/id' ||
-              window.location.pathname.startsWith('/id/')))
+            (window.location.pathname === '/en' ||
+              window.location.pathname.startsWith('/en/')))
 
         if (copy.searchParams.has('__locale')) {
           copy.searchParams.delete('__locale')
         }
 
-        if (isId) {
+        if (isEn) {
           if (copy.pathname === '/') {
-            copy.pathname = '/id'
-          } else if (!copy.pathname.startsWith('/id')) {
-            copy.pathname = `/id${copy.pathname}`
+            copy.pathname = '/en'
+          } else if (!copy.pathname.startsWith('/en')) {
+            copy.pathname = `/en${copy.pathname}`
           }
           return copy
         }

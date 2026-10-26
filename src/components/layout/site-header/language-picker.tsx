@@ -10,8 +10,8 @@ import {
 import { cn } from '#/lib/utils'
 
 const languages = [
-  { code: 'en', label: 'English', flag: '/icons/flags/gb.svg' },
   { code: 'id', label: 'Bahasa Indonesia', flag: '/icons/flags/id.svg' },
+  { code: 'en', label: 'English', flag: '/icons/flags/gb.svg' },
 ] as const
 
 type LanguageCode = (typeof languages)[number]['code']

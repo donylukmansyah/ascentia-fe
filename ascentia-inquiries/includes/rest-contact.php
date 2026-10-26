@@ -83,7 +83,7 @@ function ascentia_handle_contact_submission(WP_REST_Request $request) {
             ],
         ]);
 
-        if (is_wp_error($post_id)) {
+        if (empty($post_id) || is_wp_error($post_id)) {
             return new WP_Error('save_failed', 'Gagal menyimpan pesan ke database.', ['status' => 500]);
         }
 

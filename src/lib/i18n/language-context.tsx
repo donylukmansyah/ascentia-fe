@@ -3,6 +3,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react'
@@ -33,7 +34,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
   const language = useRouterState({
     select: (state): LanguageCode =>
-      /^\/id(?:[/?#]|$)/.test(state.location.publicHref) ? 'id' : 'en',
+      /^\/en(?:[/?#]|$)/.test(state.location.publicHref) ? 'en' : 'id',
   })
   const [isSwitching, setIsSwitching] = useState(false)
   const [switchError, setSwitchError] = useState<string | null>(null)
@@ -73,11 +74,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
             resetScroll: true,
             hashScrollIntoView: false,
           })
-          const activeLanguage = /^\/id(?:[/?#]|$)/.test(
+          const activeLanguage = /^\/en(?:[/?#]|$)/.test(
             router.state.location.publicHref,
           )
-            ? 'id'
-            : 'en'
+            ? 'en'
+            : 'id'
           if (activeLanguage !== newLang) {
             throw new Error('Language navigation did not complete')
           }
@@ -131,10 +132,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     [language],
   )
 
+  const value = useMemo(
+    () => ({ language, setLanguage, t, tArray, pick, isSwitching }),
+    [language, setLanguage, t, tArray, pick, isSwitching],
+  )
+
   return (
-    <LanguageContext.Provider
-      value={{ language, setLanguage, t, tArray, pick, isSwitching }}
-    >
+    <LanguageContext.Provider value={value}>
       {children}
       {isSwitching && <RouteLoading />}
       {switchError && (

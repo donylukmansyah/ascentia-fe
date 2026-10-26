@@ -1,5 +1,6 @@
 import { queryOptions } from '@tanstack/react-query'
 
+import { retryWordPressQuery } from '#/lib/wordpress-query'
 import {
   getBlogArticles,
   getBlogDetail,
@@ -11,23 +12,10 @@ import {
   getRelatedNews,
 } from './article-api'
 
-function retryEditorialQuery(failureCount: number, error: Error) {
-  if (import.meta.env.SSR || failureCount >= 1) return false
-  return (
-    ['TimeoutError', 'WordPressNetworkError', 'WordPressHttp429'].includes(
-      error.name,
-    ) ||
-    /^WordPressHttp5\d{2}$/.test(error.name) ||
-    /^(WordPress request timed out|WordPress connection failed|WordPress request failed \((429|5\d{2})\))$/.test(
-      error.message,
-    )
-  )
-}
-
 export function featuredEventsQueryOptions() {
   return queryOptions({
     queryKey: ['news', 'featured'],
-    retry: retryEditorialQuery,
+    retry: retryWordPressQuery,
     queryFn: ({ signal }) => getFeaturedEvents({ signal }),
     staleTime: 60_000,
   })
@@ -36,7 +24,7 @@ export function featuredEventsQueryOptions() {
 export function popularNewsQueryOptions() {
   return queryOptions({
     queryKey: ['news', 'popular'],
-    retry: retryEditorialQuery,
+    retry: retryWordPressQuery,
     queryFn: ({ signal }) => getPopularNews({ signal }),
     staleTime: 60_000,
   })
@@ -50,7 +38,7 @@ export function latestNewsQueryOptions(
 ) {
   return queryOptions({
     queryKey: ['news', 'latest', { page, perPage }],
-    retry: retryEditorialQuery,
+    retry: retryWordPressQuery,
     queryFn: ({ signal }) => getLatestNews({ data: { page, perPage }, signal }),
     staleTime: 60_000,
   })
@@ -59,7 +47,7 @@ export function latestNewsQueryOptions(
 export function newsDetailQueryOptions(slug: string) {
   return queryOptions({
     queryKey: ['news', 'detail', slug],
-    retry: retryEditorialQuery,
+    retry: retryWordPressQuery,
     queryFn: ({ signal }) => getNewsDetail({ data: slug, signal }),
     staleTime: 60_000,
   })
@@ -68,7 +56,7 @@ export function newsDetailQueryOptions(slug: string) {
 export function relatedNewsQueryOptions(excludeId: string) {
   return queryOptions({
     queryKey: ['news', 'related', excludeId],
-    retry: retryEditorialQuery,
+    retry: retryWordPressQuery,
     queryFn: ({ signal }) => getRelatedNews({ data: excludeId, signal }),
     staleTime: 60_000,
   })
@@ -82,7 +70,7 @@ export function blogArticlesQueryOptions(
 ) {
   return queryOptions({
     queryKey: ['blogs', 'list', { page, perPage }],
-    retry: retryEditorialQuery,
+    retry: retryWordPressQuery,
     queryFn: ({ signal }) =>
       getBlogArticles({ data: { page, perPage }, signal }),
     staleTime: 60_000,
@@ -92,7 +80,7 @@ export function blogArticlesQueryOptions(
 export function blogDetailQueryOptions(slug: string) {
   return queryOptions({
     queryKey: ['blogs', 'detail', slug],
-    retry: retryEditorialQuery,
+    retry: retryWordPressQuery,
     queryFn: ({ signal }) => getBlogDetail({ data: slug, signal }),
     staleTime: 60_000,
   })
@@ -101,7 +89,7 @@ export function blogDetailQueryOptions(slug: string) {
 export function relatedBlogsQueryOptions(excludeId: string) {
   return queryOptions({
     queryKey: ['blogs', 'related', excludeId],
-    retry: retryEditorialQuery,
+    retry: retryWordPressQuery,
     queryFn: ({ signal }) => getRelatedBlogs({ data: excludeId, signal }),
     staleTime: 60_000,
   })
