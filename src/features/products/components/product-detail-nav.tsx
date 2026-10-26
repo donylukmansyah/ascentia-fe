@@ -93,7 +93,7 @@ export function ProductDetailNav({
   return (
     <nav
       aria-label={t('products.detailSections', 'Product detail sections')}
-      className="product-detail-nav sticky z-30 border-y border-border bg-background/95 backdrop-blur"
+      className="product-detail-nav sticky z-30 border-b border-border bg-background/95 backdrop-blur"
     >
       <div
         ref={navRef}
