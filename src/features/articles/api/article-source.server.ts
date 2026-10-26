@@ -1,7 +1,7 @@
 import { createKeyedCache } from '#/lib/cache'
 import { mapYoastSeo } from '#/lib/seo-content'
 
-import { ARTICLE_CATEGORY_IDS } from '../constants/categories'
+import { ARTICLE_CATEGORY_SLUGS } from '../constants/categories'
 
 import {
   array,
@@ -97,13 +97,50 @@ async function request(
   }
 }
 
+type CategoryKey = keyof typeof ARTICLE_CATEGORY_SLUGS
+type CategoryIdMap = Record<CategoryKey, number | undefined>
+
+// Resolve category slugs to this install's numeric IDs.
+const cachedCategoryIds = createKeyedCache<CategoryIdMap>(
+  async (_key, signal) => {
+    const { data } = await request(
+      'wp/v2/categories',
+      { per_page: '100', _fields: 'id,slug' },
+      signal,
+    )
+    const bySlug = new Map<string, number>()
+    for (const value of array(data)) {
+      const item = record(value)
+      if (typeof item.slug === 'string' && Number.isSafeInteger(item.id)) {
+        bySlug.set(item.slug, item.id as number)
+      }
+    }
+    return {
+      news: bySlug.get(ARTICLE_CATEGORY_SLUGS.news),
+      blogs: bySlug.get(ARTICLE_CATEGORY_SLUGS.blogs),
+      featuredEvents: bySlug.get(ARTICLE_CATEGORY_SLUGS.featuredEvents),
+      recommended: bySlug.get(ARTICLE_CATEGORY_SLUGS.recommended),
+    }
+  },
+  300_000,
+)
+
+function categoryIds(signal?: AbortSignal) {
+  return cachedCategoryIds('all', signal)
+}
+
 // Featured Events listing.
 const cachedFeaturedEvents = createKeyedCache<NewsListingData>(
   async (_key, signal) => {
+    const ids = await categoryIds(signal)
+    if (!ids.featuredEvents) {
+      const empty: Article[] = []
+      return { featured: empty[0], center: [], right: [] }
+    }
     const { data } = await request(
       'wp/v2/posts',
       {
-        categories: String(ARTICLE_CATEGORY_IDS.featuredEvents),
+        categories: String(ids.featuredEvents),
         per_page: '6',
         _embed: 'true',
       },
@@ -125,10 +162,21 @@ const cachedLatestNews = createKeyedCache<LatestNewsData>(
     const [pageStr, perPageStr] = key.split(':')
     const page = Number(pageStr) || 1
     const perPage = Number(perPageStr) || 4
+    const ids = await categoryIds(signal)
+    if (!ids.news) {
+      return {
+        items: [],
+        page,
+        perPage,
+        total: 0,
+        totalPages: 0,
+        hasMore: false,
+      }
+    }
     const { data, headers } = await request(
       'wp/v2/posts',
       {
-        categories: String(ARTICLE_CATEGORY_IDS.news),
+        categories: String(ids.news),
         page: String(page),
         per_page: String(perPage),
         _embed: 'true',
@@ -153,10 +201,12 @@ const cachedLatestNews = createKeyedCache<LatestNewsData>(
 
 // Recommended news listing.
 const cachedPopularNews = createKeyedCache<Article[]>(async (_key, signal) => {
+  const ids = await categoryIds(signal)
+  if (!ids.recommended) return []
   const { data } = await request(
     'wp/v2/posts',
     {
-      categories: String(ARTICLE_CATEGORY_IDS.recommended),
+      categories: String(ids.recommended),
       per_page: '5',
       _embed: 'true',
     },
@@ -187,10 +237,13 @@ const cachedNewsDetail = createKeyedCache<ArticleDetailData | null>(
 // Related news.
 const cachedRelatedNews = createKeyedCache<Article[]>(
   async (excludeId, signal) => {
+    const ids = await categoryIds(signal)
+    const cats = [ids.news, ids.featuredEvents].filter(Boolean).join(',')
+    if (!cats) return []
     const { data } = await request(
       'wp/v2/posts',
       {
-        categories: `${ARTICLE_CATEGORY_IDS.news},${ARTICLE_CATEGORY_IDS.featuredEvents}`,
+        categories: cats,
         per_page: '4',
         exclude: excludeId,
         _embed: 'true',
@@ -206,15 +259,14 @@ const cachedRelatedNews = createKeyedCache<Article[]>(
 const cachedSearchArticles = createKeyedCache<Article[]>(
   async (key, signal) => {
     const [query, category] = JSON.parse(key) as [string, 'news' | 'blogs']
+    const ids = await categoryIds(signal)
+    const id = category === 'news' ? ids.news : ids.blogs
+    if (!id) return []
     const { data } = await request(
       'wp/v2/posts',
       {
         search: query,
-        categories: String(
-          category === 'news'
-            ? ARTICLE_CATEGORY_IDS.news
-            : ARTICLE_CATEGORY_IDS.blogs,
-        ),
+        categories: String(id),
         status: 'publish',
         per_page: '4',
         orderby: 'relevance',
@@ -238,6 +290,11 @@ export function readSearchArticles(
 export async function readArticleSitemap(signal?: AbortSignal) {
   const entries: { path: string; modified: string }[] = []
   const seen = new Set<string>()
+  const ids = await categoryIds(signal)
+  const cats = [ids.news, ids.blogs, ids.featuredEvents, ids.recommended]
+    .filter(Boolean)
+    .join(',')
+  if (!cats) return entries
   for (let page = 1; ; page++) {
     const { data, headers } = await request(
       'wp/v2/posts',
@@ -245,7 +302,7 @@ export async function readArticleSitemap(signal?: AbortSignal) {
         page: String(page),
         per_page: '100',
         status: 'publish',
-        categories: `${ARTICLE_CATEGORY_IDS.news},${ARTICLE_CATEGORY_IDS.blogs},${ARTICLE_CATEGORY_IDS.featuredEvents},${ARTICLE_CATEGORY_IDS.recommended}`,
+        categories: cats,
         orderby: 'id',
         order: 'asc',
         _fields: 'id,slug,categories,modified_gmt,yoast_head_json.robots',
@@ -270,9 +327,10 @@ export async function readArticleSitemap(signal?: AbortSignal) {
       if (mapYoastSeo(post.yoast_head_json).robots?.startsWith('noindex'))
         continue
       const categories = array(post.categories)
-      const group = categories.includes(ARTICLE_CATEGORY_IDS.blogs)
-        ? 'blogs'
-        : 'news'
+      const group =
+        ids.blogs !== undefined && categories.includes(ids.blogs)
+          ? 'blogs'
+          : 'news'
       entries.push({
         path: `/${group}/${encodeURIComponent(post.slug)}`,
         modified:
@@ -320,10 +378,14 @@ const cachedBlogArticles = createKeyedCache<BlogListingData>(
     const [pageStr, perPageStr] = key.split(':')
     const page = Number(pageStr) || 1
     const perPage = Number(perPageStr) || 12
+    const ids = await categoryIds(signal)
+    if (!ids.blogs) {
+      return { items: [], page, perPage, total: 0, totalPages: 0 }
+    }
     const { data, headers } = await request(
       'wp/v2/posts',
       {
-        categories: String(ARTICLE_CATEGORY_IDS.blogs),
+        categories: String(ids.blogs),
         page: String(page),
         per_page: String(perPage),
         _embed: 'true',
@@ -347,40 +409,43 @@ const cachedBlogArticles = createKeyedCache<BlogListingData>(
 
 const cachedBlogDetail = createKeyedCache<ArticleDetailData | null>(
   async (slug, signal) => {
-    const { data } = await request(
-      'wp/v2/posts',
-      {
-        slug,
-        categories: String(ARTICLE_CATEGORY_IDS.blogs),
-        _embed: 'true',
-      },
-      signal,
-    )
-    const items = array(data)
-    if (!items.length) {
-      const fallback = await request(
+    const ids = await categoryIds(signal)
+    if (ids.blogs) {
+      const { data } = await request(
         'wp/v2/posts',
         {
           slug,
+          categories: String(ids.blogs),
           _embed: 'true',
         },
         signal,
       )
-      const fallbackItems = array(fallback.data)
-      if (!fallbackItems.length) return null
-      return mapArticleDetail(fallbackItems[0])
+      const items = array(data)
+      if (items.length) return mapArticleDetail(items[0])
     }
-    return mapArticleDetail(items[0])
+    const fallback = await request(
+      'wp/v2/posts',
+      {
+        slug,
+        _embed: 'true',
+      },
+      signal,
+    )
+    const fallbackItems = array(fallback.data)
+    if (!fallbackItems.length) return null
+    return mapArticleDetail(fallbackItems[0])
   },
   60_000,
 )
 
 const cachedRelatedBlogs = createKeyedCache<Article[]>(
   async (excludeId, signal) => {
+    const ids = await categoryIds(signal)
+    if (!ids.blogs) return []
     const { data } = await request(
       'wp/v2/posts',
       {
-        categories: String(ARTICLE_CATEGORY_IDS.blogs),
+        categories: String(ids.blogs),
         per_page: '4',
         exclude: excludeId,
         _embed: 'true',

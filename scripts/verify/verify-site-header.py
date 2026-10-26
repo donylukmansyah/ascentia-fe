@@ -23,16 +23,16 @@ with sync_playwright() as playwright:
     page.wait_for_timeout(500)
 
     language_selector = page.get_by_role(
-        "button", name=re.compile(r"Select language, current English")
+        "button", name=re.compile(r"ID, Bahasa Indonesia, select language")
     )
     expect(language_selector).to_be_visible()
-    expect(language_selector.locator('img[src="/icons/flags/gb.svg"]')).to_be_visible()
+    expect(language_selector.locator('img[src="/icons/flags/id.svg"]')).to_be_visible()
     expect(page.get_by_role("button", name="Search")).to_be_visible()
     language_selector.click()
-    page.get_by_role("menuitemradio", name="Bahasa Indonesia").click()
+    page.get_by_role("menuitemradio", name="English").click()
     expect(
         page.get_by_role(
-            "button", name=re.compile(r"Select language, current Bahasa Indonesia")
+            "button", name=re.compile(r"EN, English, select language")
         )
     ).to_be_visible()
 

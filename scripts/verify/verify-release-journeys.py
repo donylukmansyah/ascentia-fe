@@ -139,7 +139,7 @@ with sync_playwright() as p:
 
             def locale():
                 if width < 1024:
-                    page.goto(base + '/id/products/brands?category=xrf-scientific&page=2', wait_until='networkidle')
+                    page.goto(base + '/products/brands?category=xrf-scientific&page=2', wait_until='networkidle')
                     expect(page.locator('html')).to_have_attribute('lang', 'id')
                     page.reload(wait_until='networkidle')
                     expect(page.locator('html')).to_have_attribute('lang', 'id')
@@ -148,19 +148,19 @@ with sync_playwright() as p:
                 page.goto(base + '/products/brands?category=xrf-scientific&page=2#product-results', wait_until='networkidle')
                 page.evaluate('scrollTo(0, 900)')
                 page.evaluate('scrollTo(0, 400)')
-                trigger = page.get_by_role('button', name='EN, English, select language', exact=True)
+                trigger = page.get_by_role('button', name='ID, Bahasa Indonesia, select language', exact=True)
                 trigger.click()
-                page.get_by_role('menuitemradio', name='Bahasa Indonesia', exact=True).click()
-                expect(page).to_have_url(re.compile(r'/id/products/brands\?'))
-                expect(page.locator('html')).to_have_attribute('lang', 'id')
+                page.get_by_role('menuitemradio', name='English', exact=True).click()
+                expect(page).to_have_url(re.compile(r'/en/products/brands\?'))
+                expect(page.locator('html')).to_have_attribute('lang', 'en')
                 page.wait_for_timeout(600)
                 assert page.evaluate('scrollY') <= 2
                 assert parse_qs(urlparse(page.url).query) == {'category': ['xrf-scientific'], 'page': ['2']}
                 assert not urlparse(page.url).fragment
-                page.get_by_role('button', name='ID, Bahasa Indonesia, select language', exact=True).click()
-                page.get_by_role('menuitemradio', name='English', exact=True).click()
-                expect(page.locator('html')).to_have_attribute('lang', 'en')
-                assert '/id/' not in page.url
+                page.get_by_role('button', name='EN, English, select language', exact=True).click()
+                page.get_by_role('menuitemradio', name='Bahasa Indonesia', exact=True).click()
+                expect(page.locator('html')).to_have_attribute('lang', 'id')
+                assert '/en/' not in page.url
 
             scenario('locale URL/query/hash/reload/scroll', locale)
 
@@ -172,8 +172,8 @@ with sync_playwright() as p:
                     page.evaluate('scrollBy(0, -120)')
                     page.wait_for_timeout(650)
                     before = page.evaluate('scrollY')
-                    page.get_by_role('button', name='EN, English, select language', exact=True).click()
-                    page.get_by_role('menuitemradio', name='English', exact=True).click()
+                    page.get_by_role('button', name='ID, Bahasa Indonesia, select language', exact=True).click()
+                    page.get_by_role('menuitemradio', name='Bahasa Indonesia', exact=True).click()
                     page.wait_for_timeout(600)
                     after = page.evaluate('scrollY')
                     assert abs(after - before) <= 2, f'Selecting current language shifted scroll: {before} to {after}'

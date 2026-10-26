@@ -13,6 +13,7 @@ import { SiteFooter } from '#/components/layout/site-footer'
 import { SiteHeader } from '#/components/layout/site-header'
 import { SocialDock } from '#/components/layout/social-dock/social-dock'
 import { createSeoMeta } from '#/lib/seo'
+import { currentLocale } from '#/lib/locale'
 import { LanguageProvider } from '#/lib/i18n'
 import { GlobalSearch } from '#/features/search/components/global-search'
 
@@ -80,7 +81,7 @@ function RootLayout() {
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang={currentLocale()}>
       <head>
         <link rel="preload" as="style" href={appCss} fetchPriority="high" />
         <link

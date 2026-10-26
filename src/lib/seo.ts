@@ -1,3 +1,6 @@
+import { currentLocale  } from './locale'
+import type {LocaleCode} from './locale';
+
 export const PROD_SITE_URL = 'https://ascentia.co.id'
 export const SITE_URL =
   typeof import.meta.env !== 'undefined' && import.meta.env.DEV
@@ -40,6 +43,22 @@ export function toAbsoluteUrl(
   return `${SITE_URL}${pathOrUrl.startsWith('/') ? '' : '/'}${pathOrUrl}`
 }
 
+// English lives under /en; Indonesian is the unprefixed default.
+function localizePath(path: string, locale: LocaleCode): string {
+  if (locale !== 'en') return path
+  return path === '/' ? '/en' : `/en${path}`
+}
+
+function alternateLinks(path: string) {
+  const idHref = toAbsoluteUrl(path, SITE_URL)
+  const enHref = toAbsoluteUrl(localizePath(path, 'en'), SITE_URL)
+  return [
+    { rel: 'alternate', hreflang: 'id', href: idHref },
+    { rel: 'alternate', hreflang: 'en', href: enHref },
+    { rel: 'alternate', hreflang: 'x-default', href: idHref },
+  ]
+}
+
 export function createSeoMeta({
   seo,
   robots,
@@ -55,7 +74,11 @@ export function createSeoMeta({
   description = seo?.description || description
   image = seo?.image || image
   imageAlt = seo?.imageAlt || imageAlt
-  const url = path !== undefined ? toAbsoluteUrl(path, SITE_URL) : undefined
+  const locale = currentLocale()
+  const url =
+    path !== undefined
+      ? toAbsoluteUrl(localizePath(path, locale), SITE_URL)
+      : undefined
   const imageUrl = image ? toAbsoluteUrl(image) : DEFAULT_OG_IMAGE
   const defaultImage = imageUrl === DEFAULT_OG_IMAGE
   const width = seo?.image ? seo.imageWidth : defaultImage ? 1200 : undefined
@@ -77,6 +100,14 @@ export function createSeoMeta({
       },
       { property: 'og:site_name', content: 'Ascentia Arsya Analitika' },
       { property: 'og:type', content: type },
+      {
+        property: 'og:locale',
+        content: locale === 'en' ? 'en_US' : 'id_ID',
+      },
+      {
+        property: 'og:locale:alternate',
+        content: locale === 'en' ? 'id_ID' : 'en_US',
+      },
       { property: 'og:title', content: seo?.socialTitle || title },
       {
         property: 'og:description',
@@ -102,7 +133,10 @@ export function createSeoMeta({
       { name: 'twitter:description', content: description },
       { name: 'twitter:image', content: imageUrl },
     ],
-    links: url ? [{ rel: 'canonical', href: url }] : [],
+    links: [
+      ...(url ? [{ rel: 'canonical', href: url }] : []),
+      ...(path !== undefined ? alternateLinks(path) : []),
+    ],
     scripts: schema.map((value) => ({
       type: 'application/ld+json',
       children: JSON.stringify({ '@context': 'https://schema.org', ...value })

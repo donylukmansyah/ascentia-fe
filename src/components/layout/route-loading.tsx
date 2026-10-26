@@ -5,7 +5,7 @@ import logoMark from '../../../public/brand/logo-mark.png?inline'
 
 export function RouteLoading() {
   const isIndonesian = useRouterState({
-    select: (state) => /^\/id(?:[/?#]|$)/.test(state.location.publicHref),
+    select: (state) => !/^\/en(?:[/?#]|$)/.test(state.location.publicHref),
   })
   return (
     <div

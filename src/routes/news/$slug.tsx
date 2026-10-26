@@ -22,7 +22,9 @@ export const Route = createFileRoute('/news/$slug')({
     )
     if (!article) throw notFound()
     if (
-      article.categories?.some((category) => category.slug === BLOG_CATEGORY_SLUG)
+      article.categories?.some(
+        (category) => category.slug === BLOG_CATEGORY_SLUG,
+      )
     ) {
       throw redirect({ to: '/blogs/$slug', params, statusCode: 301 })
     }

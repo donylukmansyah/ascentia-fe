@@ -49,7 +49,7 @@ with sync_playwright() as p:
             context.route('**/*', intercept)
             page = context.new_page()
             page.on('pageerror', lambda error: errors.append(str(error)))
-            page.goto(BASE + ('/id/about-us' if locale == 'id' else '/about-us'), wait_until='domcontentloaded', timeout=60000)
+            page.goto(BASE + ('/en/about-us' if locale == 'en' else '/about-us'), wait_until='domcontentloaded', timeout=60000)
             page.wait_for_function('window.__TSR_ROUTER__?.state.status === "idle"')
             expect(page.locator('html')).to_have_attribute('lang', locale)
             try:

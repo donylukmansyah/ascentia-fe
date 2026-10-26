@@ -1,10 +1,10 @@
-// WordPress category IDs; update if WP taxonomy changes.
-export const ARTICLE_CATEGORY_IDS = {
-  news: 19,
-  blogs: 96,
-  featuredEvents: 94,
-  recommended: 95,
+// WordPress category slugs; stable across installs (IDs are not).
+export const ARTICLE_CATEGORY_SLUGS = {
+  news: 'news',
+  blogs: 'blogs',
+  featuredEvents: 'featured-events',
+  recommended: 'recommended-news',
 } as const
 
 // Stable slug for blog routing; immune to ID drift.
-export const BLOG_CATEGORY_SLUG = 'blogs'
+export const BLOG_CATEGORY_SLUG = ARTICLE_CATEGORY_SLUGS.blogs

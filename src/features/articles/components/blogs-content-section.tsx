@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useSearch } from '@tanstack/react-router'
 
+import { EmptyState } from '#/components/ui/empty-state'
 import { PagePagination } from '#/components/ui/pagination'
 import { QueryErrorState } from '#/components/ui/query-error-state'
 import { Reveal } from '#/components/ui/reveal'
@@ -102,11 +103,9 @@ export function BlogsContentSection() {
           isRetrying={isFetching}
         />
       ) : items.length === 0 ? (
-        <div className="rounded-lg border border-border bg-muted/30 p-12 text-center">
-          <p className="text-base text-muted-foreground">
-            {t('ui.emptyBlogs', 'No blog articles yet. Check back soon.')}
-          </p>
-        </div>
+        <EmptyState
+          message={t('ui.emptyBlogs', 'No blog articles yet. Check back soon.')}
+        />
       ) : (
         <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((article, index) => (
