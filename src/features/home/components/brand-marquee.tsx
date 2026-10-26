@@ -1,23 +1,17 @@
 import { LogoMarquee } from '#/components/ui/logo-marquee'
 
-import type { ProductTaxonomy } from '#/features/products/types/product'
+import { aboutPartnersContent } from '#/features/about/constants/partners'
 
-interface BrandMarqueeProps {
-  brands: ProductTaxonomy[]
-  title?: string
-}
+const logos = aboutPartnersContent.partners.map(({ logo, name }) => ({
+  src: logo,
+  alt: name,
+}))
 
 export function BrandMarquee({
-  brands,
   title = 'Brands we represent',
-}: BrandMarqueeProps) {
-  const logos = brands.flatMap((brand) =>
-    brand.logo?.trim()
-      ? [{ src: brand.logo, srcSet: brand.logoSrcSet, alt: brand.name }]
-      : [],
-  )
-  if (!logos.length) return null
-
+}: {
+  title?: string
+}) {
   return (
     <section
       aria-label={title}

@@ -117,7 +117,7 @@ export function ProductCarouselSection({
               products.length > 0 &&
               (canScrollPrev || canScrollNext) && (
                 <div
-                  className="flex items-center gap-3 shrink-0"
+                  className="hidden sm:flex items-center gap-3 shrink-0"
                   role="group"
                   aria-label={t('ui.productControls')}
                 >
@@ -159,7 +159,7 @@ export function ProductCarouselSection({
               <div
                 key={index}
                 aria-hidden="true"
-                className="h-80 min-w-0 shrink-0 animate-pulse rounded-xl bg-muted basis-[88%] sm:basis-[calc(50%-12px)] lg:basis-[calc((100%-104px)/3)] motion-reduce:animate-none"
+                className="h-80 min-w-0 shrink-0 animate-pulse rounded-xl bg-muted basis-[84%] sm:basis-[calc(50%-12px)] lg:basis-[calc((100%-104px)/3)] motion-reduce:animate-none"
               />
             ))}
           </div>
@@ -187,6 +187,7 @@ export function ProductCarouselSection({
             duration={0.55}
             margin="0px 0px -60px 0px"
           >
+            {/* CSS snap handles touch; no JS drag needed */}
             <div
               ref={scrollContainerRef}
               onScroll={checkScroll}
@@ -194,12 +195,12 @@ export function ProductCarouselSection({
               role="region"
               aria-roledescription="carousel"
               aria-label={t('home.featured.title')}
-              className="mt-10 flex gap-4 overflow-hidden pt-2 pb-4 scroll-smooth motion-reduce:scroll-auto snap-x snap-mandatory [touch-action:pan-y]"
+              className="mt-10 flex gap-4 overflow-x-auto pt-2 pb-4 scroll-smooth motion-reduce:scroll-auto snap-x snap-mandatory overscroll-x-contain [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             >
               {products.map((product) => (
                 <div
                   key={product.id}
-                  className="min-w-0 shrink-0 snap-start basis-[88%] sm:basis-[calc(50%-12px)] lg:basis-[calc((100%-104px)/3)]"
+                  className="min-w-0 shrink-0 snap-start basis-[84%] sm:basis-[calc(50%-12px)] lg:basis-[calc((100%-104px)/3)]"
                 >
                   <ProductCard product={product} className="h-full" />
                 </div>
