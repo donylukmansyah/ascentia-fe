@@ -37,9 +37,13 @@ export function SiteHeader({
   const [isProductsMenuOpen, setIsProductsMenuOpen] = useState(false)
   const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false)
   const { language, setLanguage, t } = useLanguage()
+  // Pin header on product detail so its section nav never chases it.
+  const isProductDetail =
+    /^\/products\/(?!brands$|types$|applications$)[^/]+$/.test(pathname)
   // Pin header while dropdown open.
   const mode = useStickyHeader({
     paused: isDesktopDropdownOpen || searchOpen,
+    disableHide: isProductDetail,
   })
   const isSolid = mode !== 'transparent'
   const isHidden = mode === 'hidden' || mode === 'hidden-initial'
