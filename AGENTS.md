@@ -2,64 +2,64 @@
 
 ## Toolchain & Commands
 
-- Package manager: `pnpm` (Node 20+).
-- Dev server: `pnpm dev` (Vite on port 3000).
-- Build: `pnpm build`.
-- Production server: `node .output/server/index.mjs`.
-- Typecheck: `pnpm exec tsc --noEmit -p tsconfig.json`.
-- Lint & format: `pnpm lint`, `pnpm check`, `pnpm format`.
-- Route tree generation: `pnpm generate-routes`.
+- pnpm 10 (CI pins 10.32.1); Node >=22.12.0 — `@tanstack/react-start` requires it, so Node 20 is too old. CI uses Node 22.
+- `pnpm dev` runs Vite on port 3000.
+- `pnpm build` creates the Nitro `.output` bundle; `pnpm start` runs it and loads `.env`. cPanel/Passenger uses the `app.js` bridge.
+- Typecheck: `pnpm exec tsc --noEmit -p tsconfig.json`. Production CI runs typecheck + build only; lint/format are not CI gates.
+- `pnpm lint` = ESLint; `pnpm format` = repo-wide Prettier + ESLint fix; `pnpm check` = Prettier only and can flag untouched files. Do not reformat unrelated files.
+- `pnpm generate-routes` regenerates `src/routeTree.gen.ts`; never edit that file by hand.
 
-## Routing & Generated Files
+## Tests & Verification
 
-- File-based routes live in `src/routes/`.
-- Never manually edit `src/routeTree.gen.ts`. Run `pnpm generate-routes` after adding or changing route files.
+- No Vitest/Jest and no `test` script. Tests are plain Node scripts using `node:assert`: `node --test <file>` (e.g. `node --test src/features/search/search.test.ts`).
+- Some suites are not directly runnable: app code uses extensionless `#/` imports, which Node ESM cannot resolve (SEO and visitor-policy tests currently fail).
+- Fast boundary gate: `node scripts/verify/verify-audit-boundaries.mjs`.
+- Browser checks are Python Playwright scripts in `scripts/verify/`, run against a live server via `SITE_URL` or `--url`; Python/Playwright are installed separately, not by pnpm. Example: `python scripts/verify/verify-site-header.py`.
+- Full release gates: `docs/deployment/production-release-runbook.md`.
+
+## Routing, i18n & SEO
+
+- File-based routes live in `src/routes/`; files prefixed `-` are ignored by the router (`products/-listing.ts` holds shared listing config). `$.tsx` is the catch-all 404.
+- `/products` 301s to `/products/brands`; product listing tabs are `/products/{brands,types,applications}`.
+- Indonesian is the unprefixed default; English lives under `/en` via the router `rewrite` in `src/router.tsx` (internal `__locale` param). Add UI keys to both `src/locales/id/translation.json` and `src/locales/en/translation.json`; read via `useLanguage().t()`.
+- Add `head` metadata with `createSeoMeta` from `#/lib/seo`; canonical production origin is `https://ascentia.co.id`. Legacy redirects and media rewrites live in `features/seo/api/legacy-redirects.ts` (applied by `src/server.ts`).
+
+## Architecture & Data Flow
+
+- Read `docs/architecture/folder-conventions.md` before adding or moving source files.
+- Direction: `routes -> features -> components / hooks / lib`. Routes own URL/search/loaders and select feature pages; no page markup in routes.
+- Keep feature UI in `features/`; `components/ui/` is context-free primitives and `components/layout/` is the persistent shell. Use lowercase kebab-case filenames and no barrels just to shorten imports.
+- Feature data pattern: `api/*-api.ts` exports `createServerFn` wrappers that lazy-import `api/*-source.server.ts`; `api/*-queries.ts` holds React Query options; routes call `ensureQueryData`. `.server.ts` files are server-only; never import them from client components.
+- All WordPress/WooCommerce reads happen server-side. The CSP in `vite.config.ts` allows browser connections only to self and CARTO tiles; update it if adding a browser-side API/script. Never put credentials in `VITE_*`.
+- Server env (read via `process.env`): `WORDPRESS_URL`, `SITE_INDEXABLE`, `ASCENTIA_ANALYTICS_KEY`, `CONTACT_TIMEOUT_MS`. Dev falls back to `http://ascentia-local.local` when `WORDPRESS_URL` is unset.
+- `features/articles/` is shared by news and blogs; select categories by slug constants, not IDs.
+
+## WordPress & WooCommerce
+
+- Read `docs/architecture/wordpress-content-model.md` before WordPress, product, article, news, blog, or ACF work.
+- WordPress/WooCommerce is the content source of truth; never parse legacy Divi page-builder output.
+- Brand, Type, and Application are taxonomies; Application is multi-select. Gallery images come from WooCommerce, not ACF.
+- Product detail merges Store API data with `wp/v2/product` ACF; English fields prefer `ascentia_i18n`, then `*_en` ACF. Sanitize CMS HTML with the installed `sanitize-html` allowlist before rendering.
+- ACF Free is the contract: do not assume repeater, flexible-content, or gallery fields.
+- `ascentia-inquiries/` is the WordPress plugin behind contact/RFQ and the page-view counter. It is PHP with no build step, deployed by zip; frontend endpoint changes usually require matching plugin changes. The counter is implemented server-side and counts every page view (bots, cross-site, and rate-limited requests are filtered).
+- Contact/RFQ retries reuse a `submission_id`; the plugin deduplicates. Preserve that behavior.
 
 ## Components & Styling
 
-- Path alias: `#/` maps to `src/` (e.g. `#/components/...`, `#/lib/utils`).
-- Component library: shadcn wrappers over `@base-ui/react` located in `src/components/ui/`.
-- Icons: use `lucide-react`.
-- Design tokens live in `src/styles.css`.
-  - `--primary`: blue (`#288AC6`)
-  - `--accent`: orange CTA (`#F28B3B`) — do not use `bg-accent` for neutral list item hover/selection states. Use `hover:bg-muted` / `bg-muted`.
-  - Interactive elements and menu triggers must include `cursor-pointer`.
-- Sticky header behavior lives in `#/hooks/use-sticky-header` (absolute over hero, fixed white on scroll-up, hidden on scroll-down past `hideOffset`).
-  - Tailwind v4 `translate-*` uses the CSS `translate` property — header transitions must list `translate`, not `transform`, in `transition-[...]` or the slide won't animate.
+- Import alias `#/*` -> `src/*` (tsconfig also maps `@/*` for the shadcn CLI; source uses `#/`).
+- shadcn wrappers over `@base-ui/react` live in `src/components/ui/`; use them instead of raw Base UI. Icons: `lucide-react`.
+- Tokens live in `src/styles.css`: primary blue `#288AC6`, accent orange CTA `#F28B3B`. Do not use `bg-accent` for neutral hover/selection; use `hover:bg-muted` / `bg-muted`. Interactive elements and menu triggers need `cursor-pointer`.
+- Tailwind v4 is CSS-first (`tailwind.config.js` is absent). `translate-*` uses the CSS `translate` property, so header transitions must list `translate` in `transition-[...]`.
+- Sticky header state is `#/hooks/use-sticky-header` (transparent over hero, solid on scroll-up, hidden on scroll-down; supports pause/disable-hide).
 
-## Architecture & Ownership
+## Deploy
 
-- Read `docs/architecture/folder-conventions.md` before adding or moving source files.
-- `src/routes/` owns URL identity, route params/search, and loaders. It selects feature page modules; do not put page markup there.
-- `src/features/` is feature-first: use `pages/` for page composition, `components/` for feature UI, `constants/` for local static content, and `types/` for feature models. Add `api/`, `hooks/`, or `forms/` only when implemented. The homepage belongs in `src/features/home/`.
-- `src/components/layout/` owns persistent site shell; `src/components/ui/` owns context-free primitives only.
-- Dependency direction: `routes → features → components / hooks / lib`. Shared modules must not import from routes or features; routes select feature pages.
-- Use lowercase kebab-case names. Prefer direct imports; do not add a barrel solely to shorten imports.
-
-## Headless WordPress & WooCommerce
-
-- Read `docs/architecture/wordpress-content-model.md` before WordPress, WooCommerce, product, article, news, blog, or ACF work.
-- WordPress/WooCommerce is the content source of truth; this frontend owns public UI and presentation. Do not parse legacy Divi page-builder output as the new content contract.
-- Product Brand, Type, and Application are taxonomies. Applications are multi-select: one product can appear in several application listings.
-- Product detail extensions use REST-visible ACF fields: summary, WYSIWYG description, WYSIWYG benefits, WYSIWYG specifications, optional video URL, optional brochure file, and optional hero image.
-- ACF Free supports the initial model. Do not assume repeater, flexible content, or gallery ACF fields; use WooCommerce product gallery and controlled WYSIWYG for specs until ACF Pro is approved.
-- REST rich text is HTML. Sanitize it with the installed `sanitize-html` package and an explicit allowlist before rendering. Never let CMS HTML control layout or execute scripts.
-- Public product reads use WooCommerce Store API. Never place consumer keys, WordPress passwords, or privileged tokens in `VITE_*` values. Confirm CORS on the actual deployed frontend origin; use a server-side fetch path if needed.
-- Treat News and Blogs as views of shared editorial content until the WordPress publishing model proves separate post types are required.
-- Visitor counting/analytics is deferred. It must be server-side and define bot filtering, repeat-visit policy, consent, and storage before implementation.
-
-## Assets & Public Directory
-
-- Static assets live in `public/` (e.g. `public/icons/flags/`, `public/brand/`).
-- If running `.output/server/index.mjs`, rebuild (`pnpm build`) after adding new files to `public/` so Nitro copies them into `.output/public/`.
+- Pushing `master`, `main`, or `feat/products` auto-deploys production over FTP; pushing `staging` deploys to `/staging/`. Do not push unless a deploy is intended.
+- `.output/` is gitignored build output. Production must set `WORDPRESS_URL`; `SITE_INDEXABLE=false` adds `X-Robots-Tag: noindex` (use on staging, true on production).
+- Static assets live in `public/`; rebuild after adding files so Nitro copies them into `.output/public/`.
 
 ## Comments
 
-- // one line only. Max 60 chars. No JSDoc, no /* */.
-- Why-only when code cannot show it. Never restate obvious animation/layout.
-- One note per spot, never duplicate same reason in one file.
-- Delete commented-out code, TODO, dead aliases. Keep: // Non-modal: no scroll lock. Drop: // Drops pop out bottom-first.
-
-## Verification
-
-- Header smoke test: `python scripts/verify/verify-site-header.py` (requires server on `http://localhost:3000`).
+- `//` one line only, max 60 chars. No JSDoc or `/* */`.
+- Why-only when code cannot show it; never restate obvious animation/layout. One note per spot, no duplicates.
+- Delete commented-out code, TODOs, and dead aliases.
