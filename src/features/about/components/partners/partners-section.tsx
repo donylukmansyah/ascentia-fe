@@ -382,7 +382,7 @@ export function AboutPartnersSection({
       <div className="relative mt-10 overflow-x-clip bg-[#F8FAFC] md:mt-14">
         <Reveal variant="up" delay={0.1}>
           <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-0">
-            <div className="relative z-0 order-1 aspect-[4/3] overflow-hidden md:aspect-auto md:h-[600px]">
+            <div className="relative z-0 order-1 h-[470px] overflow-hidden md:h-[600px]">
               <img
                 src={photoBase.image}
                 alt=""
@@ -401,7 +401,7 @@ export function AboutPartnersSection({
               />
             </div>
 
-            <div className="relative z-10 order-2 -mt-56 px-5 pb-10 sm:px-8 md:mt-0 md:absolute md:top-1/2 md:right-0 md:left-[calc(50%-148px)] md:-translate-y-1/2 md:px-0 md:pb-0">
+            <div className="relative z-10 order-2 -mt-[380px] px-5 pb-10 sm:px-8 md:mt-0 md:absolute md:top-1/2 md:right-0 md:left-[calc(50%-148px)] md:-translate-y-1/2 md:px-0 md:pb-0">
               <div
                 ref={scrollContainerRef}
                 onScroll={handleScroll}
