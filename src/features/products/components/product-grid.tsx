@@ -1,6 +1,8 @@
 import { useRef } from 'react'
+import { SearchX } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
+import { EmptyState } from '#/components/ui/empty-state'
 import { PagePagination } from '#/components/ui/pagination'
 import { QueryErrorState } from '#/components/ui/query-error-state'
 import { Reveal } from '#/components/ui/reveal'
@@ -139,30 +141,36 @@ export function ProductGrid({
           </Button>
         </div>
       ) : products.length === 0 ? (
-        <div className="mt-8 flex flex-col items-center rounded-lg border border-border bg-white px-6 py-16 text-center">
-          <p className="text-base font-semibold text-foreground">
-            {invalidCategory ? t('ui.filterUnavailable') : t('ui.noProducts')}
-          </p>
-          {searchQuery ? (
-            <p className="mt-2 max-w-md text-sm text-muted-foreground">
-              {t('ui.noMatchingResults')} &ldquo;
-              <span className="font-medium text-foreground">{searchQuery}</span>
-              &rdquo;.
-            </p>
-          ) : (
-            <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-              {t('ui.tryFilter')} {filterLabel ? `(${filterLabel})` : ''}
-            </p>
-          )}
-          <Button
-            type="button"
-            variant="outline"
-            onClick={onReset}
-            className="mt-6 cursor-pointer"
-          >
-            {t('ui.resetFilters')}
-          </Button>
-        </div>
+        <EmptyState
+          className="mt-8"
+          icon={SearchX}
+          title={invalidCategory ? t('ui.filterUnavailable') : t('ui.noProducts')}
+          message={
+            searchQuery ? (
+              <>
+                {t('ui.noMatchingResults')} &ldquo;
+                <span className="font-medium text-foreground">
+                  {searchQuery}
+                </span>
+                &rdquo;.
+              </>
+            ) : (
+              <>
+                {t('ui.tryFilter')} {filterLabel ? `(${filterLabel})` : ''}
+              </>
+            )
+          }
+          action={
+            <Button
+              type="button"
+              variant="outline"
+              onClick={onReset}
+              className="cursor-pointer"
+            >
+              {t('ui.resetFilters')}
+            </Button>
+          }
+        />
       ) : (
         <ul className="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4">
           {products.map((product, index) => (
