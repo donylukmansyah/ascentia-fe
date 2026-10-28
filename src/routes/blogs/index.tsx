@@ -23,11 +23,19 @@ export const Route = createFileRoute('/blogs/')({
     middlewares: [stripSearchParams({ page: 1 })],
   },
   loaderDeps: ({ search: { page } }) => ({ page }),
-  loader: async ({ context, deps: { page } }) => {
-    const data = await context.queryClient
-      .ensureQueryData(blogArticlesQueryOptions(page, BLOG_LIST_PAGE_SIZE))
+  loader: ({ context, deps: { page }, cause }) => {
+    const options = blogArticlesQueryOptions(page, BLOG_LIST_PAGE_SIZE)
+    const resource = context.queryClient
+      .ensureQueryData(options)
       .catch(() => undefined)
-    return { page, unavailable: !data || page > Math.max(1, data.totalPages) }
+    const metadata = () => {
+      const data = context.queryClient.getQueryData(options.queryKey)
+      return { page, unavailable: !data || page > Math.max(1, data.totalPages) }
+    }
+    // In-page pagination stays client-side; no full-screen route loader.
+    return import.meta.env.SSR || cause !== 'stay'
+      ? resource.then(metadata)
+      : metadata()
   },
   head: ({ loaderData }) =>
     createSeoMeta({

@@ -12,12 +12,19 @@ type UseStickyHeaderOptions = {
   tolerance?: number
   // Pause keeps visibility (dropdown open).
   paused?: boolean
+  // Never hide; stay visible so a sub-nav can't chase it.
+  disableHide?: boolean
 }
 
 export function useStickyHeader(
   options: UseStickyHeaderOptions = {},
 ): HeaderVisibility {
-  const { topOffset = 12, tolerance = 8, paused = false } = options
+  const {
+    topOffset = 12,
+    tolerance = 8,
+    paused = false,
+    disableHide = false,
+  } = options
   const [visibility, setVisibility] = useState<HeaderVisibility>('transparent')
 
   useLayoutEffect(() => {
@@ -26,9 +33,11 @@ export function useStickyHeader(
     setVisibility((current) =>
       window.scrollY <= topOffset
         ? 'transparent'
-        : current === 'transparent'
-          ? 'hidden-initial'
-          : current,
+        : disableHide
+          ? 'visible'
+          : current === 'transparent'
+            ? 'hidden-initial'
+            : current,
     )
     let previousScrollY = window.scrollY
     let previousDirection = 0
@@ -74,7 +83,13 @@ export function useStickyHeader(
           setVisibility('visible')
         }
       } else {
-        setVisibility(hasRevealedAfterScroll ? 'hidden' : 'hidden-initial')
+        setVisibility(
+          disableHide
+            ? 'visible'
+            : hasRevealedAfterScroll
+              ? 'hidden'
+              : 'hidden-initial',
+        )
       }
     }
 
@@ -100,7 +115,7 @@ export function useStickyHeader(
         window.cancelAnimationFrame(animationFrame)
       }
     }
-  }, [topOffset, tolerance, paused])
+  }, [topOffset, tolerance, paused, disableHide])
 
   return visibility
 }
