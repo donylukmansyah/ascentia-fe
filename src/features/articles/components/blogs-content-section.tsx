@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate, useSearch } from '@tanstack/react-router'
+import { FileText } from 'lucide-react'
 
 import { EmptyState } from '#/components/ui/empty-state'
 import { PagePagination } from '#/components/ui/pagination'
@@ -58,6 +59,7 @@ export function BlogsContentSection() {
     void navigate({
       to: '/blogs',
       search: { page: nextPage },
+      resetScroll: false,
     })
     sectionRef.current?.scrollIntoView({
       behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -87,7 +89,7 @@ export function BlogsContentSection() {
             {t('ui.loadingBlogs', 'Loading blog articles…')}
           </span>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {Array.from({ length: 4 }, (_, index) => (
+            {Array.from({ length: BLOG_LIST_PAGE_SIZE }, (_, index) => (
               <BlogCardSkeleton key={index} />
             ))}
           </div>
@@ -104,6 +106,7 @@ export function BlogsContentSection() {
         />
       ) : items.length === 0 ? (
         <EmptyState
+          icon={FileText}
           message={t('ui.emptyBlogs', 'No blog articles yet. Check back soon.')}
         />
       ) : (
