@@ -103,6 +103,8 @@
     "noDescription": "Description not available.",
     "articleNotFound": "Article not found",
     "articleMissing": "The article you are looking for may have been moved, renamed, or is temporarily unavailable.",
+    "newsNotFound": "News article not found",
+    "newsMissing": "The news article you are looking for may have been moved, renamed, or is temporarily unavailable.",
     "articleError": "Failed to load article",
     "shareArticle": "Share this article",
     "shareOn": "Share on",

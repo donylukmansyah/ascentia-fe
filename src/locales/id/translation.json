@@ -103,6 +103,8 @@
     "noDescription": "Deskripsi belum tersedia.",
     "articleNotFound": "Artikel tidak ditemukan",
     "articleMissing": "Artikel mungkin telah dipindahkan, diganti nama, atau belum tersedia.",
+    "newsNotFound": "Berita tidak ditemukan",
+    "newsMissing": "Berita yang Anda cari mungkin telah dipindahkan, diganti nama, atau belum tersedia.",
     "articleError": "Gagal memuat artikel",
     "shareArticle": "Bagikan artikel ini",
     "shareOn": "Bagikan di",

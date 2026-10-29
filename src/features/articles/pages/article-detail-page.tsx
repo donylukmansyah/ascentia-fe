@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { Check, RotateCcw, Share2, Star } from 'lucide-react'
+import { AlertCircle, Check, Newspaper, Share2, Star } from 'lucide-react'
 
 import { Breadcrumb } from '#/components/ui/breadcrumb'
-import { Button } from '#/components/ui/button'
+import { CtaButton, CtaLink } from '#/components/ui/cta-link'
+import { PageStatus } from '#/components/ui/page-status'
 import { Reveal } from '#/components/ui/reveal'
 import SocialButton from '#/components/ui/social-button'
 import { useLanguage } from '#/lib/i18n'
@@ -288,61 +289,79 @@ export function ArticleDetailPage({
   )
 }
 
-export function ArticleNotFoundPage() {
+export function ArticleNotFoundPage({
+  backTo = '/news',
+}: {
+  backTo?: '/news' | '/blogs'
+}) {
   const { t } = useLanguage()
+  const isBlog = backTo === '/blogs'
+  const backLabel = isBlog
+    ? t('ui.backBlogs', 'Back to Blogs')
+    : t('ui.backNews', 'Back to News')
   return (
-    <section className="mx-auto max-w-3xl px-5 pb-20 pt-36 text-center sm:px-8 sm:pt-44">
-      <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
-        {t('ui.articleNotFound', 'Article not found')}
-      </h1>
-      <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
-        {t(
-          'ui.articleMissing',
-          'The article you are looking for may have been moved, renamed, or is temporarily unavailable.',
-        )}
-      </p>
-      <div className="mt-8 flex justify-center gap-4">
-        <Link
-          to="/news"
-          className="inline-flex cursor-pointer items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary/90"
-        >
-          {t('ui.backNews', 'Back to News')}
-        </Link>
-      </div>
-    </section>
+    <PageStatus
+      headingId="article-not-found-heading"
+      icon={Newspaper}
+      title={
+        isBlog
+          ? t('ui.articleNotFound', 'Article not found')
+          : t('ui.newsNotFound', 'News article not found')
+      }
+      description={
+        isBlog
+          ? t(
+              'ui.articleMissing',
+              'The article you are looking for may have been moved, renamed, or is temporarily unavailable.',
+            )
+          : t(
+              'ui.newsMissing',
+              'The news article you are looking for may have been moved, renamed, or is temporarily unavailable.',
+            )
+      }
+    >
+      <CtaLink to={backTo}>{backLabel}</CtaLink>
+    </PageStatus>
   )
 }
 
-export function ArticleDetailError({ onRetry }: { onRetry: () => void }) {
+export function ArticleDetailError({
+  onRetry,
+  backTo = '/news',
+}: {
+  onRetry: () => void
+  backTo?: '/news' | '/blogs'
+}) {
   const { t } = useLanguage()
+  const isBlog = backTo === '/blogs'
+  const backLabel = isBlog
+    ? t('ui.backBlogs', 'Back to Blogs')
+    : t('ui.backNews', 'Back to News')
   return (
-    <section className="mx-auto max-w-3xl px-5 pb-20 pt-36 text-center sm:px-8 sm:pt-44">
-      <h1 className="text-2xl font-bold text-destructive sm:text-3xl">
-        {t('ui.articleError', 'Failed to load article')}
-      </h1>
-      <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
-        {t(
-          'ui.connectionError',
-          'We are having trouble reaching the server. Please try again.',
-        )}
-      </p>
-      <div className="mt-8 flex justify-center gap-4">
-        <Button
-          type="button"
-          onClick={onRetry}
-          className="inline-flex cursor-pointer items-center gap-2"
-        >
-          <RotateCcw className="size-4" />
-          {t('common.tryAgain', 'Try again')}
-        </Button>
-        <Link
-          to="/news"
-          className="inline-flex cursor-pointer items-center justify-center rounded-md border border-border px-5 py-2.5 text-sm font-semibold hover:bg-muted"
-        >
-          {t('ui.backNews', 'Back to News')}
-        </Link>
-      </div>
-    </section>
+    <PageStatus
+      role="alert"
+      headingId="article-error-heading"
+      icon={AlertCircle}
+      title={
+        isBlog
+          ? t('ui.articleError', 'Failed to load article')
+          : t('ui.newsError', 'Unable to load news')
+      }
+      description={t(
+        'ui.connectionError',
+        'We are having trouble reaching the server. Please try again.',
+      )}
+    >
+      <CtaButton onClick={onRetry}>
+        {t('common.tryAgain', 'Try again')}
+      </CtaButton>
+      <Link
+        to={backTo}
+        className="inline-flex cursor-pointer items-center text-sm font-semibold text-description-text underline-offset-4 transition-colors hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+      >
+        {backLabel}
+      </Link>
+    </PageStatus>
   )
 }
 

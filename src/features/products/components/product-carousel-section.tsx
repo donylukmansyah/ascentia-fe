@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import { Button } from '#/components/ui/button'
 import { CtaLink } from '#/components/ui/cta-link'
+import { QueryErrorState } from '#/components/ui/query-error-state'
 import { Reveal } from '#/components/ui/reveal'
 import { useLanguage } from '#/lib/i18n'
 import type { ProductCardData } from '#/features/products/types/product'
@@ -164,21 +165,12 @@ export function ProductCarouselSection({
             ))}
           </div>
         ) : error ? (
-          <div role="alert" className="mt-10 flex items-center gap-3">
-            <p className="text-sm text-description-text">
-              {t('ui.productsError')}
-            </p>
-            {retry && (
-              <Button
-                type="button"
-                variant="outline"
-                onClick={retry}
-                className="cursor-pointer"
-              >
-                {t('common.tryAgain')}
-              </Button>
-            )}
-          </div>
+          <QueryErrorState
+            title={t('ui.productsError')}
+            message={t('ui.connectionError')}
+            onRetry={retry}
+            className="mt-10"
+          />
         ) : (
           <Reveal
             variant="up"

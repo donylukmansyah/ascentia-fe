@@ -141,7 +141,7 @@ export function QueryErrorState({
           ) : (
             <RotateCw className="size-4" aria-hidden="true" />
           )}
-          <span>Try again</span>
+          <span>{t('common.tryAgain', 'Try again')}</span>
         </Button>
       ) : null}
     </div>

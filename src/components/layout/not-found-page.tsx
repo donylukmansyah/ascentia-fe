@@ -1,14 +1,13 @@
 import { CtaLink } from '#/components/ui/cta-link'
+import { PageStatus } from '#/components/ui/page-status'
 import { useLanguage } from '#/lib/i18n'
 
 export function NotFoundPage() {
   const { t } = useLanguage()
   return (
-    <section
-      aria-labelledby="not-found-heading"
-      className="bg-background px-5 pt-36 pb-20 sm:pt-44 sm:pb-28"
-    >
-      <div className="mx-auto max-w-3xl text-center">
+    <PageStatus
+      headingId="not-found-heading"
+      visual={
         <div
           aria-hidden="true"
           className="flex items-end justify-center text-[clamp(7rem,25vw,14rem)] leading-none font-bold tracking-tight text-primary"
@@ -25,22 +24,14 @@ export function NotFoundPage() {
             />
           </span>
         </div>
-        <h1
-          id="not-found-heading"
-          className="mt-8 text-3xl font-bold tracking-tight text-foreground sm:text-4xl"
-        >
-          {t('ui.pageNotFound', 'Page not found')}
-        </h1>
-        <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-description-text">
-          {t(
-            'ui.pageMissing',
-            'The page may have moved, or the address may be incorrect.',
-          )}
-        </p>
-        <div className="mt-8 flex justify-center">
-          <CtaLink to="/">{t('ui.backHome', 'Back to home')}</CtaLink>
-        </div>
-      </div>
-    </section>
+      }
+      title={t('ui.pageNotFound', 'Page not found')}
+      description={t(
+        'ui.pageMissing',
+        'The page may have moved, or the address may be incorrect.',
+      )}
+    >
+      <CtaLink to="/">{t('ui.backHome', 'Back to home')}</CtaLink>
+    </PageStatus>
   )
 }

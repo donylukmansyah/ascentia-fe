@@ -1,5 +1,10 @@
-import { useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
-import { createFileRoute, notFound, redirect } from '@tanstack/react-router'
+import { useSuspenseQuery } from '@tanstack/react-query'
+import {
+  createFileRoute,
+  notFound,
+  redirect,
+  useRouter,
+} from '@tanstack/react-router'
 
 import { RouteLoading } from '#/components/layout/route-loading'
 import {
@@ -71,13 +76,17 @@ export const Route = createFileRoute('/blogs/$slug')({
   component: BlogDetailRoute,
   pendingComponent: RouteLoading,
   errorComponent: BlogDetailErrorRoute,
-  notFoundComponent: ArticleNotFoundPage,
+  notFoundComponent: BlogNotFoundRoute,
 })
+
+function BlogNotFoundRoute() {
+  return <ArticleNotFoundPage backTo="/blogs" />
+}
 
 function BlogDetailRoute() {
   const { slug } = Route.useParams()
   const { data: article } = useSuspenseQuery(blogDetailQueryOptions(slug))
-  if (!article) return <ArticleNotFoundPage />
+  if (!article) return <ArticleNotFoundPage backTo="/blogs" />
   return <BlogDetailContent article={article} />
 }
 
@@ -95,14 +104,12 @@ function BlogDetailContent({ article }: { article: ArticleDetailData }) {
   )
 }
 
-function BlogDetailErrorRoute({ reset }: { reset: () => void }) {
-  const queryClient = useQueryClient()
-  const { slug } = Route.useParams()
-  const handleRetry = () => {
-    void queryClient.resetQueries({
-      queryKey: ['blogs', 'detail', slug],
-    })
-    reset()
-  }
-  return <ArticleDetailError onRetry={handleRetry} />
+function BlogDetailErrorRoute() {
+  const router = useRouter()
+  return (
+    <ArticleDetailError
+      onRetry={() => void router.invalidate()}
+      backTo="/blogs"
+    />
+  )
 }
