@@ -418,7 +418,7 @@ export function AboutPartnersSection({
                   'about.partners.catalogLabel',
                   'Partner brands catalog',
                 )}
-                className="relative -mr-5 flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain overflow-y-clip py-8 pr-5 scrollbar-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:cursor-grabbing sm:-mr-8 sm:pr-8 md:mx-0 md:px-1 md:pl-2 md:pr-1"
+                className="relative -mr-5 flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain overflow-y-clip py-8 pr-5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:cursor-grabbing sm:-mr-8 sm:pr-8 md:mx-0 md:px-1 md:pl-2 md:pr-1"
               >
                 {looped.map(({ partner, index, copy, global, key }) => (
                   <div

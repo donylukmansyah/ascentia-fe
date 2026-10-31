@@ -36,7 +36,7 @@ export function ContactPage() {
       />
       <ContactPanel
         id="contact-content"
-        className="relative z-10 -mt-16 scroll-mt-28 pb-14 outline-none sm:-mt-20 sm:pb-16 lg:-mt-24 lg:pb-20"
+        className="relative z-10 -mt-8 scroll-mt-28 pb-14 outline-none sm:-mt-12 sm:pb-16 lg:pb-20"
         officeHash="jakarta-map"
         showPageLink={false}
       />

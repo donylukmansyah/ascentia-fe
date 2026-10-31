@@ -25,7 +25,8 @@ type MapViewport = {
 const MapContext = createContext<{
   map: MapLibreGL.Map | null
   library: typeof MapLibreGL | null
-}>({ map: null, library: null })
+  viewport: MapViewport | null
+}>({ map: null, library: null, viewport: null })
 
 type OfficeMapProps = {
   children?: ReactNode
@@ -106,7 +107,10 @@ export function OfficeMap({
     }
   }, [attempt, cooperativeGestures])
 
-  const value = useMemo(() => ({ map, library }), [map, library])
+  const value = useMemo(
+    () => ({ map, library, viewport }),
+    [map, library, viewport],
+  )
 
   return (
     <MapContext.Provider value={value}>
@@ -218,14 +222,18 @@ export function MarkerCard({
   popupClassName,
   defaultOpen = false,
   closeButton = false,
+  anchor,
+  autoPan = true,
 }: {
   children: ReactNode
   className?: string
   popupClassName?: string
   defaultOpen?: boolean
   closeButton?: boolean
+  anchor?: MapLibreGL.PopupOptions['anchor']
+  autoPan?: boolean
 }) {
-  const { map, library } = useContext(MapContext)
+  const { map, library, viewport } = useContext(MapContext)
   const markerContext = useContext(MarkerContext)
   const contentId = useId()
   const [openCount, setOpenCount] = useState(0)
@@ -236,17 +244,18 @@ export function MarkerCard({
   )
   const popup = useMemo(
     () =>
-      // No anchor: MapLibre flips side to fit.
+      // Defaults to dynamic positioning when anchor unset.
       library
         ? new library.Popup({
             offset: 18,
+            anchor,
             closeButton,
             closeOnClick: false,
             focusAfterOpen: false,
             className: popupClassName,
           }).setMaxWidth('none')
         : null,
-    [closeButton, popupClassName, library],
+    [anchor, closeButton, popupClassName, library],
   )
 
   useEffect(() => {
@@ -278,6 +287,17 @@ export function MarkerCard({
     const resetTrigger = () => {
       trigger?.setAttribute('aria-expanded', 'false')
       trigger?.focus({ preventScroll: true })
+      if (autoPan && viewport) {
+        const reduceMotion = window.matchMedia(
+          '(prefers-reduced-motion: reduce)',
+        ).matches
+        map.easeTo({
+          center: viewport.center,
+          zoom: viewport.zoom,
+          offset: [0, 0],
+          duration: reduceMotion ? 0 : 450,
+        })
+      }
     }
     popup.on('close', resetTrigger)
     // Click toggles; map click and Escape close.
@@ -295,6 +315,19 @@ export function MarkerCard({
       })
       setOpenCount((count) => count + 1)
       clampCard()
+      if (autoPan) {
+        const lngLat = marker.getLngLat()
+        const mapElement = map.getContainer()
+        const yOffset = mapElement.clientWidth < 640 ? 80 : 60
+        const reduceMotion = window.matchMedia(
+          '(prefers-reduced-motion: reduce)',
+        ).matches
+        map.easeTo({
+          center: lngLat,
+          offset: [0, yOffset],
+          duration: reduceMotion ? 0 : 450,
+        })
+      }
       popup.setLngLat(marker.getLngLat()).addTo(map)
       syncOverflow()
       trigger?.setAttribute('aria-expanded', 'true')

@@ -274,7 +274,7 @@ export function SearchDialog({
           </Autocomplete.Status>
           <div
             ref={scrollRef}
-            className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 pb-3"
+            className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-2 pb-3 scroll-pt-10 [scrollbar-width:thin] [scrollbar-color:rgba(100,116,139,0.35)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[rgba(100,116,139,0.35)] hover:[&::-webkit-scrollbar-thumb]:bg-[rgba(100,116,139,0.65)]"
           >
             {trimmed.length < 2 ? (
               <div className="flex h-56 flex-col items-center justify-center px-4 text-center text-sm text-muted-foreground">
@@ -375,7 +375,7 @@ export function SearchDialog({
                               />
                             }
                             onClick={() => onOpenChange(false)}
-                            className="group flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 outline-none transition-colors duration-150 ease-out hover:bg-muted data-[highlighted]:bg-muted focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
+                            className="group flex cursor-pointer scroll-mt-10 items-center gap-3 rounded-lg px-3 py-2 outline-none transition-colors duration-150 ease-out hover:bg-muted data-[highlighted]:bg-muted focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary"
                           >
                             <Thumbnail key={item.image} item={item} />
                             <span className="min-w-0 flex-1">

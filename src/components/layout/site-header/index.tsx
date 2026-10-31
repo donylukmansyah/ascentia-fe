@@ -102,8 +102,8 @@ export function SiteHeader({
         'top-0 inset-x-0 z-50 border-t-[3px] border-t-primary transform-gpu transition-[border-color,box-shadow,translate] motion-reduce:transition-none',
         mode === 'transparent' && !isMenuOpen ? 'absolute' : 'fixed',
         isHeaderSolid
-          ? 'bg-background border-b border-b-border/80'
-          : 'bg-transparent border-b border-b-transparent',
+          ? 'bg-background border-b border-b-border/60 shadow-sm'
+          : 'bg-transparent border-b border-b-transparent shadow-none',
         isDarkContent ? 'text-foreground' : 'text-white',
         isHidden && !isMenuOpen
           ? cn(

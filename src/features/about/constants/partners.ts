@@ -12,10 +12,10 @@ export interface AboutPartner {
 }
 
 export const aboutPartnersContent = {
-  eyebrow: 'Our Partners',
-  title: 'Specialist technology. Applied expertise',
+  eyebrow: 'Official Principals',
+  title: 'World-Class Technology from Trusted Partners',
   description:
-    'We represent leading brands in analytical instrumentation, sample preparation, certified reference materials, and precision measurement.',
+    'Authorized distributor of world-class analytical instruments, sample fusion systems, and certified reference materials.',
   sideImage: {
     src: '/images/about-us/foto-5.webp',
     alt: 'Ascentia exhibition booth with visitors',

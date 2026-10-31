@@ -31,7 +31,7 @@ export function NewsHeroSection({
     <section
       ref={sectionRef}
       aria-labelledby="news-hero-heading"
-      className="relative isolate flex min-h-[440px] w-full items-center overflow-hidden bg-foreground text-white sm:min-h-[500px] lg:min-h-[560px]"
+      className="relative isolate flex min-h-[340px] w-full items-end overflow-hidden bg-foreground text-white sm:min-h-[400px] lg:min-h-[440px]"
     >
       <motion.img
         src="/images/news/assets-our-news.webp"
@@ -53,7 +53,7 @@ export function NewsHeroSection({
         aria-hidden="true"
       />
 
-      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-5 pb-24 pt-32 sm:px-8 sm:pb-28 sm:pt-36 lg:px-12 lg:pb-32 lg:pt-40">
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-5 pt-24 pb-16 sm:px-8 sm:pt-28 lg:px-12 lg:pt-32">
         <div className="hero-carousel__copy flex max-w-[min(100%,42rem)] flex-col items-start gap-5 text-left">
           <Breadcrumb
             items={[

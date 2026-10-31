@@ -49,9 +49,14 @@ export function ArticleDetailPage({
   const shareTitle = encodeURIComponent(displayTitle)
 
   return (
-    <article className="min-h-screen bg-background pb-20 pt-28 sm:pt-36 lg:pb-28">
+    <article className="min-h-screen bg-background pb-20 lg:pb-28">
       <div className="mx-auto max-w-4xl px-5 sm:px-8">
-        <Reveal variant="up" distance={20} duration={0.5}>
+        <Reveal
+          variant="up"
+          distance={20}
+          duration={0.5}
+          className="flex min-h-[340px] flex-col justify-end pt-24 sm:min-h-[400px] sm:pt-28 lg:min-h-[440px] lg:pt-32"
+        >
           <Breadcrumb
             items={[
               { label: t('nav.home', 'Home'), to: '/' },
@@ -59,11 +64,11 @@ export function ArticleDetailPage({
               { label: displayTitle },
             ]}
             variant="light"
-            className="mb-8"
+            className="mb-4"
           />
 
           {article.categories && article.categories.length > 0 && (
-            <div className="mb-4 flex flex-wrap gap-2">
+            <div className="mb-3 flex flex-wrap gap-2">
               {article.categories.map((cat) => (
                 <span
                   key={cat.id}
@@ -79,7 +84,7 @@ export function ArticleDetailPage({
             {displayTitle}
           </h1>
 
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-y border-border py-4">
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-y border-border py-4">
             <div className="flex items-center gap-3">
               {article.author?.avatarUrl ? (
                 <img

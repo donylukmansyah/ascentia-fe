@@ -285,7 +285,7 @@
     "kicker": "Contact Us",
     "heroDescription": "Instrument selection, method support, and after-sales service for laboratories across Indonesia.",
     "heading": "Tell us what you need to analyse",
-    "description": "Share your sample preparation, XRF analysis, or reference material specifications. Our engineers in Jakarta and Kendari will recommend the exact instrument and workflow.",
+    "description": "Consult your analytical instrument, sample preparation, or reference material (CRM) needs with our specialist team in Jakarta and Kendari.",
     "emailLabel": "Email",
     "phoneLabel": "Phone",
     "whatsappLabel": "WhatsApp",
@@ -327,8 +327,8 @@
     },
     "locations": {
       "eyebrow": "Our Locations",
-      "title": "Support, within reach",
-      "description": "Facilities in Jakarta and Kendari provide application consulting, fast consumable dispatch, and on-site engineering across Indonesia.",
+      "title": "Technical Support Closer to You",
+      "description": "Facilities in Jakarta and Kendari deliver application consulting, rapid consumable dispatch, and direct on-site support across Indonesia.",
       "jakartaTitle": "Jakarta Head Office",
       "kendariTitle": "Kendari Office"
     },
@@ -342,9 +342,9 @@
     "gallery": {
       "viewerLabel": "Gallery viewer",
       "closeLabel": "Close gallery",
-      "eyebrow": "Inside Ascentia",
-      "title": "People, spaces, and analytical work",
-      "description": "With locations in Jakarta and Kendari, Ascentia supports laboratories and industrial operations with faster turnaround and on-site expertise."
+      "eyebrow": "Operations in Focus",
+      "title": "People, Spaces, and Technical Excellence",
+      "description": "Highlights of our training sessions, instrument installations, and technical operations across client facilities."
     },
     "customers": {
       "title": "Our Customers"
@@ -354,9 +354,9 @@
       "controlsLabel": "Partner carousel controls",
       "prevLabel": "Previous partners",
       "nextLabel": "Next partners",
-      "eyebrow": "Our Partners",
-      "title": "Specialist technology. Applied expertise",
-      "description": "We represent leading brands in analytical instrumentation, sample preparation, certified reference materials, and precision measurement.",
+      "eyebrow": "Official Principals",
+      "title": "World-Class Technology from Trusted Partners",
+      "description": "Authorized distributor of world-class analytical instruments, sample fusion systems, and certified reference materials.",
       "showDetails": "Show {name} details",
       "items": {
         "xrf-scientific": "High-quality sample preparation equipment, chemicals, and analytical solutions for XRF workflows.",
