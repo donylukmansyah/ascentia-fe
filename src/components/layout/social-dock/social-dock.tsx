@@ -543,5 +543,3 @@ export function SocialDock({ className }: { className?: string }) {
     </div>
   )
 }
-
-export default SocialDock

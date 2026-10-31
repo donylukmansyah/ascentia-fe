@@ -56,14 +56,7 @@ export function AboutLocationsSection({
       aria-labelledby="about-locations-heading"
       className="relative isolate overflow-hidden bg-background"
     >
-      <div
-        className={cn(
-          'relative',
-          contained
-            ? 'h-[560px] sm:h-[500px] lg:h-[520px]'
-            : 'h-[640px] sm:h-[600px] lg:h-[625px]',
-        )}
-      >
+      <div className="relative h-[640px] sm:h-[600px] lg:h-[625px]">
         <div className="absolute inset-0">
           <OfficeMap
             key={isMobile ? 'mobile' : 'desktop'}
@@ -103,7 +96,7 @@ export function AboutLocationsSection({
                     {office.label}
                   </button>
                 </MarkerPin>
-                <MarkerCard popupClassName="office-popup">
+                <MarkerCard anchor="bottom" popupClassName="office-popup">
                   <OfficePopupCard office={office} />
                 </MarkerCard>
               </OfficeMarker>

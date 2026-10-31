@@ -38,7 +38,7 @@ export function AboutPartnerCard({
       aria-pressed={active}
       aria-label={detailsLabel}
       className={cn(
-        'group relative flex min-h-[320px] w-full cursor-pointer flex-col justify-between overflow-hidden rounded-lg bg-white p-6 text-left text-foreground shadow-lg ring-1 ring-black/5 transition-[color,box-shadow] duration-300 ease-out motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary before:absolute before:inset-0 before:bg-gradient-to-br before:from-[#288AC6] before:to-[#255DA2] before:opacity-0 before:transition-opacity before:duration-300 before:ease-out motion-reduce:before:transition-none sm:p-7 lg:min-h-[360px]',
+        'group relative flex min-h-[280px] w-full cursor-pointer flex-col justify-between overflow-hidden rounded-lg bg-white p-6 text-left text-foreground shadow-lg ring-1 ring-black/5 transition-[color,box-shadow] duration-300 ease-out motion-reduce:transition-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary before:absolute before:inset-0 before:bg-gradient-to-br before:from-[#288AC6] before:to-[#255DA2] before:opacity-0 before:transition-opacity before:duration-300 before:ease-out motion-reduce:before:transition-none sm:p-7 md:min-h-[320px] lg:min-h-[360px]',
         active &&
           'text-white shadow-[0_16px_30px_-18px_rgb(15_23_42/0.35)] ring-transparent before:opacity-100',
         className,

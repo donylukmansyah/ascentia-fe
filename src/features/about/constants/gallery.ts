@@ -8,7 +8,7 @@ export const aboutGalleryContent = {
   eyebrow: 'Inside Ascentia',
   title: 'People, spaces, and analytical work',
   description:
-    'With locations in Jakarta and Kendari, Ascentia supports laboratories and industrial operations with faster.',
+    'Highlights of our training sessions, instrument installations, and technical operations across client facilities.',
   photos: [
     {
       id: 'meeting',

@@ -1,5 +1,4 @@
-import { useQueryClient } from '@tanstack/react-query'
-import { createFileRoute, notFound } from '@tanstack/react-router'
+import { createFileRoute, notFound, useRouter } from '@tanstack/react-router'
 
 import {
   productDetailQueryOptions,
@@ -77,14 +76,7 @@ function ProductDetailRoute() {
   return <ProductDetailPage slug={slug} />
 }
 
-function ProductDetailErrorRoute({ reset }: { reset: () => void }) {
-  const queryClient = useQueryClient()
-  const { slug } = Route.useParams()
-  const handleRetry = () => {
-    void queryClient.resetQueries({
-      queryKey: ['products', 'detail', slug],
-    })
-    reset()
-  }
-  return <ProductDetailError onRetry={handleRetry} />
+function ProductDetailErrorRoute() {
+  const router = useRouter()
+  return <ProductDetailError onRetry={() => void router.invalidate()} />
 }

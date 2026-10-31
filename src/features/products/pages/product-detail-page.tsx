@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Link, useHydrated } from '@tanstack/react-router'
+import { AlertCircle, PackageSearch } from 'lucide-react'
 
 import { RouteLoading } from '#/components/layout/route-loading'
-import { Button } from '#/components/ui/button'
+import { CtaButton, CtaLink } from '#/components/ui/cta-link'
+import { PageStatus } from '#/components/ui/page-status'
+import { QueryErrorState } from '#/components/ui/query-error-state'
 import {
   productDetailQueryOptions,
   relatedProductsQueryOptions,
@@ -115,17 +118,13 @@ function ProductDetailView({ product }: { product: ProductDetailData }) {
       {!hydrated || related.isPending ? (
         <RelatedProductsLoading />
       ) : related.isError ? (
-        <div role="alert" className="mx-auto max-w-7xl px-5 py-8">
-          <p>
-            {t('products.relatedError', 'Unable to load related products.')}
-          </p>
-          <Button
-            className="mt-3 cursor-pointer"
-            variant="outline"
-            onClick={() => void related.refetch()}
-          >
-            {t('common.tryAgain', 'Try again')}
-          </Button>
+        <div className="mx-auto max-w-7xl px-5 py-8">
+          <QueryErrorState
+            title={t('products.relatedError', 'Unable to load related products.')}
+            message={t('ui.connectionError')}
+            onRetry={() => void related.refetch()}
+            isRetrying={related.isFetching}
+          />
         </div>
       ) : (
         <RelatedProductsSection products={related.data} />
@@ -137,50 +136,44 @@ function ProductDetailView({ product }: { product: ProductDetailData }) {
 export function ProductDetailError({ onRetry }: { onRetry: () => void }) {
   const { t } = useLanguage()
   return (
-    <section role="alert" className="mx-auto min-h-[50vh] max-w-7xl px-5 py-36">
-      <h1 className="text-3xl font-bold">
-        {t('products.loadError', 'Unable to load product')}
-      </h1>
-      <p className="mt-4 text-description-text">
-        {t(
-          'ui.connectionError',
-          'We are having trouble reaching the server. Please try again.',
-        )}
-      </p>
-      <Button
-        type="button"
-        variant="outline"
-        className="mt-6 cursor-pointer"
-        onClick={onRetry}
-      >
+    <PageStatus
+      role="alert"
+      headingId="product-error-heading"
+      icon={AlertCircle}
+      title={t('products.loadError', 'Unable to load product')}
+      description={t(
+        'ui.connectionError',
+        'We are having trouble reaching the server. Please try again.',
+      )}
+    >
+      <CtaButton onClick={onRetry}>
         {t('common.tryAgain', 'Try again')}
-      </Button>
-    </section>
+      </CtaButton>
+      <Link
+        to="/products"
+        className="inline-flex cursor-pointer items-center text-sm font-semibold text-description-text underline-offset-4 transition-colors hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+      >
+        {t('ui.browseProducts', 'Browse products')}
+      </Link>
+    </PageStatus>
   )
 }
 
 export function ProductNotFound() {
   const { t } = useLanguage()
   return (
-    <section className="mx-auto flex min-h-[50vh] max-w-7xl flex-col justify-center px-5 py-32 sm:px-8 lg:px-12">
-      <p className="text-[11px] font-bold tracking-[0.1em] text-primary uppercase">
-        {t('products.catalog', 'Product catalog')}
-      </p>
-      <h1 className="mt-3 text-4xl font-bold tracking-[-0.03em]">
-        {t('products.notFound', 'Product not found')}
-      </h1>
-      <p className="mt-4 max-w-lg text-sm leading-relaxed text-description-text">
-        {t(
-          'products.notFoundDescription',
-          'This product is not available in the current catalog.',
-        )}
-      </p>
-      <Link
-        to="/products"
-        className="mt-8 w-fit cursor-pointer text-sm font-bold text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-      >
+    <PageStatus
+      headingId="product-not-found-heading"
+      icon={PackageSearch}
+      title={t('products.notFound', 'Product not found')}
+      description={t(
+        'products.notFoundDescription',
+        'This product is not available in the current catalog.',
+      )}
+    >
+      <CtaLink to="/products">
         {t('ui.browseProducts', 'Browse products')}
-      </Link>
-    </section>
+      </CtaLink>
+    </PageStatus>
   )
 }

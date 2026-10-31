@@ -103,6 +103,8 @@
     "noDescription": "Deskripsi belum tersedia.",
     "articleNotFound": "Artikel tidak ditemukan",
     "articleMissing": "Artikel mungkin telah dipindahkan, diganti nama, atau belum tersedia.",
+    "newsNotFound": "Berita tidak ditemukan",
+    "newsMissing": "Berita yang Anda cari mungkin telah dipindahkan, diganti nama, atau belum tersedia.",
     "articleError": "Gagal memuat artikel",
     "shareArticle": "Bagikan artikel ini",
     "shareOn": "Bagikan di",
@@ -215,7 +217,7 @@
     "whoWeAre": {
       "eyebrow": "Tentang Ascentia",
       "heading": "Siapa Kami",
-      "description": "PT Ascentia Arsya Analitika adalah divisi instrumentasi analitik PT Dynatech International Group. Didukung pengalaman rekayasa dua dekade serta kantor di Jakarta dan Kendari, kami menghadirkan preparasi sampel, bahan referensi bersertifikat, dan layanan teknis di lokasi bagi laboratorium di seluruh Indonesia.",
+      "description": "Sebagai divisi spesialis instrumentasi analitik Dynatech International Group, Ascentia menghadirkan solusi preparasi sampel, Certified Reference Materials (CRM), dan dukungan teknisi langsung dari Jakarta dan Kendari untuk laboratorium di seluruh Indonesia.",
       "cta": "Tentang Ascentia"
     },
     "categories": [
@@ -228,8 +230,8 @@
     ],
     "featured": {
       "kicker": "Produk",
-      "title": "Produk unggulan",
-      "description": "Instrumen dan peralatan untuk preparasi sampel dan hasil laboratorium yang andal.",
+      "title": "Produk Unggulan",
+      "description": "Pilihan instrumen preparasi sampel dan spektrometri untuk analisis laboratorium yang presisi.",
       "cta": "Lihat semua produk"
     }
   },
@@ -258,10 +260,10 @@
     "loadingRelated": "Memuat produk terkait…"
   },
   "articles": {
-    "newsTitle": "Warta & Berita Terkini",
-    "newsSubtitle": "Pembaruan terkini seputar industri, teknologi analitik, dan aktivitas PT Ascentia Arsya Analitika.",
-    "blogTitle": "Artikel & Wawasan Teknis",
-    "blogSubtitle": "Panduan teknis, perbandingan metode, dan wawasan sains laboratorium.",
+    "newsTitle": "Warta & Berita",
+    "newsSubtitle": "Kabar terkini seputar teknologi analitik, industri pengujian, dan kegiatan Ascentia.",
+    "blogTitle": "Blog & Wawasan Teknis",
+    "blogSubtitle": "Panduan preparasi sampel, metode analisis laboratorium, dan praktik terbaik industri.",
     "readingTime": "menit membaca",
     "publishedOn": "Diterbitkan",
     "latestNews": "Berita Terkini",
@@ -281,9 +283,9 @@
   },
   "contact": {
     "kicker": "Hubungi Kami",
-    "heroDescription": "Pemilihan instrumen, dukungan metode, dan layanan purnajual untuk laboratorium di seluruh Indonesia.",
-    "heading": "Beri tahu kami kebutuhan analisis Anda",
-    "description": "Sampaikan spesifikasi preparasi sampel, analisis XRF, atau kebutuhan bahan referensi Anda. Tim spesialis kami di Jakarta dan Kendari siap merekomendasikan instrumen dan alur kerja yang tepat.",
+    "heroDescription": "Konsultasi spesifikasi alat, ketersediaan consumable, hingga instalasi dan servis on-site untuk laboratorium Anda.",
+    "heading": "Konsultasikan Kebutuhan Lab Anda",
+    "description": "Konsultasikan kebutuhan instrumen, preparasi sampel, atau bahan referensi (CRM) bersama tim ahli kami di Jakarta dan Kendari.",
     "emailLabel": "Email",
     "phoneLabel": "Telepon",
     "whatsappLabel": "WhatsApp",
@@ -295,7 +297,7 @@
       "email": "Email Kerja",
       "emailPlaceholder": "nama@perusahaan.com",
       "message": "Pesan",
-      "messagePlaceholder": "Sampaikan kebutuhan preparasi sampel atau analisis laboratorium Anda...",
+      "messagePlaceholder": "Jelaskan kebutuhan alat, metode uji, atau penawaran harga...",
       "submit": "Kirim Pertanyaan",
       "submitting": "Mengirimkan...",
       "error": "Gagal mengirim pesan saat ini.",
@@ -306,27 +308,27 @@
   "about": {
     "hero": {
       "title": "Tentang Kami",
-      "description": "Instrumen analitik dan dukungan teknis untuk laboratorium dan industri."
+      "description": "Distributor resmi instrumen analitik, preparasi sampel, dan bahan referensi bersertifikat di Indonesia."
     },
     "company": {
-      "eyebrow": "Warisan Dynatech International Group",
-      "title": "Mitra Khusus Instrumen Analitik untuk Industri Indonesia",
-      "paragraph1": "Didirikan pada tahun 2022 sebagai bagian dari PT Dynatech International Group, PT Ascentia Arsya Analitika membawa pengalaman rekayasa teknik dan distribusi selama hampir dua dekade ke laboratorium analitik di seluruh Indonesia.",
-      "paragraph2": "Dari kantor pusat kami di Jakarta dan fasilitas pendukung regional di Kendari, kami menyediakan sistem preparasi sampel khusus, teknologi sinar-X (XRF), dan bahan referensi bersertifikat (CRM) untuk para pemimpin di bidang pertambangan, semen, petrokimia, dan riset akademis."
+      "eyebrow": "Bagian dari Dynatech International Group",
+      "title": "Mitra Spesialis Instrumen Analitik & Laboratorium Indonesia",
+      "paragraph1": "Berdiri pada tahun 2022 di bawah naungan PT Dynatech International Group, Ascentia membawa rekam jejak distribusi dan rekayasa instrumen selama dua dekade ke laboratorium analitik di seluruh Indonesia.",
+      "paragraph2": "Melalui kantor pusat di Jakarta dan cabang di Kendari, kami menyediakan mesin fusi preparasi sampel, analisis XRF, serta bahan referensi bersertifikat (CRM) untuk industri pertambangan, semen, petrokimia, dan riset universitas."
     },
     "visionMission": {
       "sectionLabel": "Visi dan misi",
       "visionTitle": "Visi",
-      "visionDesc": "Menjadi mitra analitik tolok ukur bagi laboratorium dan industri berat Indonesia.",
-      "visionDetail": "Menetapkan standar nasional untuk akurasi analitik, keandalan peralatan, dan dukungan teknis rekayasa yang responsif di seluruh fasilitas pengujian laboratorium dan riset di Indonesia.",
+      "visionDesc": "Menjadi mitra terpercaya dalam pemanfaatan instrumen analitik dan keandalan laboratorium di Indonesia.",
+      "visionDetail": "Menghadirkan standar akurasi pengujian, keandalan instrumen, dan respons teknis yang cepat bagi seluruh laboratorium industri dan lembaga riset nasional.",
       "missionTitle": "Misi",
-      "missionDesc": "Presisi instrumen tanpa kompromi, optimasi metode, dan dukungan langsung di lokasi.",
-      "missionDetail": "Memberdayakan fasilitas pengujian dengan instrumen global resmi, bahan habis pakai asli, dan pelatihan aplikasi langsung di lokasi dari pusat kami di Jakarta dan Kendari."
+      "missionDesc": "Menyediakan instrumen presisi tinggi, pengembangan metode, dan dukungan teknisi langsung di lokasi.",
+      "missionDetail": "Mendukung operasional pengujian melalui instrumen resmi, pasokan consumable asli, dan pelatihan teknis langsung dari Jakarta dan Kendari."
     },
     "locations": {
       "eyebrow": "Lokasi Kami",
-      "title": "Dukungan teknis, selalu dekat",
-      "description": "Fasilitas di Jakarta dan Kendari menyediakan konsultasi aplikasi, pengiriman bahan habis pakai yang cepat, dan rekayasa di lokasi di seluruh Indonesia.",
+      "title": "Dukungan Teknis Lebih Dekat",
+      "description": "Fasilitas di Jakarta dan Kendari melayani konsultasi aplikasi, pengiriman consumable cepat, dan kunjungan teknisi langsung ke fasilitas Anda.",
       "jakartaTitle": "Kantor Pusat Jakarta",
       "kendariTitle": "Kantor Cabang Kendari"
     },
@@ -340,9 +342,9 @@
     "gallery": {
       "viewerLabel": "Penampil galeri",
       "closeLabel": "Tutup galeri",
-      "eyebrow": "Mengenal Lebih Dekat Ascentia",
-      "title": "Insan, fasilitas, dan kerja analitik",
-      "description": "Dengan fasilitas di Jakarta dan Kendari, Ascentia mendukung laboratorium dan operasi industri dengan penanganan lebih cepat dan keahlian teknis langsung."
+      "eyebrow": "Dokumentasi Kegiatan",
+      "title": "Fasilitas, Tim, dan Aktivitas Lapangan",
+      "description": "Dokumentasi pelatihan teknis, instalasi alat, dan kegiatan operasional tim kami di berbagai fasilitas pelanggan."
     },
     "customers": {
       "title": "Klien & Pelanggan Kami"
@@ -352,9 +354,9 @@
       "controlsLabel": "Kontrol korsel mitra",
       "prevLabel": "Mitra sebelumnya",
       "nextLabel": "Mitra berikutnya",
-      "eyebrow": "Mitra Resmi Kami",
-      "title": "Teknologi Spesialis. Keahlian Terapan",
-      "description": "Kami mewakili merek-merek global terdepan dalam instrumentasi analitik, preparasi sampel, bahan referensi bersertifikat, dan pengukuran presisi.",
+      "eyebrow": "Prinsipal Resmi",
+      "title": "Teknologi Andal dari Mitra Global",
+      "description": "Distributor resmi instrumen analitik, mesin fusi preparasi sampel, dan standar CRM dari produsen global terpercaya.",
       "showDetails": "Tampilkan detail {name}",
       "items": {
         "xrf-scientific": "Peralatan preparasi sampel, bahan kimia, dan solusi analitik berkualitas tinggi untuk alur kerja XRF.",

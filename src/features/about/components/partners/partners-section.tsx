@@ -382,7 +382,7 @@ export function AboutPartnersSection({
       <div className="relative mt-10 overflow-x-clip bg-[#F8FAFC] md:mt-14">
         <Reveal variant="up" delay={0.1}>
           <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-0">
-            <div className="relative z-0 order-1 h-[470px] overflow-hidden md:h-[600px]">
+            <div className="relative z-0 order-1 h-[360px] overflow-hidden md:h-[600px]">
               <img
                 src={photoBase.image}
                 alt=""
@@ -401,7 +401,7 @@ export function AboutPartnersSection({
               />
             </div>
 
-            <div className="relative z-10 order-2 -mt-[380px] px-5 pb-10 sm:px-8 md:mt-0 md:absolute md:top-1/2 md:right-0 md:left-[calc(50%-148px)] md:-translate-y-1/2 md:px-0 md:pb-0">
+            <div className="relative z-10 order-2 -mt-[200px] px-5 pb-10 sm:px-8 md:mt-0 md:absolute md:top-1/2 md:right-0 md:left-[calc(50%-148px)] md:-translate-y-1/2 md:px-0 md:pb-0">
               <div
                 ref={scrollContainerRef}
                 onScroll={handleScroll}
@@ -418,7 +418,7 @@ export function AboutPartnersSection({
                   'about.partners.catalogLabel',
                   'Partner brands catalog',
                 )}
-                className="relative -mr-5 flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain overflow-y-clip py-8 pr-5 scrollbar-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:cursor-grabbing sm:-mr-8 sm:pr-8 md:mx-0 md:px-1 md:pl-2 md:pr-1"
+                className="relative -mr-5 flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto overscroll-x-contain overflow-y-clip py-8 pr-5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:cursor-grabbing sm:-mr-8 sm:pr-8 md:mx-0 md:px-1 md:pl-2 md:pr-1"
               >
                 {looped.map(({ partner, index, copy, global, key }) => (
                   <div
@@ -438,7 +438,7 @@ export function AboutPartnersSection({
               </div>
 
               <div
-                className="mx-auto mt-4 flex max-w-[620px] items-center justify-end gap-2 px-1 md:px-8"
+                className="mx-auto mt-4 flex max-w-[620px] items-center justify-start gap-2 px-1 md:justify-end md:px-8"
                 role="group"
                 aria-label={tLocale(
                   'about.partners.controlsLabel',
